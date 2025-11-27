@@ -17,7 +17,7 @@ import profileScreen from './IMG_0288.png';
 import mapScreen from './IMG_0275.png';     
 
 // --- GEMINI API SETUP ---
-const apiKey = ""; 
+const apiKey = "AIzaSyB5LHU333H96zAvLEi_4Drj5N-kgAhMP9I"; 
 
 // --- FIREBASE CONFIG ---
 const firebaseConfig = {
