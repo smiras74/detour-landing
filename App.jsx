@@ -10,10 +10,9 @@ import {
 } from 'lucide-react';
 
 // --- ИМПОРТ КАРТИНОК ---
-// Важно: Имена файлов должны быть ТОЧНО как в GitHub (с учетом .png/.jpg)
-import logoImage from './logo_2.png';
-import iconImage from './icon.png';
-// Судя по скриншоту, эти файлы называются именно так:
+// Логотип-визитная карточка (крупный)
+import fullLogo from './IMG_0289.jpeg'; 
+// Скриншоты телефона (PNG)
 import profileScreen from './IMG_0288.png'; 
 import mapScreen from './IMG_0275.png';     
 
@@ -38,14 +37,15 @@ const db = getFirestore(app);
 
 // --- COMPONENTS ---
 
+// Обновленный компонент Logo: только крупный логотип
 const Logo = () => (
-  <div className="flex items-center gap-3 group cursor-pointer select-none">
-    {/* Иконка */}
-    <img src={iconImage} alt="App Icon" className="w-10 h-10 rounded-xl shadow-lg shadow-emerald-900/50" />
-    <div className="hidden md:block">
-        {/* Логотип */}
-        <img src={logoImage} alt="Ça vaut le détour" className="h-8 object-contain filter brightness-0 invert" />
-    </div>
+  <div className="flex items-center justify-start">
+    <img 
+      src={fullLogo} 
+      alt="Guide du Détour" 
+      // Увеличенный размер (h-16 на мобильных, h-24 на десктопах)
+      className="h-16 md:h-24 w-auto object-contain filter brightness-0 invert transition-transform duration-500 hover:scale-105" 
+    />
   </div>
 );
 
@@ -106,7 +106,7 @@ const AiLab = () => {
         let systemPrompt = "";
         switch (activeTab) {
             case 'scout':
-                systemPrompt = "Tu es un expert local pour l'application 'Ça vaut le détour !'. L'utilisateur indique une région. Propose UN SEUL lieu précis, méconnu mais atmosphérique (moulin, ruine, plage secrète) dans cette zone. Réponse courte (max 40 mots), inspirante, en français. Commence par le nom du lieu.";
+                systemPrompt = "Tu es un expert local pour l'application 'Guide du Détour'. L'utilisateur indique une région. Propose UN SEUL lieu précis, méconnu mais atmosphérique (moulin, ruine, plage secrète) dans cette zone. Réponse courte (max 40 mots), inspirante, en français. Commence par le nom du lieu.";
                 break;
             case 'history':
                 systemPrompt = "Tu es le mode 'Rétroviseur Temporel' de l'application. L'utilisateur donne un lieu ou une région. Raconte une courte anecdote historique fascinante, un mythe ou une légende locale oublié sur ce lieu. Ton mystérieux et captivant. Max 40 mots. En français.";
@@ -292,7 +292,7 @@ const App = () => {
                 {authError}
             </div>
         )}
-        <nav className="container mx-auto px-6 py-6 flex justify-between items-center bg-[#050816]/80 backdrop-blur-md sticky top-0 z-50 border-b border-white/5">
+        <nav className="container mx-auto px-6 py-4 flex justify-between items-center bg-[#050816]/80 backdrop-blur-md sticky top-0 z-50 border-b border-white/5">
           <Logo />
           <div className="hidden md:flex gap-8 text-sm font-medium text-slate-400">
             <a href="#concept" className="hover:text-white transition">Concept</a>
@@ -316,7 +316,7 @@ const App = () => {
               </h1>
               <p className="text-xl text-slate-400 mb-2 font-medium">Le guide qui enrichit vos voyages.</p>
               <p className="text-lg text-slate-500 mb-10 max-w-xl mx-auto lg:mx-0 leading-relaxed">
-                Transformez la route en une aventure fascinante. Définissez votre destination, choisissez votre rayon d'évasion, et découvrez les trésors cachés le long de votre trajet.
+                Transformez la route en une aventure fascinante. Définissez votre destination, choisissez votre rayon d'évasion, и découvrez les trésors cachés le long de votre trajet.
               </p>
               <form onSubmit={handleSubmit} className="w-full max-w-md mx-auto lg:mx-0 relative group">
                 <div className="absolute -inset-0.5 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-lg blur opacity-30 group-hover:opacity-60 transition duration-1000"></div>
@@ -378,12 +378,12 @@ const App = () => {
                         <div className="grid sm:grid-cols-2 gap-4">
                             <RoadmapItem emoji="🧭" title="Mode Boussole" desc="Une simple flèche pour les vrais aventuriers. Suivez le cap, trouvez votre propre chemin." />
                             <RoadmapItem emoji="🛣️" title="Grain de la Route" desc="Choisissez la texture de votre voyage : routes panoramiques ou chemins de traverse." />
-                            <RoadmapItem emoji="🏺" title="Mode Chineur" desc="Alertes en temps réel pour les brocantes et vide-greniers sur votre route." />
+                            <RoadmapItem emoji="🏺" title="Mode Chineur" desc="Alertes en temps réel pour les brocantes и vide-greniers sur votre route." />
                             <RoadmapItem emoji="🧀" title="Coffre Vide" desc="Remplissez votre coffre de produits locaux : fermiers et artisans en direct." />
                             <RoadmapItem emoji="⏸️" title="L'Escale Parfaite" desc="Des arrêts synchronisés avec votre fatigue et les plus beaux panoramas." />
                             <RoadmapItem emoji="🏰" title="Point Mystère" desc="Laissez-vous guider à l'aveugle vers une destination surprise." />
                             <RoadmapItem emoji="🎧" title="Rétroviseur Temporel" desc="Des histoires audio géolocalisées qui racontent le passé des lieux traversés." />
-                            <RoadmapItem emoji="⭐️" title="Club des Éclaireurs" desc="Gagnez des points, classements et badges en découvrant de nouveaux lieux." />
+                            <RoadmapItem emoji="⭐️" title="Club des Éclaireurs" desc="Gagnez des points, classements и badges en découvrant de nouveaux lieux." />
                         </div>
                     </div>
                 </div>
