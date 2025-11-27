@@ -32,10 +32,8 @@ const db = getFirestore(app);
 
 const Logo = () => (
   <div className="flex items-center gap-3 group cursor-pointer select-none">
-    <img src="/icon.png" alt="App Icon" className="w-10 h-10 rounded-xl shadow-lg shadow-emerald-900/50" />
-    <div className="hidden md:block">
-        <img src="/logo_2.png" alt="Ça vaut le détour" className="h-8 object-contain filter brightness-0 invert" />
-    </div>
+    {/* Логотип текстом или картинкой */}
+    <img src="/logo_2.png" alt="Ça vaut le détour" className="h-8 object-contain filter brightness-0 invert" />
   </div>
 );
 
@@ -225,18 +223,18 @@ const AiLab = () => {
 
 // --- PHONE MOCKUP ---
 const PhoneMockup = ({ activeScreen, setActiveScreen }) => {
-    // Используем загруженные вами файлы
+    // Используем имена файлов из вашего репозитория
     const screens = [
         {
             id: 'profile',
             title: 'Mes Intérêts',
-            src: '/IMG_0288.jpg', 
+            src: '/IMG_0288.jpg',  // Ваша картинка профиля
             alt: 'Ecran profil avec intérêts'
         },
         {
             id: 'map',
             title: 'Sur la route',
-            src: '/IMG_0277.jpg',
+            src: '/IMG_0278.jpg', // Ваша новая картинка карты
             alt: 'Ecran navigation carte'
         }
     ];
