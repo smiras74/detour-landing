@@ -9,8 +9,16 @@ import {
   ShoppingBag, Camera, Music, PlayCircle, History, Utensils, Search
 } from 'lucide-react';
 
+// --- ИМПОРТ КАРТИНОК ---
+// Важно: Имена файлов должны быть ТОЧНО как в GitHub (с учетом .png/.jpg)
+import logoImage from './logo_2.png';
+import iconImage from './icon.png';
+// Судя по скриншоту, эти файлы называются именно так:
+import profileScreen from './IMG_0288.png'; 
+import mapScreen from './IMG_0275.png';     
+
 // --- GEMINI API SETUP ---
-const apiKey = ""; // Ключ подставляется автоматически
+const apiKey = ""; 
 
 // --- FIREBASE CONFIG ---
 const firebaseConfig = {
@@ -32,8 +40,12 @@ const db = getFirestore(app);
 
 const Logo = () => (
   <div className="flex items-center gap-3 group cursor-pointer select-none">
-    {/* Логотип текстом или картинкой */}
-    <img src="/logo_2.png" alt="Ça vaut le détour" className="h-8 object-contain filter brightness-0 invert" />
+    {/* Иконка */}
+    <img src={iconImage} alt="App Icon" className="w-10 h-10 rounded-xl shadow-lg shadow-emerald-900/50" />
+    <div className="hidden md:block">
+        {/* Логотип */}
+        <img src={logoImage} alt="Ça vaut le détour" className="h-8 object-contain filter brightness-0 invert" />
+    </div>
   </div>
 );
 
@@ -69,15 +81,14 @@ const ComparisonRow = ({ feature, us, others }) => (
   </div>
 );
 
-// --- AI LAB COMPONENT (MULTI-FEATURE) ---
+// --- AI LAB COMPONENT ---
 const AiLab = () => {
-    const [activeTab, setActiveTab] = useState('scout'); // scout, history, food
+    const [activeTab, setActiveTab] = useState('scout');
     const [input, setInput] = useState('');
     const [result, setResult] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
-    // Сброс результата при переключении табов
     useEffect(() => {
         setResult(null);
         setError(null);
@@ -93,8 +104,6 @@ const AiLab = () => {
         setResult(null);
 
         let systemPrompt = "";
-        
-        // Настраиваем промпт в зависимости от выбранного режима
         switch (activeTab) {
             case 'scout':
                 systemPrompt = "Tu es un expert local pour l'application 'Ça vaut le détour !'. L'utilisateur indique une région. Propose UN SEUL lieu précis, méconnu mais atmosphérique (moulin, ruine, plage secrète) dans cette zone. Réponse courte (max 40 mots), inspirante, en français. Commence par le nom du lieu.";
@@ -122,10 +131,8 @@ const AiLab = () => {
             if (!response.ok) throw new Error('AI busy');
             const data = await response.json();
             const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
-            
             if (text) setResult(text);
             else setError('Pas de réponse trouvée.');
-
         } catch (err) {
             console.error(err);
             setError('Le serveur est surchargé.');
@@ -139,33 +146,22 @@ const AiLab = () => {
         { id: 'history', icon: History, label: "Rétroviseur", color: "text-amber-400", bg: "bg-amber-500/10", border: "border-amber-500/30" },
         { id: 'food', icon: ShoppingBag, label: "Coffre Vide", color: "text-purple-400", bg: "bg-purple-500/10", border: "border-purple-500/30" }
     ];
-
     const activeTabData = tabs.find(t => t.id === activeTab);
 
     return (
         <div className="w-full max-w-2xl mx-auto mt-20 rounded-2xl bg-gradient-to-b from-slate-800 to-[#0b1021] p-[1px] shadow-2xl shadow-emerald-900/20">
             <div className="bg-[#0b1021] rounded-[15px] overflow-hidden">
-                {/* Header / Tabs */}
                 <div className="bg-slate-900/50 p-2 flex gap-2 overflow-x-auto">
                     {tabs.map((tab) => (
-                        <button
-                            key={tab.id}
-                            onClick={() => setActiveTab(tab.id)}
-                            className={`flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-lg text-sm font-bold transition-all whitespace-nowrap
-                                ${activeTab === tab.id ? `${tab.bg} ${tab.color} ring-1 ring-inset ${tab.border}` : 'text-slate-500 hover:text-slate-300 hover:bg-slate-800'}`}
-                        >
-                            <tab.icon size={16} />
-                            {tab.label}
+                        <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={`flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-lg text-sm font-bold transition-all whitespace-nowrap ${activeTab === tab.id ? `${tab.bg} ${tab.color} ring-1 ring-inset ${tab.border}` : 'text-slate-500 hover:text-slate-300 hover:bg-slate-800'}`}>
+                            <tab.icon size={16} /> {tab.label}
                         </button>
                     ))}
                 </div>
-
                 <div className="p-6 md:p-10 text-center min-h-[300px] flex flex-col">
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-slate-400 text-[10px] font-bold uppercase tracking-wider mb-6 mx-auto">
-                        <Sparkles size={10} className={activeTabData.color} />
-                        Démonstration IA en direct
+                        <Sparkles size={10} className={activeTabData.color} /> Démonstration IA en direct
                     </div>
-                    
                     <h3 className="text-2xl font-bold text-white mb-2">
                         {activeTab === 'scout' && "Trouvez une pépite cachée"}
                         {activeTab === 'history' && "Écoutez les murs parler"}
@@ -176,44 +172,22 @@ const AiLab = () => {
                         {activeTab === 'history' && "Découvrez les légendes oubliées d'un lieu."}
                         {activeTab === 'food' && "Les meilleurs produits locaux à ramener chez vous."}
                     </p>
-
                     <form onSubmit={handleAction} className="flex flex-col md:flex-row gap-3 max-w-md mx-auto w-full mb-8 relative z-10">
-                        <input 
-                            type="text" 
-                            value={input}
-                            onChange={(e) => setInput(e.target.value)}
-                            placeholder={activeTab === 'scout' ? "Ex: Bretagne..." : activeTab === 'history' ? "Ex: Mont Saint-Michel..." : "Ex: Alsace..."}
-                            className="flex-1 bg-slate-800/50 border border-slate-700 text-white rounded-lg px-4 py-3 focus:outline-none focus:border-slate-500 transition placeholder-slate-600"
-                        />
-                        <button 
-                            type="submit" 
-                            disabled={loading || !input}
-                            className={`text-white px-6 py-3 rounded-lg font-medium transition flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg
-                                ${activeTab === 'scout' ? 'bg-emerald-600 hover:bg-emerald-500 shadow-emerald-900/20' : ''}
-                                ${activeTab === 'history' ? 'bg-amber-600 hover:bg-amber-500 shadow-amber-900/20' : ''}
-                                ${activeTab === 'food' ? 'bg-purple-600 hover:bg-purple-500 shadow-purple-900/20' : ''}
-                            `}
-                        >
+                        <input type="text" value={input} onChange={(e) => setInput(e.target.value)} placeholder={activeTab === 'scout' ? "Ex: Bretagne..." : activeTab === 'history' ? "Ex: Mont Saint-Michel..." : "Ex: Alsace..."} className="flex-1 bg-slate-800/50 border border-slate-700 text-white rounded-lg px-4 py-3 focus:outline-none focus:border-slate-500 transition placeholder-slate-600" />
+                        <button type="submit" disabled={loading || !input} className={`text-white px-6 py-3 rounded-lg font-medium transition flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg ${activeTab === 'scout' ? 'bg-emerald-600 hover:bg-emerald-500 shadow-emerald-900/20' : ''} ${activeTab === 'history' ? 'bg-amber-600 hover:bg-amber-500 shadow-amber-900/20' : ''} ${activeTab === 'food' ? 'bg-purple-600 hover:bg-purple-500 shadow-purple-900/20' : ''}`}>
                             {loading ? <Loader className="animate-spin" size={20} /> : <Search size={20} />}
                         </button>
                     </form>
-
                     <div className="flex-1 flex items-center justify-center">
                         {loading && <div className={`${activeTabData.color} opacity-50 animate-pulse text-sm`}>L'IA consulte ses cartes...</div>}
                         {error && <div className="text-red-400 text-sm">{error}</div>}
                         {result && (
                             <div className={`relative bg-slate-800/30 border rounded-xl p-6 animate-fade-in text-left w-full ${activeTabData.border}`}>
                                 <p className="text-slate-200 italic leading-relaxed text-lg">"{result}"</p>
-                                <div className={`mt-4 text-xs font-bold uppercase tracking-widest text-right ${activeTabData.color}`}>
-                                    Mode {activeTabData.label}
-                                </div>
+                                <div className={`mt-4 text-xs font-bold uppercase tracking-widest text-right ${activeTabData.color}`}>Mode {activeTabData.label}</div>
                             </div>
                         )}
-                        {!loading && !result && !error && (
-                            <div className="text-slate-700 text-sm italic">
-                                Le résultat apparaîtra ici...
-                            </div>
-                        )}
+                        {!loading && !result && !error && <div className="text-slate-700 text-sm italic">Le résultat apparaîtra ici...</div>}
                     </div>
                 </div>
             </div>
@@ -223,18 +197,17 @@ const AiLab = () => {
 
 // --- PHONE MOCKUP ---
 const PhoneMockup = ({ activeScreen, setActiveScreen }) => {
-    // Используем имена файлов из вашего репозитория
     const screens = [
         {
             id: 'profile',
             title: 'Mes Intérêts',
-            src: '/IMG_0288.jpg',  // Ваша картинка профиля
+            src: profileScreen,  
             alt: 'Ecran profil avec intérêts'
         },
         {
             id: 'map',
             title: 'Sur la route',
-            src: '/IMG_0278.jpg', // Ваша новая картинка карты
+            src: mapScreen, 
             alt: 'Ecran navigation carte'
         }
     ];
@@ -245,7 +218,6 @@ const PhoneMockup = ({ activeScreen, setActiveScreen }) => {
         <div className="relative mx-auto border-slate-800 bg-slate-900 border-[14px] rounded-[2.5rem] h-[640px] w-[320px] shadow-2xl flex flex-col items-center justify-start z-20 transition-all duration-500 hover:scale-[1.02]">
             <div className="w-[148px] h-[24px] bg-slate-900 absolute top-0 rounded-b-[1rem] left-1/2 -translate-x-1/2 z-30"></div>
             <div className="rounded-[2rem] overflow-hidden w-full h-full bg-slate-950 relative">
-                {/* Status Bar Fake */}
                 <div className="absolute top-0 w-full h-12 flex justify-between items-center px-6 text-white text-xs font-bold z-20 bg-gradient-to-b from-black/80 to-transparent">
                     <span>22:07</span>
                     <div className="flex gap-1">
@@ -253,13 +225,8 @@ const PhoneMockup = ({ activeScreen, setActiveScreen }) => {
                         <div className="w-4 h-4 rounded-full border border-white/20 bg-white"></div>
                     </div>
                 </div>
-
                 <div className="w-full h-full relative">
-                    <img 
-                        src={currentScreen.src} 
-                        alt={currentScreen.alt}
-                        className="w-full h-full object-cover transition-opacity duration-500" 
-                    />
+                    <img src={currentScreen.src} alt={currentScreen.alt} className="w-full h-full object-cover transition-opacity duration-500" />
                 </div>
             </div>
         </div>
@@ -294,10 +261,8 @@ const App = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!email) return;
-
     setStatus('loading');
     const uid = user ? user.uid : 'anonymous_guest';
-
     try {
       await addDoc(collection(db, 'waitlist'), {
         email,
@@ -315,23 +280,18 @@ const App = () => {
 
   return (
     <div className="min-h-screen bg-[#050816] text-slate-200 font-sans selection:bg-emerald-500/30 selection:text-emerald-200 overflow-x-hidden scroll-smooth">
-      {/* Background Ambience */}
       <div className="fixed inset-0 z-0 pointer-events-none">
         <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-emerald-900/10 rounded-full blur-[120px] mix-blend-screen"></div>
         <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-blue-900/10 rounded-full blur-[120px] mix-blend-screen"></div>
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-[0.03]"></div>
       </div>
-
       <div className="relative z-10">
-        
         {authError && (
             <div className="bg-orange-500/10 border-b border-orange-500/20 text-orange-200 px-6 py-2 text-center text-xs">
                 <AlertTriangle size={14} className="inline mr-2" />
                 {authError}
             </div>
         )}
-
-        {/* Navigation */}
         <nav className="container mx-auto px-6 py-6 flex justify-between items-center bg-[#050816]/80 backdrop-blur-md sticky top-0 z-50 border-b border-white/5">
           <Logo />
           <div className="hidden md:flex gap-8 text-sm font-medium text-slate-400">
@@ -343,124 +303,55 @@ const App = () => {
             Accès Bêta
           </a>
         </nav>
-
-        {/* Hero Section */}
         <header className="container mx-auto px-6 pt-12 pb-24 md:pt-20 md:pb-32">
           <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-8">
-            
-            {/* Hero Text */}
             <div className="flex-1 text-center lg:text-left">
               <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-900/30 border border-emerald-500/30 text-emerald-400 text-xs font-bold uppercase tracking-wider mb-8">
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
                 Coming Soon
               </div>
-              
               <h1 className="text-5xl md:text-7xl font-serif font-bold text-white mb-6 leading-[1.1] tracking-tight">
                 Ça vaut le <br/>
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-200 italic pr-2">
-                   détour !
-                </span>
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-200 italic pr-2">détour !</span>
               </h1>
-              
-              <p className="text-xl text-slate-400 mb-2 font-medium">
-                Le guide qui enrichit vos voyages.
-              </p>
+              <p className="text-xl text-slate-400 mb-2 font-medium">Le guide qui enrichit vos voyages.</p>
               <p className="text-lg text-slate-500 mb-10 max-w-xl mx-auto lg:mx-0 leading-relaxed">
                 Transformez la route en une aventure fascinante. Définissez votre destination, choisissez votre rayon d'évasion, et découvrez les trésors cachés le long de votre trajet.
               </p>
-
-              {/* Email Form */}
               <form onSubmit={handleSubmit} className="w-full max-w-md mx-auto lg:mx-0 relative group">
                 <div className="absolute -inset-0.5 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-lg blur opacity-30 group-hover:opacity-60 transition duration-1000"></div>
                 <div className="relative flex shadow-2xl">
-                  <input 
-                    type="email" 
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="votre@email.com" 
-                    className="w-full bg-[#0b1021] text-white placeholder-slate-500 px-6 py-4 rounded-l-lg border border-r-0 border-slate-700 focus:outline-none focus:border-emerald-500/50 transition-all"
-                    required
-                  />
-                  <button 
-                    type="submit" 
-                    disabled={status === 'loading' || status === 'success'}
-                    className="bg-emerald-600 hover:bg-emerald-500 text-white font-semibold px-6 py-4 rounded-r-lg transition-all flex items-center gap-2 whitespace-nowrap disabled:opacity-70"
-                  >
+                  <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="votre@email.com" className="w-full bg-[#0b1021] text-white placeholder-slate-500 px-6 py-4 rounded-l-lg border border-r-0 border-slate-700 focus:outline-none focus:border-emerald-500/50 transition-all text-center md:text-left" required />
+                  <button type="submit" disabled={status === 'loading' || status === 'success'} className="bg-emerald-600 hover:bg-emerald-500 text-white font-semibold px-6 py-4 rounded-r-lg transition-all flex items-center gap-2 whitespace-nowrap disabled:opacity-70">
                     {status === 'loading' ? '...' : status === 'success' ? 'Inscrit !' : 'Rejoindre'}
                     {status === 'idle' && <ChevronRight size={18} />}
                   </button>
                 </div>
-                {status === 'success' && (
-                  <p className="absolute -bottom-8 left-0 text-emerald-400 text-sm flex items-center gap-1 animate-fade-in">
-                    <Check size={14} /> Merci ! On vous tient au courant.
-                  </p>
-                )}
+                {status === 'success' && <p className="absolute -bottom-8 left-0 text-emerald-400 text-sm flex items-center gap-1 animate-fade-in"><Check size={14} /> Merci ! On vous tient au courant.</p>}
               </form>
             </div>
-
-            {/* Phone Showcase */}
             <div className="flex-1 relative flex flex-col items-center">
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] h-[650px] bg-gradient-to-tr from-emerald-500/20 to-blue-500/20 rounded-full blur-[80px] -z-10"></div>
-                
                 <PhoneMockup activeScreen={activeScreen} setActiveScreen={setActiveScreen} />
-
                 <div className="mt-8 flex gap-4">
-                    <button 
-                        onClick={() => setActiveScreen('profile')}
-                        className={`px-5 py-2 rounded-full text-sm font-medium transition-all ${activeScreen === 'profile' ? 'bg-slate-800 text-emerald-400 border border-emerald-500/30 shadow-lg shadow-emerald-900/20' : 'bg-transparent text-slate-500 hover:text-white'}`}
-                    >
-                        Vos Intérêts
-                    </button>
-                    <button 
-                        onClick={() => setActiveScreen('map')}
-                        className={`px-5 py-2 rounded-full text-sm font-medium transition-all ${activeScreen === 'map' ? 'bg-slate-800 text-emerald-400 border border-emerald-500/30 shadow-lg shadow-emerald-900/20' : 'bg-transparent text-slate-500 hover:text-white'}`}
-                    >
-                        La Route
-                    </button>
+                    <button onClick={() => setActiveScreen('profile')} className={`px-5 py-2 rounded-full text-sm font-medium transition-all ${activeScreen === 'profile' ? 'bg-slate-800 text-emerald-400 border border-emerald-500/30 shadow-lg shadow-emerald-900/20' : 'bg-transparent text-slate-500 hover:text-white'}`}>Vos Intérêts</button>
+                    <button onClick={() => setActiveScreen('map')} className={`px-5 py-2 rounded-full text-sm font-medium transition-all ${activeScreen === 'map' ? 'bg-slate-800 text-emerald-400 border border-emerald-500/30 shadow-lg shadow-emerald-900/20' : 'bg-transparent text-slate-500 hover:text-white'}`}>La Route</button>
                 </div>
             </div>
-
           </div>
         </header>
-
-        {/* Core Features */}
         <section id="concept" className="py-24 bg-[#02040a] relative overflow-hidden">
            <div className="container mx-auto px-6 relative z-10">
               <div className="text-center mb-20 max-w-3xl mx-auto">
                  <h2 className="text-3xl md:text-5xl font-bold text-white mb-6 font-serif">Une expérience unique</h2>
-                 <p className="text-slate-400 text-lg">
-                    Vous choisissez le cap, vous décidez jusqu'où vous êtes prêt à flâner. Nous nous occupons de l'émerveillement.
-                 </p>
+                 <p className="text-slate-400 text-lg">Vous choisissez le cap, vous décidez jusqu'où vous êtes prêt à flâner. Nous nous occupons de l'émerveillement.</p>
               </div>
-              
               <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-                 <FeatureCard 
-                   icon={Navigation}
-                   title="Le Couloir"
-                   description="Définissez votre destination et un rayon d'écart (ex: 5km). Nous trouvons tout ce qui mérite un arrêt dans ce couloir."
-                   color="text-blue-400"
-                 />
-                 <FeatureCard 
-                   icon={Compass}
-                   title="4 Univers"
-                   description="Fermes & vignobles, Histoire & châteaux, Curiosités locales, Nature. Filtrez selon votre humeur du jour."
-                   color="text-amber-400"
-                 />
-                 <FeatureCard 
-                   icon={MapPin}
-                   title="En Chemin"
-                   description="Ajoutez des étapes à votre itinéraire ou laissez l'application vous suggérer des arrêts spontanés en roulant."
-                   color="text-emerald-400"
-                 />
-                 <FeatureCard 
-                   icon={Camera}
-                   title="Communauté"
-                   description="Chaque lieu a sa fiche détaillée. Vous avez trouvé une pépite ? Ajoutez votre propre découverte pour les autres."
-                   color="text-purple-400"
-                 />
+                 <FeatureCard icon={Navigation} title="Le Couloir" description="Définissez votre destination et un rayon d'écart (ex: 5km). Nous trouvons tout ce qui mérite un arrêt dans ce couloir." color="text-blue-400" />
+                 <FeatureCard icon={Compass} title="4 Univers" description="Fermes & vignobles, Histoire & châteaux, Curiosités locales, Nature. Filtrez selon votre humeur du jour." color="text-amber-400" />
+                 <FeatureCard icon={MapPin} title="En Chemin" description="Ajoutez des étapes à votre itinéraire ou laissez l'application vous suggérer des arrêts spontanés en roulant." color="text-emerald-400" />
+                 <FeatureCard icon={Camera} title="Communauté" description="Chaque lieu a sa fiche détaillée. Vous avez trouvé une pépite ? Ajoutez votre propre découverte pour les autres." color="text-purple-400" />
               </div>
-
-              {/* Comparison Table */}
               <div className="bg-[#0b1021] rounded-2xl border border-slate-800 p-8 max-w-4xl mx-auto">
                  <h3 className="text-center text-white font-bold mb-8">Pourquoi choisir "Ça vaut le détour" ?</h3>
                  <div className="grid grid-cols-12 gap-2 md:gap-4 pb-4 border-b border-slate-800 px-4 text-xs font-bold uppercase tracking-widest text-slate-500">
@@ -475,21 +366,13 @@ const App = () => {
               </div>
            </div>
         </section>
-
-        {/* Future Roadmap Section */}
         <section id="roadmap" className="py-24 bg-gradient-to-b from-[#02040a] to-[#050816]">
             <div className="container mx-auto px-6">
                 <div className="flex flex-col md:flex-row gap-12 items-center mb-16">
                     <div className="flex-1">
-                        <div className="inline-block px-3 py-1 mb-4 border border-indigo-500/30 rounded-full bg-indigo-900/20 text-indigo-300 text-xs font-bold tracking-widest uppercase">
-                            Roadmap
-                        </div>
-                        <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 font-serif">
-                            Le Futur de l'Aventure
-                        </h2>
-                        <p className="text-slate-400 text-lg leading-relaxed">
-                            Nous ne construisons pas seulement une carte, mais un compagnon de route intelligent. Voici les modes exclusifs en cours de développement pour nos premiers utilisateurs.
-                        </p>
+                        <div className="inline-block px-3 py-1 mb-4 border border-indigo-500/30 rounded-full bg-indigo-900/20 text-indigo-300 text-xs font-bold tracking-widest uppercase">Roadmap</div>
+                        <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 font-serif">Le Futur de l'Aventure</h2>
+                        <p className="text-slate-400 text-lg leading-relaxed">Nous ne construisons pas seulement une carte, mais un compagnon de route intelligent. Voici les modes exclusifs en cours de développement pour nos premiers utilisateurs.</p>
                     </div>
                     <div className="flex-1 w-full">
                         <div className="grid sm:grid-cols-2 gap-4">
@@ -504,50 +387,24 @@ const App = () => {
                         </div>
                     </div>
                 </div>
-
-                {/* AI Demo Integration */}
                 <AiLab />
             </div>
         </section>
-
-        {/* Final CTA Footer */}
         <footer id="join" className="py-24 text-center container mx-auto px-6 relative overflow-hidden bg-[#050816]">
            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-emerald-500/5 rounded-full blur-[100px] -z-10"></div>
-           
            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 font-serif">Prêt à changer de route ?</h2>
-           <p className="text-slate-400 mb-10 max-w-xl mx-auto">
-              Rejoignez la liste d'attente pour être parmi les premiers explorateurs à tester l'application sur iPhone et Android.
-           </p>
-
+           <p className="text-slate-400 mb-10 max-w-xl mx-auto">Rejoignez la liste d'attente pour être parmi les premiers explorateurs à tester l'application sur iPhone et Android.</p>
            <div className="flex justify-center w-full mb-16">
              <form onSubmit={handleSubmit} className="w-full max-w-md flex flex-col md:flex-row gap-4">
-                <input 
-                  type="email" 
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="votre@email.com" 
-                  className="flex-1 bg-slate-800 text-white placeholder-slate-500 px-6 py-4 rounded-lg border border-slate-700 focus:outline-none focus:border-emerald-500/50 transition-all text-center md:text-left"
-                  required
-                />
-                <button 
-                  type="submit" 
-                  disabled={status === 'loading' || status === 'success'}
-                  className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-8 py-4 rounded-lg transition-all shadow-lg shadow-emerald-900/20 whitespace-nowrap"
-                >
+                <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="votre@email.com" className="flex-1 bg-slate-800 text-white placeholder-slate-500 px-6 py-4 rounded-lg border border-slate-700 focus:outline-none focus:border-emerald-500/50 transition-all text-center md:text-left" required />
+                <button type="submit" disabled={status === 'loading' || status === 'success'} className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-8 py-4 rounded-lg transition-all shadow-lg shadow-emerald-900/20 whitespace-nowrap">
                   {status === 'loading' ? '...' : status === 'success' ? 'Inscrit !' : 'Rejoindre'}
                 </button>
              </form>
            </div>
-           
            <div className="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center text-slate-600 text-sm gap-4">
-              <div className="flex items-center gap-2">
-                 <Globe size={16} />
-                 <span>© 2025 Ça vaut le détour. Fait avec passion pour les voyageurs.</span>
-              </div>
-              <div className="flex gap-6">
-                 <a href="#" className="hover:text-emerald-400 transition">Confidentialité</a>
-                 <a href="#" className="hover:text-emerald-400 transition">Contact</a>
-              </div>
+              <div className="flex items-center gap-2"><Globe size={16} /><span>© 2025 Ça vaut le détour. Fait avec passion pour les voyageurs.</span></div>
+              <div className="flex gap-6"><a href="#" className="hover:text-emerald-400 transition">Confidentialité</a><a href="#" className="hover:text-emerald-400 transition">Contact</a></div>
            </div>
         </footer>
       </div>
