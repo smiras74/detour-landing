@@ -10,7 +10,7 @@ import {
 } from 'lucide-react';
 
 // --- ИМПОРТ КАРТИНОК ---
-// Логотип-визитная карточка (крупный)
+// Логотип-визитная карточка (новый файл)
 import fullLogo from './IMG_0289.jpeg'; 
 // Скриншоты телефона (PNG)
 import profileScreen from './IMG_0288.png'; 
@@ -39,12 +39,12 @@ const db = getFirestore(app);
 
 // Обновленный компонент Logo: только крупный логотип
 const Logo = () => (
-  <div className="flex items-center justify-start">
+  <div className="flex items-center justify-start py-2">
     <img 
       src={fullLogo} 
       alt="Guide du Détour" 
-      // Увеличенный размер (h-16 на мобильных, h-24 на десктопах)
-      className="h-16 md:h-24 w-auto object-contain filter brightness-0 invert transition-transform duration-500 hover:scale-105" 
+      // Увеличенный размер (h-16 на мобильных, h-24 на десктопах) и убран фильтр инверсии, чтобы сохранить цвета оригинала
+      className="h-16 md:h-24 w-auto object-contain transition-transform duration-500 hover:scale-105" 
     />
   </div>
 );
