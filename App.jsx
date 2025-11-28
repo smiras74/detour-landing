@@ -10,11 +10,11 @@ import {
 } from 'lucide-react';
 
 // --- НАСТРОЙКИ КАРТИНОК ---
-// ИСПРАВЛЕНО: Используем прямые пути, предполагая, что файлы лежат в корне или в папке /public.
+// ИСПРАВЛЕНО: Файлы должны лежать в папке /public/.
 const IMAGES = {
-  logo: "/IMG_0289.jpeg",      // Ваш крупный логотип
-  profile: "/IMG_0288.jpg",    // Скриншот профиля
-  map: "/IMG_0275.jpg",        // Скриншот карты
+  logo: "/IMG_0289.jpeg",      // Путь: /public/IMG_0289.jpeg
+  profile: "/IMG_0288.jpg",    // Путь: /public/IMG_0288.jpg
+  map: "/IMG_0275.jpg",        // Путь: /public/IMG_0275.jpg
 };
 
 // --- GEMINI API SETUP ---
@@ -99,7 +99,7 @@ const STRINGS = {
         ai_prompt_limit: "Entschuldigung, die Suche ist auf französische Regionen und Städte beschränkt. Bitte versuchen Sie es mit einem französischen Ortsnamen erneut.",
         ai_scout_prompt: "Sie sind ein lokaler Experte für die App 'Guide du Détour'. Der Benutzer gibt eine Region oder Stadt in Frankreich an. Schlagen Sie EINEN spezifischen, wenig bekannten, aber atmosphärischen Ort (Mühle, Ruine, Geheimstrand) in dieser Gegend vor. Die Antwort soll kurz (max. 40 Wörter), inspirierend und auf Deutsch sein. Beginnen Sie mit dem Namen des Ortes.",
         ai_history_prompt: "Sie sind der 'Zeit-Rückspiegel'-Modus der App. Der Benutzer gibt einen Ort in Frankreich an. Erzählen Sie eine kurze, faszinierende historische Anekdote, einen Mythos oder eine vergessene lokale Legende über diesen Ort. Ihr Ton soll geheimnisvoll und fesselnd sein. Max 40 Wörter. Auf Deutsch.",
-        ai_food_prompt: "Sie sind der 'Leerer Kofferraum'-Modus der App. Der Benutzer gibt eine Region in Frankreich an. Listen Sie 3 spezifische и authentische lokale Produkte (Käse, Wein, Handwerk) auf, die man unbedingt dort kaufen und mitbringen muss. Einfaches Listenformat. Auf Deutsch.",
+        ai_food_prompt: "Sie sind der 'Leerer Kofferraum'-Modus der App. Der Benutzer gibt eine Region in Frankreich an. Listen Sie 3 spezifische и authentische lokale Produkte (Käse, Wein, Handwerk) auf, die man unbedingt dort kaufen и mitbringen muss. Einfaches Listenformat. Auf Deutsch.",
         tabs: { scout: 'Der Pfadfinder', history: 'Rückspiegel', food: 'Leerer Kofferraum' },
         ai_scout_title: "Finden Sie ein verstecktes Juwel", ai_scout_desc: "Geben Sie eine Region ein, und wir finden den perfekten Abstecher für Sie.",
         ai_history_title: "Hören Sie die Mauern sprechen", ai_history_desc: "Entdecken Sie die vergessenen Legenden eines Ortes.",
@@ -550,7 +550,7 @@ const App = () => {
                 <div className="absolute -inset-0.5 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-lg blur opacity-30 group-hover:opacity-60 transition duration-1000"></div>
                 <div className="relative flex shadow-2xl">
                   <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder={strings.email_placeholder} className="flex-1 bg-slate-800 text-white placeholder-slate-500 px-6 py-4 rounded-l-lg border border-r-0 border-slate-700 focus:outline-none focus:border-emerald-500/50 transition-all text-center md:text-left" required />
-                  <button type="submit" disabled={status === 'loading' || status === 'success'} className="bg-emerald-600 hover:bg-emerald-500 text-white font-semibold px-6 py-4 rounded-r-lg transition-all flex items-center gap-2 whitespace-nowrap disabled:opacity-70">
+                  <button type="submit" disabled={status === 'loading' || status === 'success'} className="bg-emerald-600 hover:bg-emerald-500 text-white font-semibold px-8 py-4 rounded-r-lg transition-all shadow-lg shadow-emerald-900/20 whitespace-nowrap">
                     {status === 'loading' ? '...' : strings.status.success ? strings.status.success : strings.join_btn}
                     {status === 'idle' && <ChevronRight size={18} />}
                   </button>
