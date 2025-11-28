@@ -1,14 +1,339 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fr">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="/icon.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ça vaut le détour !</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-  </head>
-  <body class="bg-slate-950">
-    <div id="root"></div>
-    <script type="module" src="/main.jsx"></script>
-  </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guide du Détour : Le GPS qui enrichit vos voyages en France</title>
+    <meta name="description" content="Téléchargez l'application Guide du Détour pour découvrir les trésors cachés de France. Trouvez des producteurs locaux, brocantes et lieux mystères. Accès Beta.">
+    <style>
+        :root {
+            --color-primary: #007bff; /* Синий */
+            --color-secondary: #28a745; /* Зеленый */
+            --color-accent: #ffc107; /* Желтый */
+            --color-text: #333;
+            --color-bg: #f8f9fa;
+            --font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+        body {
+            font-family: var(--font-family);
+            margin: 0;
+            padding: 0;
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        /* Стили для Hero Section */
+        .hero {
+            background: url('https://images.unsplash.com/photo-1542861623-1d02c77609a0?q=80&w=1600&auto=format&fit=crop') no-repeat center center/cover;
+            color: white;
+            padding: 100px 20px;
+            text-align: center;
+            position: relative;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4);
+        }
+        .hero-content {
+            position: relative;
+            z-index: 10;
+        }
+        .hero h1 {
+            font-size: 3.5em;
+            margin-bottom: 10px;
+        }
+        .hero h2 {
+            font-size: 1.8em;
+            font-weight: 300;
+            margin-bottom: 40px;
+        }
+        /* Форма */
+        .form-cta input[type="email"] {
+            padding: 15px 20px;
+            border: none;
+            border-radius: 8px 0 0 8px;
+            font-size: 1em;
+            width: 300px;
+            max-width: 70%;
+        }
+        .form-cta button {
+            background-color: var(--color-secondary);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 0 8px 8px 0;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .form-cta button:hover {
+            background-color: #1e7e34;
+        }
+        /* Стили для Блоков */
+        section {
+            padding: 60px 20px;
+            text-align: center;
+        }
+        section h3 {
+            font-size: 2em;
+            color: var(--color-primary);
+            margin-bottom: 40px;
+        }
+        .features-grid {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-top: 40px;
+        }
+        .feature-item {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            max-width: 300px;
+            text-align: left;
+        }
+        .feature-item h4 {
+            font-size: 1.4em;
+            color: var(--color-primary);
+            margin-top: 15px;
+        }
+        .feature-item .icon {
+            font-size: 2em;
+            color: var(--color-accent);
+        }
+        /* Переключатель языков */
+        .lang-switcher {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 20;
+        }
+        .lang-switcher button {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid white;
+            color: white;
+            padding: 5px 10px;
+            cursor: pointer;
+            margin-left: 5px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="lang-switcher">
+        <button onclick="setLang('fr')">FR</button>
+        <button onclick="setLang('en')">EN</button>
+        <button onclick="setLang('de')">DE</button>
+        <button onclick="setLang('ru')">RU</button>
+    </div>
+
+    <header class="hero">
+        <div class="hero-content">
+            <h1 data-key="hero_h1">«Ça vaut le détour !»</h1>
+            <h2 data-key="hero_h2">Guide du Détour: Le guide qui enrichit vos voyages. Arrêtez d'optimiser le temps. Commencez à optimiser les expériences.</h2>
+            
+            <form class="form-cta" onsubmit="alert('Thank you for subscribing!'); return false;">
+                <input type="email" placeholder="Votre Email" required>
+                <button type="submit" data-key="cta_button">Devenir Éclaireur ! Accès anticipé.</button>
+            </form>
+        </div>
+    </header>
+
+    <section id="probleme">
+        <div class="container">
+            <h3 data-key="prob_h3">Votre GPS a-t-il tué l'esprit d'aventure ?</h3>
+            <p data-key="prob_p">Les navigateurs modernes se concentrent uniquement sur la vitesse, ignorant les vues magnifiques et les villages authentiques. Les POI sont génériques (grandes chaînes), faisant de votre détour une perte de temps, et non une découverte.</p>
+        </div>
+    </section>
+
+    <section id="solution" style="background-color: white;">
+        <div class="container">
+            <h3 data-key="sol_h3">Détour Voyage: Le navigateur qui aime les détours.</h3>
+            <p data-key="sol_p">Nous gardons le sérieux d'un GPS moderne, mais ajoutons la couche de découverte qui enrichit vos voyages. Vous entrez votre point A, B et votre « Rayon de Liberté » (5-20 km), et l'application trace un itinéraire axé sur le plaisir et la curiosité.</p>
+            <p data-key="sol_p_audience" style="color: var(--color-primary); font-weight: bold;">Conçu pour ceux qui aiment la route: motards, familles en vacances et touristes cherchant la « Vraie France ».</p>
+        </div>
+    </section>
+
+    <section id="features">
+        <div class="container">
+            <h3 data-key="feat_h3">Trois raisons, pour faire un détour</h3>
+            <div class="features-grid">
+                
+                <div class="feature-item">
+                    <span class="icon">🧀</span>
+                    <h4 data-key="feat1_title">Le Coffre Vide (L'Assistant Panier)</h4>
+                    <p data-key="feat1_desc">Navigation directe vers les producteurs locaux (Vin, fromage, miel). Évitez les pièges à touristes et soutenez l'économie locale.</p>
+                </div>
+
+                <div class="feature-item">
+                    <span class="icon">🏰</span>
+                    <h4 data-key="feat2_title">Le Point Mystère</h4>
+                    <p data-key="feat2_desc">Un point d'interrogation apparaît sur la carte. Pas de photo, pas de spoiler. Découvrez la magie du secret à l'arrivée !</p>
+                </div>
+
+                <div class="feature-item">
+                    <span class="icon">🏺</span>
+                    <h4 data-key="feat3_title">Le Mode Chineur</h4>
+                    <p data-key="feat3_desc">Scannez en temps réel les événements locaux : Brocantes ou Vide-greniers dans un rayon de 5 km. Trouvez des trésors uniques.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="final-cta" style="background-color: var(--color-primary); color: white;">
+        <div class="container">
+            <h3 data-key="final_h3" style="color: white;">Devenez membre du « Club des Éclaireurs » !</h3>
+            <p data-key="final_p">Abonnez-vous pour être le premier à obtenir l'accès à la version Beta et à commencer à gagner des « Points Détour » pour valider les lieux cachés. **Entrez dans le club qui sait : "Ça vaut le détour!"**</p>
+            
+            <form class="form-cta" onsubmit="alert('Thank you for subscribing!'); return false;" style="margin-top: 30px;">
+                <input type="email" placeholder="Votre Email" required>
+                <button type="submit" data-key="cta_button_final" style="border-radius: 0 8px 8px 0;">J'suis prêt(e) à explorer ! Accès anticipé.</button>
+            </form>
+
+            <p data-key="footer_note" style="margin-top: 15px; font-size: 0.9em; opacity: 0.8;">Vos données ne seront pas transmises. Nous vous informerons simplement dès que Guide du Détour sera disponible sur iOS et Android.</p>
+        </div>
+    </section>
+
+    <script>
+        const translations = {
+            'fr': {
+                'hero_h1': '«Ça vaut le détour !»',
+                'hero_h2': 'Guide du Détour: Le guide qui enrichit vos voyages. Arrêtez d\'optimiser le temps. Commencez à optimiser les expériences.',
+                'cta_button': 'Devenir Éclaireur ! Accès anticipé.',
+                'prob_h3': 'Votre GPS a-t-il tué l\'esprit d\'aventure ?',
+                'prob_p': 'Les navigateurs modernes se concentrent uniquement sur la vitesse, ignorant les vues magnifiques et les villages authentiques. Les POI sont génériques (grandes chaînes), faisant de votre détour une perte de temps, et non une découverte.',
+                'sol_h3': 'Détour Voyage: Le navigateur qui aime les détours.',
+                'sol_p': 'Nous gardons le sérieux d\'un GPS moderne, mais ajoutons la couche de découverte qui enrichit vos voyages. Vous entrez votre point A, B et votre « Rayon de Liberté » (5-20 km), et l\'application trace un itinéraire axé sur le plaisir et la curiosité.',
+                'sol_p_audience': 'Conçu pour ceux qui aiment la route: motards, familles en vacances et touristes cherchant la « Vraie France ».',
+                'feat_h3': 'Trois raisons, pour faire un détour',
+                'feat1_title': 'Le Coffre Vide (L\'Assistant Panier)',
+                'feat1_desc': 'Navigation directe vers les producteurs locaux (Vin, fromage, miel). Évitez les pièges à touristes et soutenez l\'économie locale.',
+                'feat2_title': 'Le Point Mystère',
+                'feat2_desc': 'Un point d\'interrogation apparaît sur la carte. Pas de photo, pas de spoiler. Découvrez la magie du secret à l\'arrivée !',
+                'feat3_title': 'Le Mode Chineur',
+                'feat3_desc': 'Scannez en temps réel les événements locaux : Brocantes ou Vide-greniers dans un rayon de 5 km. Trouvez des trésors uniques.',
+                'final_h3': 'Devenez membre du « Club des Éclaireurs » !',
+                'final_p': 'Abonnez-vous pour être le premier à obtenir l\'accès à la version Beta et à commencer à gagner des « Points Détour » pour valider les lieux cachés. **Entrez dans le club qui sait : "Ça vaut le détour!"**',
+                'cta_button_final': 'J\'suis prêt(e) à explorer ! Accès anticipé.',
+                'footer_note': 'Vos données ne seront pas transmises. Nous vous informerons simplement dès que Guide du Détour sera disponible sur iOS et Android.'
+            },
+            'en': {
+                'hero_h1': '\"It\'s worth the Detour!\"',
+                'hero_h2': 'Guide du Détour: The guide that enriches your travels. Stop optimizing time. Start optimizing experiences.',
+                'cta_button': 'Become a Scout! Get Early Access.',
+                'prob_h3': 'Has your GPS killed the spirit of adventure?',
+                'prob_p': 'Modern navigators focus solely on speed, ignoring beautiful sights and authentic villages. POIs are generic (major chains), making your detour feel like a waste of time, not a discovery.',
+                'sol_h3': 'Détour Voyage: The navigator who loves detours.',
+                'sol_p': 'We maintain the reliability of a modern GPS, but add a layer of discovery that enriches your travels. You enter points A, B and your "Radius of Freedom" (5-20 km), and the app charts a route focused on pleasure and curiosity.',
+                'sol_p_audience': 'Designed for those who love the road: bikers, families on holiday, and tourists seeking "The Real France."',
+                'feat_h3': 'Three reasons to take a detour',
+                'feat1_title': 'The Empty Trunk (Basket Assistant)',
+                'feat1_desc': 'Direct navigation to local producers (Wine, cheese, honey). Skip the tourist traps and support the local economy.',
+                'feat2_title': 'The Mystery Point',
+                'feat2_desc': 'A question mark appears on the map. No photo, no spoilers. Discover the magic of the secret upon arrival!',
+                'feat3_title': 'The Treasure Hunter Mode',
+                'feat3_desc': 'Real-time scanning of local events: Flea Markets (Brocantes) or Garage Sales (Vide-greniers) within a 5 km radius. Find unique treasures.',
+                'final_h3': 'Join the "Scout Club"!',
+                'final_p': 'Subscribe now to be the first to get access to the Beta version and start earning "Detour Points" for validating hidden locations. **Join the club that knows: "It\'s worth the Detour!"**',
+                'cta_button_final': 'I\'m ready to explore! Get Early Access.',
+                'footer_note': 'Your data will not be shared. We will simply inform you as soon as Guide du Détour is available on iOS and Android.'
+            },
+            'de': {
+                'hero_h1': '\"Ein Abstecher lohnt sich!\"',
+                'hero_h2': 'Guide du Détour: Der Reiseführer, der Ihre Reisen bereichert. Hören Sie auf, Zeit zu optimieren. Beginnen Sie, Erlebnisse zu optimieren.',
+                'cta_button': 'Werden Sie zum Entdecker! Frühzugang sichern.',
+                'prob_h3': 'Hat Ihr GPS den Abenteuergeist getötet?',
+                'prob_p': 'Moderne Navigationssysteme konzentrieren sich nur auf die Geschwindigkeit und ignorieren schöne Aussichten und authentische Dörfer. POIs sind generisch, wodurch sich Ihr Abstecher wie eine Zeitverschwendung anfühlt, nicht wie eine Entdeckung.',
+                'sol_h3': 'Détour Voyage: Das Navi, das Umwege liebt.',
+                'sol_p': 'Wir bieten die Zuverlässigkeit eines modernen GPS, fügen aber die Ebene der Entdeckung hinzu, die Ihre Reisen bereichert. Sie geben Punkt A, B und Ihren "Freiheitsradius" (5-20 km) ein, und die App plant eine Route, die auf Freude und Neugier ausgerichtet ist.',
+                'sol_p_audience': 'Entwickelt für alle, die das Fahren lieben: Motorradfahrer, Familien im Urlaub und Touristen, die das "Wahre Frankreich" suchen.',
+                'feat_h3': 'Drei Gründe für einen Abstecher',
+                'feat1_title': 'Der leere Kofferraum (Korb-Assistent)',
+                'feat1_desc': 'Direkte Navigation zu lokalen Produzenten (Wein, Käse, Honig). Umgehen Sie Touristenfallen und unterstützen Sie die lokale Wirtschaft.',
+                'feat2_title': 'Der mysteriöse Punkt',
+                'feat2_desc': 'Ein Fragezeichen erscheint auf der Karte. Keine Fotos, keine Spoiler. Entdecken Sie die Magie des Geheimnisses bei Ankunft!',
+                'feat3_title': 'Der Trödel-Modus',
+                'feat3_desc': 'Scannen Sie lokale Veranstaltungen in Echtzeit: Flohmärkte (Brocantes) oder Garagenverkäufe (Vide-greniers) im Umkreis von 5 km. Finden Sie einzigartige Schätze.',
+                'final_h3': 'Werden Sie Mitglied im "Entdecker-Club"!',
+                'final_p': 'Abonnieren Sie jetzt, um als Erster Zugang zur Beta-Version zu erhalten und "Abstecher-Punkte" zu sammeln, indem Sie versteckte Orte validieren. **Treten Sie dem Club bei, der weiß: "Ein Abstecher lohnt sich!"**',
+                'cta_button_final': 'Ich bin bereit zu erkunden! Frühzugang sichern.',
+                'footer_note': 'Ihre Daten werden nicht weitergegeben. Wir informieren Sie, sobald Guide du Détour für iOS und Android verfügbar ist.'
+            },
+            'ru': {
+                'hero_h1': '«Это стоит того, чтобы свернуть!»',
+                'hero_h2': 'Guide du Détour: Гид, который обогащает ваши путешествия. Хватит оптимизировать время — начните оптимизировать впечатления.',
+                'cta_button': 'Стать Следопытом! Получить ранний доступ.',
+                'prob_h3': 'Ваш GPS убил дух приключения?',
+                'prob_p': 'Современные навигаторы фокусируются только на скорости, игнорируя красивые виды и аутентичные деревни. Точки интереса (POI) являются дженериками, а объезд воспринимается как потеря времени, а не как возможность для открытия.',
+                'sol_h3': 'Détour Voyage: Навигатор, который любит объезды.',
+                'sol_p': 'Мы сохраняем серьезность современного GPS, но добавляем слой открытия, который обогащает ваши путешествия. Вы указываете пункт А, Б и свой «Радиус Свободы» (5–20 км), а приложение прокладывает маршрут, адаптированный под удовольствие и открытия.',
+                'sol_p_audience': 'Создано для тех, кто любит дорогу: мотоциклистов, семей в отпуске и туристов, которые хотят увидеть «Настоящую Францию».',
+                'feat_h3': 'Три причины, чтобы сделать крюк',
+                'feat1_title': 'Ассистент «Пустой Багажник»',
+                'feat1_desc': 'Навигация прямо к местным производителям (Вино, сыр, мед). Избегайте туристических ловушек и поддержите местную экономику.',
+                'feat2_title': 'Точка-Сюрприз',
+                'feat2_desc': 'На карте появляется знак «?». Никаких фотографий, никаких спойлеров. Узнайте, что это, только когда приедете!',
+                'feat3_title': 'Режим «Охотник за Сокровищами»',
+                'feat3_desc': 'Сканирование событий вокруг маршрута: блошиные рынки (Brocantes) и распродажи (Vide-greniers) в радиусе 5 км. Находите уникальные сокровища.',
+                'final_h3': 'Станьте частью «Клуба Следопытов»!',
+                'final_p': 'Подпишитесь, чтобы первым получить доступ к бета-версии и начать зарабатывать «Очки Объезда» (Détour Points) за проверку скрытых мест. **Вступайте в клуб тех, кто знает: «Это стоит того, чтобы свернуть!»**',
+                'cta_button_final': 'Я готов(а) исследовать! Получить ранний доступ.',
+                'footer_note': 'Ваши данные не будут переданы. Мы сообщим вам, как только Guide du Détour будет доступен на iOS и Android.'
+            }
+        };
+
+        // Функция для обновления текста
+        function setLang(lang) {
+            document.documentElement.lang = lang;
+            const t = translations[lang];
+            
+            // Обновление всех элементов с data-key
+            document.querySelectorAll('[data-key]').forEach(el => {
+                const key = el.getAttribute('data-key');
+                if (t[key]) {
+                    el.innerHTML = t[key];
+                }
+            });
+
+            // Обновление SEO-тегов (мета-описание и заголовок)
+            // (В реальном проекте лучше использовать серверный рендеринг для SEO)
+            if (lang === 'fr') {
+                document.title = 'Guide du Détour : Le GPS qui enrichit vos voyages en France';
+            } else if (lang === 'en') {
+                document.title = 'Guide du Détour: GPS App for Hidden Gems on Your French Road Trip';
+            } else if (lang === 'de') {
+                document.title = 'Guide du Détour: Ihr Reiseführer für die schönsten Abstecher in Frankreich';
+            } else if (lang === 'ru') {
+                document.title = 'Guide du Détour: Навигатор для поиска скрытых мест во Франции';
+            }
+            
+            // Обновление плейсхолдера email
+            const emailInput = document.querySelector('.form-cta input[type="email"]');
+            if (lang === 'fr') emailInput.placeholder = 'Votre Email';
+            else if (lang === 'en') emailInput.placeholder = 'Your Email';
+            else if (lang === 'de') emailInput.placeholder = 'Ihre E-Mail';
+            else if (lang === 'ru') emailInput.placeholder = 'Ваш Email';
+        }
+
+        // Установка языка по умолчанию (или из настроек браузера)
+        setLang('fr'); // Начальный язык - Французский
+
+    </script>
+
+</body>
 </html>
