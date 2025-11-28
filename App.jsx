@@ -10,17 +10,14 @@ import {
 } from 'lucide-react';
 
 // --- НАСТРОЙКИ КАРТИНОК ---
-// Исправлено: Пути статических ресурсов
+// ИСПРАВЛЕНО: Синхронизируем расширения с .jpg, как на GitHub.
 const IMAGES = {
-  // Ваш крупный логотип (Используем ваш файл IMG_0289.jpeg)
   logo: "/IMG_0289.jpeg",      
-  // Скриншоты телефона (Используем ваши файлы IMG_0288.png и IMG_0275.png)
-  profile: "/IMG_0288.png",    
-  map: "/IMG_0275.png",        
+  profile: "/IMG_0288.jpg",    // ИСПРАВЛЕНО: .jpg
+  map: "/IMG_0275.jpg",        // ИСПРАВЛЕНО: .jpg
 };
 
 // --- GEMINI API SETUP ---
-// Используем прямой синтаксис Node.js/Vercel
 const apiKey = typeof process !== 'undefined' && process.env.VITE_GEMINI_API_KEY ? process.env.VITE_GEMINI_API_KEY : ""; 
 
 // --- FIREBASE CONFIG ---
@@ -235,6 +232,9 @@ const LanguageSwitcher = () => {
             <select
                 onChange={(e) => setLanguage(e.target.value)}
                 value={lang}
+                // ИСПРАВЛЕНИЕ: Добавление key={lang} для принудительного обновления компонента Select
+                // (Это помогает принудительно обновить компонент и избежать проблем с кэшированием)
+                key={lang} 
                 className="bg-slate-800 text-white text-sm font-medium px-4 py-2 rounded-full border border-slate-700 appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-emerald-500"
             >
                 {languages.map((l) => (
