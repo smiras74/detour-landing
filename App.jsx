@@ -10,17 +10,17 @@ import {
 } from 'lucide-react';
 
 // --- НАСТРОЙКИ КАРТИНОК ---
-// Используем прямые пути (статические ресурсы). Файлы должны лежать в корне репозитория на GitHub.
+// ИСПРАВЛЕНИЕ 1: ИЗМЕНЕНЫ РАСШИРЕНИЯ ДЛЯ СКРИНШОТОВ С .png НА .jpg
 const IMAGES = {
   // Ваш крупный логотип (Используем ваш файл IMG_0289.jpeg)
   logo: "/IMG_0289.jpeg",      
-  // Скриншоты телефона (Используем ваши файлы IMG_0288.png и IMG_0275.png)
-  profile: "/IMG_0288.png",    
-  map: "/IMG_0275.png",        
+  // Скриншоты телефона (Используем ваши файлы IMG_0288.jpg и IMG_0275.jpg)
+  profile: "/IMG_0288.jpg",    
+  map: "/IMG_0275.jpg",        
 };
 
 // --- GEMINI API SETUP ---
-// Читаем ключ из переменной среды Vercel (VITE_GEMINI_API_KEY)
+// ВНИМАНИЕ: КЛЮЧ API ВИДЕН В КЛИЕНТСКОМ КОДЕ. ДЛЯ ПРОДАКШЕНА ИСПОЛЬЗУЙТЕ СЕРВЕРНЫЙ ПРОКСИ.
 const apiKey = typeof process !== 'undefined' && process.env.VITE_GEMINI_API_KEY ? process.env.VITE_GEMINI_API_KEY : ""; 
 
 // --- FIREBASE CONFIG ---
@@ -114,7 +114,7 @@ const STRINGS = {
         menu: { concept: 'Konzept', features: 'Funktionen', future: 'Zukunft', beta_access: 'Beta-Zugang' },
         phone: { interests: 'Ihre Interessen', route: 'Die Route' },
         features: { main_title: 'Ein einzigartiges Erlebnis', main_subtitle: 'Sie wählen den Kurs, Sie entscheiden, wie weit Sie abschweifen möchten. Wir kümmern uns um das Wunder.', couloir_title: 'Der Korridor', couloir_desc: 'Definieren Sie Ihr Ziel und einen Abweichungsradius (z. B. 5 km). Wir finden alles, was innerhalb dieses Korridors einen Stopp wert ist.', univers_title: '4 Universen', univers_desc: 'Bauernhöfe & Weinberge, Geschichte & Schlösser, lokale Kuriositäten, Natur. Filtern Sie nach Ihrer Stimmung.', chemin_title: 'Unterwegs', chemin_desc: 'Fügen Sie Zwischenstopps zu Ihrer Route hinzu oder lassen Sie sich von der App spontane Haltepunkte vorschlagen.', community_title: 'Gemeinschaft', community_desc: 'Jeder Ort hat sein detailliertes Blatt. Haben Sie ein Juwel gefunden? Fügen Sie Ihre eigene Entdeckung für andere hinzu.' },
-        comparison: { title: 'Warum "Der Abstecher lohnt sich" wählen?', function: 'Funktionalität', us: 'Wir', others: 'Klassisches GPS', a_to_b: 'A → B Route', along_route: 'Entdeckung entlang der Route (Korridor)', radius: 'Einstellbarer Abstecher-Radius', categories: 'Touristenkategorien' },
+        comparison: { title: 'Warum wählen Sie "Der Abstecher lohnt sich" ?', function: 'Funktionalität', us: 'Wir', others: 'Klassisches GPS', a_to_b: 'A → B Route', along_route: 'Entdeckung entlang der Route (Korridor)', radius: 'Einstellbarer Abstecher-Radius', categories: 'Touristenkategorien' },
         roadmap: { tag: 'Roadmap', title: 'Die Zukunft des Abenteuers', subtitle: 'Wir bauen nicht nur eine Karte, sondern einen intelligenten Reisebegleiter. Hier sind die exklusiven Modi, die sich derzeit für unsere ersten Benutzer in Entwicklung befinden.', compass_title: 'Kompass-Modus', compass_desc: 'Ein einfacher Pfeil für echte Abenteurer. Folgen Sie dem Kurs, finden Sie Ihren eigenen Weg.', grain_title: 'Körnung der Straße', grain_desc: 'Wählen Sie die Textur Ihrer Reise: Panoramastraßen oder Querstraßen.', chineur_title: 'Chineur-Modus', chineur_desc: 'Echtzeit-Warnungen für Flohmärkte und Garagenverkäufe auf Ihrer Route.', coffre_title: 'Leerer Kofferraum', coffre_desc: 'Füllen Sie Ihren Kofferraum mit lokalen Produkten: direkt von Bauern und Handwerkern.', escale_title: 'Der perfekte Zwischenstopp', escale_desc: 'Stopps synchronisiert mit Ihrer Müdigkeit und den schönsten Panoramen.', mystery_title: 'Geheimnisvoller Punkt', mystery_desc: 'Lassen Sie sich blind zu einem Überraschungsziel führen.', retro_title: 'Zeit-Rückspiegel', retro_desc: 'Geolokalisierte Audio-Geschichten, die die Vergangenheit der durchquerten Orte erzählen.', club_title: 'Entdecker-Club', club_desc: 'Sammeln Sie Punkte, Ranglisten und Abzeichen, indem Sie neue Orte entdecken.' },
         footer: { cta_title: 'Bereit für einen Routenwechsel?', cta_subtitle: 'Tragen Sie sich in die Warteliste ein, um zu den ersten Entdeckern zu gehören, die die App auf iPhone und Android testen.', copyright: 'Der Abstecher lohnt sich. Mit Leidenschaft für Reisende gemacht.', privacy: 'Datenschutz', contact: 'Kontakt' },
         status: { success: 'Angemeldet!', success_msg: 'Vielen Dank! Wir halten Sie auf dem Laufenden.' },
@@ -292,11 +292,9 @@ const AiLab = () => {
     }, [activeTab]);
 
     const getSystemPrompt = (tab, input) => {
-        const inputLower = input.toLowerCase();
-        
         // 1. Проверка на стоп-слова (хотя Gemini должен сам фильтровать по промпту)
         const nonGeoKeywords = ['президент', 'president', 'bundeskanzler', 'koning', 'политика', 'politics', 'geschichte', 'history', 'recette', 'recipe'];
-        if (nonGeoKeywords.some(keyword => inputLower.includes(keyword))) {
+        if (nonGeoKeywords.some(keyword => input.toLowerCase().includes(keyword))) {
             return strings.ai_prompt_limit;
         }
 
@@ -313,14 +311,12 @@ const AiLab = () => {
         }
     };
     
-    // Функция проверки для фронтенда
+    // Эвристическая проверка на стороне клиента
     const isFrenchLocation = (text) => {
-        // Простая эвристика: ищем слова, связанные с Францией, или просто разрешаем, 
-        // надеясь, что основной промпт в Gemini сделает фильтрацию.
-        const frenchKeywords = ['france', 'paris', 'lyon', 'bordeaux', 'provence', 'normandie', 'bretagne', 'marseille'];
+        // Усиленная эвристика, позволяющая пропускать большинство непустых строк.
+        // Основная фильтрация будет происходить на стороне Gemini с помощью системного промпта.
         const textLower = text.toLowerCase();
-        return textLower.length > 3; // Пропускаем, если строка достаточно длинная
-        // return textLower.length > 3 && frenchKeywords.some(kw => textLower.includes(kw)); // Более строгая проверка
+        return textLower.trim().length > 3; 
     }
 
 
@@ -353,22 +349,30 @@ const AiLab = () => {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    contents: [{ parts: [{ text: `Location: ${input}` }] }],
-                    systemInstruction: { parts: [{ text: systemPrompt }] }
+                    // ИСПРАВЛЕНИЕ 2: ДОБАВЛЕНА РОЛЬ 'user' И СТРУКТУРА 'config' ДЛЯ systemInstruction
+                    contents: [{ 
+                        role: "user",
+                        parts: [{ text: `Location: ${input}` }] 
+                    }],
+                    config: { 
+                        systemInstruction: systemPrompt 
+                    }
                 })
             });
 
             if (!response.ok) {
                 // Если API вернул ошибку 400/500, чаще всего это перегрузка
                 setError(strings.ai_error);
-                throw new Error('AI busy/limit reached');
+                throw new Error(`AI busy/limit reached: ${response.statusText}`);
             }
             
             const data = await response.json();
             const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
+            
             if (text) {
-                 // Убеждаемся, что Gemini не нарушил правило (на всякий случай)
-                 if (text.includes("Sorry") || text.includes("Pardon") || text.includes("Entschuldigung") || text.includes("Извините") ) {
+                 // Дополнительная проверка на нарушение правил
+                 const textLower = text.toLowerCase();
+                 if (textLower.includes("sorry") || textLower.includes("pardon") || textLower.includes("entschuldigung") || textLower.includes("извините") || textLower.includes("france only") ) {
                     setError(strings.ai_prompt_limit);
                  } else {
                     setResult(text);
@@ -378,7 +382,11 @@ const AiLab = () => {
             }
         } catch (err) {
             console.error(err);
-            setError(strings.ai_error);
+            if (err.message.includes('Failed to fetch')) {
+                 setError("Ошибка сети. Проверьте ваш API ключ или настройки CORS.");
+            } else {
+                setError(strings.ai_error);
+            }
         } finally {
             setLoading(false);
         }
@@ -417,7 +425,7 @@ const AiLab = () => {
                     </p>
                     <form onSubmit={handleAction} className="flex flex-col md:flex-row gap-3 max-w-md mx-auto w-full mb-8 relative z-10">
                         <input type="text" value={input} onChange={(e) => setInput(e.target.value)} placeholder={strings.ai_placeholder} className="flex-1 bg-slate-800/50 border border-slate-700 text-white rounded-lg px-4 py-3 focus:outline-none focus:border-slate-500 transition placeholder-slate-600" />
-                        <button type="submit" disabled={loading || !input} className={`text-white px-6 py-3 rounded-lg font-medium transition flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg ${activeTab === 'scout' ? 'bg-emerald-600 hover:bg-emerald-500 shadow-emerald-900/20' : ''} ${activeTab === 'history' ? 'bg-amber-600 hover:bg-amber-500 shadow-amber-900/20' : ''} ${activeTab === 'food' ? 'bg-purple-600 hover:bg-purple-500 shadow-purple-900/20' : ''}`}>
+                        <button type="submit" disabled={loading || !input} className={`text-white px-6 py-3 rounded-lg font-medium transition flex items-center justify-center gap-2 whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed shadow-lg ${activeTab === 'scout' ? 'bg-emerald-600 hover:bg-emerald-500 shadow-emerald-900/20' : ''} ${activeTab === 'history' ? 'bg-amber-600 hover:bg-amber-500 shadow-amber-900/20' : ''} ${activeTab === 'food' ? 'bg-purple-600 hover:bg-purple-500 shadow-purple-900/20' : ''}`}>
                             {loading ? <Loader className="animate-spin" size={20} /> : <Search size={20} />}
                         </button>
                     </form>
@@ -445,12 +453,14 @@ const PhoneMockup = ({ activeScreen, setActiveScreen }) => {
         {
             id: 'profile',
             title: strings.phone.interests,
+            // ИСПРАВЛЕНИЕ 1: ИСПОЛЬЗУЕМ .jpg
             src: IMAGES.profile,  
             alt: 'Ecran profil avec intérêts'
         },
         {
             id: 'map',
             title: strings.phone.route,
+            // ИСПРАВЛЕНИЕ 1: ИСПОЛЬЗУЕМ .jpg
             src: IMAGES.map, 
             alt: 'Ecran navigation carte'
         }
@@ -571,7 +581,8 @@ const App = () => {
                 <div className="relative flex shadow-2xl">
                   <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder={strings.email_placeholder} className="w-full bg-[#0b1021] text-white placeholder-slate-500 px-6 py-4 rounded-l-lg border border-r-0 border-slate-700 focus:outline-none focus:border-emerald-500/50 transition-all text-center md:text-left" required />
                   <button type="submit" disabled={status === 'loading' || status === 'success'} className="bg-emerald-600 hover:bg-emerald-500 text-white font-semibold px-6 py-4 rounded-r-lg transition-all flex items-center gap-2 whitespace-nowrap disabled:opacity-70">
-                    {status === 'loading' ? '...' : strings.status.success ? strings.status.success : strings.join_btn}
+                    {/* ИСПРАВЛЕНИЕ 3: Исправлена логика отображения текста при успешном статусе */}
+                    {status === 'loading' ? '...' : status === 'success' ? strings.status.success : strings.join_btn}
                     {status === 'idle' && <ChevronRight size={18} />}
                   </button>
                 </div>
@@ -646,7 +657,8 @@ const App = () => {
              <form onSubmit={handleSubmit} className="w-full max-w-md flex flex-col md:flex-row gap-4">
                 <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder={strings.email_placeholder} className="flex-1 bg-slate-800 text-white placeholder-slate-500 px-6 py-4 rounded-l-lg border border-r-0 border-slate-700 focus:outline-none focus:border-emerald-500/50 transition-all text-center md:text-left" required />
                 <button type="submit" disabled={status === 'loading' || status === 'success'} className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-8 py-4 rounded-lg transition-all shadow-lg shadow-emerald-900/20 whitespace-nowrap">
-                  {status === 'loading' ? '...' : strings.status.success ? strings.status.success : strings.join_btn}
+                   {/* ИСПРАВЛЕНИЕ 3: Исправлена логика отображения текста при успешном статусе */}
+                  {status === 'loading' ? '...' : status === 'success' ? strings.status.success : strings.join_btn}
                 </button>
              </form>
            </div>
