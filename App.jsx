@@ -10,14 +10,16 @@ import {
 } from 'lucide-react';
 
 // --- НАСТРОЙКИ КАРТИНОК ---
-// Файлы должны лежать в корне репозитория на GitHub.
+// Файлы должны лежать в корне репозитория на GitHub. 
+// В последней версии проверяем на .jpg/.jpeg, так как Vercel чувствителен к регистру.
 const IMAGES = {
-  logo: "/IMG_0289.jpeg",      
-  profile: "/IMG_0288.jpg",    
-  map: "/IMG_0275.jpg",        
+  logo: "/IMG_0289.jpeg",      // Ваш крупный логотип
+  profile: "/IMG_0288.jpg",    // Скриншот профиля
+  map: "/IMG_0275.jpg",        // Скриншот карты
 };
 
 // --- GEMINI API SETUP ---
+// Используем надежный синтаксис для Vercel.
 const apiKey = typeof process !== 'undefined' && process.env.VITE_GEMINI_API_KEY ? process.env.VITE_GEMINI_API_KEY : ""; 
 
 // --- FIREBASE CONFIG ---
@@ -112,7 +114,7 @@ const STRINGS = {
         phone: { interests: 'Ihre Interessen', route: 'Die Route' },
         features: { main_title: 'Ein einzigartiges Erlebnis', main_subtitle: 'Sie wählen den Kurs, Sie entscheiden, wie weit Sie abschweifen möchten. Wir kümmern uns um das Wunder.', couloir_title: 'Der Korridor', couloir_desc: 'Definieren Sie Ihr Ziel und einen Abweichungsradius (z. B. 5 km). Wir finden alles, was innerhalb dieses Korridors einen Stopp wert ist.', univers_title: '4 Universen', univers_desc: 'Bauernhöfe & Weinberge, Geschichte & Schlösser, lokale Kuriositäten, Natur. Filtern Sie nach Ihrer Stimmung.', chemin_title: 'Unterwegs', chemin_desc: 'Fügen Sie Zwischenstopps zu Ihrer Route hinzu oder lassen Sie sich von der App spontane Haltepunkte vorschlagen.', community_title: 'Gemeinschaft', community_desc: 'Jeder Ort hat sein detailliertes Blatt. Haben Sie ein Juwel gefunden? Fügen Sie Ihre eigene Entdeckung für andere hinzu.' },
         comparison: { title: 'Warum "Der Abstecher lohnt sich" wählen?', function: 'Funktionalität', us: 'Wir', others: 'Klassisches GPS', a_to_b: 'A → B Route', along_route: 'Entdeckung entlang der Route (Korridor)', radius: 'Einstellbarer Abstecher-Radius', categories: 'Touristenkategorien' },
-        roadmap: { tag: 'Roadmap', title: 'Die Zukunft des Abenteuers', subtitle: 'Wir bauen nicht nur eine karte, sondern einen intelligenten Reisebegleiter. Hier sind die exklusiven Modi, die sich derzeit für unsere ersten Benutzer in Entwicklung befinden.', compass_title: 'Kompass-Modus', compass_desc: 'Ein einfacher Pfeil für echte Abenteurer. Folgen Sie dem Kurs, finden Sie Ihren eigenen Weg.', grain_title: 'Körnung der Straße', grain_desc: 'Wählen Sie die Textur Ihrer Reise: Panoramastraßen oder Querstraßen.', chineur_title: 'Chineur-Modus', chineur_desc: 'Echtzeit-Warnungen für Flohmärkte und Garagenverkäufe auf Ihrer Route.', coffre_title: 'Leerer Kofferraum', coffre_desc: 'Füllen Sie Ihren Kofferraum mit lokalen Produkten: direkt von Bauern und Handwerkern.', escale_title: 'Der perfekte Zwischenstopp', escale_desc: 'Stopps synchronisiert mit Ihrer Müdigkeit und den schönsten Panoramen.', mystery_title: 'Geheimnisvoller Punkt', mystery_desc: 'Lassen Sie sich blind zu einem Überraschungsziel führen.', retro_title: 'Zeit-Rückspiegel', retro_desc: 'Geolokalisierte Audio-Geschichten, die die Vergangenheit der durchquerten Orte erzählen.', club_title: 'Entdecker-Club', club_desc: 'Sammeln Sie Punkte, Ranglisten und Abzeichen, indem Sie neue Orte entdecken.' },
+        roadmap: { tag: 'Roadmap', title: 'Die Zukunft des Abenteuers', subtitle: 'Wir bauen nicht nur eine karte, sondern einen intelligenten Reisebegleiter. Hier sind die exklusiven Modi, die sich derzeit für unsere ersten Benutzer in Entwicklung befinden.', compass_title: 'Kompass-Modus', compass_desc: 'Ein einfacher Pfeil для echte Abenteurer. Folgen Sie dem Kurs, finden Sie Ihren eigenen Weg.', grain_title: 'Körnung der Straße', grain_desc: 'Wählen Sie die Textur Ihrer Reise: Panoramastraßen или Querstraßen.', chineur_title: 'Chineur-Modus', chineur_desc: 'Echtzeit-Warnungen für Flohmärkte und Garagenverkäufe auf Ihrer Route.', coffre_title: 'Leerer Kofferraum', coffre_desc: 'Füllen Sie Ihren Kofferraum mit lokalen Produkten: direkt von Bauern und Handwerkern.', escale_title: 'Der perfekte Zwischenstopp', escale_desc: 'Stopps synchronisiert mit Ihrer Müdigkeit und den schönsten Panoramen.', mystery_title: 'Geheimnisvoller Punkt', mystery_desc: 'Lassen Sie sich blind zu einem Überraschungsziel führen.', retro_title: 'Zeit-Rückspiegel', retro_desc: 'Geolokalisierte Audio-Geschichten, die die Vergangenheit der durchquerten Orte erzählen.', club_title: 'Entdecker-Club', club_desc: 'Sammeln Sie Punkte, Ranglisten und Abzeichen, indem Sie neue Orte entdecken.' },
         footer: { cta_title: 'Bereit für einen Routenwechsel?', cta_subtitle: 'Tragen Sie sich in die Warteliste ein, um zu den ersten Entdeckern zu gehören, die die App auf iPhone und Android testen.', copyright: 'Der Abstecher lohnt sich. Mit Leidenschaft für Reisende gemacht.', privacy: 'Datenschutz', contact: 'Kontakt' },
         status: { success: 'Angemeldet!', success_msg: 'Vielen Dank! Wir halten Sie auf dem Laufenden.' },
     },
@@ -218,6 +220,12 @@ const Logo = () => {
               alt="Guide du Détour" 
               // Увеличенный размер 
               className="h-16 md:h-24 w-auto object-contain transition-transform duration-500 hover:scale-105" 
+              // Обработка ошибки загрузки логотипа
+              onError={(e) => {
+                  e.target.onerror = null; 
+                  e.target.style.display = 'none';
+                  e.target.parentNode.innerHTML = '<span class="text-3xl font-serif text-white">Détour</span>';
+              }}
             />
         </div>
     );
@@ -232,8 +240,7 @@ const LanguageSwitcher = () => {
             <select
                 onChange={(e) => setLanguage(e.target.value)}
                 value={lang}
-                // ИСПРАВЛЕНИЕ: Добавление key={lang} для принудительного обновления компонента Select
-                // (Это помогает принудительно обновить компонент и избежать проблем с кэшированием)
+                // КРИТИЧНОЕ ИСПРАВЛЕНИЕ: принудительное обновление компонента Select
                 key={lang} 
                 className="bg-slate-800 text-white text-sm font-medium px-4 py-2 rounded-full border border-slate-700 appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-emerald-500"
             >
@@ -297,13 +304,11 @@ const AiLab = () => {
     const getSystemPrompt = (tab, input) => {
         const inputLower = input.toLowerCase();
         
-        // 1. Проверка на стоп-слова (хотя Gemini должен сам фильтровать по промпту)
         const nonGeoKeywords = ['президент', 'president', 'bundeskanzler', 'koning', 'политика', 'politics', 'geschichte', 'history', 'recette', 'recipe'];
         if (nonGeoKeywords.some(keyword => inputLower.includes(keyword))) {
             return strings.ai_prompt_limit;
         }
 
-        // 2. Выбор промпта по вкладке
         switch (tab) {
             case 'scout':
                 return strings.ai_scout_prompt;
@@ -316,13 +321,9 @@ const AiLab = () => {
         }
     };
     
-    // Функция проверки для фронтенда
     const isFrenchLocation = (text) => {
-        // Простая эвристика: ищем слова, связанные с Францией, или просто разрешаем, 
-        // надеясь, что основной промпт в Gemini сделает фильтрацию.
-        const frenchKeywords = ['france', 'paris', 'lyon', 'bordeaux', 'provence', 'normandie', 'bretagne', 'marseille'];
         const textLower = text.toLowerCase();
-        return textLower.length > 3; // Пропускаем, если строка достаточно длинная
+        return textLower.length > 3; 
     }
 
 
@@ -330,7 +331,6 @@ const AiLab = () => {
         e.preventDefault();
         if (!input.trim()) return;
         
-        // Дополнительная проверка на стороне клиента для быстрой обратной связи
         if (!isFrenchLocation(input)) {
              setError(strings.ai_prompt_limit);
              return;
@@ -342,7 +342,6 @@ const AiLab = () => {
 
         const systemPrompt = getSystemPrompt(activeTab, input);
 
-        // Если функция getSystemPrompt вернула сообщение об ошибке (ограничение)
         if (systemPrompt === strings.ai_prompt_limit) {
              setError(systemPrompt);
              setLoading(false);
@@ -361,7 +360,6 @@ const AiLab = () => {
             });
 
             if (!response.ok) {
-                // Если API вернул ошибку 400/500, чаще всего это перегрузка
                 setError(strings.ai_error);
                 throw new Error('AI busy/limit reached');
             }
@@ -369,7 +367,6 @@ const AiLab = () => {
             const data = await response.json();
             const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
             if (text) {
-                 // Убеждаемся, что Gemini не нарушил правило (на всякий случай)
                  if (text.includes("Sorry") || text.includes("Pardon") || text.includes("Entschuldigung") || text.includes("Извините") ) {
                     setError(strings.ai_prompt_limit);
                  } else {
@@ -478,6 +475,7 @@ const PhoneMockup = ({ activeScreen, setActiveScreen }) => {
                        // Добавлена обработка ошибок для картинок
                        onError={(e) => {
                            e.target.onerror = null; 
+                           // Запасная картинка, если файл не найден
                            e.target.src = "https://placehold.co/320x640/334155/f1f5f9?text=Image+Error";
                        }}
                        className="w-full h-full object-cover transition-opacity duration-500" />
