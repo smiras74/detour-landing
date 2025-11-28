@@ -10,11 +10,11 @@ import {
 } from 'lucide-react';
 
 // --- НАСТРОЙКИ КАРТИНОК ---
-// ИСПРАВЛЕНО: Синхронизируем расширения с .jpg, как на GitHub.
+// Файлы должны лежать в корне репозитория на GitHub.
 const IMAGES = {
   logo: "/IMG_0289.jpeg",      
-  profile: "/IMG_0288.jpg",    // ИСПРАВЛЕНО: .jpg
-  map: "/IMG_0275.jpg",        // ИСПРАВЛЕНО: .jpg
+  profile: "/IMG_0288.jpg",    
+  map: "/IMG_0275.jpg",        
 };
 
 // --- GEMINI API SETUP ---
@@ -472,7 +472,15 @@ const PhoneMockup = ({ activeScreen, setActiveScreen }) => {
                     </div>
                 </div>
                 <div className="w-full h-full relative">
-                    <img src={currentScreen.src} alt={currentScreen.alt} className="w-full h-full object-cover transition-opacity duration-500" />
+                    <img 
+                       src={currentScreen.src} 
+                       alt={currentScreen.alt} 
+                       // Добавлена обработка ошибок для картинок
+                       onError={(e) => {
+                           e.target.onerror = null; 
+                           e.target.src = "https://placehold.co/320x640/334155/f1f5f9?text=Image+Error";
+                       }}
+                       className="w-full h-full object-cover transition-opacity duration-500" />
                 </div>
             </div>
         </div>
