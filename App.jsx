@@ -10,16 +10,17 @@ import {
 } from 'lucide-react';
 
 // --- НАСТРОЙКИ КАРТИНОК ---
-// ИСПРАВЛЕНО: ПУТИ СОГЛАСОВАНЫ С РАСШИРЕНИЯМИ В РЕПОЗИТОРИИ (.png для скринов)
+// Исправлено: Пути статических ресурсов
 const IMAGES = {
-  // Используем .jpeg для логотипа, как в вашем репозитории
+  // Ваш крупный логотип (Используем ваш файл IMG_0289.jpeg)
   logo: "/IMG_0289.jpeg",      
-  // Скриншоты телефона (ИСПРАВЛЕНО: .png)
+  // Скриншоты телефона (Используем ваши файлы IMG_0288.png и IMG_0275.png)
   profile: "/IMG_0288.png",    
   map: "/IMG_0275.png",        
 };
 
 // --- GEMINI API SETUP ---
+// Используем прямой синтаксис Node.js/Vercel
 const apiKey = typeof process !== 'undefined' && process.env.VITE_GEMINI_API_KEY ? process.env.VITE_GEMINI_API_KEY : ""; 
 
 // --- FIREBASE CONFIG ---
@@ -113,8 +114,8 @@ const STRINGS = {
         menu: { concept: 'Konzept', features: 'Funktionen', future: 'Zukunft', beta_access: 'Beta-Zugang' },
         phone: { interests: 'Ihre Interessen', route: 'Die Route' },
         features: { main_title: 'Ein einzigartiges Erlebnis', main_subtitle: 'Sie wählen den Kurs, Sie entscheiden, wie weit Sie abschweifen möchten. Wir kümmern uns um das Wunder.', couloir_title: 'Der Korridor', couloir_desc: 'Definieren Sie Ihr Ziel und einen Abweichungsradius (z. B. 5 km). Wir finden alles, was innerhalb dieses Korridors einen Stopp wert ist.', univers_title: '4 Universen', univers_desc: 'Bauernhöfe & Weinberge, Geschichte & Schlösser, lokale Kuriositäten, Natur. Filtern Sie nach Ihrer Stimmung.', chemin_title: 'Unterwegs', chemin_desc: 'Fügen Sie Zwischenstopps zu Ihrer Route hinzu oder lassen Sie sich von der App spontane Haltepunkte vorschlagen.', community_title: 'Gemeinschaft', community_desc: 'Jeder Ort hat sein detailliertes Blatt. Haben Sie ein Juwel gefunden? Fügen Sie Ihre eigene Entdeckung für andere hinzu.' },
-        comparison: { title: 'Warum wählen Sie "Der Abstecher lohnt sich" ?', function: 'Funktionalität', us: 'Wir', others: 'Klassisches GPS', a_to_b: 'A → B Route', along_route: 'Entdeckung entlang der Route (Korridor)', radius: 'Einstellbarer Abstecher-Radius', categories: 'Touristenkategorien' },
-        roadmap: { tag: 'Roadmap', title: 'Die Zukunft des Abenteuers', subtitle: 'Wir bauen nicht nur eine Karte, sondern einen intelligenten Reisebegleiter. Hier sind die exklusiven Modi, die sich derzeit für unsere ersten Benutzer in Entwicklung befinden.', compass_title: 'Kompass-Modus', compass_desc: 'Ein einfacher Pfeil für echte Abenteurer. Folgen Sie dem Kurs, finden Sie Ihren eigenen Weg.', grain_title: 'Körnung der Straße', grain_desc: 'Wählen Sie die Textur Ihrer Reise: Panoramastraßen oder Querstraßen.', chineur_title: 'Chineur-Modus', chineur_desc: 'Echtzeit-Warnungen für Flohmärkte und Garagenverkäufe auf Ihrer Route.', coffre_title: 'Leerer Kofferraum', coffre_desc: 'Füllen Sie Ihren Kofferraum mit lokalen Produkten: direkt von Bauern und Handwerkern.', escale_title: 'Der perfekte Zwischenstopp', escale_desc: 'Stopps synchronisiert mit Ihrer Müdigkeit und den schönsten Panoramen.', mystery_title: 'Geheimnisvoller Punkt', mystery_desc: 'Lassen Sie sich blind zu einem Überraschungsziel führen.', retro_title: 'Zeit-Rückspiegel', retro_desc: 'Geolokalisierte Audio-Geschichten, die die Vergangenheit der durchquerten Orte erzählen.', club_title: 'Entdecker-Club', club_desc: 'Sammeln Sie Punkte, Ranglisten und Abzeichen, indem Sie neue Orte entdecken.' },
+        comparison: { title: 'Warum "Der Abstecher lohnt sich" wählen?', function: 'Funktionalität', us: 'Wir', others: 'Klassisches GPS', a_to_b: 'A → B Route', along_route: 'Entdeckung entlang der Route (Korridor)', radius: 'Einstellbarer Abstecher-Radius', categories: 'Touristenkategorien' },
+        roadmap: { tag: 'Roadmap', title: 'Die Zukunft des Abenteuers', subtitle: 'Wir bauen nicht nur eine karte, sondern einen intelligenten Reisebegleiter. Hier sind die exklusiven Modi, die sich derzeit für unsere ersten Benutzer in Entwicklung befinden.', compass_title: 'Kompass-Modus', compass_desc: 'Ein einfacher Pfeil für echte Abenteurer. Folgen Sie dem Kurs, finden Sie Ihren eigenen Weg.', grain_title: 'Körnung der Straße', grain_desc: 'Wählen Sie die Textur Ihrer Reise: Panoramastraßen oder Querstraßen.', chineur_title: 'Chineur-Modus', chineur_desc: 'Echtzeit-Warnungen für Flohmärkte und Garagenverkäufe auf Ihrer Route.', coffre_title: 'Leerer Kofferraum', coffre_desc: 'Füllen Sie Ihren Kofferraum mit lokalen Produkten: direkt von Bauern und Handwerkern.', escale_title: 'Der perfekte Zwischenstopp', escale_desc: 'Stopps synchronisiert mit Ihrer Müdigkeit und den schönsten Panoramen.', mystery_title: 'Geheimnisvoller Punkt', mystery_desc: 'Lassen Sie sich blind zu einem Überraschungsziel führen.', retro_title: 'Zeit-Rückspiegel', retro_desc: 'Geolokalisierte Audio-Geschichten, die die Vergangenheit der durchquerten Orte erzählen.', club_title: 'Entdecker-Club', club_desc: 'Sammeln Sie Punkte, Ranglisten und Abzeichen, indem Sie neue Orte entdecken.' },
         footer: { cta_title: 'Bereit für einen Routenwechsel?', cta_subtitle: 'Tragen Sie sich in die Warteliste ein, um zu den ersten Entdeckern zu gehören, die die App auf iPhone und Android testen.', copyright: 'Der Abstecher lohnt sich. Mit Leidenschaft für Reisende gemacht.', privacy: 'Datenschutz', contact: 'Kontakt' },
         status: { success: 'Angemeldet!', success_msg: 'Vielen Dank! Wir halten Sie auf dem Laufenden.' },
     },
@@ -140,7 +141,7 @@ const STRINGS = {
         phone: { interests: 'Uw interesses', route: 'De Route' },
         features: { main_title: 'Een unieke ervaring', main_subtitle: 'U kiest de koers, u beslist hoe ver u wilt afdwalen. Wij zorgen voor de verwondering.', couloir_title: 'De Corridor', couloir_desc: 'Definieer uw bestemming en een afwijkingsradius (bijv. 5 km). We vinden alles wat binnen deze corridor een stop waard is.', univers_title: '4 Universa', univers_desc: 'Boerderijen & wijngaarden, Geschiedenis & kastelen, lokale curiosa, Natuur. Filter op basis van uw stemming.', chemin_title: 'Onderweg', chemin_desc: 'Voeg tussenstops toe aan uw route of laat de app spontane stopplaatsen voorstellen tijdens het rijden.', community_title: 'Gemeenschap', community_desc: 'Elke plaats heeft zijn gedetailleerde fiche. Een parel gevonden? Voeg uw eigen ontdekking toe voor anderen.' },
         comparison: { title: 'Waarom kiezen voor "De omweg is de moeite waard"?', function: 'Functionaliteit', us: 'Wij', others: 'Klassieke GPS', a_to_b: 'A → B Route', along_route: 'Ontdekking langs de route (Corridor)', radius: 'Instelbare omwegradius', categories: 'Toeristische categorieën' },
-        roadmap: { tag: 'Roadmap', title: 'De Toekomst van Avontuur', subtitle: 'We bouwen niet alleen een kaart, maar een intelligente reisgenoot. Hier zijn de exclusieve modi die momenteel in ontwikkeling zijn voor onze eerste gebruikers.', compass_title: 'Kompas Modus', compass_desc: 'Een eenvoudige pijl voor echte avonturiers. Volg de koers, vind uw eigen weg.', grain_title: 'Korrel van de Route', grain_desc: 'Kies de textuur van uw reis: schilderachtige routes of binnenwegen.', chineur_title: 'Chineur Modus', chineur_desc: 'Realtime meldingen voor rommelmarkten en garageverkopen op uw route.', coffre_title: 'Lege Kofferbak', coffre_desc: 'Vul uw kofferbak met lokale producten: direct van boeren en ambachtslieden.', escale_title: 'De Perfecte Tussenstop', escale_desc: 'Stops gesynchroniseerd met uw vermoeidheid en de mooiste panorama\'s.', mystery_title: 'Mysterie Punt', mystery_desc: 'Laat u blindelings naar een verrassingsbestemming leiden.', retro_title: 'Tijdspiegel', retro_desc: 'Geolocatie audioverhalen die het verleden van de doorkruiste plaatsen vertellen.', club_title: 'Explorers Club', club_desc: 'Verdien punten, ranglijsten en badges door nieuwe plaatsen te ontdekken.' },
+        roadmap: { tag: 'Roadmap', title: 'De Toekomst van Avontuur', subtitle: 'We bouwen niet alleen een kaart, maar een intelligente reisgenoot. Hier zijn de exclusieve modi die momenteel in ontwikkeling zijn voor onze eerste gebruikers.', compass_title: 'Kompas Modus', compass_desc: 'Een eenvoudige pijl voor echte avonturiers. Volg de koers, vind uw eigen weg.', grain_title: 'Korrel van de Route', grain_desc: 'Kies de textuur van uw reis: schilderachtige routes of binnenwegen.', chineur_title: 'Chineur Modus', chineur_desc: 'Realtime meldingen voor rommelmarkten en garageverkopen op uw route.', coffre_title: 'Lege Kofferbak', coffre_desc: 'Vul uw kofferbak met lokale producten: rechtstreeks van boeren en ambachtslieden.', escale_title: 'De Perfecte Tussenstop', escale_desc: 'Stops gesynchroniseerd met uw vermoeidheid en de mooiste panorama\'s.', mystery_title: 'Mysterie Punt', mystery_desc: 'Laat u blindelings naar een verrassingsbestemming leiden.', retro_title: 'Tijdspiegel', retro_desc: 'Geolocatie audioverhalen die het verleden van de doorkruiste plaatsen vertellen.', club_title: 'Explorers Club', club_desc: 'Verdien punten, ranglijsten en badges door nieuwe plaatsen te ontdekken.' },
         footer: { cta_title: 'Klaar om van route te veranderen?', cta_subtitle: 'Word lid van de wachtlijst om bij de eerste ontdekkingsreizigers te zijn die de app testen op iPhone en Android.', copyright: 'De omweg is de moeite waard. Met passie gemaakt voor reizigers.', privacy: 'Privacy', contact: 'Contact' },
         status: { success: 'Aangemeld!', success_msg: 'Bedankt! We houden u op de hoogte.' },
     },
@@ -178,14 +179,17 @@ const useLanguage = () => {
     // 1. Попытка определить язык браузера (только при первом запуске)
     const getInitialLang = () => {
         const storedLang = localStorage.getItem('lang');
+        // Если язык был сохранен, используем его (ПРИОРИТЕТ РУЧНОГО ВЫБОРА)
         if (storedLang && STRINGS[storedLang]) {
             return storedLang;
         }
 
+        // Если языка нет в localStorage, пробуем определить по браузеру
         const browserLangCode = navigator.language.split('-')[0];
         const defaultLangMap = {
             'fr': 'fr', 'en': 'en', 'de': 'de', 'nl': 'nl', 'ru': 'ru'
         };
+        // Устанавливаем язык браузера, или FR по умолчанию
         return defaultLangMap[browserLangCode] || 'fr';
     };
 
@@ -209,12 +213,13 @@ const useLanguage = () => {
 // --- COMPONENTS ---
 
 const Logo = () => {
-    // Используем логотип из IMAGES.logo, который теперь ссылается на IMG_0289.jpeg
+    // Внимание: Логотип загружается как статический ресурс с абсолютным путем
     return (
         <div className="flex items-center justify-start py-2">
             <img 
               src={IMAGES.logo} 
               alt="Guide du Détour" 
+              // Увеличенный размер 
               className="h-16 md:h-24 w-auto object-contain transition-transform duration-500 hover:scale-105" 
             />
         </div>
@@ -290,9 +295,11 @@ const AiLab = () => {
     }, [activeTab]);
 
     const getSystemPrompt = (tab, input) => {
-        // 1. Проверка на стоп-слова
+        const inputLower = input.toLowerCase();
+        
+        // 1. Проверка на стоп-слова (хотя Gemini должен сам фильтровать по промпту)
         const nonGeoKeywords = ['президент', 'president', 'bundeskanzler', 'koning', 'политика', 'politics', 'geschichte', 'history', 'recette', 'recipe'];
-        if (nonGeoKeywords.some(keyword => input.toLowerCase().includes(keyword))) {
+        if (nonGeoKeywords.some(keyword => inputLower.includes(keyword))) {
             return strings.ai_prompt_limit;
         }
 
@@ -309,10 +316,13 @@ const AiLab = () => {
         }
     };
     
-    // Эвристическая проверка на стороне клиента
+    // Функция проверки для фронтенда
     const isFrenchLocation = (text) => {
+        // Простая эвристика: ищем слова, связанные с Францией, или просто разрешаем, 
+        // надеясь, что основной промпт в Gemini сделает фильтрацию.
+        const frenchKeywords = ['france', 'paris', 'lyon', 'bordeaux', 'provence', 'normandie', 'bretagne', 'marseille'];
         const textLower = text.toLowerCase();
-        return textLower.trim().length > 3; 
+        return textLower.length > 3; // Пропускаем, если строка достаточно длинная
     }
 
 
@@ -339,42 +349,28 @@ const AiLab = () => {
              return;
         }
 
-        // ВНИМАНИЕ: Если apiKey пуст, запрос упадет
-        if (!apiKey) {
-             setError("Ошибка: Ключ Gemini API не установлен (VITE_GEMINI_API_KEY).");
-             setLoading(false);
-             return;
-        }
-
 
         try {
             const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    // Исправленная структура запроса для systemInstruction
-                    contents: [{ 
-                        role: "user",
-                        parts: [{ text: `Location: ${input}` }] 
-                    }],
-                    config: { 
-                        systemInstruction: systemPrompt 
-                    }
+                    contents: [{ parts: [{ text: `Location: ${input}` }] }],
+                    systemInstruction: { parts: [{ text: systemPrompt }] }
                 })
             });
 
             if (!response.ok) {
+                // Если API вернул ошибку 400/500, чаще всего это перегрузка
                 setError(strings.ai_error);
-                throw new Error(`AI busy/limit reached: ${response.statusText}`);
+                throw new Error('AI busy/limit reached');
             }
             
             const data = await response.json();
             const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
-            
             if (text) {
-                 // Дополнительная проверка на нарушение правил
-                 const textLower = text.toLowerCase();
-                 if (textLower.includes("sorry") || textLower.includes("pardon") || textLower.includes("entschuldigung") || textLower.includes("извините") || textLower.includes("france only") ) {
+                 // Убеждаемся, что Gemini не нарушил правило (на всякий случай)
+                 if (text.includes("Sorry") || text.includes("Pardon") || text.includes("Entschuldigung") || text.includes("Извините") ) {
                     setError(strings.ai_prompt_limit);
                  } else {
                     setResult(text);
@@ -384,11 +380,7 @@ const AiLab = () => {
             }
         } catch (err) {
             console.error(err);
-            if (err.message.includes('Failed to fetch')) {
-                 setError("Ошибка сети. Проверьте ваш API ключ или настройки CORS.");
-            } else {
-                setError(strings.ai_error);
-            }
+            setError(strings.ai_error);
         } finally {
             setLoading(false);
         }
@@ -427,7 +419,7 @@ const AiLab = () => {
                     </p>
                     <form onSubmit={handleAction} className="flex flex-col md:flex-row gap-3 max-w-md mx-auto w-full mb-8 relative z-10">
                         <input type="text" value={input} onChange={(e) => setInput(e.target.value)} placeholder={strings.ai_placeholder} className="flex-1 bg-slate-800/50 border border-slate-700 text-white rounded-lg px-4 py-3 focus:outline-none focus:border-slate-500 transition placeholder-slate-600" />
-                        <button type="submit" disabled={loading || !input} className={`text-white px-6 py-3 rounded-lg font-medium transition flex items-center justify-center gap-2 whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed shadow-lg ${activeTab === 'scout' ? 'bg-emerald-600 hover:bg-emerald-500 shadow-emerald-900/20' : ''} ${activeTab === 'history' ? 'bg-amber-600 hover:bg-amber-500 shadow-amber-900/20' : ''} ${activeTab === 'food' ? 'bg-purple-600 hover:bg-purple-500 shadow-purple-900/20' : ''}`}>
+                        <button type="submit" disabled={loading || !input} className={`text-white px-6 py-3 rounded-lg font-medium transition flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg ${activeTab === 'scout' ? 'bg-emerald-600 hover:bg-emerald-500 shadow-emerald-900/20' : ''} ${activeTab === 'history' ? 'bg-amber-600 hover:bg-amber-500 shadow-amber-900/20' : ''} ${activeTab === 'food' ? 'bg-purple-600 hover:bg-purple-500 shadow-purple-900/20' : ''}`}>
                             {loading ? <Loader className="animate-spin" size={20} /> : <Search size={20} />}
                         </button>
                     </form>
@@ -581,7 +573,7 @@ const App = () => {
                 <div className="relative flex shadow-2xl">
                   <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder={strings.email_placeholder} className="w-full bg-[#0b1021] text-white placeholder-slate-500 px-6 py-4 rounded-l-lg border border-r-0 border-slate-700 focus:outline-none focus:border-emerald-500/50 transition-all text-center md:text-left" required />
                   <button type="submit" disabled={status === 'loading' || status === 'success'} className="bg-emerald-600 hover:bg-emerald-500 text-white font-semibold px-6 py-4 rounded-r-lg transition-all flex items-center gap-2 whitespace-nowrap disabled:opacity-70">
-                    {status === 'loading' ? '...' : status === 'success' ? strings.status.success : strings.join_btn}
+                    {status === 'loading' ? '...' : strings.status.success ? strings.status.success : strings.join_btn}
                     {status === 'idle' && <ChevronRight size={18} />}
                   </button>
                 </div>
@@ -656,7 +648,7 @@ const App = () => {
              <form onSubmit={handleSubmit} className="w-full max-w-md flex flex-col md:flex-row gap-4">
                 <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder={strings.email_placeholder} className="flex-1 bg-slate-800 text-white placeholder-slate-500 px-6 py-4 rounded-l-lg border border-r-0 border-slate-700 focus:outline-none focus:border-emerald-500/50 transition-all text-center md:text-left" required />
                 <button type="submit" disabled={status === 'loading' || status === 'success'} className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-8 py-4 rounded-lg transition-all shadow-lg shadow-emerald-900/20 whitespace-nowrap">
-                  {status === 'loading' ? '...' : status === 'success' ? strings.status.success : strings.join_btn}
+                  {status === 'loading' ? '...' : strings.status.success ? strings.status.success : strings.join_btn}
                 </button>
              </form>
            </div>
