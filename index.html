@@ -1,339 +1,1600 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guide du Détour : Le GPS qui enrichit vos voyages en France</title>
-    <meta name="description" content="Téléchargez l'application Guide du Détour pour découvrir les trésors cachés de France. Trouvez des producteurs locaux, brocantes et lieux mystères. Accès Beta.">
-    <style>
-        :root {
-            --color-primary: #007bff; /* Синий */
-            --color-secondary: #28a745; /* Зеленый */
-            --color-accent: #ffc107; /* Желтый */
-            --color-text: #333;
-            --color-bg: #f8f9fa;
-            --font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-        }
-        body {
-            font-family: var(--font-family);
-            margin: 0;
-            padding: 0;
-            background-color: var(--color-bg);
-            color: var(--color-text);
-            line-height: 1.6;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        /* Стили для Hero Section */
-        .hero {
-            background: url('https://images.unsplash.com/photo-1542861623-1d02c77609a0?q=80&w=1600&auto=format&fit=crop') no-repeat center center/cover;
-            color: white;
-            padding: 100px 20px;
-            text-align: center;
-            position: relative;
-        }
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.4);
-        }
-        .hero-content {
-            position: relative;
-            z-index: 10;
-        }
-        .hero h1 {
-            font-size: 3.5em;
-            margin-bottom: 10px;
-        }
-        .hero h2 {
-            font-size: 1.8em;
-            font-weight: 300;
-            margin-bottom: 40px;
-        }
-        /* Форма */
-        .form-cta input[type="email"] {
-            padding: 15px 20px;
-            border: none;
-            border-radius: 8px 0 0 8px;
-            font-size: 1em;
-            width: 300px;
-            max-width: 70%;
-        }
-        .form-cta button {
-            background-color: var(--color-secondary);
-            color: white;
-            padding: 15px 30px;
-            border: none;
-            border-radius: 0 8px 8px 0;
-            font-size: 1em;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        .form-cta button:hover {
-            background-color: #1e7e34;
-        }
-        /* Стили для Блоков */
-        section {
-            padding: 60px 20px;
-            text-align: center;
-        }
-        section h3 {
-            font-size: 2em;
-            color: var(--color-primary);
-            margin-bottom: 40px;
-        }
-        .features-grid {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            gap: 30px;
-            margin-top: 40px;
-        }
-        .feature-item {
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-            max-width: 300px;
-            text-align: left;
-        }
-        .feature-item h4 {
-            font-size: 1.4em;
-            color: var(--color-primary);
-            margin-top: 15px;
-        }
-        .feature-item .icon {
-            font-size: 2em;
-            color: var(--color-accent);
-        }
-        /* Переключатель языков */
-        .lang-switcher {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            z-index: 20;
-        }
-        .lang-switcher button {
-            background: rgba(255, 255, 255, 0.2);
-            border: 1px solid white;
-            color: white;
-            padding: 5px 10px;
-            cursor: pointer;
-            margin-left: 5px;
-            border-radius: 4px;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <title>Guide du Détour – Explore off the main road</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta
+    name="description"
+    content="Guide du Détour – навигатор, который поощряет сворачивать с дороги и открывать аутентичные места вдоль маршрута."
+  />
+  <style>
+    :root {
+      --bg-dark: #050910;
+      --bg-section: #0d111a;
+      --accent: #4ade80;
+      --accent-soft: rgba(74, 222, 128, 0.2);
+      --text-main: #f9fafb;
+      --text-muted: #9ca3af;
+      --border-soft: #1f2933;
+      --max-width: 1100px;
+      --radius-lg: 18px;
+      --shadow-soft: 0 24px 60px rgba(0, 0, 0, 0.5);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #111827 0, #020617 60%);
+      color: var(--text-main);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .container {
+      width: 100%;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+
+    /* HEADER */
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(18px);
+      background: linear-gradient(
+        to bottom,
+        rgba(3, 7, 18, 0.92),
+        rgba(3, 7, 18, 0.7),
+        transparent
+      );
+      border-bottom: 1px solid rgba(31, 41, 55, 0.6);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 0;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      font-size: 13px;
+    }
+
+    .logo-mark {
+      width: 30px;
+      height: 30px;
+      border-radius: 999px;
+      background: conic-gradient(from 210deg, #22c55e, #16a34a, #0f172a);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ecfdf5;
+      font-size: 18px;
+      box-shadow: 0 12px 30px rgba(34, 197, 94, 0.55);
+    }
+
+    .logo-sub {
+      font-size: 11px;
+      text-transform: none;
+      color: var(--text-muted);
+    }
+
+    .lang-switch {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+      border-radius: 999px;
+      padding: 4px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(31, 41, 55, 0.9);
+    }
+
+    .lang-btn {
+      border: none;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      background: transparent;
+      color: var(--text-muted);
+      transition: all 0.16s ease-out;
+    }
+
+    .lang-btn.active {
+      background: var(--accent-soft);
+      color: #bbf7d0;
+    }
+
+    .lang-btn:hover {
+      color: #e5e7eb;
+    }
+
+    /* HERO */
+
+    .hero {
+      padding: 40px 0 48px;
+    }
+
+    .hero-inner {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+      gap: 32px;
+      align-items: center;
+    }
+
+    @media (max-width: 900px) {
+      .hero-inner {
+        grid-template-columns: minmax(0, 1fr);
+        padding-top: 10px;
+      }
+    }
+
+    .hero-kicker {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+
+    .hero-title {
+      font-size: clamp(32px, 4vw, 44px);
+      line-height: 1.1;
+      font-weight: 650;
+      margin-bottom: 14px;
+    }
+
+    .hero-subtitle {
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--text-muted);
+      max-width: 480px;
+      margin-bottom: 22px;
+    }
+
+    .hero-form-card {
+      background: radial-gradient(circle at top left, #0f172a, #020617);
+      border-radius: var(--radius-lg);
+      padding: 16px 18px;
+      border: 1px solid rgba(55, 65, 81, 0.8);
+      box-shadow: var(--shadow-soft);
+      max-width: 420px;
+    }
+
+    .hero-form-title {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .form-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .form-input {
+      flex: 1;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(75, 85, 99, 0.9);
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--text-main);
+      font-size: 13px;
+      outline: none;
+    }
+
+    .form-input::placeholder {
+      color: #6b7280;
+    }
+
+    .btn-primary {
+      border: none;
+      border-radius: 999px;
+      padding: 10px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      background: linear-gradient(135deg, #22c55e, #16a34a);
+      color: #022c22;
+      white-space: nowrap;
+      box-shadow: 0 12px 30px rgba(22, 163, 74, 0.6);
+      transition: transform 0.12s ease-out, box-shadow 0.12s ease-out,
+        filter 0.12s ease-out;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.03);
+      box-shadow: 0 18px 40px rgba(21, 128, 61, 0.7);
+    }
+
+    .hero-form-note {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 16px;
+    }
+
+    .hero-tag {
+      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      color: #9ca3af;
+    }
+
+    .hero-right {
+      position: relative;
+    }
+
+    .hero-card {
+      position: relative;
+      border-radius: 22px;
+      padding: 16px;
+      background: radial-gradient(circle at top, #111827, #020617);
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+    }
+
+    .hero-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .pill {
+      border-radius: 999px;
+      padding: 3px 8px;
+      border: 1px solid rgba(75, 85, 99, 0.9);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+    }
+
+    .hero-map {
+      position: relative;
+      border-radius: 18px;
+      overflow: hidden;
+      background: radial-gradient(circle at center, #1f2937, #020617);
+      height: 230px;
+      margin-bottom: 14px;
+    }
+
+    .hero-map::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background-image: radial-gradient(
+        circle at 50% 20%,
+        rgba(34, 197, 94, 0.36),
+        transparent 60%
+      );
+      opacity: 0.7;
+    }
+
+    .hero-road {
+      position: absolute;
+      inset: 10% 22%;
+      border-radius: 999px;
+      border: 2px solid rgba(15, 23, 42, 0.9);
+      background:
+        radial-gradient(circle at 20% 0, rgba(15, 23, 42, 0.7), transparent),
+        linear-gradient(145deg, #020617, #0f172a);
+      box-shadow: 0 24px 40px rgba(0, 0, 0, 0.7);
+    }
+
+    .hero-road-line {
+      position: absolute;
+      inset: 8px 36%;
+      border-radius: 999px;
+      border: 1px dashed rgba(148, 163, 184, 0.7);
+    }
+
+    .hero-pin {
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 24px rgba(34, 197, 94, 0.9);
+    }
+
+    .hero-pin.pin-1 {
+      top: 16%;
+      left: 14%;
+    }
+
+    .hero-pin.pin-2 {
+      top: 52%;
+      right: 18%;
+    }
+
+    .hero-pin-inner {
+      position: absolute;
+      inset: 4px;
+      border-radius: 999px;
+      background: #052e16;
+    }
+
+    .hero-slider-card {
+      background: rgba(15, 23, 42, 0.96);
+      border-radius: 12px;
+      padding: 10px 12px;
+      border: 1px solid rgba(55, 65, 81, 0.95);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: 11px;
+    }
+
+    .slider-label-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .slider-bar {
+      position: relative;
+      height: 5px;
+      border-radius: 999px;
+      background: rgba(31, 41, 55, 0.95);
+      overflow: hidden;
+      margin-top: 4px;
+    }
+
+    .slider-track {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, #22c55e, #4ade80);
+      width: 60%;
+    }
+
+    .slider-knob {
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      border-radius: 999px;
+      border: 2px solid #bbf7d0;
+      background: #022c22;
+      top: 50%;
+      transform: translateY(-50%);
+      left: calc(60% - 7px);
+      box-shadow: 0 0 16px rgba(34, 197, 94, 0.9);
+    }
+
+    .pill-small {
+      border-radius: 999px;
+      padding: 2px 6px;
+      font-size: 10px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(55, 65, 81, 0.9);
+    }
+
+    .hero-floater {
+      position: absolute;
+      right: -14px;
+      bottom: 16px;
+      background: rgba(15, 23, 42, 0.96);
+      border-radius: 14px;
+      padding: 8px 11px;
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      font-size: 11px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.8);
+    }
+
+    .hero-floater-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 20px rgba(34, 197, 94, 0.9);
+    }
+
+    @media (max-width: 900px) {
+      .hero-card {
+        margin-top: 8px;
+      }
+    }
+
+    /* SECTIONS */
+
+    section {
+      padding: 32px 0;
+    }
+
+    .section-card {
+      background: var(--bg-section);
+      border-radius: var(--radius-lg);
+      padding: 22px 20px;
+      border: 1px solid var(--border-soft);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: baseline;
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .section-subtitle {
+      font-size: 13px;
+      color: var(--text-muted);
+      max-width: 380px;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .chip {
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(55, 65, 81, 0.9);
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      font-size: 13px;
+    }
+
+    @media (max-width: 900px) {
+      .features-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .features-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .feature-card {
+      border-radius: 14px;
+      padding: 12px;
+      background: rgba(15, 23, 42, 0.96);
+      border: 1px solid rgba(31, 41, 55, 0.96);
+    }
+
+    .feature-title {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .feature-text {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .badge {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--accent);
+      margin-bottom: 4px;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+      gap: 18px;
+      align-items: center;
+    }
+
+    @media (max-width: 900px) {
+      .two-col {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .image-placeholder {
+      border-radius: 18px;
+      border: 1px dashed rgba(75, 85, 99, 0.8);
+      padding: 16px;
+      font-size: 12px;
+      color: var(--text-muted);
+      text-align: center;
+      background: radial-gradient(circle at top, #020617, #020617);
+    }
+
+    .image-placeholder strong {
+      display: block;
+      margin-bottom: 4px;
+      color: #e5e7eb;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      font-size: 13px;
+    }
+
+    @media (max-width: 900px) {
+      .steps {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .step-card {
+      border-radius: 14px;
+      padding: 12px;
+      border: 1px solid rgba(31, 41, 55, 0.96);
+      background: rgba(15, 23, 42, 0.96);
+    }
+
+    .step-num {
+      font-size: 11px;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      margin-bottom: 3px;
+    }
+
+    .step-title {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 3px;
+    }
+
+    .step-text {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .audience-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      font-size: 12px;
+    }
+
+    @media (max-width: 900px) {
+      .audience-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .audience-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .aud-card {
+      border-radius: 14px;
+      padding: 12px;
+      background: rgba(15, 23, 42, 0.96);
+      border: 1px solid rgba(31, 41, 55, 0.96);
+    }
+
+    .aud-title {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .aud-text {
+      color: var(--text-muted);
+    }
+
+    .example-route {
+      font-size: 13px;
+      line-height: 1.7;
+      color: var(--text-muted);
+    }
+
+    .example-highlight {
+      color: var(--accent);
+    }
+
+    .final-cta-card {
+      background: radial-gradient(circle at top, #0f172a, #020617);
+      border-radius: 22px;
+      padding: 20px 18px;
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      box-shadow: var(--shadow-soft);
+      text-align: center;
+    }
+
+    .final-cta-title {
+      font-size: 19px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .final-cta-text {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+    }
+
+    .final-cta-row {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+
+    .footer {
+      padding: 16px 0 24px;
+      font-size: 11px;
+      color: var(--text-muted);
+      text-align: center;
+    }
+
+    .footer a {
+      color: #9ca3af;
+      text-decoration: underline;
+      text-decoration-style: dotted;
+    }
+
+    .success-msg {
+      display: none;
+      margin-top: 6px;
+      font-size: 11px;
+      color: #bbf7d0;
+    }
+  </style>
 </head>
 <body>
-    
-    <div class="lang-switcher">
-        <button onclick="setLang('fr')">FR</button>
-        <button onclick="setLang('en')">EN</button>
-        <button onclick="setLang('de')">DE</button>
-        <button onclick="setLang('ru')">RU</button>
-    </div>
-
-    <header class="hero">
-        <div class="hero-content">
-            <h1 data-key="hero_h1">«Ça vaut le détour !»</h1>
-            <h2 data-key="hero_h2">Guide du Détour: Le guide qui enrichit vos voyages. Arrêtez d'optimiser le temps. Commencez à optimiser les expériences.</h2>
-            
-            <form class="form-cta" onsubmit="alert('Thank you for subscribing!'); return false;">
-                <input type="email" placeholder="Votre Email" required>
-                <button type="submit" data-key="cta_button">Devenir Éclaireur ! Accès anticipé.</button>
-            </form>
+  <div class="page">
+    <header>
+      <div class="container header-inner">
+        <div class="logo">
+          <div class="logo-mark">G</div>
+          <div>
+            <div>Guide du Détour</div>
+            <div class="logo-sub" data-i18n="logoSub">
+              Slow travel navigation
+            </div>
+          </div>
         </div>
+        <div class="lang-switch">
+          <button class="lang-btn active" data-lang="fr">FR</button>
+          <button class="lang-btn" data-lang="en">EN</button>
+          <button class="lang-btn" data-lang="ru">RU</button>
+          <button class="lang-btn" data-lang="de">DE</button>
+        </div>
+      </div>
     </header>
 
-    <section id="probleme">
-        <div class="container">
-            <h3 data-key="prob_h3">Votre GPS a-t-il tué l'esprit d'aventure ?</h3>
-            <p data-key="prob_p">Les navigateurs modernes se concentrent uniquement sur la vitesse, ignorant les vues magnifiques et les villages authentiques. Les POI sont génériques (grandes chaînes), faisant de votre détour une perte de temps, et non une découverte.</p>
-        </div>
-    </section>
-
-    <section id="solution" style="background-color: white;">
-        <div class="container">
-            <h3 data-key="sol_h3">Détour Voyage: Le navigateur qui aime les détours.</h3>
-            <p data-key="sol_p">Nous gardons le sérieux d'un GPS moderne, mais ajoutons la couche de découverte qui enrichit vos voyages. Vous entrez votre point A, B et votre « Rayon de Liberté » (5-20 km), et l'application trace un itinéraire axé sur le plaisir et la curiosité.</p>
-            <p data-key="sol_p_audience" style="color: var(--color-primary); font-weight: bold;">Conçu pour ceux qui aiment la route: motards, familles en vacances et touristes cherchant la « Vraie France ».</p>
-        </div>
-    </section>
-
-    <section id="features">
-        <div class="container">
-            <h3 data-key="feat_h3">Trois raisons, pour faire un détour</h3>
-            <div class="features-grid">
-                
-                <div class="feature-item">
-                    <span class="icon">🧀</span>
-                    <h4 data-key="feat1_title">Le Coffre Vide (L'Assistant Panier)</h4>
-                    <p data-key="feat1_desc">Navigation directe vers les producteurs locaux (Vin, fromage, miel). Évitez les pièges à touristes et soutenez l'économie locale.</p>
-                </div>
-
-                <div class="feature-item">
-                    <span class="icon">🏰</span>
-                    <h4 data-key="feat2_title">Le Point Mystère</h4>
-                    <p data-key="feat2_desc">Un point d'interrogation apparaît sur la carte. Pas de photo, pas de spoiler. Découvrez la magie du secret à l'arrivée !</p>
-                </div>
-
-                <div class="feature-item">
-                    <span class="icon">🏺</span>
-                    <h4 data-key="feat3_title">Le Mode Chineur</h4>
-                    <p data-key="feat3_desc">Scannez en temps réel les événements locaux : Brocantes ou Vide-greniers dans un rayon de 5 km. Trouvez des trésors uniques.</p>
-                </div>
-
+    <main>
+      <!-- HERO -->
+      <section class="hero">
+        <div class="container hero-inner">
+          <div>
+            <div class="hero-kicker" data-i18n="heroKicker">
+              Version beta – accès anticipé
             </div>
-        </div>
-    </section>
+            <h1 class="hero-title" data-i18n="heroTitle">
+              Le navigateur qui encourage à sortir de la route.
+            </h1>
+            <p class="hero-subtitle" data-i18n="heroSubtitle">
+              Trouvez des lieux authentiques le long de votre trajet — selon le
+              rayon d’exploration que vous choisissez.
+            </p>
 
-    <section id="final-cta" style="background-color: var(--color-primary); color: white;">
+            <div class="hero-form-card">
+              <div class="hero-form-title" data-i18n="heroFormTitle">
+                Rejoignez le cercle des premiers utilisateurs.
+              </div>
+              <form id="top-form">
+                <div class="form-row">
+                  <input
+                    type="email"
+                    name="email"
+                    required
+                    class="form-input"
+                    data-i18n-placeholder="emailPlaceholder"
+                    placeholder="Votre email"
+                  />
+                  <button
+                    type="submit"
+                    class="btn-primary"
+                    data-i18n="heroBtn"
+                  >
+                    Recevoir l’accès
+                  </button>
+                </div>
+              </form>
+              <div class="hero-form-note" data-i18n="heroFormNote">
+                Pas de spam, seulement un lien lorsque la version beta sera
+                prête.
+              </div>
+              <div class="success-msg" id="top-success"></div>
+            </div>
+
+            <div class="hero-tags">
+              <span class="hero-tag" data-i18n="tagSlowTravel">
+                Slow travel
+              </span>
+              <span class="hero-tag" data-i18n="tagLocal">
+                Lieux locaux
+              </span>
+              <span class="hero-tag" data-i18n="tagRadius">
+                Rayon d’exploration personnalisable
+              </span>
+            </div>
+          </div>
+
+          <div class="hero-right">
+            <div class="hero-card">
+              <div class="hero-card-header">
+                <span data-i18n="mockHeader">
+                  Exemple d’itinéraire – Paris → Reims
+                </span>
+                <span class="pill" data-i18n="mockPill">
+                  Détours sélectionnés
+                </span>
+              </div>
+              <div class="hero-map">
+                <!-- Это абстрактная карта/дорога.
+                     Реальные скриншоты можно вставить вместо этого блока. -->
+                <div class="hero-road">
+                  <div class="hero-road-line"></div>
+                  <div class="hero-pin pin-1">
+                    <div class="hero-pin-inner"></div>
+                  </div>
+                  <div class="hero-pin pin-2">
+                    <div class="hero-pin-inner"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="hero-slider-card">
+                <div class="slider-label-row">
+                  <span data-i18n="sliderLabel">
+                    Largeur du couloir
+                  </span>
+                  <span class="pill-small" data-i18n="sliderValue">
+                    9 km
+                  </span>
+                </div>
+                <div class="slider-bar">
+                  <div class="slider-track"></div>
+                  <div class="slider-knob"></div>
+                </div>
+                <div
+                  style="margin-top: 6px; font-size: 11px; color: var(--text-muted);"
+                  data-i18n="sliderCaption"
+                >
+                  Ajustez le rayon pour décider jusqu’où vous êtes prêt(e) à
+                  vous éloigner de la route principale.
+                </div>
+              </div>
+
+              <div class="hero-floater">
+                <div class="hero-floater-dot"></div>
+                <div data-i18n="heroFloater">
+                  +6 km de détour<br />
+                  3 arrêts recommandés
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION: WHAT IT DOES -->
+      <section>
         <div class="container">
-            <h3 data-key="final_h3" style="color: white;">Devenez membre du « Club des Éclaireurs » !</h3>
-            <p data-key="final_p">Abonnez-vous pour être le premier à obtenir l'accès à la version Beta et à commencer à gagner des « Points Détour » pour valider les lieux cachés. **Entrez dans le club qui sait : "Ça vaut le détour!"**</p>
-            
-            <form class="form-cta" onsubmit="alert('Thank you for subscribing!'); return false;" style="margin-top: 30px;">
-                <input type="email" placeholder="Votre Email" required>
-                <button type="submit" data-key="cta_button_final" style="border-radius: 0 8px 8px 0;">J'suis prêt(e) à explorer ! Accès anticipé.</button>
-            </form>
+          <div class="section-card">
+            <div class="section-header">
+              <div>
+                <div class="badge" data-i18n="sec1Badge">
+                  Ce que fait Guide du Détour
+                </div>
+                <div class="section-title" data-i18n="sec1Title">
+                  Révèle ce que les autres navigateurs ignorent.
+                </div>
+              </div>
+              <div class="section-subtitle" data-i18n="sec1Subtitle">
+                Vues secrètes, fermes locales, patrimoine discret, nature —
+                soigneusement sélectionnés autour de votre itinéraire.
+              </div>
+            </div>
 
-            <p data-key="footer_note" style="margin-top: 15px; font-size: 0.9em; opacity: 0.8;">Vos données ne seront pas transmises. Nous vous informerons simplement dès que Guide du Détour sera disponible sur iOS et Android.</p>
+            <div class="two-col">
+              <div class="features-grid">
+                <div class="feature-card">
+                  <div class="feature-title" data-i18n="sec1Feat1Title">
+                    Lieux authentiques, pas seulement «points d’intérêt»
+                  </div>
+                  <div class="feature-text" data-i18n="sec1Feat1Text">
+                    Le guide met en avant ce qui a une âme: petites routes,
+                    villages, producteurs, vues inattendues.
+                  </div>
+                </div>
+                <div class="feature-card">
+                  <div class="feature-title" data-i18n="sec1Feat2Title">
+                    Intégré à votre trajet
+                  </div>
+                  <div class="feature-text" data-i18n="sec1Feat2Text">
+                    Guide du Détour travaille à partir de votre itinéraire
+                    existant — vous n’avez pas besoin de tout reconstruire.
+                  </div>
+                </div>
+                <div class="feature-card">
+                  <div class="feature-title" data-i18n="sec1Feat3Title">
+                    Curaté, pas surchargé
+                  </div>
+                  <div class="feature-text" data-i18n="sec1Feat3Text">
+                    Les suggestions sont limitées et sélectionnées, pour éviter
+                    l’effet «carte remplie de points».
+                  </div>
+                </div>
+              </div>
+
+              <div class="image-placeholder">
+                <strong data-i18n="sec1ImgTitle">
+                  ЗДЕСЬ КАРТА С ТОЧКАМИ
+                </strong>
+                <span data-i18n="sec1ImgText">
+                  Замените этот блок скриншотом карты Guide du Détour с
+                  несколькими выделенными точками: ферма, точка обзора,
+                  памятник.
+                </span>
+              </div>
+            </div>
+          </div>
         </div>
-    </section>
+      </section>
 
-    <script>
-        const translations = {
-            'fr': {
-                'hero_h1': '«Ça vaut le détour !»',
-                'hero_h2': 'Guide du Détour: Le guide qui enrichit vos voyages. Arrêtez d\'optimiser le temps. Commencez à optimiser les expériences.',
-                'cta_button': 'Devenir Éclaireur ! Accès anticipé.',
-                'prob_h3': 'Votre GPS a-t-il tué l\'esprit d\'aventure ?',
-                'prob_p': 'Les navigateurs modernes se concentrent uniquement sur la vitesse, ignorant les vues magnifiques et les villages authentiques. Les POI sont génériques (grandes chaînes), faisant de votre détour une perte de temps, et non une découverte.',
-                'sol_h3': 'Détour Voyage: Le navigateur qui aime les détours.',
-                'sol_p': 'Nous gardons le sérieux d\'un GPS moderne, mais ajoutons la couche de découverte qui enrichit vos voyages. Vous entrez votre point A, B et votre « Rayon de Liberté » (5-20 km), et l\'application trace un itinéraire axé sur le plaisir et la curiosité.',
-                'sol_p_audience': 'Conçu pour ceux qui aiment la route: motards, familles en vacances et touristes cherchant la « Vraie France ».',
-                'feat_h3': 'Trois raisons, pour faire un détour',
-                'feat1_title': 'Le Coffre Vide (L\'Assistant Panier)',
-                'feat1_desc': 'Navigation directe vers les producteurs locaux (Vin, fromage, miel). Évitez les pièges à touristes et soutenez l\'économie locale.',
-                'feat2_title': 'Le Point Mystère',
-                'feat2_desc': 'Un point d\'interrogation apparaît sur la carte. Pas de photo, pas de spoiler. Découvrez la magie du secret à l\'arrivée !',
-                'feat3_title': 'Le Mode Chineur',
-                'feat3_desc': 'Scannez en temps réel les événements locaux : Brocantes ou Vide-greniers dans un rayon de 5 km. Trouvez des trésors uniques.',
-                'final_h3': 'Devenez membre du « Club des Éclaireurs » !',
-                'final_p': 'Abonnez-vous pour être le premier à obtenir l\'accès à la version Beta et à commencer à gagner des « Points Détour » pour valider les lieux cachés. **Entrez dans le club qui sait : "Ça vaut le détour!"**',
-                'cta_button_final': 'J\'suis prêt(e) à explorer ! Accès anticipé.',
-                'footer_note': 'Vos données ne seront pas transmises. Nous vous informerons simplement dès que Guide du Détour sera disponible sur iOS et Android.'
-            },
-            'en': {
-                'hero_h1': '\"It\'s worth the Detour!\"',
-                'hero_h2': 'Guide du Détour: The guide that enriches your travels. Stop optimizing time. Start optimizing experiences.',
-                'cta_button': 'Become a Scout! Get Early Access.',
-                'prob_h3': 'Has your GPS killed the spirit of adventure?',
-                'prob_p': 'Modern navigators focus solely on speed, ignoring beautiful sights and authentic villages. POIs are generic (major chains), making your detour feel like a waste of time, not a discovery.',
-                'sol_h3': 'Détour Voyage: The navigator who loves detours.',
-                'sol_p': 'We maintain the reliability of a modern GPS, but add a layer of discovery that enriches your travels. You enter points A, B and your "Radius of Freedom" (5-20 km), and the app charts a route focused on pleasure and curiosity.',
-                'sol_p_audience': 'Designed for those who love the road: bikers, families on holiday, and tourists seeking "The Real France."',
-                'feat_h3': 'Three reasons to take a detour',
-                'feat1_title': 'The Empty Trunk (Basket Assistant)',
-                'feat1_desc': 'Direct navigation to local producers (Wine, cheese, honey). Skip the tourist traps and support the local economy.',
-                'feat2_title': 'The Mystery Point',
-                'feat2_desc': 'A question mark appears on the map. No photo, no spoilers. Discover the magic of the secret upon arrival!',
-                'feat3_title': 'The Treasure Hunter Mode',
-                'feat3_desc': 'Real-time scanning of local events: Flea Markets (Brocantes) or Garage Sales (Vide-greniers) within a 5 km radius. Find unique treasures.',
-                'final_h3': 'Join the "Scout Club"!',
-                'final_p': 'Subscribe now to be the first to get access to the Beta version and start earning "Detour Points" for validating hidden locations. **Join the club that knows: "It\'s worth the Detour!"**',
-                'cta_button_final': 'I\'m ready to explore! Get Early Access.',
-                'footer_note': 'Your data will not be shared. We will simply inform you as soon as Guide du Détour is available on iOS and Android.'
-            },
-            'de': {
-                'hero_h1': '\"Ein Abstecher lohnt sich!\"',
-                'hero_h2': 'Guide du Détour: Der Reiseführer, der Ihre Reisen bereichert. Hören Sie auf, Zeit zu optimieren. Beginnen Sie, Erlebnisse zu optimieren.',
-                'cta_button': 'Werden Sie zum Entdecker! Frühzugang sichern.',
-                'prob_h3': 'Hat Ihr GPS den Abenteuergeist getötet?',
-                'prob_p': 'Moderne Navigationssysteme konzentrieren sich nur auf die Geschwindigkeit und ignorieren schöne Aussichten und authentische Dörfer. POIs sind generisch, wodurch sich Ihr Abstecher wie eine Zeitverschwendung anfühlt, nicht wie eine Entdeckung.',
-                'sol_h3': 'Détour Voyage: Das Navi, das Umwege liebt.',
-                'sol_p': 'Wir bieten die Zuverlässigkeit eines modernen GPS, fügen aber die Ebene der Entdeckung hinzu, die Ihre Reisen bereichert. Sie geben Punkt A, B und Ihren "Freiheitsradius" (5-20 km) ein, und die App plant eine Route, die auf Freude und Neugier ausgerichtet ist.',
-                'sol_p_audience': 'Entwickelt für alle, die das Fahren lieben: Motorradfahrer, Familien im Urlaub und Touristen, die das "Wahre Frankreich" suchen.',
-                'feat_h3': 'Drei Gründe für einen Abstecher',
-                'feat1_title': 'Der leere Kofferraum (Korb-Assistent)',
-                'feat1_desc': 'Direkte Navigation zu lokalen Produzenten (Wein, Käse, Honig). Umgehen Sie Touristenfallen und unterstützen Sie die lokale Wirtschaft.',
-                'feat2_title': 'Der mysteriöse Punkt',
-                'feat2_desc': 'Ein Fragezeichen erscheint auf der Karte. Keine Fotos, keine Spoiler. Entdecken Sie die Magie des Geheimnisses bei Ankunft!',
-                'feat3_title': 'Der Trödel-Modus',
-                'feat3_desc': 'Scannen Sie lokale Veranstaltungen in Echtzeit: Flohmärkte (Brocantes) oder Garagenverkäufe (Vide-greniers) im Umkreis von 5 km. Finden Sie einzigartige Schätze.',
-                'final_h3': 'Werden Sie Mitglied im "Entdecker-Club"!',
-                'final_p': 'Abonnieren Sie jetzt, um als Erster Zugang zur Beta-Version zu erhalten und "Abstecher-Punkte" zu sammeln, indem Sie versteckte Orte validieren. **Treten Sie dem Club bei, der weiß: "Ein Abstecher lohnt sich!"**',
-                'cta_button_final': 'Ich bin bereit zu erkunden! Frühzugang sichern.',
-                'footer_note': 'Ihre Daten werden nicht weitergegeben. Wir informieren Sie, sobald Guide du Détour für iOS und Android verfügbar ist.'
-            },
-            'ru': {
-                'hero_h1': '«Это стоит того, чтобы свернуть!»',
-                'hero_h2': 'Guide du Détour: Гид, который обогащает ваши путешествия. Хватит оптимизировать время — начните оптимизировать впечатления.',
-                'cta_button': 'Стать Следопытом! Получить ранний доступ.',
-                'prob_h3': 'Ваш GPS убил дух приключения?',
-                'prob_p': 'Современные навигаторы фокусируются только на скорости, игнорируя красивые виды и аутентичные деревни. Точки интереса (POI) являются дженериками, а объезд воспринимается как потеря времени, а не как возможность для открытия.',
-                'sol_h3': 'Détour Voyage: Навигатор, который любит объезды.',
-                'sol_p': 'Мы сохраняем серьезность современного GPS, но добавляем слой открытия, который обогащает ваши путешествия. Вы указываете пункт А, Б и свой «Радиус Свободы» (5–20 км), а приложение прокладывает маршрут, адаптированный под удовольствие и открытия.',
-                'sol_p_audience': 'Создано для тех, кто любит дорогу: мотоциклистов, семей в отпуске и туристов, которые хотят увидеть «Настоящую Францию».',
-                'feat_h3': 'Три причины, чтобы сделать крюк',
-                'feat1_title': 'Ассистент «Пустой Багажник»',
-                'feat1_desc': 'Навигация прямо к местным производителям (Вино, сыр, мед). Избегайте туристических ловушек и поддержите местную экономику.',
-                'feat2_title': 'Точка-Сюрприз',
-                'feat2_desc': 'На карте появляется знак «?». Никаких фотографий, никаких спойлеров. Узнайте, что это, только когда приедете!',
-                'feat3_title': 'Режим «Охотник за Сокровищами»',
-                'feat3_desc': 'Сканирование событий вокруг маршрута: блошиные рынки (Brocantes) и распродажи (Vide-greniers) в радиусе 5 км. Находите уникальные сокровища.',
-                'final_h3': 'Станьте частью «Клуба Следопытов»!',
-                'final_p': 'Подпишитесь, чтобы первым получить доступ к бета-версии и начать зарабатывать «Очки Объезда» (Détour Points) за проверку скрытых мест. **Вступайте в клуб тех, кто знает: «Это стоит того, чтобы свернуть!»**',
-                'cta_button_final': 'Я готов(а) исследовать! Получить ранний доступ.',
-                'footer_note': 'Ваши данные не будут переданы. Мы сообщим вам, как только Guide du Détour будет доступен на iOS и Android.'
-            }
-        };
+      <!-- SECTION: HOW IT WORKS -->
+      <section>
+        <div class="container">
+          <div class="section-card">
+            <div class="section-header">
+              <div>
+                <div class="badge" data-i18n="sec2Badge">
+                  Comment ça marche
+                </div>
+                <div class="section-title" data-i18n="sec2Title">
+                  Trois gestes, et votre trajet prend une autre dimension.
+                </div>
+              </div>
+              <div class="section-subtitle" data-i18n="sec2Subtitle">
+                Nous n’essayons pas de remplacer votre GPS habituel — nous lui
+                ajoutons juste une couche de curiosité.
+              </div>
+            </div>
 
-        // Функция для обновления текста
-        function setLang(lang) {
-            document.documentElement.lang = lang;
-            const t = translations[lang];
-            
-            // Обновление всех элементов с data-key
-            document.querySelectorAll('[data-key]').forEach(el => {
-                const key = el.getAttribute('data-key');
-                if (t[key]) {
-                    el.innerHTML = t[key];
-                }
-            });
+            <div class="two-col">
+              <div class="steps">
+                <div class="step-card">
+                  <div class="step-num" data-i18n="sec2Step1Num">
+                    Étape 1
+                  </div>
+                  <div class="step-title" data-i18n="sec2Step1Title">
+                    Entrez votre itinéraire
+                  </div>
+                  <div class="step-text" data-i18n="sec2Step1Text">
+                    Paris → Reims pour le week-end, un aller-retour à la mer, un
+                    road-trip de plusieurs jours — peu importe.
+                  </div>
+                </div>
+                <div class="step-card">
+                  <div class="step-num" data-i18n="sec2Step2Num">
+                    Étape 2
+                  </div>
+                  <div class="step-title" data-i18n="sec2Step2Title">
+                    Choisissez votre rayon d’exploration
+                  </div>
+                  <div class="step-text" data-i18n="sec2Step2Text">
+                    3 km pour de petites parenthèses, 10–15 km pour de vrais
+                    détours — vous gardez le contrôle.
+                  </div>
+                </div>
+                <div class="step-card">
+                  <div class="step-num" data-i18n="sec2Step3Num">
+                    Étape 3
+                  </div>
+                  <div class="step-title" data-i18n="sec2Step3Title">
+                    Découvrez des arrêts qui valent la peine
+                  </div>
+                  <div class="step-text" data-i18n="sec2Step3Text">
+                    Points de vue, producteurs, villages, histoires — de quoi
+                    transformer une simple route en souvenir.
+                  </div>
+                </div>
+              </div>
 
-            // Обновление SEO-тегов (мета-описание и заголовок)
-            // (В реальном проекте лучше использовать серверный рендеринг для SEO)
-            if (lang === 'fr') {
-                document.title = 'Guide du Détour : Le GPS qui enrichit vos voyages en France';
-            } else if (lang === 'en') {
-                document.title = 'Guide du Détour: GPS App for Hidden Gems on Your French Road Trip';
-            } else if (lang === 'de') {
-                document.title = 'Guide du Détour: Ihr Reiseführer für die schönsten Abstecher in Frankreich';
-            } else if (lang === 'ru') {
-                document.title = 'Guide du Détour: Навигатор для поиска скрытых мест во Франции';
-            }
-            
-            // Обновление плейсхолдера email
-            const emailInput = document.querySelector('.form-cta input[type="email"]');
-            if (lang === 'fr') emailInput.placeholder = 'Votre Email';
-            else if (lang === 'en') emailInput.placeholder = 'Your Email';
-            else if (lang === 'de') emailInput.placeholder = 'Ihre E-Mail';
-            else if (lang === 'ru') emailInput.placeholder = 'Ваш Email';
+              <div class="image-placeholder">
+                <strong data-i18n="sec2ImgTitle">
+                  ЗДЕСЬ ЭКРАН С ПОЛЗУНКОМ
+                </strong>
+                <span data-i18n="sec2ImgText">
+                  Используйте скриншот экрана Guide du Détour с ползунком
+                  «Largeur du couloir» и подписью текущего радиуса.
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION: FOR WHOM -->
+      <section>
+        <div class="container">
+          <div class="section-card">
+            <div class="section-header">
+              <div>
+                <div class="badge" data-i18n="sec3Badge">
+                  Pour qui
+                </div>
+                <div class="section-title" data-i18n="sec3Title">
+                  Pour ceux qui aiment les routes secondaires autant que la
+                  destination.
+                </div>
+              </div>
+              <div class="section-subtitle" data-i18n="sec3Subtitle">
+                Guide du Détour ne s’adresse pas à ceux qui veulent simplement
+                «arriver plus vite». Il s’adresse à ceux qui veulent se souvenir
+                du trajet.
+              </div>
+            </div>
+
+            <div class="audience-grid">
+              <div class="aud-card">
+                <div class="aud-title" data-i18n="sec3Aud1Title">
+                  Voyageurs du week-end
+                </div>
+                <div class="aud-text" data-i18n="sec3Aud1Text">
+                  Ajouter une vue, un village ou une table locale entre deux
+                  grandes villes.
+                </div>
+              </div>
+              <div class="aud-card">
+                <div class="aud-title" data-i18n="sec3Aud2Title">
+                  Familles
+                </div>
+                <div class="aud-text" data-i18n="sec3Aud2Text">
+                  Trouver un endroit pour courir, toucher des animaux, manger
+                  mieux qu’à une station d’autoroute.
+                </div>
+              </div>
+              <div class="aud-card">
+                <div class="aud-title" data-i18n="sec3Aud3Title">
+                  Motards & amateurs de belles routes
+                </div>
+                <div class="aud-text" data-i18n="sec3Aud3Text">
+                  Repérer de petites départementales et des panoramas que votre
+                  GPS ne mettait pas en avant.
+                </div>
+              </div>
+              <div class="aud-card">
+                <div class="aud-title" data-i18n="sec3Aud4Title">
+                  Voyageurs slow
+                </div>
+                <div class="aud-text" data-i18n="sec3Aud4Text">
+                  Ceux qui considèrent le trajet comme une partie du voyage,
+                  pas comme une parenthèse à oublier.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION: EXAMPLE ROUTE -->
+      <section>
+        <div class="container">
+          <div class="section-card">
+            <div class="section-header">
+              <div>
+                <div class="badge" data-i18n="sec4Badge">
+                  Exemple d’itinéraire
+                </div>
+                <div class="section-title" data-i18n="sec4Title">
+                  Paris → Reims: 6 km de plus, mais un week-end différent.
+                </div>
+              </div>
+            </div>
+
+            <div class="two-col">
+              <div class="example-route" data-i18n="sec4Text">
+                <span class="example-highlight">Sans Guide du Détour :</span>
+                autoroute, station-service, arrivée rapide.<br /><br />
+                <span class="example-highlight">Avec un couloir de 6–9 km :</span>
+                arrêt dans les vignes, point de vue sur la vallée, petite ferme
+                où acheter du fromage ou du jus local. Même trajet, autre
+                souvenir.
+              </div>
+
+              <div class="image-placeholder">
+                <strong data-i18n="sec4ImgTitle">
+                  ЗДЕСЬ ПРИМЕР МАРШРУТА
+                </strong>
+                <span data-i18n="sec4ImgText">
+                  Фотографии: дорога через виноградники, точка обзора, местная
+                  ферма. Можно сделать коллаж из 2–3 фото.
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FINAL CTA -->
+      <section>
+        <div class="container">
+          <div class="final-cta-card">
+            <div class="badge" data-i18n="finalBadge">
+              Beta privée
+            </div>
+            <div class="final-cta-title" data-i18n="finalTitle">
+              Rejoignez l’aventure avant tout le monde.
+            </div>
+            <div class="final-cta-text" data-i18n="finalText">
+              Laissez votre email pour recevoir un accès prioritaire à la
+              version beta de Guide du Détour dès son ouverture.
+            </div>
+
+            <form id="bottom-form">
+              <div class="final-cta-row">
+                <input
+                  type="email"
+                  name="email"
+                  required
+                  class="form-input"
+                  style="max-width: 260px;"
+                  data-i18n-placeholder="emailPlaceholder"
+                  placeholder="Votre email"
+                />
+                <button
+                  type="submit"
+                  class="btn-primary"
+                  data-i18n="finalBtn"
+                >
+                  Recevoir l’accès
+                </button>
+              </div>
+            </form>
+            <div class="hero-form-note" data-i18n="finalNote">
+              Vous pourrez vous désinscrire en un clic. Nous détestons le spam
+              autant que les autoroutes sans âme.
+            </div>
+            <div class="success-msg" id="bottom-success"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container" data-i18n="footerText">
+        Guide du Détour – projet en développement. Protégez votre curiosité,
+        pas seulement votre temps de trajet.
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Контент на четырёх языках
+    const translations = {
+      fr: {
+        logoSub: "Navigation lente, routes secondaires, vrais détours.",
+        heroKicker: "Version beta – accès anticipé",
+        heroTitle: "Le navigateur qui encourage à sortir de la route.",
+        heroSubtitle:
+          "Trouvez des lieux authentiques le long de votre trajet — selon le rayon d’exploration que vous choisissez.",
+        heroFormTitle: "Rejoignez le cercle des premiers utilisateurs.",
+        emailPlaceholder: "Votre email",
+        heroBtn: "Recevoir l’accès",
+        heroFormNote:
+          "Pas de spam, seulement un lien lorsque la version beta sera prête.",
+        tagSlowTravel: "Slow travel",
+        tagLocal: "Lieux locaux",
+        tagRadius: "Rayon d’exploration personnalisable",
+        mockHeader: "Exemple d’itinéraire – Paris → Reims",
+        mockPill: "Détours sélectionnés",
+        sliderLabel: "Largeur du couloir",
+        sliderValue: "9 km",
+        sliderCaption:
+          "Ajustez le rayon pour décider jusqu’où vous êtes prêt(e) à vous éloigner de la route principale.",
+        heroFloater: "+6 km de détour<br>3 arrêts recommandés",
+
+        sec1Badge: "Ce que fait Guide du Détour",
+        sec1Title: "Révèle ce que les autres navigateurs ignorent.",
+        sec1Subtitle:
+          "Vues secrètes, fermes locales, patrimoine discret, nature — soigneusement sélectionnés autour de votre itinéraire.",
+        sec1Feat1Title:
+          "Lieux authentiques, pas seulement «points d’intérêt»",
+        sec1Feat1Text:
+          "Le guide met en avant ce qui a une âme: petites routes, villages, producteurs, vues inattendues.",
+        sec1Feat2Title: "Intégré à votre trajet",
+        sec1Feat2Text:
+          "Guide du Détour travaille à partir de votre itinéraire existant — vous n’avez pas besoin de tout reconstruire.",
+        sec1Feat3Title: "Curaté, pas surchargé",
+        sec1Feat3Text:
+          "Les suggestions sont limitées et sélectionnées, pour éviter l’effet «carte remplie de points».",
+        sec1ImgTitle: "ЗДЕСЬ КАРТА С ТОЧКАМИ",
+        sec1ImgText:
+          "Замените этот блок скриншотом карты Guide du Détour с несколькими выделенными точками: ферма, точка обзора, памятник.",
+
+        sec2Badge: "Comment ça marche",
+        sec2Title: "Trois gestes, et votre trajet prend une autre dimension.",
+        sec2Subtitle:
+          "Nous n’essayons pas de remplacer votre GPS habituel — nous lui ajoutons juste une couche de curiosité.",
+        sec2Step1Num: "Étape 1",
+        sec2Step1Title: "Entrez votre itinéraire",
+        sec2Step1Text:
+          "Paris → Reims pour le week-end, un aller-retour à la mer, un road-trip de plusieurs jours — peu importe.",
+        sec2Step2Num: "Étape 2",
+        sec2Step2Title: "Choisissez votre rayon d’exploration",
+        sec2Step2Text:
+          "3 km pour de petites parenthèses, 10–15 km pour de vrais détours — vous gardez le contrôle.",
+        sec2Step3Num: "Étape 3",
+        sec2Step3Title:
+          "Découvrez des arrêts qui valent la peine",
+        sec2Step3Text:
+          "Points de vue, producteurs, villages, histoires — de quoi transformer une simple route en souvenir.",
+        sec2ImgTitle: "ЗДЕСЬ ЭКРАН С ПОЛЗУНКОМ",
+        sec2ImgText:
+          "Используйте скриншот экрана Guide du Détour с ползунком «Largeur du couloir» и подписью текущего радиуса.",
+
+        sec3Badge: "Pour qui",
+        sec3Title:
+          "Pour ceux qui aiment les routes secondaires autant que la destination.",
+        sec3Subtitle:
+          "Guide du Détour ne s’adresse pas à ceux qui veulent simplement «arriver plus vite». Il s’adresse à ceux qui veulent se souvenir du trajet.",
+        sec3Aud1Title: "Voyageurs du week-end",
+        sec3Aud1Text:
+          "Ajouter une vue, un village ou une table locale entre deux grandes villes.",
+        sec3Aud2Title: "Familles",
+        sec3Aud2Text:
+          "Trouver un endroit pour courir, toucher des animaux, manger mieux qu’à une station d’autoroute.",
+        sec3Aud3Title: "Motards & amateurs de belles routes",
+        sec3Aud3Text:
+          "Repérer de petites départementales et des panoramas que votre GPS ne mettait pas en avant.",
+        sec3Aud4Title: "Voyageurs slow",
+        sec3Aud4Text:
+          "Ceux qui considèrent le trajet comme une partie du voyage, pas comme une parenthèse à oublier.",
+
+        sec4Badge: "Exemple d’itinéraire",
+        sec4Title:
+          "Paris → Reims: 6 km de plus, mais un week-end différent.",
+        sec4Text:
+          "Sans Guide du Détour : autoroute, station-service, arrivée rapide.\n\nAvec un couloir de 6–9 km : arrêt dans les vignes, point de vue sur la vallée, petite ferme où acheter du fromage ou du jus local. Même trajet, autre souvenir.",
+        sec4ImgTitle: "ЗДЕСЬ ПРИМЕР МАРШРУТА",
+        sec4ImgText:
+          "Фотографии: дорога через виноградники, точка обзора, местная ферма. Можно сделать коллаж из 2–3 фото.",
+
+        finalBadge: "Beta privée",
+        finalTitle: "Rejoignez l’aventure avant tout le monde.",
+        finalText:
+          "Laissez votre email pour recevoir un accès prioritaire à la version beta de Guide du Détour dès son ouverture.",
+        finalBtn: "Recevoir l’accès",
+        finalNote:
+          "Vous pourrez vous désinscrire en un clic. Nous détestons le spam autant que les autoroutes sans âme.",
+        footerText:
+          "Guide du Détour – projet en développement. Protégez votre curiosité, pas seulement votre temps de trajet."
+      },
+      en: {
+        logoSub: "Slow travel navigation, scenic detours, real places.",
+        heroKicker: "Beta version – early access",
+        heroTitle:
+          "A navigation tool that invites you to explore off the main road.",
+        heroSubtitle:
+          "Discover authentic places along your route — based on the exploration radius you choose.",
+        heroFormTitle: "Join the first circle of travelers.",
+        emailPlaceholder: "Your email",
+        heroBtn: "Get early access",
+        heroFormNote:
+          "No spam — just one email when the beta is ready.",
+        tagSlowTravel: "Slow travel",
+        tagLocal: "Local places",
+        tagRadius: "Custom exploration radius",
+        mockHeader: "Sample route – Paris → Reims",
+        mockPill: "Curated detours",
+        sliderLabel: "Corridor width",
+        sliderValue: "9 km",
+        sliderCaption:
+          "Set how far you’re willing to go off the main road.",
+        heroFloater: "+6 km detour<br>3 recommended stops",
+
+        sec1Badge: "What Guide du Détour does",
+        sec1Title: "Reveals what standard GPS apps overlook.",
+        sec1Subtitle:
+          "Secret viewpoints, local farms, hidden heritage, nature — carefully curated around your journey.",
+        sec1Feat1Title:
+          "Authentic places, not just \"points of interest\"",
+        sec1Feat1Text:
+          "The guide highlights spots with a soul: backroads, villages, producers, unexpected views.",
+        sec1Feat2Title: "Built on your existing route",
+        sec1Feat2Text:
+          "Guide du Détour works on top of your route — no need to rebuild your navigation.",
+        sec1Feat3Title: "Curated, not cluttered",
+        sec1Feat3Text:
+          "Suggestions stay limited and meaningful — no map overloaded with icons.",
+        sec1ImgTitle: "MAP WITH POINTS HERE",
+        sec1ImgText:
+          "Replace this block with a screenshot of Guide du Détour map showing a few highlighted stops: farm, viewpoint, monument.",
+
+        sec2Badge: "How it works",
+        sec2Title: "Three simple steps, a very different journey.",
+        sec2Subtitle:
+          "We don’t replace your usual GPS — we add a layer of curiosity on top of it.",
+        sec2Step1Num: "Step 1",
+        sec2Step1Title: "Enter your route",
+        sec2Step1Text:
+          "Paris → Reims for a weekend, a day trip to the seaside, a multi-day road-trip — anything works.",
+        sec2Step2Num: "Step 2",
+        sec2Step2Title: "Choose your detour radius",
+        sec2Step2Text:
+          "3 km for quick breaks, 10–15 km for real detours — you stay in control.",
+        sec2Step3Num: "Step 3",
+        sec2Step3Title:
+          "Get stops that are worth it",
+        sec2Step3Text:
+          "Viewpoints, local producers, villages, stories — enough to turn a simple drive into a memory.",
+        sec2ImgTitle: "SCREEN WITH SLIDER HERE",
+        sec2ImgText:
+          "Use a screenshot of the Guide du Détour screen with the “corridor width” slider and current radius.",
+
+        sec3Badge: "For whom",
+        sec3Title:
+          "For those who care about the road as much as the destination.",
+        sec3Subtitle:
+          "Guide du Détour is not for people who only want to “arrive faster”. It’s for those who want to remember the way.",
+        sec3Aud1Title: "Weekend travelers",
+        sec3Aud1Text:
+          "Add a view, a village or a local table between two big cities.",
+        sec3Aud2Title: "Families",
+        sec3Aud2Text:
+          "Find a place to run, meet animals, and eat better than at a highway station.",
+        sec3Aud3Title: "Riders & road lovers",
+        sec3Aud3Text:
+          "Spot small B-roads and panoramas your GPS didn’t highlight.",
+        sec3Aud4Title: "Slow travel fans",
+        sec3Aud4Text:
+          "People who see the road as part of the journey, not a blank in between.",
+
+        sec4Badge: "Sample route",
+        sec4Title:
+          "Paris → Reims: 6 extra km, a different weekend.",
+        sec4Text:
+          "Without Guide du Détour: highway, gas station, quick arrival.\n\nWith a 6–9 km corridor: stop in the vineyards, a view over the valley, a small farm to buy cheese or juice. Same route, different memory.",
+        sec4ImgTitle: "ROUTE EXAMPLE HERE",
+        sec4ImgText:
+          "Photos: road through vineyards, a viewpoint, a local farm. A 2–3 photo collage works well.",
+
+        finalBadge: "Private beta",
+        finalTitle: "Join the adventure before everyone else.",
+        finalText:
+          "Leave your email to receive early access to the Guide du Détour beta when it opens.",
+        finalBtn: "Get early access",
+        finalNote:
+          "You can unsubscribe in one click. We dislike spam as much as soulless motorways.",
+        footerText:
+          "Guide du Détour – project in development. Protect your curiosity, not just your travel time."
+      },
+      ru: {
+        logoSub:
+          "Навигатор для красивых дорог, маленьких открытий и живых мест.",
+        heroKicker: "Скоро запуск beta-версии",
+        heroTitle: "Навигатор, который поощряет сворачивать с дороги.",
+        heroSubtitle:
+          "Открывайте атмосферные места рядом с маршрутом — выбирая свой радиус отклонения.",
+        heroFormTitle: "Станьте одним из первых пользователей.",
+        emailPlaceholder: "Ваш email",
+        heroBtn: "Получить ранний доступ",
+        heroFormNote:
+          "Никакого спама — только письмо со ссылкой, когда beta-версия будет готова.",
+        tagSlowTravel: "Slow travel",
+        tagLocal: "Местные места",
+        tagRadius: "Регулируемый радиус отклонения",
+        mockHeader: "Пример маршрута — Париж → Реймс",
+        mockPill: "Отобранные точки",
+        sliderLabel: "Ширина коридора",
+        sliderValue: "9 км",
+        sliderCaption:
+          "Вы сами решаете, насколько далеко готовы уйти от основной трассы.",
+        heroFloater: "+6 км к пути<br>3 рекомендованные остановки",
+
+        sec1Badge: "Что делает Guide du Détour",
+        sec1Title:
+          "Показывает то, что другие навигаторы не считают важным.",
+        sec1Subtitle:
+          "Виды, фермы, старинные уголки, природа — аккуратно подобрано вдоль вашего маршрута.",
+        sec1Feat1Title:
+          "Живые места, а не просто «точки интереса»",
+        sec1Feat1Text:
+          "Навигатор подсвечивает то, где есть атмосфера: маленькие дороги, деревни, локальные продукты, неожиданные виды.",
+        sec1Feat2Title: "Работает поверх вашего маршрута",
+        sec1Feat2Text:
+          "Guide du Détour не ломает ваш маршрут — он добавляет поверх него подсказки для остановок.",
+        sec1Feat3Title: "Без информационного шума",
+        sec1Feat3Text:
+          "Вместо карты, забитой иконками, вы получаете небольшое количество действительно стоящих точек.",
+        sec1ImgTitle: "ЗДЕСЬ КАРТА С ТОЧКАМИ",
+        sec1ImgText:
+          "Замените этот блок скриншотом карты Guide du Détour с несколькими выделенными точками: ферма, точка обзора, памятник.",
+
+        sec2Badge: "Как это работает",
+        sec2Title: "Три шага — и дорога превращается в путешествие.",
+        sec2Subtitle:
+          "Мы не заменяем ваш привычный GPS — мы добавляем к нему слой любопытства.",
+        sec2Step1Num: "Шаг 1",
+        sec2Step1Title: "Вы задаёте маршрут",
+        sec2Step1Text:
+          "Париж → Реймс, вылазка к морю или большой роуд-трип — сервис работает с любым направлением.",
+        sec2Step2Num: "Шаг 2",
+        sec2Step2Title: "Выбираете радиус отклонения",
+        sec2Step2Text:
+          "3 км — для коротких остановок, 10–15 км — для настоящих крюков. Полный контроль — у вас.",
+        sec2Step3Num: "Шаг 3",
+        sec2Step3Title: "Получаете точки, куда хочется заехать",
+        sec2Step3Text:
+          "Видовые площадки, локальные фермы, деревни, интересные истории — всё, что превращает дорогу в воспоминание.",
+        sec2ImgTitle: "ЗДЕСЬ ЭКРАН С ПОЛЗУНКОМ",
+        sec2ImgText:
+          "Используйте скриншот экрана Guide du Détour с ползунком «Ширина коридора» и текущим значением радиуса.",
+
+        sec3Badge: "Для кого",
+        sec3Title:
+          "Для тех, кто ценит дорогу не меньше, чем точку назначения.",
+        sec3Subtitle:
+          "Guide du Détour — не для тех, кто хочет просто «доехать побыстрее». Это сервис для тех, кому важна сама дорога.",
+        sec3Aud1Title: "Путешественники выходного дня",
+        sec3Aud1Text:
+          "Добавить по пути красивый вид, деревню или локальное кафе вместо безликой заправки.",
+        sec3Aud2Title: "Семьи",
+        sec3Aud2Text:
+          "Найти место, где дети могут побегать, потрогать животных и пообедать чем-то нормальным, а не фастфудом на трассе.",
+        sec3Aud3Title: "Мото- и автолюбители",
+        sec3Aud3Text:
+          "Увидеть маленькие дороги и панорамы, которые обычный навигатор прячет в тени магистралей.",
+        sec3Aud4Title: "Сторонники slow travel",
+        sec3Aud4Text:
+          "Для тех, кто считает путь частью путешествия, а не пустым отрезком между точкой А и точкой Б.",
+
+        sec4Badge: "Пример маршрута",
+        sec4Title:
+          "Париж → Реймс: +6 км, но совсем другой уик-энд.",
+        sec4Text:
+          "Без Guide du Détour: трасса, заправка, быстро доехали.\n\nС коридором 6–9 км: остановка в виноградниках, точка обзора на долину, маленькая ферма с сыром и соком. Маршрут тот же, но история другая.",
+        sec4ImgTitle: "ЗДЕСЬ ПРИМЕР МАРШРУТА",
+        sec4ImgText:
+          "Фотографии: дорога через виноградники, панорамная точка, локальная ферма. Можно сделать аккуратный коллаж из 2–3 фото.",
+
+        finalBadge: "Закрытая beta",
+        finalTitle: "Присоединяйтесь к первому кругу пользователей.",
+        finalText:
+          "Оставьте email, чтобы получить приоритетный доступ к beta-версии Guide du Détour, когда она откроется.",
+        finalBtn: "Получить ранний доступ",
+        finalNote:
+          "Отписаться можно в один клик. Мы не любим спам так же сильно, как безликие автобаны.",
+        footerText:
+          "Guide du Détour — проект в разработке. Берегите своё любопытство, а не только время в пути."
+      },
+      de: {
+        logoSub:
+          "Langsames Reisen, Nebenstraßen, echte Entdeckungen.",
+        heroKicker: "Beta-Version – früher Zugang",
+        heroTitle:
+          "Ein Navigationstool, das Sie zum Abweichen von der Hauptstraße einlädt.",
+        heroSubtitle:
+          "Entdecken Sie authentische Orte entlang Ihrer Strecke – je nach Entdeckungsradius, den Sie festlegen.",
+        heroFormTitle: "Werden Sie Teil der ersten Nutzergruppe.",
+        emailPlaceholder: "Ihre E-Mail",
+        heroBtn: "Frühen Zugang erhalten",
+        heroFormNote:
+          "Kein Spam – nur eine Nachricht, sobald die Beta bereit ist.",
+        tagSlowTravel: "Slow Travel",
+        tagLocal: "Lokale Orte",
+        tagRadius: "Individueller Entdeckungsradius",
+        mockHeader: "Beispielroute – Paris → Reims",
+        mockPill: "Ausgewählte Umwege",
+        sliderLabel: "Korridorbreite",
+        sliderValue: "9 km",
+        sliderCaption:
+          "Bestimmen Sie selbst, wie weit Sie von der Hauptstrecke abweichen möchten.",
+        heroFloater: "+6 km Umweg<br>3 empfohlene Stopps",
+
+        sec1Badge: "Was Guide du Détour macht",
+        sec1Title:
+          "Zeigt, was klassische Navigationsapps übersehen.",
+        sec1Subtitle:
+          "Versteckte Aussichtspunkte, kleine Höfe, unscheinbares Kulturerbe, Natur – sorgfältig entlang Ihrer Route ausgewählt.",
+        sec1Feat1Title:
+          "Authentische Orte statt bloßer „Points of Interest“",
+        sec1Feat1Text:
+          "Der Guide hebt Orte mit Seele hervor: Nebenstraßen, Dörfer, Produzenten, überraschende Ausblicke.",
+        sec1Feat2Title: "Auf Ihrer bestehenden Route",
+        sec1Feat2Text:
+          "Guide du Détour arbeitet auf Basis Ihrer bestehenden Strecke – ohne Ihr Navi komplett umzustellen.",
+        sec1Feat3Title: "Kuratiert statt überladen",
+        sec1Feat3Text:
+          "Wenige, aber sinnvolle Vorschläge – keine mit Icons überfüllte Karte.",
+        sec1ImgTitle: "HIER KARTE MIT MARKIERTEN PUNKTEN",
+        sec1ImgText:
+          "Ersetzen Sie diesen Block durch einen Screenshot der Guide du Détour-Karte mit einigen hervorgehobenen Stopps: Hof, Aussichtspunkt, Denkmal.",
+
+        sec2Badge: "So funktioniert es",
+        sec2Title: "Drei Schritte, und Ihre Fahrt verändert sich.",
+        sec2Subtitle:
+          "Wir ersetzen Ihr Navi nicht – wir ergänzen es um eine Schicht Neugier.",
+        sec2Step1Num: "Schritt 1",
+        sec2Step1Title: "Route eingeben",
+        sec2Step1Text:
+          "Paris → Reims fürs Wochenende, ein Tagesausflug ans Meer oder eine mehrtägige Tour – alles ist möglich.",
+        sec2Step2Num: "Schritt 2",
+        sec2Step2Title: "Entdeckungsradius wählen",
+        sec2Step2Text:
+          "3 km für kurze Pausen, 10–15 km für echte Abwege – Sie behalten die Kontrolle.",
+        sec2Step3Num: "Schritt 3",
+        sec2Step3Title:
+          "Stopps entdecken, die sich lohnen",
+        sec2Step3Text:
+          "Aussichtspunkte, Produzenten, Dörfer, Geschichten – genug, um aus einer Fahrt eine Erinnerung zu machen.",
+        sec2ImgTitle: "HIER SCREEN MIT SLIDER",
+        sec2ImgText:
+          "Verwenden Sie einen Screenshot des Guide du Détour-Screens mit dem „Korridorbreite“-Regler und aktuellem Radius.",
+
+        sec3Badge: "Für wen",
+        sec3Title:
+          "Für Menschen, denen der Weg genauso wichtig ist wie das Ziel.",
+        sec3Subtitle:
+          "Guide du Détour ist nicht für alle, die nur „schneller ankommen“ wollen. Sondern für jene, die sich auch an die Fahrt erinnern möchten.",
+        sec3Aud1Title: "Wochenendreisende",
+        sec3Aud1Text:
+          "Zwischen zwei Städten noch einen Ausblick, ein Dorf oder ein lokales Essen einbauen.",
+        sec3Aud2Title: "Familien",
+        sec3Aud2Text:
+          "Einen Ort finden, an dem Kinder rennen, Tiere sehen und besser essen können als an der Raststätte.",
+        sec3Aud3Title: "Biker & Straßenliebhaber",
+        sec3Aud3Text:
+          "Kleine Landstraßen und Panoramen entdecken, die Ihr Navi nicht in den Vordergrund stellt.",
+        sec3Aud4Title: "Slow-Travel-Fans",
+        sec3Aud4Text:
+          "Menschen, die die Strecke als Teil der Reise sehen – nicht als leere Passage zwischen A und B.",
+
+        sec4Badge: "Beispielroute",
+        sec4Title:
+          "Paris → Reims: 6 km mehr, ein anderes Wochenende.",
+        sec4Text:
+          "Ohne Guide du Détour: Autobahn, Tankstelle, schnelle Ankunft.\n\nMit 6–9 km Korridor: Stopp in den Weinbergen, Blick ins Tal, kleiner Hof für Käse oder Saft. Die Strecke bleibt, die Erinnerung ändert sich.",
+        sec4ImgTitle: "HIER ROUTENBEISPIEL",
+        sec4ImgText:
+          "Fotos: Straße durch Weinberge, Aussichtspunkt, lokaler Hof. Ein Collage aus 2–3 Bildern wirkt gut.",
+
+        finalBadge: "Private Beta",
+        finalTitle:
+          "Werden Sie Teil der ersten Nutzer.",
+        finalText:
+          "Hinterlassen Sie Ihre E-Mail, um frühen Zugang zur Guide du Détour-Beta zu erhalten, sobald sie startet.",
+        finalBtn: "Frühen Zugang erhalten",
+        finalNote:
+          "Abmeldung mit einem Klick möglich. Wir mögen Spam genauso wenig wie seelenlose Autobahnen.",
+        footerText:
+          "Guide du Détour – Projekt in Entwicklung. Schützen Sie Ihre Neugier, nicht nur Ihre Fahrzeit."
+      }
+    };
+
+    function applyTranslations(lang) {
+      const dict = translations[lang] || translations.fr;
+
+      document.documentElement.lang = lang;
+
+      // Все элементы с data-i18n
+      document.querySelectorAll("[data-i18n]").forEach((el) => {
+        const key = el.getAttribute("data-i18n");
+        if (dict[key]) {
+          el.innerHTML = dict[key].replace(/\n/g, "<br>");
         }
+      });
 
-        // Установка языка по умолчанию (или из настроек браузера)
-        setLang('fr'); // Начальный язык - Французский
+      // Плейсхолдеры
+      document
+        .querySelectorAll("[data-i18n-placeholder]")
+        .forEach((el) => {
+          const key = el.getAttribute("data-i18n-placeholder");
+          if (dict[key]) {
+            el.setAttribute("placeholder", dict[key]);
+          }
+        });
+    }
 
-    </script>
+    // Переключение языков
+    document.querySelectorAll(".lang-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        document
+          .querySelectorAll(".lang-btn")
+          .forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+        const lang = btn.getAttribute("data-lang");
+        applyTranslations(lang);
+      });
+    });
 
+    // Фиктивная обработка форм (без реального бэкенда)
+    function bindForm(formId, successId) {
+      const form = document.getElementById(formId);
+      const success = document.getElementById(successId);
+      if (!form || !success) return;
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const formData = new FormData(form);
+        const email = formData.get("email");
+        if (!email) return;
+
+        // Здесь можно заменить на реальную отправку:
+        // fetch('/api/subscribe', { method: 'POST', body: formData })
+        // или внешнюю форму formsubmit и т.п.
+        success.style.display = "block";
+        success.textContent =
+          "Спасибо! Ваш email сохранён (для реальной рассылки подключите бэкенд).";
+        // для EN/FR/DE можно позже локализовать это сообщение отдельно
+        form.reset();
+      });
+    }
+
+    bindForm("top-form", "top-success");
+    bindForm("bottom-form", "bottom-success");
+
+    // Устанавливаем язык по умолчанию (FR)
+    applyTranslations("fr");
+  </script>
 </body>
 </html>
