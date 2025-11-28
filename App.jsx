@@ -10,17 +10,16 @@ import {
 } from 'lucide-react';
 
 // --- НАСТРОЙКИ КАРТИНОК ---
-// ИСПРАВЛЕНИЕ 1: ИЗМЕНЕНЫ РАСШИРЕНИЯ ДЛЯ СКРИНШОТОВ С .png НА .jpg
+// ИСПРАВЛЕНО: ПУТИ СОГЛАСОВАНЫ С РАСШИРЕНИЯМИ В РЕПОЗИТОРИИ (.png для скринов)
 const IMAGES = {
-  // Ваш крупный логотип (Используем ваш файл IMG_0289.jpeg)
+  // Используем .jpeg для логотипа, как в вашем репозитории
   logo: "/IMG_0289.jpeg",      
-  // Скриншоты телефона (Используем ваши файлы IMG_0288.jpg и IMG_0275.jpg)
-  profile: "/IMG_0288.jpg",    
-  map: "/IMG_0275.jpg",        
+  // Скриншоты телефона (ИСПРАВЛЕНО: .png)
+  profile: "/IMG_0288.png",    
+  map: "/IMG_0275.png",        
 };
 
 // --- GEMINI API SETUP ---
-// ВНИМАНИЕ: КЛЮЧ API ВИДЕН В КЛИЕНТСКОМ КОДЕ. ДЛЯ ПРОДАКШЕНА ИСПОЛЬЗУЙТЕ СЕРВЕРНЫЙ ПРОКСИ.
 const apiKey = typeof process !== 'undefined' && process.env.VITE_GEMINI_API_KEY ? process.env.VITE_GEMINI_API_KEY : ""; 
 
 // --- FIREBASE CONFIG ---
@@ -141,7 +140,7 @@ const STRINGS = {
         phone: { interests: 'Uw interesses', route: 'De Route' },
         features: { main_title: 'Een unieke ervaring', main_subtitle: 'U kiest de koers, u beslist hoe ver u wilt afdwalen. Wij zorgen voor de verwondering.', couloir_title: 'De Corridor', couloir_desc: 'Definieer uw bestemming en een afwijkingsradius (bijv. 5 km). We vinden alles wat binnen deze corridor een stop waard is.', univers_title: '4 Universa', univers_desc: 'Boerderijen & wijngaarden, Geschiedenis & kastelen, lokale curiosa, Natuur. Filter op basis van uw stemming.', chemin_title: 'Onderweg', chemin_desc: 'Voeg tussenstops toe aan uw route of laat de app spontane stopplaatsen voorstellen tijdens het rijden.', community_title: 'Gemeenschap', community_desc: 'Elke plaats heeft zijn gedetailleerde fiche. Een parel gevonden? Voeg uw eigen ontdekking toe voor anderen.' },
         comparison: { title: 'Waarom kiezen voor "De omweg is de moeite waard"?', function: 'Functionaliteit', us: 'Wij', others: 'Klassieke GPS', a_to_b: 'A → B Route', along_route: 'Ontdekking langs de route (Corridor)', radius: 'Instelbare omwegradius', categories: 'Toeristische categorieën' },
-        roadmap: { tag: 'Roadmap', title: 'De Toekomst van Avontuur', subtitle: 'We bouwen niet alleen een kaart, maar een intelligente reisgenoot. Hier zijn de exclusieve modi die momenteel in ontwikkeling zijn voor onze eerste gebruikers.', compass_title: 'Kompas Modus', compass_desc: 'Een eenvoudige pijl voor echte avonturiers. Volg de koers, vind uw eigen weg.', grain_title: 'Korrel van de Route', grain_desc: 'Kies de textuur van uw reis: schilderachtige routes of binnenwegen.', chineur_title: 'Chineur Modus', chineur_desc: 'Realtime meldingen voor rommelmarkten en garageverkopen op uw route.', coffre_title: 'Lege Kofferbak', coffre_desc: 'Vul uw kofferbak met lokale producten: rechtstreeks van boeren en ambachtslieden.', escale_title: 'De Perfecte Tussenstop', escale_desc: 'Stops gesynchroniseerd met uw vermoeidheid en de mooiste panorama\'s.', mystery_title: 'Mysterie Punt', mystery_desc: 'Laat u blindelings naar een verrassingsbestemming leiden.', retro_title: 'Tijdspiegel', retro_desc: 'Geolocatie audioverhalen die het verleden van de doorkruiste plaatsen vertellen.', club_title: 'Explorers Club', club_desc: 'Verdien punten, ranglijsten en badges door nieuwe plaatsen te ontdekken.' },
+        roadmap: { tag: 'Roadmap', title: 'De Toekomst van Avontuur', subtitle: 'We bouwen niet alleen een kaart, maar een intelligente reisgenoot. Hier zijn de exclusieve modi die momenteel in ontwikkeling zijn voor onze eerste gebruikers.', compass_title: 'Kompas Modus', compass_desc: 'Een eenvoudige pijl voor echte avonturiers. Volg de koers, vind uw eigen weg.', grain_title: 'Korrel van de Route', grain_desc: 'Kies de textuur van uw reis: schilderachtige routes of binnenwegen.', chineur_title: 'Chineur Modus', chineur_desc: 'Realtime meldingen voor rommelmarkten en garageverkopen op uw route.', coffre_title: 'Lege Kofferbak', coffre_desc: 'Vul uw kofferbak met lokale producten: direct van boeren en ambachtslieden.', escale_title: 'De Perfecte Tussenstop', escale_desc: 'Stops gesynchroniseerd met uw vermoeidheid en de mooiste panorama\'s.', mystery_title: 'Mysterie Punt', mystery_desc: 'Laat u blindelings naar een verrassingsbestemming leiden.', retro_title: 'Tijdspiegel', retro_desc: 'Geolocatie audioverhalen die het verleden van de doorkruiste plaatsen vertellen.', club_title: 'Explorers Club', club_desc: 'Verdien punten, ranglijsten en badges door nieuwe plaatsen te ontdekken.' },
         footer: { cta_title: 'Klaar om van route te veranderen?', cta_subtitle: 'Word lid van de wachtlijst om bij de eerste ontdekkingsreizigers te zijn die de app testen op iPhone en Android.', copyright: 'De omweg is de moeite waard. Met passie gemaakt voor reizigers.', privacy: 'Privacy', contact: 'Contact' },
         status: { success: 'Aangemeld!', success_msg: 'Bedankt! We houden u op de hoogte.' },
     },
@@ -210,13 +209,12 @@ const useLanguage = () => {
 // --- COMPONENTS ---
 
 const Logo = () => {
-    // Внимание: Логотип загружается как статический ресурс с абсолютным путем
+    // Используем логотип из IMAGES.logo, который теперь ссылается на IMG_0289.jpeg
     return (
         <div className="flex items-center justify-start py-2">
             <img 
               src={IMAGES.logo} 
               alt="Guide du Détour" 
-              // Увеличенный размер 
               className="h-16 md:h-24 w-auto object-contain transition-transform duration-500 hover:scale-105" 
             />
         </div>
@@ -292,7 +290,7 @@ const AiLab = () => {
     }, [activeTab]);
 
     const getSystemPrompt = (tab, input) => {
-        // 1. Проверка на стоп-слова (хотя Gemini должен сам фильтровать по промпту)
+        // 1. Проверка на стоп-слова
         const nonGeoKeywords = ['президент', 'president', 'bundeskanzler', 'koning', 'политика', 'politics', 'geschichte', 'history', 'recette', 'recipe'];
         if (nonGeoKeywords.some(keyword => input.toLowerCase().includes(keyword))) {
             return strings.ai_prompt_limit;
@@ -313,8 +311,6 @@ const AiLab = () => {
     
     // Эвристическая проверка на стороне клиента
     const isFrenchLocation = (text) => {
-        // Усиленная эвристика, позволяющая пропускать большинство непустых строк.
-        // Основная фильтрация будет происходить на стороне Gemini с помощью системного промпта.
         const textLower = text.toLowerCase();
         return textLower.trim().length > 3; 
     }
@@ -343,13 +339,20 @@ const AiLab = () => {
              return;
         }
 
+        // ВНИМАНИЕ: Если apiKey пуст, запрос упадет
+        if (!apiKey) {
+             setError("Ошибка: Ключ Gemini API не установлен (VITE_GEMINI_API_KEY).");
+             setLoading(false);
+             return;
+        }
+
 
         try {
             const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    // ИСПРАВЛЕНИЕ 2: ДОБАВЛЕНА РОЛЬ 'user' И СТРУКТУРА 'config' ДЛЯ systemInstruction
+                    // Исправленная структура запроса для systemInstruction
                     contents: [{ 
                         role: "user",
                         parts: [{ text: `Location: ${input}` }] 
@@ -361,7 +364,6 @@ const AiLab = () => {
             });
 
             if (!response.ok) {
-                // Если API вернул ошибку 400/500, чаще всего это перегрузка
                 setError(strings.ai_error);
                 throw new Error(`AI busy/limit reached: ${response.statusText}`);
             }
@@ -453,14 +455,12 @@ const PhoneMockup = ({ activeScreen, setActiveScreen }) => {
         {
             id: 'profile',
             title: strings.phone.interests,
-            // ИСПРАВЛЕНИЕ 1: ИСПОЛЬЗУЕМ .jpg
             src: IMAGES.profile,  
             alt: 'Ecran profil avec intérêts'
         },
         {
             id: 'map',
             title: strings.phone.route,
-            // ИСПРАВЛЕНИЕ 1: ИСПОЛЬЗУЕМ .jpg
             src: IMAGES.map, 
             alt: 'Ecran navigation carte'
         }
@@ -581,7 +581,6 @@ const App = () => {
                 <div className="relative flex shadow-2xl">
                   <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder={strings.email_placeholder} className="w-full bg-[#0b1021] text-white placeholder-slate-500 px-6 py-4 rounded-l-lg border border-r-0 border-slate-700 focus:outline-none focus:border-emerald-500/50 transition-all text-center md:text-left" required />
                   <button type="submit" disabled={status === 'loading' || status === 'success'} className="bg-emerald-600 hover:bg-emerald-500 text-white font-semibold px-6 py-4 rounded-r-lg transition-all flex items-center gap-2 whitespace-nowrap disabled:opacity-70">
-                    {/* ИСПРАВЛЕНИЕ 3: Исправлена логика отображения текста при успешном статусе */}
                     {status === 'loading' ? '...' : status === 'success' ? strings.status.success : strings.join_btn}
                     {status === 'idle' && <ChevronRight size={18} />}
                   </button>
@@ -657,7 +656,6 @@ const App = () => {
              <form onSubmit={handleSubmit} className="w-full max-w-md flex flex-col md:flex-row gap-4">
                 <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder={strings.email_placeholder} className="flex-1 bg-slate-800 text-white placeholder-slate-500 px-6 py-4 rounded-l-lg border border-r-0 border-slate-700 focus:outline-none focus:border-emerald-500/50 transition-all text-center md:text-left" required />
                 <button type="submit" disabled={status === 'loading' || status === 'success'} className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-8 py-4 rounded-lg transition-all shadow-lg shadow-emerald-900/20 whitespace-nowrap">
-                   {/* ИСПРАВЛЕНИЕ 3: Исправлена логика отображения текста при успешном статусе */}
                   {status === 'loading' ? '...' : status === 'success' ? strings.status.success : strings.join_btn}
                 </button>
              </form>
