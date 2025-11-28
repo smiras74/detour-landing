@@ -9,8 +9,8 @@ import {
   ShoppingBag, Camera, Music, PlayCircle, History, Utensils, Search
 } from 'lucide-react';
 
-// --- НАСТРОЙКИ КАРТИНКИ ---
-// Используем прямые пути. Файлы должны лежать в корне репозитория на GitHub (в папке /public или рядом с index.html).
+// --- НАСТРОЙКИ КАРТИНОК ---
+// Используем прямые пути (статические ресурсы). Файлы должны лежать в корне репозитория на GitHub.
 const IMAGES = {
   // Ваш крупный логотип (Используем ваш файл IMG_0289.jpeg)
   logo: "/IMG_0289.jpeg",      
@@ -20,9 +20,7 @@ const IMAGES = {
 };
 
 // --- GEMINI API SETUP ---
-// ИСПРАВЛЕНО: Используем прямое чтение process.env, которое гарантированно доступно на Vercel во время сборки
-// (Node.js runtime). Это должно устранить ошибку 'import.meta.env'.
-// Ключ берется из переменной среды Vercel, которая называется VITE_GEMINI_API_KEY.
+// Читаем ключ из переменной среды Vercel (VITE_GEMINI_API_KEY)
 const apiKey = typeof process !== 'undefined' && process.env.VITE_GEMINI_API_KEY ? process.env.VITE_GEMINI_API_KEY : ""; 
 
 // --- FIREBASE CONFIG ---
@@ -46,7 +44,7 @@ const STRINGS = {
     fr: { 
         code: 'FR', label: 'Français', 
         tagline: 'Le guide qui enrichit vos voyages.',
-        hero_title: 'Ça vaut le détour !',
+        hero_title_part1: 'Ça vaut le', hero_title_part2: 'détour !',
         join_btn: 'Rejoindre',
         email_placeholder: 'votre@email.com',
         ai_prompt_limit: "Excusez-moi, la recherche est limitée aux régions et villes françaises. Veuillez réessayer avec un nom de lieu en France.",
@@ -60,7 +58,7 @@ const STRINGS = {
         ai_placeholder: "Ex: Bretagne ou Lyon...",
         ai_demo_tag: "DÉMONSTRATION IA EN DIRECT", ai_loading: "L'IA consulte ses cartes...", ai_error: "Le serveur est surchargé. Réessayez plus tard.", ai_initial: "Le résultat apparaîtra ici...", ai_mode: "Mode",
         auth_error: "Configuration Firebase requise: Activez l'authentification Anonyme dans la console.",
-        hero: { status: 'BETA ACCESSIBLE', hero_title_part1: 'Ça vaut le', hero_title_part2: 'détour !', subtitle: 'Transformez la route en une aventure fascinante. Définissez votre destination, choisissez votre rayon d\'évasion, et découvrez les trésors cachés le long de votre trajet.' },
+        hero: { status: 'BETA ACCESSIBLE', subtitle: 'Transformez la route en une aventure fascinante. Définissez votre destination, choisissez votre rayon d\'évasion, et découvrez les trésors cachés le long de votre trajet.' },
         menu: { concept: 'Concept', features: 'Fonctionnalités', future: 'Futur', beta_access: 'Accès Bêta' },
         phone: { interests: 'Vos Intérêts', route: 'La Route' },
         features: { main_title: 'Une expérience unique', main_subtitle: 'Vous choisissez le cap, vous décidez jusqu\'où vous êtes prêt à flâner. Nous nous occupons de l\'émerveillement.', couloir_title: 'Le Couloir', couloir_desc: 'Définissez votre destination et un rayon d\'écart (ex: 5km). Nous trouvons tout ce qui mérite un arrêt dans ce couloir.', univers_title: '4 Univers', univers_desc: 'Fermes & vignobles, Histoire & châteaux, Curiosités locales, Nature. Filtrez selon votre humeur du jour.', chemin_title: 'En Chemin', chemin_desc: 'Ajoutez des étapes à votre itinéraire ou laissez l\'application vous suggérer des arrêts spontanés en roulant.', community_title: 'Communauté', community_desc: 'Chaque lieu a sa fiche détaillée. Vous avez trouvé une pépite ? Ajoutez votre propre découverte pour les autres.' },
@@ -72,7 +70,7 @@ const STRINGS = {
     en: { 
         code: 'EN', label: 'English', 
         tagline: 'The guide that enriches your travels.',
-        hero_title: 'Worth the detour!',
+        hero_title_part1: 'Worth the', hero_title_part2: 'detour!',
         join_btn: 'Join Now',
         email_placeholder: 'your@email.com',
         ai_prompt_limit: "I'm sorry, the search is limited to regions and cities in France. Please try again with a French location name.",
@@ -86,7 +84,7 @@ const STRINGS = {
         ai_placeholder: "Ex: Provence or Lyon...",
         ai_demo_tag: "LIVE AI DEMONSTRATION", ai_loading: "AI is consulting the maps...", ai_error: "The server is overloaded. Please try again later.", ai_initial: "The result will appear here...", ai_mode: "Mode",
         auth_error: "Firebase configuration required: Enable Anonymous authentication in the console.",
-        hero: { status: 'BETA ACCESS', hero_title_part1: 'Worth the', hero_title_part2: 'detour!', subtitle: 'Transform your journey into a fascinating adventure. Set your destination, choose your radius of escape, and discover hidden treasures along your route.' },
+        hero: { status: 'BETA ACCESS', subtitle: 'Transform your journey into a fascinating adventure. Set your destination, choose your radius of escape, and discover hidden treasures along your route.' },
         menu: { concept: 'Concept', features: 'Features', future: 'Future', beta_access: 'Beta Access' },
         phone: { interests: 'Your Interests', route: 'The Route' },
         features: { main_title: 'A unique experience', main_subtitle: 'You choose the course, you decide how far you are willing to wander. We take care of the wonder.', couloir_title: 'The Corridor', couloir_desc: 'Define your destination and a radius of deviation (e.g., 5km). We find everything worth a stop within this corridor.', univers_title: '4 Universes', univers_desc: 'Farms & vineyards, History & castles, Local Curiosities, Nature. Filter according to your mood.', chemin_title: 'On the way', chemin_desc: 'Add stops to your itinerary or let the app suggest spontaneous stops while driving.', community_title: 'Community', community_desc: 'Every place has its detailed sheet. Found a gem? Add your own discovery for others.' },
@@ -98,7 +96,7 @@ const STRINGS = {
     de: { 
         code: 'DE', label: 'Deutsch', 
         tagline: 'Der Reiseführer, der Ihre Reisen bereichert.',
-        hero_title: 'Der Abstecher lohnt sich!',
+        hero_title_part1: 'Der Abstecher', hero_title_part2: 'lohnt sich!',
         join_btn: 'Jetzt beitreten',
         email_placeholder: 'ihre@email.de',
         ai_prompt_limit: "Entschuldigung, die Suche ist auf französische Regionen und Städte beschränkt. Bitte versuchen Sie es mit einem französischen Ortsnamen erneut.",
@@ -112,7 +110,7 @@ const STRINGS = {
         ai_placeholder: "Bsp.: Normandie oder Paris...",
         ai_demo_tag: "LIVE AI DEMONSTRATION", ai_loading: "Die KI konsultiert die Karten...", ai_error: "Der Server ist überlastet. Bitte versuchen Sie es später erneut.", ai_initial: "Das Ergebnis wird hier angezeigt...", ai_mode: "Modus",
         auth_error: "Firebase-Konfiguration erforderlich: Aktivieren Sie die anonyme Authentifizierung in der Konsole.",
-        hero: { status: 'BETA-ZUGANG', hero_title_part1: 'Der Abstecher', hero_title_part2: 'lohnt sich!', subtitle: 'Verwandeln Sie Ihre Fahrt in ein faszinierendes Abenteuer. Legen Sie Ihr Ziel fest, wählen Sie Ihren Fluchtradius und entdecken Sie verborgene Schätze entlang Ihrer Route.' },
+        hero: { status: 'BETA-ZUGANG', subtitle: 'Verwandeln Sie Ihre Fahrt in ein faszinierendes Abenteuer. Legen Sie Ihr Ziel fest, wählen Sie Ihren Fluchtradius und entdecken Sie verborgene Schätze entlang Ihrer Route.' },
         menu: { concept: 'Konzept', features: 'Funktionen', future: 'Zukunft', beta_access: 'Beta-Zugang' },
         phone: { interests: 'Ihre Interessen', route: 'Die Route' },
         features: { main_title: 'Ein einzigartiges Erlebnis', main_subtitle: 'Sie wählen den Kurs, Sie entscheiden, wie weit Sie abschweifen möchten. Wir kümmern uns um das Wunder.', couloir_title: 'Der Korridor', couloir_desc: 'Definieren Sie Ihr Ziel und einen Abweichungsradius (z. B. 5 km). Wir finden alles, was innerhalb dieses Korridors einen Stopp wert ist.', univers_title: '4 Universen', univers_desc: 'Bauernhöfe & Weinberge, Geschichte & Schlösser, lokale Kuriositäten, Natur. Filtern Sie nach Ihrer Stimmung.', chemin_title: 'Unterwegs', chemin_desc: 'Fügen Sie Zwischenstopps zu Ihrer Route hinzu oder lassen Sie sich von der App spontane Haltepunkte vorschlagen.', community_title: 'Gemeinschaft', community_desc: 'Jeder Ort hat sein detailliertes Blatt. Haben Sie ein Juwel gefunden? Fügen Sie Ihre eigene Entdeckung für andere hinzu.' },
@@ -124,7 +122,7 @@ const STRINGS = {
     nl: { 
         code: 'NL', label: 'Nederlands', 
         tagline: 'De gids die uw reizen verrijkt.',
-        hero_title: 'De omweg is de moeite waard!',
+        hero_title_part1: 'De omweg is', hero_title_part2: 'de moeite waard!',
         join_btn: 'Nu lid worden',
         email_placeholder: 'uw@email.nl',
         ai_prompt_limit: "Excuses, het zoeken is beperkt tot Franse regio's en steden. Probeer het opnieuw met een Franse plaatsnaam.",
@@ -138,7 +136,7 @@ const STRINGS = {
         ai_placeholder: "Bv.: Normandië of Lyon...",
         ai_demo_tag: "LIVE AI DEMONSTRATIE", ai_loading: "AI raadpleegt de kaarten...", ai_error: "De server is overbelast. Probeer later opnieuw.", ai_initial: "Het resultaat verschijnt hier...", ai_mode: "Modus",
         auth_error: "Firebase-configuratie vereist: Schakel anonieme authenticatie in de console in.",
-        hero: { status: 'BETA TOEGANG', hero_title_part1: 'De omweg is', hero_title_part2: 'de moeite waard!', subtitle: 'Verander uw reis in een fascinerend avontuur. Stel uw bestemming in, kies uw ontsnappingsradius en ontdek verborgen schatten langs uw route.' },
+        hero: { status: 'BETA TOEGANG', subtitle: 'Verander uw reis in een fascinerend avontuur. Stel uw bestemming in, kies uw ontsnappingsradius en ontdek verborgen schatten langs uw route.' },
         menu: { concept: 'Concept', features: 'Functies', future: 'Toekomst', beta_access: 'Beta Toegang' },
         phone: { interests: 'Uw interesses', route: 'De Route' },
         features: { main_title: 'Een unieke ervaring', main_subtitle: 'U kiest de koers, u beslist hoe ver u wilt afdwalen. Wij zorgen voor de verwondering.', couloir_title: 'De Corridor', couloir_desc: 'Definieer uw bestemming en een afwijkingsradius (bijv. 5 km). We vinden alles wat binnen deze corridor een stop waard is.', univers_title: '4 Universa', univers_desc: 'Boerderijen & wijngaarden, Geschiedenis & kastelen, lokale curiosa, Natuur. Filter op basis van uw stemming.', chemin_title: 'Onderweg', chemin_desc: 'Voeg tussenstops toe aan uw route of laat de app spontane stopplaatsen voorstellen tijdens het rijden.', community_title: 'Gemeenschap', community_desc: 'Elke plaats heeft zijn gedetailleerde fiche. Een parel gevonden? Voeg uw eigen ontdekking toe voor anderen.' },
@@ -150,7 +148,7 @@ const STRINGS = {
     ru: { 
         code: 'RU', label: 'Русский', 
         tagline: 'Гид, который обогатит ваше путешествие.',
-        hero_title: 'Стоит сделать крюк!',
+        hero_title_part1: 'Стоит сделать', hero_title_part2: 'крюк!',
         join_btn: 'Присоединиться',
         email_placeholder: 'ваша@почта.ru',
         ai_prompt_limit: "Извините, поиск ограничен регионами и городами Франции. Пожалуйста, попробуйте ввести название местности во Франции.",
@@ -178,9 +176,23 @@ const STRINGS = {
 
 // --- LANGUAGE HOOK ---
 const useLanguage = () => {
-    // Читаем язык из localStorage или используем FR по умолчанию
-    const [lang, setLang] = useState(localStorage.getItem('lang') || 'fr');
+    // 1. Попытка определить язык браузера (только при первом запуске)
+    const getInitialLang = () => {
+        const storedLang = localStorage.getItem('lang');
+        if (storedLang && STRINGS[storedLang]) {
+            return storedLang;
+        }
 
+        const browserLangCode = navigator.language.split('-')[0];
+        const defaultLangMap = {
+            'fr': 'fr', 'en': 'en', 'de': 'de', 'nl': 'nl', 'ru': 'ru'
+        };
+        return defaultLangMap[browserLangCode] || 'fr';
+    };
+
+    const [lang, setLang] = useState(getInitialLang);
+
+    // 2. Сохраняем в localStorage при изменении
     useEffect(() => {
         localStorage.setItem('lang', lang);
     }, [lang]);
@@ -198,8 +210,7 @@ const useLanguage = () => {
 // --- COMPONENTS ---
 
 const Logo = () => {
-    const { lang } = useLanguage();
-    
+    // Внимание: Логотип загружается как статический ресурс с абсолютным путем
     return (
         <div className="flex items-center justify-start py-2">
             <img 
