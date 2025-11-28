@@ -1,26 +1,273 @@
-import React, { useState, useEffect } from 'react';
-import { initializeApp } from 'firebase/app';
+import React, { useState, useEffect } from "react";
+import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { getAuth, signInAnonymously, onAuthStateChanged } from 'firebase/auth';
-import { getFirestore, collection, addDoc, serverTimestamp } from 'firebase/firestore';
-import { 
-  Compass, Navigation, Coffee, Smartphone, ChevronRight, Check, X, 
-  Globe, Star, Sparkles, Loader, AlertTriangle, MapPin, Radio, 
-  ShoppingBag, Camera, Music, PlayCircle, History, Utensils, Search
-} from 'lucide-react';
+import {
+  getAuth,
+  signInAnonymously,
+  onAuthStateChanged,
+} from "firebase/auth";
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  serverTimestamp,
+} from "firebase/firestore";
 
-// --- НАСТРОЙКИ КАРТИНОК ---
-// ИСПРАВЛЕНО: Файлы должны лежать в папке /public/.
+import {
+  Compass,
+  Navigation,
+  Smartphone,
+  ChevronRight,
+  Check,
+  X,
+  Globe,
+  Sparkles,
+  Loader,
+  AlertTriangle,
+  MapPin,
+} from "lucide-react";
+
+// ---- КАРТИНКИ ----
+// ВАЖНО: эти файлы должны лежать в /public:
+// public/IMG_0289.jpeg
+// public/IMG_0288.jpg
+// public/IMG_0275.jpg
 const IMAGES = {
-  logo: "/IMG_0289.jpeg",      // Путь: /public/IMG_0289.jpeg
-  profile: "/IMG_0288.jpg",    // Путь: /public/IMG_0288.jpg
-  map: "/IMG_0275.jpg",        // Путь: /public/IMG_0275.jpg
+  logo: "/IMG_0289.jpeg",
+  profile: "/IMG_0288.jpg",
+  map: "/IMG_0275.jpg",
 };
 
-// --- GEMINI API SETUP ---
-const apiKey = typeof process !== 'undefined' && process.env.VITE_GEMINI_API_KEY ? process.env.VITE_GEMINI_API_KEY : ""; 
+// ---- ТЕКСТЫ ДЛЯ ЯЗЫКОВ ----
+const STRINGS = {
+  fr: {
+    code: "fr",
+    label: "Français",
+    tagline: "Le guide qui enrichit vos trajets.",
+    hero_title_part1: "Ça vaut le",
+    hero_title_part2: "détour !",
+    hero_subtitle:
+      "Choisissez un rayon de détour, et Guide du Détour se charge de remplir la route d’histoires, de paysages et de bonnes adresses.",
+    menu: {
+      concept: "Concept",
+      features: "Fonctionnalités",
+      ai: "Laboratoire IA",
+      join: "Accès anticipé",
+    },
+    hero_cta: "Demander un accès anticipé",
+    hero_secondary: "Voir un exemple d’itinéraire",
+    phone: {
+      interests: "Vos centres d’intérêt",
+      route: "Votre route enrichie",
+    },
+    form_title: "Rejoindre la liste d’attente",
+    form_subtitle:
+      "Laissez votre email pour être prévenu·e quand la beta sera disponible.",
+    email_placeholder: "votre@email.com",
+    form_button: "Rejoindre la beta",
+    form_success: "Merci ! Nous vous tiendrons au courant très bientôt.",
+    form_error: "Une erreur s’est produite. Merci de réessayer.",
+    ai_lab_title: "Laboratoire IA · Explorer un détour",
+    ai_lab_subtitle:
+      "Entrez une région ou une ville en France pour obtenir une idée de détour.",
+    ai_tab_scout: "Éclaireur",
+    ai_tab_history: "Rétroviseur",
+    ai_tab_food: "Coffre vide",
+    ai_placeholder: "Ex : Bretagne, Lyon, Alsace…",
+    ai_button: "Lancer l’IA",
+    ai_loading: "L’IA réfléchit à votre détour…",
+    ai_result_title: "Résultat",
+    ai_error_no_input: "Ajoutez d’abord une région ou une ville.",
+    ai_error_no_key:
+      "Pas de clé Gemini configurée. Ajoutez VITE_GEMINI_API_KEY в .env.",
+    ai_error_generic: "Impossible d’appeler l’IA. Réessayez plus tard.",
+    footer: {
+      made_in: "Fait en France avec curiosité.",
+      contact: "Contact",
+      copyright: "Guide du Détour",
+    },
+  },
 
-// --- FIREBASE CONFIG ---
+  en: {
+    code: "en",
+    label: "English",
+    tagline: "The guide that enriches your journeys.",
+    hero_title_part1: "It’s worth",
+    hero_title_part2: "the detour.",
+    hero_subtitle:
+      "Choose a detour radius and let Guide du Détour fill the road with stories, landscapes and good places.",
+    menu: {
+      concept: "Concept",
+      features: "Features",
+      ai: "AI Lab",
+      join: "Early access",
+    },
+    hero_cta: "Request early access",
+    hero_secondary: "See a sample route",
+    phone: {
+      interests: "Your interests",
+      route: "Your enriched route",
+    },
+    form_title: "Join the waitlist",
+    form_subtitle:
+      "Leave your email to be notified when the beta is ready.",
+    email_placeholder: "your@email.com",
+    form_button: "Join beta",
+    form_success: "Thanks! We’ll keep you updated soon.",
+    form_error: "Something went wrong. Please try again.",
+    ai_lab_title: "AI Lab · Explore a detour",
+    ai_lab_subtitle:
+      "Type a region or city in France to get a detour idea.",
+    ai_tab_scout: "Scout",
+    ai_tab_history: "Rearview",
+    ai_tab_food: "Empty trunk",
+    ai_placeholder: "Ex: Brittany, Lyon, Alsace…",
+    ai_button: "Ask AI",
+    ai_loading: "AI is thinking about your detour…",
+    ai_result_title: "Result",
+    ai_error_no_input: "Please add a region or city first.",
+    ai_error_no_key:
+      "No Gemini API key configured. Add VITE_GEMINI_API_KEY in .env.",
+    ai_error_generic: "AI call failed. Try again later.",
+    footer: {
+      made_in: "Made in France with curiosity.",
+      contact: "Contact",
+      copyright: "Guide du Détour",
+    },
+  },
+
+  de: {
+    code: "de",
+    label: "Deutsch",
+    tagline: "Der Guide, der deine Fahrten bereichert.",
+    hero_title_part1: "Es lohnt sich für",
+    hero_title_part2: "einen Umweg.",
+    hero_subtitle:
+      "Wähle einen Umweg-Radius und Guide du Détour füllt deine Route mit Geschichten, Landschaften und guten Adressen.",
+    menu: {
+      concept: "Konzept",
+      features: "Funktionen",
+      ai: "KI-Labor",
+      join: "Früher Zugang",
+    },
+    hero_cta: "Frühzugang anfragen",
+    hero_secondary: "Beispielroute ansehen",
+    phone: {
+      interests: "Deine Interessen",
+      route: "Deine bereicherte Route",
+    },
+    form_title: "Warteliste beitreten",
+    form_subtitle:
+      "Hinterlasse deine E-Mail, um über die Beta informiert zu werden.",
+    email_placeholder: "du@mail.de",
+    form_button: "Zur Beta",
+    form_success: "Danke! Wir melden uns bald.",
+    form_error: "Es ist ein Fehler aufgetreten. Bitte erneut versuchen.",
+    ai_lab_title: "KI-Labor · Einen Umweg erkunden",
+    ai_lab_subtitle:
+      "Gib eine Region oder Stadt in Frankreich ein, um eine Umweg-Idee zu erhalten.",
+    ai_tab_scout: "Scout",
+    ai_tab_history: "Rückspiegel",
+    ai_tab_food: "Leerraum",
+    ai_placeholder: "Z.B.: Bretagne, Lyon, Elsass…",
+    ai_button: "KI fragen",
+    ai_loading: "Die KI denkt über deinen Umweg nach…",
+    ai_result_title: "Ergebnis",
+    ai_error_no_input: "Bitte zuerst eine Region oder Stadt angeben.",
+    ai_error_no_key:
+      "Keine Gemini API-Key gesetzt. Füge VITE_GEMINI_API_KEY in .env hinzu.",
+    ai_error_generic:
+      "Aufruf der KI fehlgeschlagen. Bitte später erneut versuchen.",
+    footer: {
+      made_in: "In Frankreich mit Neugier gemacht.",
+      contact: "Kontakt",
+      copyright: "Guide du Détour",
+    },
+  },
+
+  ru: {
+    code: "ru",
+    label: "Русский",
+    tagline: "Гид, который обогащает дорогу, а не только пункт назначения.",
+    hero_title_part1: "Стоит сделать",
+    hero_title_part2: "крюк.",
+    hero_subtitle:
+      "Выбираете радиус отклонения, а Guide du Détour подбрасывает вам красивые виды, историю и вкусные остановки по пути.",
+    menu: {
+      concept: "Концепция",
+      features: "Возможности",
+      ai: "Лаборатория ИИ",
+      join: "Ранний доступ",
+    },
+    hero_cta: "Запросить ранний доступ",
+    hero_secondary: "Посмотреть пример маршрута",
+    phone: {
+      interests: "Ваши интересы",
+      route: "Ваш обогащённый маршрут",
+    },
+    form_title: "Записаться в список ожидания",
+    form_subtitle:
+      "Оставьте почту, и мы напишем, когда beta будет готова.",
+    email_placeholder: "ваша@почта.ru",
+    form_button: "Присоединиться к beta",
+    form_success: "Спасибо! Мы скоро с вами свяжемся.",
+    form_error: "Ошибка при отправке. Попробуйте ещё раз.",
+    ai_lab_title: "Лаборатория ИИ · Найти крюк",
+    ai_lab_subtitle:
+      "Напишите регион или город во Франции — ИИ предложит интересный крюк.",
+    ai_tab_scout: "Разведчик",
+    ai_tab_history: "Ретроспектива",
+    ai_tab_food: "Пустой багажник",
+    ai_placeholder: "Например: Бретань, Лион, Эльзас…",
+    ai_button: "Спросить ИИ",
+    ai_loading: "ИИ думает над вашим маршрутом…",
+    ai_result_title: "Результат",
+    ai_error_no_input: "Сначала напишите регион или город.",
+    ai_error_no_key:
+      "Не задан ключ Gemini. Добавьте VITE_GEMINI_API_KEY в .env.",
+    ai_error_generic:
+      "Не удалось обратиться к ИИ. Попробуйте ещё раз позже.",
+    footer: {
+      made_in: "Сделано во Франции с любопытством.",
+      contact: "Контакт",
+      copyright: "Guide du Détour",
+    },
+  },
+};
+
+// ---- ХУК ЯЗЫКА ----
+const useLanguage = () => {
+  const getInitialLang = () => {
+    const stored = localStorage.getItem("lang");
+    if (stored && STRINGS[stored]) return stored;
+
+    const browserCode = navigator.language.split("-")[0].toLowerCase();
+    const map = {
+      fr: "fr",
+      en: "en",
+      de: "de",
+      ru: "ru",
+    };
+    return map[browserCode] || "fr";
+  };
+
+  const [lang, setLang] = useState(getInitialLang);
+
+  useEffect(() => {
+    localStorage.setItem("lang", lang);
+  }, [lang]);
+
+  const setLanguage = (next) => {
+    if (STRINGS[next]) setLang(next);
+    else console.warn("Unsupported language:", next);
+  };
+
+  const strings = STRINGS[lang] || STRINGS.fr;
+
+  return { lang, strings, setLanguage };
+};
+
+// ---- FIREBASE ----
 const firebaseConfig = {
   apiKey: "AIzaSyCWQJtzHMksDG5UgLVma8LnYiOxYYcv_AQ",
   authDomain: "guide-du-detour.firebaseapp.com",
@@ -28,613 +275,568 @@ const firebaseConfig = {
   storageBucket: "guide-du-detour.firebasestorage.app",
   messagingSenderId: "182479723840",
   appId: "1:182479723840:web:866963483cf1bca6f9aea5",
-  measurementId: "G-17851JKM7F"
+  measurementId: "G-17851JKM7F",
 };
 
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+// analytics можно не использовать на dev, но и не мешает
+try {
+  getAnalytics(app);
+} catch (e) {
+  // в dev-окружении без https может падать — просто игнорируем
+}
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-// --- СЛОВАРЬ (Multilanguage Strings) ---
-const STRINGS = {
-    fr: { 
-        code: 'FR', label: 'Français', 
-        tagline: 'Le guide qui enrichit vos voyages.',
-        hero_title_part1: 'Ça vaut le', hero_title_part2: 'détour !',
-        join_btn: 'Rejoindre',
-        email_placeholder: 'votre@email.com',
-        ai_prompt_limit: "Excusez-moi, la recherche est limitée aux régions et villes françaises. Veuillez réessayer avec un nom de lieu en France.",
-        ai_scout_prompt: "Tu es un expert local pour l'application 'Guide du Détour'. L'utilisateur indique une région ou une ville de France. Propose UN SEUL lieu précis, méconnu mais atmosphérique (moulin, ruine, plage secrète) dans cette zone. Réponse courte (max 40 mots), inspirante, en français. Commence par le nom du lieu.",
-        ai_history_prompt: "Tu es le mode 'Rétroviseur Temporel' de l'application. L'utilisateur donne un lieu ou une région de France. Raconte une courte anecdote historique fascinante, un mythe ou une légende locale oublié sur ce lieu. Ton ton doit être mystérieux et captivant. Max 40 mots. En français.",
-        ai_food_prompt: "Tu es le mode 'Coffre Vide' de l'application. L'utilisateur donne une région de France. Liste 3 produits du terroir spécifiques et authentiques (fromage, vin, artisanat) qu'il faut absolument acheter et ramener de là-bas. Format liste simple. En français.",
-        tabs: { scout: "L'Éclaireur", history: "Rétroviseur", food: "Coffre Vide" },
-        ai_scout_title: "Trouvez une pépite cachée", ai_scout_desc: "Entrez une région, nous trouvons le détour parfait.",
-        ai_history_title: "Écoutez les murs parler", ai_history_desc: "Découvrez les légendes oubliées d'un lieu.",
-        ai_food_title: "Remplissez votre coffre", ai_food_desc: "Les meilleurs produits locaux à ramener chez vous.",
-        ai_placeholder: "Ex: Bretagne ou Lyon...",
-        ai_demo_tag: "DÉMONSTRATION IA EN DIRECT", ai_loading: "L'IA consulte ses cartes...", ai_error: "Le serveur est surchargé. Réessayez plus tard.", ai_initial: "Le résultat apparaîtra ici...", ai_mode: "Mode",
-        auth_error: "Configuration Firebase requise: Activez l'authentification Anonyme dans la console.",
-        hero: { status: 'BETA ACCESSIBLE', subtitle: 'Transformez la route en une aventure fascinante. Définissez votre destination, choisissez votre rayon d\'évasion, et découvrez les trésors cachés le long de votre trajet.' },
-        menu: { concept: 'Concept', features: 'Fonctionnalités', future: 'Futur', beta_access: 'Accès Bêta' },
-        phone: { interests: 'Vos Intérêts', route: 'La Route' },
-        features: { main_title: 'Une expérience unique', main_subtitle: 'Vous choisissez le cap, vous décidez jusqu\'où vous êtes prêt à flâner. Nous nous occupons de l\'émerveillement.', couloir_title: 'Le Couloir', couloir_desc: 'Définissez votre destination et un rayon d\'écart (ex: 5km). Nous trouvons tout ce qui mérite un arrêt dans ce couloir.', univers_title: '4 Univers', univers_desc: 'Fermes & vignobles, Histoire & châteaux, Curiosités locales, Nature. Filtrez selon votre humeur du jour.', chemin_title: 'En Chemin', chemin_desc: 'Ajoutez des étapes à votre itinéraire ou laissez l\'application vous suggérer des arrêts spontanés en roulant.', community_title: 'Communauté', community_desc: 'Chaque lieu a sa fiche détaillée. Vous avez trouvé une pépite ? Ajoutez votre propre découverte pour les autres.' },
-        comparison: { title: 'Pourquoi choisir "Ça vaut le détour" ?', function: 'Fonctionnalité', us: 'Nous', others: 'GPS Classique', a_to_b: 'Itinéraire A → B', along_route: 'Découverte le long du trajet (Couloir)', radius: 'Rayon de détour ajustable', categories: 'Catégories pour touristes' },
-        roadmap: { tag: 'Roadmap', title: "Le Futur de l'Aventure", subtitle: 'Nous ne construisons pas seulement une carte, mais un compagnon de route intelligent. Voici les modes exclusifs en cours de développement pour nos premiers utilisateurs.', compass_title: 'Mode Boussole', compass_desc: 'Une simple flèche pour les vrais aventuriers. Suivez le cap, trouvez votre propre chemin.', grain_title: 'Grain de la Route', grain_desc: 'Choisissez la texture de votre voyage : routes panoramiques ou chemins de traverse.', chineur_title: 'Mode Chineur', chineur_desc: 'Alertes en temps réel pour les brocantes et vide-greniers sur votre route.', coffre_title: 'Coffre Vide', coffre_desc: 'Remplissez votre coffre de produits locaux : fermiers et artisans en direct.', escale_title: "L'Escale Parfaite", escale_desc: 'Des arrêts synchronisés avec votre fatigue et les plus beaux panoramas.', mystery_title: 'Point Mystère', mystery_desc: 'Laissez-vous guider à l\'aveugle vers une destination surprise.', retro_title: 'Rétroviseur Temporel', retro_desc: 'Des histoires audio géolocalisées qui racontent le passé des lieux traversés.', club_title: 'Club des Éclaireurs', club_desc: 'Gagnez des points, classements et badges en découvrant de nouveaux lieux.' },
-        footer: { cta_title: 'Prêt à changer de route ?', cta_subtitle: 'Rejoignez la liste d\'attente pour être parmi les premiers explorateurs à tester l\'application sur iPhone et Android.', copyright: 'Ça vaut le détour. Fait avec passion pour les voyageurs.', privacy: 'Confidentialité', contact: 'Contact' },
-        status: { success: 'Inscrit !', success_msg: 'Merci ! On vous tient au courant.' },
-    },
-    en: { 
-        code: 'EN', label: 'English', 
-        tagline: 'The guide that enriches your travels.',
-        hero_title_part1: 'Worth the', hero_title_part2: 'detour!',
-        join_btn: 'Join Now',
-        email_placeholder: 'your@email.com',
-        ai_prompt_limit: "I'm sorry, the search is limited to regions and cities in France. Please try again with a French location name.",
-        ai_scout_prompt: "You are a local expert for the 'Guide du Détour' app. The user provides a region or city in France. Propose ONE specific, little-known but atmospheric place (mill, ruin, secret beach) in that area. Keep the response short (max 40 words), inspiring, and in English. Start with the name of the place.",
-        ai_history_prompt: "You are the 'Time Rewinder' mode of the app. The user provides a location in France. Tell a short, fascinating historical anecdote, myth, or forgotten local legend about this place. Your tone should be mysterious and captivating. Max 40 words. In English.",
-        ai_food_prompt: "You are the 'Empty Trunk' mode of the app. The user provides a region in France. List 3 specific and authentic local products (cheese, wine, crafts) that they absolutely must buy and bring back from there. Simple list format. In English.",
-        tabs: { scout: 'The Scout', history: 'Rewinder', food: 'Empty Trunk' },
-        ai_scout_title: "Find a hidden gem", ai_scout_desc: "Enter a region, and we find the perfect detour.",
-        ai_history_title: "Listen to the walls talk", ai_history_desc: "Discover the forgotten legends of a place.",
-        ai_food_title: "Fill your trunk", ai_food_desc: "The best local products to take home with you.",
-        ai_placeholder: "Ex: Provence or Lyon...",
-        ai_demo_tag: "LIVE AI DEMONSTRATION", ai_loading: "AI is consulting the maps...", ai_error: "The server is overloaded. Please try again later.", ai_initial: "The result will appear here...", ai_mode: "Mode",
-        auth_error: "Firebase configuration required: Enable Anonymous authentication in the console.",
-        hero: { status: 'BETA ACCESS', subtitle: 'Transform your journey into a fascinating adventure. Set your destination, choose your radius of escape, and discover hidden treasures along your route.' },
-        menu: { concept: 'Concept', features: 'Features', future: 'Future', beta_access: 'Beta Access' },
-        phone: { interests: 'Your Interests', route: 'The Route' },
-        features: { main_title: 'A unique experience', main_subtitle: 'You choose the course, you decide how far you are willing to wander. We take care of the wonder.', couloir_title: 'The Corridor', couloir_desc: 'Define your destination and a radius of deviation (e.g., 5km). We find everything worth a stop within this corridor.', univers_title: '4 Universes', univers_desc: 'Farms & vineyards, History & castles, Local Curiosities, Nature. Filter according to your mood.', chemin_title: 'On the way', chemin_desc: 'Add stops to your itinerary or let the app suggest spontaneous stops while driving.', community_title: 'Community', community_desc: 'Every place has its detailed sheet. Found a gem? Add your own discovery for others.' },
-        comparison: { title: 'Why choose "Worth the detour" ?', function: 'Functionality', us: 'Us', others: 'Classic GPS', a_to_b: 'A → B Route', along_route: 'Discovery along the route (Corridor)', radius: 'Adjustable detour radius', categories: 'Tourist categories' },
-        roadmap: { tag: 'Roadmap', title: 'The Future of Adventure', subtitle: 'We are not just building a map, but an intelligent road companion. Here are the exclusive modes currently in development for our first users.', compass_title: 'Compass Mode', compass_desc: 'A simple arrow for true adventurers. Follow the heading, find your own way.', grain_title: 'Road Grain', grain_desc: 'Choose the texture of your journey: scenic routes or cross roads.', chineur_title: 'Chineur Mode', chineur_desc: 'Real-time alerts for flea markets and garage sales on your route.', coffre_title: 'Empty Trunk', coffre_desc: 'Fill your trunk with local products: directly from farmers and artisans.', escale_title: 'The Perfect Stopover', escale_desc: 'Stops synchronized with your fatigue and the most beautiful panoramas.', mystery_title: 'Mystery Point', mystery_desc: 'Let yourself be guided blindly to a surprise destination.', retro_title: 'Time Rewinder', retro_desc: 'Geolocation audio stories that tell the past of the places crossed.', club_title: 'Explorers Club', club_desc: 'Earn points, rankings, and badges by discovering new places.' },
-        footer: { cta_title: 'Ready to change route?', cta_subtitle: 'Join the waiting list to be among the first explorers to test the app on iPhone and Android.', copyright: 'Worth the Detour. Made with passion for travelers.', privacy: 'Privacy', contact: 'Contact' },
-        status: { success: 'Signed Up!', success_msg: 'Thank you! We will keep you updated.' },
-    },
-    de: { 
-        code: 'DE', label: 'Deutsch', 
-        tagline: 'Der Reiseführer, der Ihre Reisen bereichert.',
-        hero_title_part1: 'Der Abstecher', hero_title_part2: 'lohnt sich!',
-        join_btn: 'Jetzt beitreten',
-        email_placeholder: 'ihre@email.de',
-        ai_prompt_limit: "Entschuldigung, die Suche ist auf französische Regionen und Städte beschränkt. Bitte versuchen Sie es mit einem französischen Ortsnamen erneut.",
-        ai_scout_prompt: "Sie sind ein lokaler Experte für die App 'Guide du Détour'. Der Benutzer gibt eine Region oder Stadt in Frankreich an. Schlagen Sie EINEN spezifischen, wenig bekannten, aber atmosphärischen Ort (Mühle, Ruine, Geheimstrand) in dieser Gegend vor. Die Antwort soll kurz (max. 40 Wörter), inspirierend und auf Deutsch sein. Beginnen Sie mit dem Namen des Ortes.",
-        ai_history_prompt: "Sie sind der 'Zeit-Rückspiegel'-Modus der App. Der Benutzer gibt einen Ort in Frankreich an. Erzählen Sie eine kurze, faszinierende historische Anekdote, einen Mythos oder eine vergessene lokale Legende über diesen Ort. Ihr Ton soll geheimnisvoll und fesselnd sein. Max 40 Wörter. Auf Deutsch.",
-        ai_food_prompt: "Sie sind der 'Leerer Kofferraum'-Modus der App. Der Benutzer gibt eine Region in Frankreich an. Listen Sie 3 spezifische и authentische lokale Produkte (Käse, Wein, Handwerk) auf, die man unbedingt dort kaufen и mitbringen muss. Einfaches Listenformat. Auf Deutsch.",
-        tabs: { scout: 'Der Pfadfinder', history: 'Rückspiegel', food: 'Leerer Kofferraum' },
-        ai_scout_title: "Finden Sie ein verstecktes Juwel", ai_scout_desc: "Geben Sie eine Region ein, und wir finden den perfekten Abstecher für Sie.",
-        ai_history_title: "Hören Sie die Mauern sprechen", ai_history_desc: "Entdecken Sie die vergessenen Legenden eines Ortes.",
-        ai_food_title: "Füllen Sie Ihren Kofferraum", ai_food_desc: "Die besten lokalen Produkte, die Sie mit nach Hause nehmen können.",
-        ai_placeholder: "Bsp.: Normandie или Paris...",
-        ai_demo_tag: "LIVE AI DEMONSTRATION", ai_loading: "Die KI konsultiert die Karten...", ai_error: "Der Server ist überlastet. Bitte versuchen Sie es später erneut.", ai_initial: "Das Ergebnis wird hier angezeigt...", ai_mode: "Modus",
-        auth_error: "Firebase-Konfiguration erforderlich: Aktivieren Sie die anonyme Authentifizierung in der Konsole.",
-        hero: { status: 'BETA-ZUGANG', subtitle: 'Verwandeln Sie Ihre Fahrt in ein faszinierendes Abenteuer. Legen Sie Ihr Ziel fest, wählen Sie Ihren Fluchtradius und entdecken Sie verborgene Schätze entlang Ihrer Route.' },
-        menu: { concept: 'Konzept', features: 'Funktionen', future: 'Zukunft', beta_access: 'Beta-Zugang' },
-        phone: { interests: 'Ihre Interessen', route: 'Die Route' },
-        features: { main_title: 'Ein einzigartiges Erlebnis', main_subtitle: 'Sie wählen den Kurs, Sie entscheiden, wie weit Sie abschweifen möchten. Wir kümmern uns um das Wunder.', couloir_title: 'Der Korridor', couloir_desc: 'Definieren Sie Ihr Ziel und einen Abweichungsradius (z. B. 5 km). Wir finden alles, was innerhalb dieses Korridors einen Stopp wert ist.', univers_title: '4 Universen', univers_desc: 'Bauernhöfe & Weinberge, Geschichte & Schlösser, lokale Kuriositäten, Natur. Filtern Sie nach Ihrer Stimmung.', chemin_title: 'Unterwegs', chemin_desc: 'Fügen Sie Zwischenstopps zu Ihrer Route hinzu или lassen Sie sich von der App spontane Haltepunkte vorschlagen.', community_title: 'Gemeinschaft', community_desc: 'Jeder Ort hat sein detailliertes Blatt. Haben Sie ein Juwel gefunden? Fügen Sie Ihre eigene Entdeckung für andere hinzu.' },
-        comparison: { title: 'Warum "Der Abstecher lohnt sich" wählen?', function: 'Funktionalität', us: 'Wir', others: 'Klassisches GPS', a_to_b: 'A → B Route', along_route: 'Entdeckung entlang der Route (Korridor)', radius: 'Einstellbarer Abstecher-Radius', categories: 'Touristenkategorien' },
-        roadmap: { tag: 'Roadmap', title: 'Die Zukunft des Abenteuers', subtitle: 'Wir bauen nicht nur eine karte, sondern einen intelligenten Reisebegleiter. Hier sind die exklusiven Modi, die sich derzeit für unsere ersten Benutzer in Entwicklung befinden.', compass_title: 'Kompass-Modus', compass_desc: 'Ein einfacher Pfeil für echte Abenteurer. Folgen Sie dem Kurs, finden Sie Ihren eigenen Weg.', grain_title: 'Körnung der Straße', grain_desc: 'Wählen Sie die Textur Ihrer Reise: Panoramastraßen oder Querstraßen.', chineur_title: 'Chineur-Modus', chineur_desc: 'Echtzeit-Warnungen für Flohmärkte und Garagenverkäufe auf Ihrer Route.', coffre_title: 'Leerer Kofferraum', coffre_desc: 'Füllen Sie Ihren Kofferraum mit lokalen Produkten: direkt von Bauern und Handwerkern.', escale_title: 'Der perfekte Zwischenstopp', escale_desc: 'Stopps synchronisiert mit Ihrer Müdigkeit und den schönsten Panoramen.', mystery_title: 'Geheimnisvoller Punkt', mystery_desc: 'Lassen Sie sich blind zu einem Überraschungsziel führen.', retro_title: 'Zeit-Rückspiegel', retro_desc: 'Geolokalisierte Audio-Geschichten, die die Vergangenheit der durchquerten Orte erzählen.', club_title: 'Entdecker-Club', club_desc: 'Sammeln Sie Punkte, Ranglisten und Abzeichen, indem Sie neue Orte entdecken.' },
-        footer: { cta_title: 'Bereit für einen Routenwechsel?', cta_subtitle: 'Tragen Sie sich in die Warteliste ein, um zu den ersten Entdeckern zu gehören, die die App auf iPhone und Android testen.', copyright: 'Der Abstecher lohnt sich. Mit Leidenschaft für Reisende gemacht.', privacy: 'Datenschutz', contact: 'Kontakt' },
-        status: { success: 'Angemeldet!', success_msg: 'Vielen Dank! Wir halten Sie auf dem Laufenden.' },
-    },
-    ru: { 
-        code: 'RU', label: 'Русский', 
-        tagline: 'Гид, который обогатит ваше путешествие.',
-        hero_title_part1: 'Стоит сделать', hero_title_part2: 'крюк!',
-        join_btn: 'Присоединиться',
-        email_placeholder: 'ваша@почта.ru',
-        ai_prompt_limit: "Извините, поиск ограничен регионами и городами Франции. Пожалуйста, попробуйте ввести название местности во Франции.",
-        ai_scout_prompt: "Вы — местный эксперт приложения 'Guide du Détour'. Пользователь указывает регион или город во Франции. Предложите ОДНО конкретное, малоизвестное, но атмосферное место (мельница, руины, секретный пляж) в этой зоне. Ответ должен быть кратким (максимум 40 слов), вдохновляющим и на русском языке. Начните ответ с названия места.",
-        ai_history_prompt: "Вы — режим 'Ретровизор Времени' приложения. Пользователь дает место или регион во Франции. Расскажите короткую, увлекательную историческую байку, миф или забытую местную легенду об этом месте. Ваш тон должен быть таинственным и захватывающим. Макс 40 слов. На русском языке.",
-        ai_food_prompt: "Вы — режим 'Пустой Багажник' приложения. Пользователь дает регион во Франции. Перечислите 3 специфических и аутентичных местных продукта (сыр, вино, ремесла), которые стоит обязательно купить и привезти оттуда. Формат простого списка. На русском языке.",
-        tabs: { scout: 'Разведчик', history: 'Ретровизор', food: 'Пустой Багажник' },
-        ai_scout_title: "Найдите скрытую жемчужину", ai_scout_desc: "Введите регион, и мы найдем идеальный крюк для вас.",
-        ai_history_title: "Послушайте, что говорят стены", ai_history_desc: "Откройте для себя забытые легенды места.",
-        ai_food_title: "Наполните ваш багажник", ai_food_desc: "Лучшие местные продукты, чтобы забрать их домой.",
-        ai_placeholder: "Например: Прованс или Лион...",
-        ai_demo_tag: "ЖИВАЯ AI ДЕМОНСТРАЦИЯ", ai_loading: "AI консультирует карты...", ai_error: "Сервер перегружен. Пожалуйста, повторите попытку позже.", ai_initial: "Результат появится здесь...", ai_mode: "Режим",
-        auth_error: "Требуется настройка Firebase: Включите анонимную аутентификацию в консоли.",
-        hero: { status: 'БЕТА ДОСТУПЕН', hero_title_part1: 'Стоит сделать', hero_title_part2: 'крюк!', subtitle: 'Превратите свою поездку в увлекательное приключение. Установите пункт назначения, выберите радиус отклонения и откройте скрытые сокровища вдоль вашего маршрута.' },
-        menu: { concept: 'Концепт', features: 'Функции', future: 'Будущее', beta_access: 'Бета Доступ' },
-        phone: { interests: 'Ваши интересы', route: 'Маршрут' },
-        features: { main_title: 'Уникальный опыт', main_subtitle: 'Вы выбираете курс, вы решаете, как далеко готовы отклониться. Мы позаботимся об удивлении.', couloir_title: 'Коридор', couloir_desc: 'Определите пункт назначения и радиус отклонения (например, 5 км). Мы найдем все, что стоит остановки в пределах этого коридора.', univers_title: '4 Вселенные', univers_desc: 'Фермы и винодельни, История и замки, Местные диковинки, Природа. Фильтруйте в соответствии с вашим настроением.', chemin_title: 'По пути', chemin_desc: 'Добавьте остановки к своему маршруту или позвольте приложению предлагать спонтанные остановки во время движения.', community_title: 'Сообщество', community_desc: 'У каждого места есть своя подробная карточка. Нашли жемчужину? Добавьте свое открытие для других.' },
-        comparison: { title: 'Почему стоит выбрать "Стоит сделать крюк!"?', function: 'Функциональность', us: 'Мы', others: 'Классический GPS', a_to_b: 'Маршрут A → B', along_route: 'Обнаружение вдоль маршрута (Коридор)', radius: 'Настраиваемый радиус отклонения', categories: 'Туристические категории' },
-        roadmap: { tag: 'Дорожная карта', title: 'Будущее приключений', subtitle: 'Мы строим не просто карту, а умного спутника в дороге. Вот эксклюзивные режимы, которые сейчас разрабатываются для наших первых пользователей.', compass_title: 'Режим Компаса', compass_desc: 'Простая стрелка для настоящих авантюристов. Следуйте курсу, найдите свой собственный путь.', grain_title: 'Зерно Дороги', grain_desc: 'Выберите текстуру вашего путешествия: живописные маршруты или проселочные дороги.', chineur_title: 'Режим Кладоискателя', chineur_desc: 'Уведомления в реальном времени о блошиных рынках и распродажах на вашем маршруте.', coffre_title: 'Пустой Багажник', coffre_desc: 'Наполните свой багажник местными продуктами: напрямую от фермеров и ремесленников.', escale_title: 'Идеальный Привал', escale_desc: 'Остановки, синхронизированные с вашей усталостью и самыми красивыми видами.', mystery_title: 'Точка-Сюрприз', mystery_desc: 'Позвольте себе быть направленным вслепую к неожиданному месту назначения.', retro_title: 'Ретровизор Времени', retro_desc: 'Геолокационные аудиоистории, рассказывающие о прошлом пересекаемых мест.', club_title: 'Клуб Следопытов', club_desc: 'Зарабатывайте баллы, рейтинги и значки, открывая новые места.' },
-        footer: { cta_title: 'Готовы сменить маршрут?', cta_subtitle: 'Присоединяйтесь к листу ожидания, чтобы быть среди первых исследователей, тестирующих приложение на iPhone и Android.', copyright: 'Стоит сделать крюк. Создано с любовью для путешественников.', privacy: 'Конфиденциальность', contact: 'Контакты' },
-        status: { success: 'Готово!', success_msg: 'Спасибо! Мы будем держать вас в курсе.' },
-    },
+// ---- КОМПОНЕНТ: ПЕРЕКЛЮЧАТЕЛЬ ЯЗЫКА ----
+const LanguageSwitcher = ({ lang, setLanguage }) => {
+  const languages = Object.values(STRINGS);
+
+  return (
+    <div className="relative">
+      <select
+        onChange={(e) => setLanguage(e.target.value)}
+        value={lang}
+        className="bg-slate-800 text-white text-sm font-medium px-4 py-2 rounded-full border border-slate-700 cursor-pointer focus:outline-none focus:ring-2 focus:ring-emerald-500"
+      >
+        {languages.map((l) => (
+          <option key={l.code} value={l.code}>
+            {l.label} ({l.code.toUpperCase()})
+          </option>
+        ))}
+      </select>
+    </div>
+  );
 };
 
+// ---- КОМПОНЕНТ: МОК АП ТЕЛЕФОНА ----
+const PhoneMockup = ({ strings, activeScreen, setActiveScreen }) => {
+  const screens = [
+    {
+      id: "profile",
+      title: strings.phone.interests,
+      src: IMAGES.profile,
+      alt: "Ecran profil",
+    },
+    {
+      id: "map",
+      title: strings.phone.route,
+      src: IMAGES.map,
+      alt: "Ecran carte",
+    },
+  ];
 
-// --- LANGUAGE HOOK ---
-const useLanguage = () => {
-    // 1. Попытка определить язык браузера (только при первом запуске)
-    const getInitialLang = () => {
-        const storedLang = localStorage.getItem('lang');
-        // ПРИОРИТЕТ 1: Если язык был сохранен, используем его (ручной выбор)
-        if (storedLang && STRINGS[storedLang]) {
-            return storedLang;
-        }
+  const current =
+    screens.find((s) => s.id === activeScreen) || screens[0];
 
-        // ПРИОРИТЕТ 2: Пробуем определить по браузеру
-        const browserLangCode = navigator.language.split('-')[0];
-        const defaultLangMap = {
-            'fr': 'fr', 'en': 'en', 'de': 'de', 'nl': 'nl', 'ru': 'ru'
-        };
-        // Устанавливаем язык браузера, или FR по умолчанию
-        return defaultLangMap[browserLangCode] || 'fr';
-    };
-
-    // Используем функцию для определения начального языка
-    const [lang, setLang] = useState(getInitialLang);
-
-    // 2. Сохраняем в localStorage при изменении
-    useEffect(() => {
-        localStorage.setItem('lang', lang);
-    }, [lang]);
-
-    const strings = STRINGS[lang];
-    const setLanguage = (newLang) => {
-        if (STRINGS[newLang]) {
-            setLang(newLang);
-        }
-    };
-
-    return { lang, strings, setLanguage };
-};
-
-// --- COMPONENTS ---
-
-const Logo = () => {
-    // Внимание: Логотип загружается как статический ресурс с абсолютным путем
-    return (
-        <div className="flex items-center justify-start py-2">
-            <img 
-              src={IMAGES.logo} 
-              alt="Guide du Détour" 
-              // Увеличенный размер 
-              className="h-16 md:h-24 w-auto object-contain transition-transform duration-500 hover:scale-105" 
-              // Обработка ошибки загрузки логотипа
-              onError={(e) => {
-                  e.target.onerror = null; 
-                  e.target.style.display = 'none';
-                  e.target.parentNode.innerHTML = '<span class="text-3xl font-serif text-white">Détour</span>';
-              }}
-            />
+  return (
+    <div className="relative w-full max-w-[320px] mx-auto">
+      {/* корпус телефона */}
+      <div className="relative rounded-[36px] border border-slate-700 bg-slate-900/80 shadow-2xl overflow-hidden aspect-[9/19]">
+        <div className="absolute inset-x-8 top-3 h-6 rounded-full bg-slate-900/90 flex items-center justify-between px-4 text-[10px] text-slate-400">
+          <span>9:41</span>
+          <span className="flex items-center gap-1">
+            <Sparkles size={12} /> 4G
+          </span>
         </div>
-    );
-};
 
-const LanguageSwitcher = () => {
-    const { lang, setLanguage } = useLanguage();
-    const languages = Object.values(STRINGS);
-
-    return (
-        <div className="relative">
-            <select
-                onChange={(e) => setLanguage(e.target.value)}
-                value={lang}
-                // КРИТИЧНОЕ ИСПРАВЛЕНИЕ: принудительное обновление компонента Select
-                key={lang} 
-                className="bg-slate-800 text-white text-sm font-medium px-4 py-2 rounded-full border border-slate-700 appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-emerald-500"
-            >
-                {languages.map((l) => (
-                    <option key={l.code} value={l.code}>
-                        {l.label} ({l.code})
-                    </option>
-                ))}
-            </select>
+        <div className="absolute inset-x-4 top-10 text-xs text-slate-300 flex justify-between">
+          <span>{current.title}</span>
+          <span className="flex items-center gap-1">
+            <MapPin size={12} /> FR
+          </span>
         </div>
-    );
+
+        <div className="absolute inset-0 mt-14 mb-6">
+          <img
+            src={current.src}
+            alt={current.alt}
+            className="w-full h-full object-cover"
+            onError={(e) => {
+              e.currentTarget.src =
+                "https://placehold.co/320x640/020617/f9fafb?text=Image+not+found";
+            }}
+          />
+        </div>
+      </div>
+
+      {/* кнопки-переключатели */}
+      <div className="mt-4 flex justify-center gap-3">
+        <button
+          onClick={() => setActiveScreen("profile")}
+          className={`px-3 py-1 rounded-full text-xs border ${
+            activeScreen === "profile"
+              ? "bg-emerald-500 text-slate-900 border-emerald-400"
+              : "bg-slate-900 text-slate-300 border-slate-700"
+          }`}
+        >
+          <Smartphone size={14} className="inline mr-1" />
+          {strings.phone.interests}
+        </button>
+        <button
+          onClick={() => setActiveScreen("map")}
+          className={`px-3 py-1 rounded-full text-xs border ${
+            activeScreen === "map"
+              ? "bg-emerald-500 text-slate-900 border-emerald-400"
+              : "bg-slate-900 text-slate-300 border-slate-700"
+          }`}
+        >
+          <Navigation size={14} className="inline mr-1" />
+          {strings.phone.route}
+        </button>
+      </div>
+    </div>
+  );
 };
 
-const FeatureCard = ({ icon: Icon, title, description, color = "text-emerald-400" }) => (
-  <div className="bg-slate-900/50 backdrop-blur-sm border border-slate-800 p-6 rounded-2xl hover:border-emerald-500/30 transition-all duration-300 group h-full hover:-translate-y-1 shadow-lg hover:shadow-emerald-900/10">
-    <div className={`w-12 h-12 bg-slate-800 rounded-xl flex items-center justify-center mb-4 ${color} group-hover:scale-110 transition-transform`}>
-      <Icon size={24} />
-    </div>
-    <h3 className="text-xl font-bold text-white mb-2">{title}</h3>
-    <p className="text-slate-400 leading-relaxed text-sm">{description}</p>
-  </div>
-);
+// ---- КОМПОНЕНТ: AI ЛАБОРАТОРИЯ ----
+const AiLab = ({ strings, lang }) => {
+  const [activeTab, setActiveTab] = useState("scout");
+  const [input, setInput] = useState("");
+  const [result, setResult] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-const RoadmapItem = ({ emoji, title, desc }) => (
-  <div className="flex items-start gap-4 p-4 rounded-xl hover:bg-white/5 transition border border-transparent hover:border-white/10">
-    <div className="text-2xl pt-1 select-none">{emoji}</div>
-    <div>
-        <h4 className="text-white font-bold text-sm md:text-base mb-1">{title}</h4>
-        <p className="text-slate-400 text-xs md:text-sm leading-relaxed">{desc}</p>
-    </div>
-  </div>
-);
+  const apiKey =
+    typeof process !== "undefined"
+      ? import.meta.env.VITE_GEMINI_API_KEY || ""
+      : "";
 
-const ComparisonRow = ({ feature, us, others }) => (
-  <div className="grid grid-cols-12 gap-2 md:gap-4 py-4 border-b border-slate-800/50 hover:bg-slate-800/30 transition-colors px-4 rounded-lg items-center">
-    <div className="col-span-6 text-slate-300 font-medium text-xs md:text-sm">{feature}</div>
-    <div className="col-span-3 text-center flex justify-center">
-        {us ? <Check className="text-emerald-400 w-5 h-5" /> : <X className="text-slate-600 w-5 h-5" />}
-    </div>
-    <div className="col-span-3 text-center flex justify-center opacity-50 grayscale">
-        {others ? <Check className="text-slate-400 w-5 h-5" /> : <X className="text-slate-600 w-5 h-5" />}
-    </div>
-  </div>
-);
+  const getSystemPrompt = () => {
+    if (lang === "fr") {
+      if (activeTab === "scout")
+        return `Tu es le mode "Éclaireur" de l'application Guide du Détour. Pour une région ou ville donnée en France, propose un seul détour original avec une explication courte (max 80 mots) en français.`;
+      if (activeTab === "history")
+        return `Tu es le mode "Rétroviseur". Raconte une petite histoire ou anecdote historique liée à ce lieu, en français, ton chaleureux, max 80 mots.`;
+      return `Tu es le mode "Coffre vide". Pour ce lieu en France, propose 3 produits locaux intéressants à acheter et ramener, en français, sous forme de liste courte.`;
+    }
+    if (lang === "ru") {
+      if (activeTab === "scout")
+        return `Ты — режим "Разведчик" приложения Guide du Détour. Для указанного региона или города во Франции предложи один интересный крюк (место или короткий маршрут) с объяснением до 80 слов, по-русски.`;
+      if (activeTab === "history")
+        return `Ты — режим "Ретроспектива". Расскажи короткую историческую историю или легенду, связанную с этим местом, до 80 слов, по-русски.`;
+      return `Ты — режим "Пустой багажник". Для указанного региона во Франции предложи 3 аутентичных местных продукта, которые стоит купить и привезти, списком, по-русски.`;
+    }
+    // en / de — общее, на английском
+    if (activeTab === "scout")
+      return `You are the "Scout" mode of Guide du Détour. For a region or city in France, suggest one interesting detour with a short explanation (max 80 words) in English.`;
+    if (activeTab === "history")
+      return `You are the "Rearview" mode. Tell a short historical story or anecdote related to this place in English, max 80 words.`;
+    return `You are the "Empty Trunk" mode. For the given region in France, list 3 local products worth buying and bringing back, in English, as a short list.`;
+  };
 
-// --- AI LAB COMPONENT ---
-const AiLab = () => {
-    const { strings, lang } = useLanguage();
-    const [activeTab, setActiveTab] = useState('scout');
-    const [input, setInput] = useState('');
-    const [result, setResult] = useState(null);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
+  const handleRun = async () => {
+    setError("");
+    setResult("");
 
-    useEffect(() => {
-        setResult(null);
-        setError(null);
-        setInput('');
-    }, [activeTab]);
-
-    const getSystemPrompt = (tab, input) => {
-        const inputLower = input.toLowerCase();
-        
-        const nonGeoKeywords = ['президент', 'president', 'bundeskanzler', 'koning', 'политика', 'politics', 'geschichte', 'history', 'recette', 'recipe'];
-        if (nonGeoKeywords.some(keyword => inputLower.includes(keyword))) {
-            return strings.ai_prompt_limit;
-        }
-
-        switch (tab) {
-            case 'scout':
-                return strings.ai_scout_prompt;
-            case 'history':
-                return strings.ai_history_prompt;
-            case 'food':
-                return strings.ai_food_prompt;
-            default:
-                return strings.ai_scout_prompt;
-        }
-    };
-    
-    const isFrenchLocation = (text) => {
-        const textLower = text.toLowerCase();
-        return textLower.length > 3; 
+    if (!input.trim()) {
+      setError(strings.ai_error_no_input);
+      return;
     }
 
+    if (!apiKey) {
+      setError(strings.ai_error_no_key);
+      return;
+    }
 
-    const handleAction = async (e) => {
-        e.preventDefault();
-        if (!input.trim()) return;
-        
-        if (!isFrenchLocation(input)) {
-             setError(strings.ai_prompt_limit);
-             return;
+    setLoading(true);
+    try {
+      const systemPrompt = getSystemPrompt();
+
+      const res = await fetch(
+        "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=" +
+          apiKey,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            contents: [{ parts: [{ text: input }] }],
+            systemInstruction: { parts: [{ text: systemPrompt }] },
+          }),
         }
+      );
 
-        setLoading(true);
-        setError(null);
-        setResult(null);
+      const data = await res.json();
 
-        const systemPrompt = getSystemPrompt(activeTab, input);
+      const text =
+        data?.candidates?.[0]?.content?.parts?.[0]?.text ||
+        JSON.stringify(data, null, 2);
 
-        if (systemPrompt === strings.ai_prompt_limit) {
-             setError(systemPrompt);
-             setLoading(false);
-             return;
-        }
+      setResult(text);
+    } catch (e) {
+      console.error(e);
+      setError(strings.ai_error_generic);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-
-        try {
-            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    contents: [{ parts: [{ text: `Location: ${input}` }] }],
-                    systemInstruction: { parts: [{ text: systemPrompt }] }
-                })
-            });
-
-            if (!response.ok) {
-                setError(strings.ai_error);
-                throw new Error('AI busy/limit reached');
-            }
-            
-            const data = await response.json();
-            const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
-            if (text) {
-                 if (text.includes("Sorry") || text.includes("Pardon") || text.includes("Entschuldigung") || text.includes("Извините") ) {
-                    setError(strings.ai_prompt_limit);
-                 } else {
-                    setResult(text);
-                 }
-            } else {
-                setError(strings.ai_error);
-            }
-        } catch (err) {
-            console.error("Gemini API Error:", err);
-            setError(strings.ai_error);
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    const tabs = [
-        { id: 'scout', icon: Compass, label: strings.tabs.scout, color: "text-emerald-400", bg: "bg-emerald-500/10", border: "border-emerald-500/30" },
-        { id: 'history', icon: History, label: strings.tabs.history, color: "text-amber-400", bg: "bg-amber-500/10", border: "border-amber-500/30" },
-        { id: 'food', icon: ShoppingBag, label: strings.tabs.food, color: "text-purple-400", bg: "bg-purple-500/10", border: "border-purple-500/30" }
-    ];
-    const activeTabData = tabs.find(t => t.id === activeTab);
-
-    return (
-        <div className="w-full max-w-2xl mx-auto mt-20 rounded-2xl bg-gradient-to-b from-slate-800 to-[#0b1021] p-[1px] shadow-2xl shadow-emerald-900/20">
-            <div className="bg-[#0b1021] rounded-[15px] overflow-hidden">
-                <div className="bg-slate-900/50 p-2 flex gap-2 overflow-x-auto">
-                    {tabs.map((tab) => (
-                        <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={`flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-lg text-sm font-bold transition-all whitespace-nowrap ${activeTab === tab.id ? `${tab.bg} ${tab.color} ring-1 ring-inset ${tab.border}` : 'text-slate-500 hover:text-slate-300 hover:bg-slate-800'}`}>
-                            <tab.icon size={16} /> {tab.label}
-                        </button>
-                    ))}
-                </div>
-                <div className="p-6 md:p-10 text-center min-h-[300px] flex flex-col">
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-slate-400 text-[10px] font-bold uppercase tracking-wider mb-6 mx-auto">
-                        <Sparkles size={10} className={activeTabData.color} /> {strings.ai_demo_tag}
-                    </div>
-                    <h3 className="text-2xl font-bold text-white mb-2">
-                        {activeTab === 'scout' && strings.ai_scout_title}
-                        {activeTab === 'history' && strings.ai_history_title}
-                        {activeTab === 'food' && strings.ai_food_title}
-                    </h3>
-                    <p className="text-slate-400 mb-8 text-sm">
-                        {activeTab === 'scout' && strings.ai_scout_desc}
-                        {activeTab === 'history' && strings.ai_history_desc}
-                        {activeTab === 'food' && strings.ai_food_desc}
-                    </p>
-                    <form onSubmit={handleAction} className="flex flex-col md:flex-row gap-3 max-w-md mx-auto w-full mb-8 relative z-10">
-                        <input type="text" value={input} onChange={(e) => setInput(e.target.value)} placeholder={strings.ai_placeholder} className="flex-1 bg-slate-800/50 border border-slate-700 text-white rounded-lg px-4 py-3 focus:outline-none focus:border-slate-500 transition placeholder-slate-600" />
-                        <button type="submit" disabled={loading || !input} className={`text-white px-6 py-3 rounded-lg font-medium transition flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg ${activeTab === 'scout' ? 'bg-emerald-600 hover:bg-emerald-500 shadow-emerald-900/20' : ''} ${activeTab === 'history' ? 'bg-amber-600 hover:bg-amber-500 shadow-amber-900/20' : ''} ${activeTab === 'food' ? 'bg-purple-600 hover:bg-purple-500 shadow-purple-900/20' : ''}`}>
-                            {loading ? <Loader className="animate-spin" size={20} /> : <Search size={20} />}
-                        </button>
-                    </form>
-                    <div className="flex-1 flex items-center justify-center">
-                        {loading && <div className={`${activeTabData.color} opacity-50 animate-pulse text-sm`}>{strings.ai_loading}</div>}
-                        {error && <div className="text-red-400 text-sm">{error}</div>}
-                        {result && (
-                            <div className={`relative bg-slate-800/30 border rounded-xl p-6 animate-fade-in text-left w-full ${activeTabData.border}`}>
-                                <p className="text-slate-200 italic leading-relaxed text-lg">"{result}"</p>
-                                <div className={`mt-4 text-xs font-bold uppercase tracking-widest text-right ${activeTabData.color}`}>{strings.ai_mode} {activeTabData.label}</div>
-                            </div>
-                        )}
-                        {!loading && !result && !error && <div className="text-slate-700 text-sm italic">{strings.ai_initial}</div>}
-                    </div>
-                </div>
-            </div>
+  return (
+    <section
+      id="ai"
+      className="py-20 bg-slate-900 border-t border-slate-800"
+    >
+      <div className="container mx-auto px-6 max-w-5xl">
+        <div className="flex items-center gap-2 mb-4 text-emerald-400 text-sm font-medium">
+          <Sparkles size={16} />
+          <span>{strings.ai_lab_title}</span>
         </div>
-    );
+        <p className="text-slate-300 mb-6">
+          {strings.ai_lab_subtitle}
+        </p>
+
+        <div className="grid md:grid-cols-[2fr,3fr] gap-6 items-stretch">
+          <div className="bg-slate-900/80 border border-slate-700 rounded-2xl p-5 flex flex-col gap-4">
+            <div className="inline-flex rounded-full bg-slate-800 p-1 text-xs mb-1">
+              <button
+                onClick={() => setActiveTab("scout")}
+                className={`px-3 py-1 rounded-full flex-1 ${
+                  activeTab === "scout"
+                    ? "bg-emerald-500 text-slate-900"
+                    : "text-slate-300"
+                }`}
+              >
+                {strings.ai_tab_scout}
+              </button>
+              <button
+                onClick={() => setActiveTab("history")}
+                className={`px-3 py-1 rounded-full flex-1 ${
+                  activeTab === "history"
+                    ? "bg-emerald-500 text-slate-900"
+                    : "text-slate-300"
+                }`}
+              >
+                {strings.ai_tab_history}
+              </button>
+              <button
+                onClick={() => setActiveTab("food")}
+                className={`px-3 py-1 rounded-full flex-1 ${
+                  activeTab === "food"
+                    ? "bg-emerald-500 text-slate-900"
+                    : "text-slate-300"
+                }`}
+              >
+                {strings.ai_tab_food}
+              </button>
+            </div>
+
+            <textarea
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder={strings.ai_placeholder}
+              rows={4}
+              className="w-full bg-slate-950 border border-slate-700 rounded-xl text-sm text-slate-100 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            />
+
+            {error && (
+              <div className="flex items-start gap-2 text-xs text-red-400 bg-red-950/40 border border-red-900 rounded-xl px-3 py-2">
+                <AlertTriangle size={14} className="mt-0.5" />
+                <span>{error}</span>
+              </div>
+            )}
+
+            <button
+              onClick={handleRun}
+              disabled={loading}
+              className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-full bg-emerald-500 text-slate-900 text-sm font-semibold hover:bg-emerald-400 disabled:opacity-60"
+            >
+              {loading ? (
+                <>
+                  <Loader className="animate-spin" size={16} />
+                  <span>{strings.ai_loading}</span>
+                </>
+              ) : (
+                <>
+                  <Compass size={16} />
+                  <span>{strings.ai_button}</span>
+                </>
+              )}
+            </button>
+          </div>
+
+          <div className="bg-slate-950/80 border border-slate-800 rounded-2xl p-5 text-sm text-slate-100 whitespace-pre-wrap">
+            <div className="flex items-center justify-between mb-3">
+              <span className="text-xs uppercase tracking-wide text-slate-400">
+                {strings.ai_result_title}
+              </span>
+              <span className="text-[10px] px-2 py-1 rounded-full bg-slate-900 border border-slate-700 flex items-center gap-1 text-slate-300">
+                <Sparkles size={12} /> Gemini
+              </span>
+            </div>
+            {result ? (
+              <div>{result}</div>
+            ) : (
+              <div className="text-slate-500 text-sm">
+                ▸ {strings.ai_loading}
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
 };
 
-// --- PHONE MOCKUP ---
-const PhoneMockup = ({ activeScreen, setActiveScreen }) => {
-    const { strings } = useLanguage();
-    const screens = [
-        {
-            id: 'profile',
-            title: strings.phone.interests,
-            src: IMAGES.profile,  
-            alt: 'Ecran profil avec intérêts'
-        },
-        {
-            id: 'map',
-            title: strings.phone.route,
-            src: IMAGES.map, 
-            alt: 'Ecran navigation carte'
-        }
-    ];
-
-    const currentScreen = screens.find(s => s.id === activeScreen) || screens[0];
-
-    return (
-        <div className="relative mx-auto border-slate-800 bg-slate-900 border-[14px] rounded-[2.5rem] h-[640px] w-[320px] shadow-2xl flex flex-col items-center justify-start z-20 transition-all duration-500 hover:scale-[1.02]">
-            <div className="w-[148px] h-[24px] bg-slate-900 absolute top-0 rounded-b-[1rem] left-1/2 -translate-x-1/2 z-30"></div>
-            <div className="rounded-[2rem] overflow-hidden w-full h-full bg-slate-950 relative">
-                <div className="absolute top-0 w-full h-12 flex justify-between items-center px-6 text-white text-xs font-bold z-20 bg-gradient-to-b from-black/80 to-transparent">
-                    <span>22:07</span>
-                    <div className="flex gap-1">
-                        <div className="w-4 h-4 rounded-full border border-white/20 bg-white/10"></div>
-                        <div className="w-4 h-4 rounded-full border border-white/20 bg-white"></div>
-                    </div>
-                </div>
-                <div className="w-full h-full relative">
-                    <img 
-                       src={currentScreen.src} 
-                       alt={currentScreen.alt} 
-                       // ДОБАВЛЕНО: Запасной путь и обработка ошибок
-                       onError={(e) => {
-                           e.target.onerror = null; 
-                           e.target.src = "https://placehold.co/320x640/334155/f1f5f9?text=Image+Error";
-                       }}
-                       className="w-full h-full object-cover transition-opacity duration-500" />
-                </div>
-            </div>
-        </div>
-    );
-};
-
-// --- MAIN APP ---
+// ---- ОСНОВНОЕ ПРИЛОЖЕНИЕ ----
 const App = () => {
   const { lang, strings, setLanguage } = useLanguage();
-  const [email, setEmail] = useState('');
-  const [status, setStatus] = useState('idle');
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState("idle"); // idle | loading | success | error
   const [user, setUser] = useState(null);
-  const [activeScreen, setActiveScreen] = useState('profile');
-  const [authError, setAuthError] = useState(null);
+  const [activeScreen, setActiveScreen] = useState("profile");
 
+  // Анонимная авторизация в Firebase
   useEffect(() => {
-    const initAuth = async () => {
-      try {
-        await signInAnonymously(auth);
-        setAuthError(null);
-      } catch (err) {
-        console.error("Auth failed:", err);
-        if (err.code === 'auth/admin-restricted-operation' || err.code === 'auth/operation-not-allowed') {
-            setAuthError(strings.auth_error);
-        }
+    const unsubscribe = onAuthStateChanged(auth, (u) => {
+      if (u) {
+        setUser(u);
+      } else {
+        signInAnonymously(auth).catch(console.error);
       }
-    };
-    initAuth();
-    const unsubscribe = onAuthStateChanged(auth, setUser);
+    });
     return () => unsubscribe();
   }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!email) return;
-    setStatus('loading');
-    const uid = user ? user.uid : 'anonymous_guest';
+    if (!email.trim()) return;
+    setStatus("loading");
     try {
-      await addDoc(collection(db, 'waitlist'), {
-        email,
-        timestamp: serverTimestamp(),
-        source: `landing_page_${lang}`,
-        uid: uid
+      await addDoc(collection(db, "beta_waitlist"), {
+        email: email.trim(),
+        lang,
+        createdAt: serverTimestamp(),
       });
-      setStatus('success');
-      setEmail('');
-    } catch (error) {
-      console.error("Error:", error);
-      setStatus('error');
+      setStatus("success");
+      setEmail("");
+    } catch (err) {
+      console.error(err);
+      setStatus("error");
     }
   };
 
   return (
-    <div className="min-h-screen bg-[#050816] text-slate-200 font-sans selection:bg-emerald-500/30 selection:text-emerald-200 overflow-x-hidden scroll-smooth">
-      <div className="fixed inset-0 z-0 pointer-events-none">
-        <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-emerald-900/10 rounded-full blur-[120px] mix-blend-screen"></div>
-        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-blue-900/10 rounded-full blur-[120px] mix-blend-screen"></div>
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-[0.03]"></div>
-      </div>
-      <div className="relative z-10">
-        {authError && (
-            <div className="bg-orange-500/10 border-b border-orange-500/20 text-orange-200 px-6 py-2 text-center text-xs">
-                <AlertTriangle size={14} className="inline mr-2" />
-                {authError}
-            </div>
-        )}
-        <nav className="container mx-auto px-6 py-4 flex justify-between items-center bg-[#050816]/80 backdrop-blur-md sticky top-0 z-50 border-b border-white/5">
-          <Logo />
-          <div className="flex items-center gap-4">
-              <div className="hidden md:flex gap-8 text-sm font-medium text-slate-400">
-                <a href="#concept" className="hover:text-white transition">{strings.menu.concept}</a>
-                <a href="#features" className="hover:text-white transition">{strings.menu.features}</a>
-                <a href="#roadmap" className="hover:text-emerald-400 transition">{strings.menu.future}</a>
+    <div className="min-h-screen bg-slate-950 text-slate-50">
+      <div className="relative max-w-6xl mx-auto">
+        {/* легкий градиентный фон */}
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-emerald-500/10 via-slate-900 to-slate-950 blur-3xl opacity-70" />
+        <div className="relative z-10">
+          {/* ШАПКА */}
+          <nav className="flex items-center justify-between px-6 pt-6">
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9 rounded-2xl overflow-hidden border border-slate-700 bg-slate-900 flex items-center justify-center">
+                <img
+                  src={IMAGES.logo}
+                  alt="Guide du Détour"
+                  className="w-full h-full object-cover"
+                  onError={(e) => {
+                    e.currentTarget.src =
+                      "https://placehold.co/80x80/020617/f9fafb?text=GDD";
+                  }}
+                />
               </div>
-              <a href="#join" className="bg-white/5 hover:bg-white/10 text-white text-sm font-medium px-4 py-2 rounded-full border border-white/10 transition">
-                {strings.menu.beta_access}
+              <div>
+                <div className="flex items-center gap-2 text-sm font-semibold">
+                  <span>Guide du Détour</span>
+                  <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500/15 text-[10px] text-emerald-300 border border-emerald-500/40">
+                    <Sparkles size={10} />
+                    beta
+                  </span>
+                </div>
+                <p className="text-xs text-slate-400">
+                  {strings.tagline}
+                </p>
+              </div>
+            </div>
+
+            <div className="hidden md:flex items-center gap-6 text-sm text-slate-300">
+              <a href="#concept" className="hover:text-emerald-400">
+                {strings.menu.concept}
               </a>
-              <LanguageSwitcher />
-          </div>
-        </nav>
-        <header className="container mx-auto px-6 pt-12 pb-24 md:pt-20 md:pb-32">
-          <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-8">
-            <div className="flex-1 text-center lg:text-left">
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-900/30 border border-emerald-500/30 text-emerald-400 text-xs font-bold uppercase tracking-wider mb-8">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                {strings.hero.status}
+              <a href="#features" className="hover:text-emerald-400">
+                {strings.menu.features}
+              </a>
+              <a href="#ai" className="hover:text-emerald-400">
+                {strings.menu.ai}
+              </a>
+              <a href="#join" className="hover:text-emerald-400">
+                {strings.menu.join}
+              </a>
+            </div>
+
+            <LanguageSwitcher lang={lang} setLanguage={setLanguage} />
+          </nav>
+
+          {/* HERO */}
+          <header className="px-6 pt-12 pb-20">
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
+              <div className="space-y-6">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900/80 border border-slate-700 text-[11px] text-slate-300">
+                  <Globe size={14} />
+                  <span>FR · EN · DE · RU</span>
+                  <span className="w-1 h-1 rounded-full bg-emerald-400 animate-pulse" />
+                  <span>Private beta</span>
+                </div>
+
+                <h1 className="text-4xl md:text-5xl font-semibold leading-tight">
+                  <span>{strings.hero_title_part1} </span>
+                  <span className="text-emerald-400">
+                    {strings.hero_title_part2}
+                  </span>
+                </h1>
+
+                <p className="text-base text-slate-300">
+                  {strings.hero_subtitle}
+                </p>
+
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <a
+                    href="#join"
+                    className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full bg-emerald-500 text-slate-900 text-sm font-semibold hover:bg-emerald-400"
+                  >
+                    <Compass size={16} />
+                    <span>{strings.hero_cta}</span>
+                    <ChevronRight size={16} />
+                  </a>
+                  <a
+                    href="#ai"
+                    className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full border border-slate-700 text-sm text-slate-200 hover:border-emerald-400 hover:text-emerald-300"
+                  >
+                    <Smartphone size={16} />
+                    <span>{strings.hero_secondary}</span>
+                  </a>
+                </div>
               </div>
-              <h1 className="text-5xl md:text-7xl font-serif font-bold text-white mb-6 leading-[1.1] tracking-tight">
-                {strings.hero.hero_title_part1} <br/>
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-200 italic pr-2">{strings.hero.hero_title_part2}</span>
-              </h1>
-              <p className="text-xl text-slate-400 mb-2 font-medium">{strings.tagline}</p>
-              <p className="text-lg text-slate-500 mb-10 max-w-xl mx-auto lg:mx-0 leading-relaxed">
-                {strings.hero.subtitle}
+
+              <div className="flex justify-center">
+                <PhoneMockup
+                  strings={strings}
+                  activeScreen={activeScreen}
+                  setActiveScreen={setActiveScreen}
+                />
+              </div>
+            </div>
+          </header>
+
+          {/* ПРОСТОЙ БЛОК "ФИЧИ" */}
+          <section
+            id="features"
+            className="px-6 pb-16 border-t border-slate-800/60 pt-10"
+          >
+            <div className="grid md:grid-cols-3 gap-6 text-sm">
+              <div className="bg-slate-900/70 border border-slate-800 rounded-2xl p-4 flex flex-col gap-2">
+                <div className="inline-flex items-center gap-2 text-emerald-300 text-xs">
+                  <Compass size={14} />
+                  <span>Itinéraires enrichis</span>
+                </div>
+                <p className="text-slate-100">
+                  Choisissez un rayon de détour, l’app place sur
+                  votre route des arrêts faits pour vous.
+                </p>
+              </div>
+              <div className="bg-slate-900/70 border border-slate-800 rounded-2xl p-4 flex flex-col gap-2">
+                <div className="inline-flex items-center gap-2 text-emerald-300 text-xs">
+                  <MapPin size={14} />
+                  <span>Filtres par envies</span>
+                </div>
+                <p className="text-slate-100">
+                  Histoire, nature, gastronomie : choisissez vos
+                  envies, on s’occupe du reste.
+                </p>
+              </div>
+              <div className="bg-slate-900/70 border border-slate-800 rounded-2xl p-4 flex flex-col gap-2">
+                <div className="inline-flex items-center gap-2 text-emerald-300 text-xs">
+                  <Sparkles size={14} />
+                  <span>Laboratoire IA</span>
+                </div>
+                <p className="text-slate-100">
+                  Une IA entraînée pour imaginer des détours
+                  réalistes à partir d’une simple zone en France.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          {/* AI LAB */}
+          <AiLab strings={strings} lang={lang} />
+
+          {/* ФОРМА EMAIL */}
+          <section
+            id="join"
+            className="px-6 py-16 border-t border-slate-800"
+          >
+            <div className="max-w-xl mx-auto text-center space-y-4">
+              <h2 className="text-2xl font-semibold">
+                {strings.form_title}
+              </h2>
+              <p className="text-slate-300 text-sm">
+                {strings.form_subtitle}
               </p>
-              <form onSubmit={handleSubmit} className="w-full max-w-md mx-auto lg:mx-0 relative group">
-                <div className="absolute -inset-0.5 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-lg blur opacity-30 group-hover:opacity-60 transition duration-1000"></div>
-                <div className="relative flex shadow-2xl">
-                  <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder={strings.email_placeholder} className="flex-1 bg-slate-800 text-white placeholder-slate-500 px-6 py-4 rounded-l-lg border border-r-0 border-slate-700 focus:outline-none focus:border-emerald-500/50 transition-all text-center md:text-left" required />
-                  <button type="submit" disabled={status === 'loading' || status === 'success'} className="bg-emerald-600 hover:bg-emerald-500 text-white font-semibold px-8 py-4 rounded-r-lg transition-all shadow-lg shadow-emerald-900/20 whitespace-nowrap">
-                    {status === 'loading' ? '...' : strings.status.success ? strings.status.success : strings.join_btn}
-                    {status === 'idle' && <ChevronRight size={18} />}
-                  </button>
-                </div>
-                {status === 'success' && <p className="absolute -bottom-8 left-0 text-emerald-400 text-sm flex items-center gap-1 animate-fade-in"><Check size={14} /> {strings.status.success_msg}</p>}
-              </form>
-            </div>
-            <div className="flex-1 relative flex flex-col items-center">
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] h-[650px] bg-gradient-to-tr from-emerald-500/20 to-blue-500/20 rounded-full blur-[80px] -z-10"></div>
-                <PhoneMockup activeScreen={activeScreen} setActiveScreen={setActiveScreen} />
-                <div className="mt-8 flex gap-4">
-                    <button onClick={() => setActiveScreen('profile')} className={`px-5 py-2 rounded-full text-sm font-medium transition-all ${activeScreen === 'profile' ? 'bg-slate-800 text-emerald-400 border border-emerald-500/30 shadow-lg shadow-emerald-900/20' : 'bg-transparent text-slate-500 hover:text-white'}`}>{strings.phone.interests}</button>
-                    <button onClick={() => setActiveScreen('map')} className={`px-5 py-2 rounded-full text-sm font-medium transition-all ${activeScreen === 'map' ? 'bg-slate-800 text-emerald-400 border border-emerald-500/30 shadow-lg shadow-emerald-900/20' : 'bg-transparent text-slate-500 hover:text-white'}`}>{strings.phone.route}</button>
-                </div>
-            </div>
-          </div>
-        </header>
-        <section id="concept" className="py-24 bg-[#02040a] relative overflow-hidden">
-           <div className="container mx-auto px-6 relative z-10">
-              <div className="text-center mb-20 max-w-3xl mx-auto">
-                 <h2 className="text-3xl md:text-5xl font-serif font-bold text-white mb-6">{strings.features.main_title}</h2>
-                 <p className="text-slate-400 text-lg">{strings.features.main_subtitle}</p>
-              </div>
-              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-                 <FeatureCard icon={Navigation} title={strings.features.couloir_title} description={strings.features.couloir_desc} color="text-blue-400" />
-                 <FeatureCard icon={Compass} title={strings.features.univers_title} description={strings.features.univers_desc} color="text-amber-400" />
-                 <FeatureCard icon={MapPin} title={strings.features.chemin_title} description={strings.features.chemin_desc} color="text-emerald-400" />
-                 <FeatureCard icon={Camera} title={strings.features.community_title} description={strings.features.community_desc} color="text-purple-400" />
-              </div>
-              <div className="bg-[#0b1021] rounded-2xl border border-slate-800 p-8 max-w-4xl mx-auto">
-                 <h3 className="text-center text-white font-bold mb-8">{strings.comparison.title}</h3>
-                 <div className="grid grid-cols-12 gap-2 md:gap-4 pb-4 border-b border-slate-800 px-4 text-xs font-bold uppercase tracking-widest text-slate-500">
-                    <div className="col-span-6">{strings.comparison.function}</div>
-                    <div className="col-span-3 text-center text-emerald-400">{strings.comparison.us}</div>
-                    <div className="col-span-3 text-center">{strings.comparison.others}</div>
-                 </div>
-                 <ComparisonRow feature={strings.comparison.a_to_b} us={true} others={true} />
-                 <ComparisonRow feature={strings.comparison.along_route} us={true} others={false} />
-                 <ComparisonRow feature={strings.comparison.radius} us={true} others={false} />
-                 <ComparisonRow feature={strings.comparison.categories} us={true} others={false} />
-              </div>
-           </div>
-        </section>
-        <section id="roadmap" className="py-24 bg-gradient-to-b from-[#02040a] to-[#050816]">
-            <div className="container mx-auto px-6">
-                <div className="flex flex-col md:flex-row gap-12 items-center mb-16">
-                    <div className="flex-1">
-                        <div className="inline-block px-3 py-1 mb-4 border border-indigo-500/30 rounded-full bg-indigo-900/20 text-indigo-300 text-xs font-bold tracking-widest uppercase">{strings.roadmap.tag}</div>
-                        <h2 className="text-4xl md:text-5xl font-serif font-bold text-white mb-6">{strings.roadmap.title}</h2>
-                        <p className="text-slate-400 text-lg leading-relaxed">{strings.roadmap.subtitle}</p>
-                    </div>
-                    <div className="flex-1 w-full">
-                        <div className="grid sm:grid-cols-2 gap-4">
-                            <RoadmapItem emoji="🧭" title={strings.roadmap.compass_title} desc={strings.roadmap.compass_desc} />
-                            <RoadmapItem emoji="🛣️" title={strings.roadmap.grain_title} desc={strings.roadmap.grain_desc} />
-                            <RoadmapItem emoji="🏺" title={strings.roadmap.chineur_title} desc={strings.roadmap.chineur_desc} />
-                            <RoadmapItem emoji="🧀" title={strings.roadmap.coffre_title} desc={strings.roadmap.coffre_desc} />
-                            <RoadmapItem emoji="⏸️" title={strings.roadmap.escale_title} desc={strings.roadmap.escale_desc} />
-                            <RoadmapItem emoji="🏰" title={strings.roadmap.mystery_title} desc={strings.roadmap.mystery_desc} />
-                            <RoadmapItem emoji="🎧" title={strings.roadmap.retro_title} desc={strings.roadmap.retro_desc} />
-                            <RoadmapItem emoji="⭐️" title={strings.roadmap.club_title} desc={strings.roadmap.club_desc} />
-                        </div>
-                    </div>
-                </div>
-                <AiLab />
-            </div>
-        </section>
-        <footer id="join" className="py-24 text-center container mx-auto px-6 relative overflow-hidden bg-[#050816]">
-           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-emerald-500/5 rounded-full blur-[100px] -z-10"></div>
-           <h2 className="text-4xl md:text-5xl font-serif font-bold text-white mb-6">{strings.footer.cta_title}</h2>
-           <p className="text-slate-400 mb-10 max-w-xl mx-auto">{strings.footer.cta_subtitle}</p>
-           <div className="flex justify-center w-full mb-16">
-             <form onSubmit={handleSubmit} className="w-full max-w-md flex flex-col md:flex-row gap-4">
-                <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder={strings.email_placeholder} className="flex-1 bg-slate-800 text-white placeholder-slate-500 px-6 py-4 rounded-l-lg border border-r-0 border-slate-700 focus:outline-none focus:border-emerald-500/50 transition-all text-center md:text-left" required />
-                <button type="submit" disabled={status === 'loading' || status === 'success'} className="bg-emerald-600 hover:bg-emerald-500 text-white font-semibold px-8 py-4 rounded-r-lg transition-all shadow-lg shadow-emerald-900/20 whitespace-nowrap">
-                  {status === 'loading' ? '...' : strings.status.success ? strings.status.success : strings.join_btn}
+
+              <form
+                onSubmit={handleSubmit}
+                className="mt-4 flex flex-col sm:flex-row gap-3"
+              >
+                <input
+                  type="email"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder={strings.email_placeholder}
+                  className="flex-1 bg-slate-900 border border-slate-700 rounded-full px-4 py-2 text-sm text-slate-100 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                />
+                <button
+                  type="submit"
+                  disabled={status === "loading"}
+                  className="inline-flex items-center justify-center gap-2 px-5 py-2 rounded-full bg-emerald-500 text-slate-900 text-sm font-semibold hover:bg-emerald-400 disabled:opacity-60"
+                >
+                  {status === "loading" ? (
+                    <>
+                      <Loader
+                        size={16}
+                        className="animate-spin"
+                      />
+                      <span>…</span>
+                    </>
+                  ) : (
+                    <>
+                      <Check size={16} />
+                      <span>{strings.form_button}</span>
+                    </>
+                  )}
                 </button>
-             </form>
-           </div>
-           <div className="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center text-slate-600 text-sm gap-4">
-              <div className="flex items-center gap-2"><Globe size={16} /><span>© 2025 {strings.footer.copyright}</span></div>
-              <div className="flex gap-6"><a href="#" className="hover:text-emerald-400 transition">{strings.footer.privacy}</a><a href="#" className="hover:text-emerald-400 transition">{strings.footer.contact}</a></div>
-           </div>
-        </footer>
+              </form>
+
+              {status === "success" && (
+                <p className="mt-3 text-sm text-emerald-300 flex items-center justify-center gap-2">
+                  <Check size={16} /> {strings.form_success}
+                </p>
+              )}
+              {status === "error" && (
+                <p className="mt-3 text-sm text-red-400 flex items-center justify-center gap-2">
+                  <X size={16} /> {strings.form_error}
+                </p>
+              )}
+            </div>
+          </section>
+
+          {/* ФУТЕР */}
+          <footer className="px-6 py-8 border-t border-slate-900 text-xs text-slate-400 flex flex-col md:flex-row items-center justify-between gap-3">
+            <div className="flex items-center gap-2">
+              <Globe size={14} />
+              <span>{strings.footer.made_in}</span>
+            </div>
+            <div className="flex items-center gap-4">
+              <span>© 2025 {strings.footer.copyright}</span>
+              <a
+                href="mailto:hello@guidedudetour.com"
+                className="hover:text-emerald-300"
+              >
+                {strings.footer.contact}
+              </a>
+            </div>
+          </footer>
+        </div>
       </div>
     </div>
   );
