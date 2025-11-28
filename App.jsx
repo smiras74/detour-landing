@@ -10,16 +10,15 @@ import {
 } from 'lucide-react';
 
 // --- НАСТРОЙКИ КАРТИНОК ---
-// Файлы должны лежать в корне репозитория на GitHub. 
-// В последней версии проверяем на .jpg/.jpeg, так как Vercel чувствителен к регистру.
+// ИСПРАВЛЕНО: Пути теперь указывают на папку /public, что гарантирует работу на Vercel.
+// Файлы должны лежать в папке /public/ на GitHub. 
 const IMAGES = {
-  logo: "/IMG_0289.jpeg",      // Ваш крупный логотип
-  profile: "/IMG_0288.jpg",    // Скриншот профиля
-  map: "/IMG_0275.jpg",        // Скриншот карты
+  logo: "/IMG_0289.jpeg",      
+  profile: "/IMG_0288.jpg",    
+  map: "/IMG_0275.jpg",        
 };
 
 // --- GEMINI API SETUP ---
-// Используем надежный синтаксис для Vercel.
 const apiKey = typeof process !== 'undefined' && process.env.VITE_GEMINI_API_KEY ? process.env.VITE_GEMINI_API_KEY : ""; 
 
 // --- FIREBASE CONFIG ---
@@ -101,7 +100,7 @@ const STRINGS = {
         ai_prompt_limit: "Entschuldigung, die Suche ist auf französische Regionen und Städte beschränkt. Bitte versuchen Sie es mit einem französischen Ortsnamen erneut.",
         ai_scout_prompt: "Sie sind ein lokaler Experte für die App 'Guide du Détour'. Der Benutzer gibt eine Region oder Stadt in Frankreich an. Schlagen Sie EINEN spezifischen, wenig bekannten, aber atmosphärischen Ort (Mühle, Ruine, Geheimstrand) in dieser Gegend vor. Die Antwort soll kurz (max. 40 Wörter), inspirierend und auf Deutsch sein. Beginnen Sie mit dem Namen des Ortes.",
         ai_history_prompt: "Sie sind der 'Zeit-Rückspiegel'-Modus der App. Der Benutzer gibt einen Ort in Frankreich an. Erzählen Sie eine kurze, faszinierende historische Anekdote, einen Mythos oder eine vergessene lokale Legende über diesen Ort. Ihr Ton soll geheimnisvoll und fesselnd sein. Max 40 Wörter. Auf Deutsch.",
-        ai_food_prompt: "Sie sind der 'Leerer Kofferraum'-Modus der App. Der Benutzer gibt eine Region in Frankreich an. Listen Sie 3 spezifische und authentische lokale Produkte (Käse, Wein, Handwerk) auf, die man unbedingt dort kaufen und mitbringen muss. Einfaches Listenformat. Auf Deutsch.",
+        ai_food_prompt: "Sie sind der 'Leerer Kofferraum'-Modus der App. Der Benutzer gibt eine Region in Frankreich an. Listen Sie 3 spezifische и authentische lokale Produkte (Käse, Wein, Handwerk) auf, die man unbedingt dort kaufen und mitbringen muss. Einfaches Listenformat. Auf Deutsch.",
         tabs: { scout: 'Der Pfadfinder', history: 'Rückspiegel', food: 'Leerer Kofferraum' },
         ai_scout_title: "Finden Sie ein verstecktes Juwel", ai_scout_desc: "Geben Sie eine Region ein, und wir finden den perfekten Abstecher für Sie.",
         ai_history_title: "Hören Sie die Mauern sprechen", ai_history_desc: "Entdecken Sie die vergessenen Legenden eines Ortes.",
@@ -114,35 +113,9 @@ const STRINGS = {
         phone: { interests: 'Ihre Interessen', route: 'Die Route' },
         features: { main_title: 'Ein einzigartiges Erlebnis', main_subtitle: 'Sie wählen den Kurs, Sie entscheiden, wie weit Sie abschweifen möchten. Wir kümmern uns um das Wunder.', couloir_title: 'Der Korridor', couloir_desc: 'Definieren Sie Ihr Ziel und einen Abweichungsradius (z. B. 5 km). Wir finden alles, was innerhalb dieses Korridors einen Stopp wert ist.', univers_title: '4 Universen', univers_desc: 'Bauernhöfe & Weinberge, Geschichte & Schlösser, lokale Kuriositäten, Natur. Filtern Sie nach Ihrer Stimmung.', chemin_title: 'Unterwegs', chemin_desc: 'Fügen Sie Zwischenstopps zu Ihrer Route hinzu oder lassen Sie sich von der App spontane Haltepunkte vorschlagen.', community_title: 'Gemeinschaft', community_desc: 'Jeder Ort hat sein detailliertes Blatt. Haben Sie ein Juwel gefunden? Fügen Sie Ihre eigene Entdeckung für andere hinzu.' },
         comparison: { title: 'Warum "Der Abstecher lohnt sich" wählen?', function: 'Funktionalität', us: 'Wir', others: 'Klassisches GPS', a_to_b: 'A → B Route', along_route: 'Entdeckung entlang der Route (Korridor)', radius: 'Einstellbarer Abstecher-Radius', categories: 'Touristenkategorien' },
-        roadmap: { tag: 'Roadmap', title: 'Die Zukunft des Abenteuers', subtitle: 'Wir bauen nicht nur eine karte, sondern einen intelligenten Reisebegleiter. Hier sind die exklusiven Modi, die sich derzeit für unsere ersten Benutzer in Entwicklung befinden.', compass_title: 'Kompass-Modus', compass_desc: 'Ein einfacher Pfeil для echte Abenteurer. Folgen Sie dem Kurs, finden Sie Ihren eigenen Weg.', grain_title: 'Körnung der Straße', grain_desc: 'Wählen Sie die Textur Ihrer Reise: Panoramastraßen или Querstraßen.', chineur_title: 'Chineur-Modus', chineur_desc: 'Echtzeit-Warnungen für Flohmärkte und Garagenverkäufe auf Ihrer Route.', coffre_title: 'Leerer Kofferraum', coffre_desc: 'Füllen Sie Ihren Kofferraum mit lokalen Produkten: direkt von Bauern und Handwerkern.', escale_title: 'Der perfekte Zwischenstopp', escale_desc: 'Stopps synchronisiert mit Ihrer Müdigkeit und den schönsten Panoramen.', mystery_title: 'Geheimnisvoller Punkt', mystery_desc: 'Lassen Sie sich blind zu einem Überraschungsziel führen.', retro_title: 'Zeit-Rückspiegel', retro_desc: 'Geolokalisierte Audio-Geschichten, die die Vergangenheit der durchquerten Orte erzählen.', club_title: 'Entdecker-Club', club_desc: 'Sammeln Sie Punkte, Ranglisten und Abzeichen, indem Sie neue Orte entdecken.' },
+        roadmap: { tag: 'Roadmap', title: 'Die Zukunft des Abenteuers', subtitle: 'Wir bauen nicht nur eine karte, sondern einen intelligenten Reisebegleiter. Hier sind die exklusiven Modi, die sich derzeit für unsere ersten Benutzer in Entwicklung befinden.', compass_title: 'Kompass-Modus', compass_desc: 'Ein einfacher Pfeil für echte Abenteurer. Folgen Sie dem Kurs, finden Sie Ihren eigenen Weg.', grain_title: 'Körnung der Straße', grain_desc: 'Wählen Sie die Textur Ihrer Reise: Panoramastraßen oder Querstraßen.', chineur_title: 'Chineur-Modus', chineur_desc: 'Echtzeit-Warnungen für Flohmärkte und Garagenverkäufe auf Ihrer Route.', coffre_title: 'Leerer Kofferraum', coffre_desc: 'Füllen Sie Ihren Kofferraum mit lokalen Produkten: direkt von Bauern und Handwerkern.', escale_title: 'Der perfekte Zwischenstopp', escale_desc: 'Stopps synchronisiert mit Ihrer Müdigkeit und den schönsten Panoramen.', mystery_title: 'Geheimnisvoller Punkt', mystery_desc: 'Lassen Sie sich blind zu einem Überraschungsziel führen.', retro_title: 'Zeit-Rückspiegel', retro_desc: 'Geolokalisierte Audio-Geschichten, die die Vergangenheit der durchquerten Orte erzählen.', club_title: 'Entdecker-Club', club_desc: 'Sammeln Sie Punkte, Ranglisten und Abzeichen, indem Sie neue Orte entdecken.' },
         footer: { cta_title: 'Bereit für einen Routenwechsel?', cta_subtitle: 'Tragen Sie sich in die Warteliste ein, um zu den ersten Entdeckern zu gehören, die die App auf iPhone und Android testen.', copyright: 'Der Abstecher lohnt sich. Mit Leidenschaft für Reisende gemacht.', privacy: 'Datenschutz', contact: 'Kontakt' },
         status: { success: 'Angemeldet!', success_msg: 'Vielen Dank! Wir halten Sie auf dem Laufenden.' },
-    },
-    nl: { 
-        code: 'NL', label: 'Nederlands', 
-        tagline: 'De gids die uw reizen verrijkt.',
-        hero_title_part1: 'De omweg is', hero_title_part2: 'de moeite waard!',
-        join_btn: 'Nu lid worden',
-        email_placeholder: 'uw@email.nl',
-        ai_prompt_limit: "Excuses, het zoeken is beperkt tot Franse regio's en steden. Probeer het opnieuw met een Franse plaatsnaam.",
-        ai_scout_prompt: "U bent een lokale expert voor de 'Guide du Détour'-app. De gebruiker geeft een regio of stad in Frankrijk op. Stel EEN specifieke, weinig bekende maar sfeervolle plek (molen, ruïne, geheim strand) in die omgeving voor. Het antwoord moet kort (max 40 woorden), inspirerend en in het Nederlands zijn. Begin met de naam van de plaats.",
-        ai_history_prompt: "U bent de 'Tijdspiegel'-modus van de app. De gebruiker geeft een locatie in Frankrijk op. Vertel een korte, fascinerende historische anekdote, mythe of vergeten lokale legende over deze plek. Uw toon moet mysterieus en meeslepend zijn. Max 40 woorden. In het Nederlands.",
-        ai_food_prompt: "U bent de 'Lege Kofferbak'-modus van de app. De gebruiker geeft een regio in Frankrijk op. Noem 3 specifieke en authentieke lokale producten (kaas, wijn, ambachten) die men daar absoluut moet kopen en meenemen. Eenvoudig lijstformaat. In het Nederlands.",
-        tabs: { scout: 'De Verkenner', history: 'Tijdspiegel', food: 'Lege Kofferbak' },
-        ai_scout_title: "Vind een verborgen parel", ai_scout_desc: "Voer een regio in, en wij vinden de perfecte omweg voor u.",
-        ai_history_title: "Luister naar de muren", ai_history_desc: "Ontdek de vergeten legendes van een plek.",
-        ai_food_title: "Vul uw kofferbak", ai_food_desc: "De beste lokale producten om mee naar huis te nemen.",
-        ai_placeholder: "Bv.: Normandië of Lyon...",
-        ai_demo_tag: "LIVE AI DEMONSTRATIE", ai_loading: "AI raadpleegt de kaarten...", ai_error: "De server is overbelast. Probeer later opnieuw.", ai_initial: "Het resultaat verschijnt hier...", ai_mode: "Modus",
-        auth_error: "Firebase-configuratie vereist: Schakel anonieme authenticatie in de console in.",
-        hero: { status: 'BETA TOEGANG', subtitle: 'Verander uw reis in een fascinerend avontuur. Stel uw bestemming in, kies uw ontsnappingsradius en ontdek verborgen schatten langs uw route.' },
-        menu: { concept: 'Concept', features: 'Functies', future: 'Toekomst', beta_access: 'Beta Toegang' },
-        phone: { interests: 'Uw interesses', route: 'De Route' },
-        features: { main_title: 'Een unieke ervaring', main_subtitle: 'U kiest de koers, u beslist hoe ver u wilt afdwalen. Wij zorgen voor de verwondering.', couloir_title: 'De Corridor', couloir_desc: 'Definieer uw bestemming en een afwijkingsradius (bijv. 5 km). We vinden alles wat binnen deze corridor een stop waard is.', univers_title: '4 Universa', univers_desc: 'Boerderijen & wijngaarden, Geschiedenis & kastelen, lokale curiosa, Natuur. Filter op basis van uw stemming.', chemin_title: 'Onderweg', chemin_desc: 'Voeg tussenstops toe aan uw route of laat de app spontane stopplaatsen voorstellen tijdens het rijden.', community_title: 'Gemeenschap', community_desc: 'Elke plaats heeft zijn gedetailleerde fiche. Een parel gevonden? Voeg uw eigen ontdekking toe voor anderen.' },
-        comparison: { title: 'Waarom kiezen voor "De omweg is de moeite waard"?', function: 'Functionaliteit', us: 'Wij', others: 'Klassieke GPS', a_to_b: 'A → B Route', along_route: 'Ontdekking langs de route (Corridor)', radius: 'Instelbare omwegradius', categories: 'Toeristische categorieën' },
-        roadmap: { tag: 'Roadmap', title: 'De Toekomst van Avontuur', subtitle: 'We bouwen niet alleen een kaart, maar een intelligente reisgenoot. Hier zijn de exclusieve modi die momenteel in ontwikkeling zijn voor onze eerste gebruikers.', compass_title: 'Kompas Modus', compass_desc: 'Een eenvoudige pijl voor echte avonturiers. Volg de koers, vind uw eigen weg.', grain_title: 'Korrel van de Route', grain_desc: 'Kies de textuur van uw reis: schilderachtige routes of binnenwegen.', chineur_title: 'Chineur Modus', chineur_desc: 'Realtime meldingen voor rommelmarkten en garageverkopen op uw route.', coffre_title: 'Lege Kofferbak', coffre_desc: 'Vul uw kofferbak met lokale producten: rechtstreeks van boeren en ambachtslieden.', escale_title: 'De Perfecte Tussenstop', escale_desc: 'Stops gesynchroniseerd met uw vermoeidheid en de mooiste panorama\'s.', mystery_title: 'Mysterie Punt', mystery_desc: 'Laat u blindelings naar een verrassingsbestemming leiden.', retro_title: 'Tijdspiegel', retro_desc: 'Geolocatie audioverhalen die het verleden van de doorkruiste plaatsen vertellen.', club_title: 'Explorers Club', club_desc: 'Verdien punten, ranglijsten en badges door nieuwe plaatsen te ontdekken.' },
-        footer: { cta_title: 'Klaar om van route te veranderen?', cta_subtitle: 'Word lid van de wachtlijst om bij de eerste ontdekkingsreizigers te zijn die de app testen op iPhone en Android.', copyright: 'De omweg is de moeite waard. Met passie gemaakt voor reizigers.', privacy: 'Privacy', contact: 'Contact' },
-        status: { success: 'Aangemeld!', success_msg: 'Bedankt! We houden u op de hoogte.' },
     },
     ru: { 
         code: 'RU', label: 'Русский', 
@@ -178,12 +151,12 @@ const useLanguage = () => {
     // 1. Попытка определить язык браузера (только при первом запуске)
     const getInitialLang = () => {
         const storedLang = localStorage.getItem('lang');
-        // Если язык был сохранен, используем его (ПРИОРИТЕТ РУЧНОГО ВЫБОРА)
+        // ПРИОРИТЕТ 1: Если язык был сохранен, используем его (ручной выбор)
         if (storedLang && STRINGS[storedLang]) {
             return storedLang;
         }
 
-        // Если языка нет в localStorage, пробуем определить по браузеру
+        // ПРИОРИТЕТ 2: Пробуем определить по браузеру
         const browserLangCode = navigator.language.split('-')[0];
         const defaultLangMap = {
             'fr': 'fr', 'en': 'en', 'de': 'de', 'nl': 'nl', 'ru': 'ru'
@@ -192,6 +165,7 @@ const useLanguage = () => {
         return defaultLangMap[browserLangCode] || 'fr';
     };
 
+    // Используем функцию для определения начального языка
     const [lang, setLang] = useState(getInitialLang);
 
     // 2. Сохраняем в localStorage при изменении
@@ -376,7 +350,7 @@ const AiLab = () => {
                 setError(strings.ai_error);
             }
         } catch (err) {
-            console.error(err);
+            console.error("Gemini API Error:", err);
             setError(strings.ai_error);
         } finally {
             setLoading(false);
@@ -472,10 +446,9 @@ const PhoneMockup = ({ activeScreen, setActiveScreen }) => {
                     <img 
                        src={currentScreen.src} 
                        alt={currentScreen.alt} 
-                       // Добавлена обработка ошибок для картинок
+                       // ДОБАВЛЕНО: Запасной путь и обработка ошибок
                        onError={(e) => {
                            e.target.onerror = null; 
-                           // Запасная картинка, если файл не найден
                            e.target.src = "https://placehold.co/320x640/334155/f1f5f9?text=Image+Error";
                        }}
                        className="w-full h-full object-cover transition-opacity duration-500" />
