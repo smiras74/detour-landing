@@ -3,583 +3,429 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guide du Détour | Révéler l'Invisible</title>
-    
-    <!-- SEO & META -->
-    <meta name="description" content="Guide du Détour — une application qui transforme vos trajets en aventures, en révélant la France invisible.">
-    
-    <!-- TAILWIND CSS -->
+    <title>Guide du Détour — explorer, c’est apprendre à voir</title>
+
+    <!-- TAILWIND CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
+
     <!-- FONTS -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
 
-    <!-- CONFIG -->
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
                         serif: ['Playfair Display', 'serif'],
-                        mono: ['JetBrains Mono', 'monospace'],
                     },
                     colors: {
-                        brand: {
-                            bg: '#05080F',
-                            surface: '#0F1623',
-                            green: '#22c55e',
-                            gold: '#f59e0b',
-                            purple: '#a855f7',
-                            pink: '#ec4899',
+                        primary: {
+                            50: '#f4fbf7',
+                            100: '#e3f6eb',
+                            200: '#c4ebd5',
+                            300: '#9bdbb7',
+                            400: '#5dc28a',
+                            500: '#36a96c',
+                            600: '#258656',
+                            700: '#1f6a45',
+                            800: '#194f35',
+                            900: '#133c29',
                         }
                     },
-                    animation: {
-                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                        'float': 'float 6s ease-in-out infinite',
-                        'ping-slow': 'ping 3s cubic-bezier(0, 0, 0.2, 1) infinite',
-                    },
-                    keyframes: {
-                        float: {
-                            '0%, 100%': { transform: 'translateY(0)' },
-                            '50%': { transform: 'translateY(-10px)' },
-                        }
+                    boxShadow: {
+                        'soft': '0 18px 45px rgba(0,0,0,0.20)',
                     }
                 }
             }
         }
     </script>
-    
+
     <style>
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #05080F; }
-        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
-        
-        .glass {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-        }
-        
-        .glass-card:hover {
-            background: rgba(255, 255, 255, 0.06);
-            border-color: rgba(255, 255, 255, 0.2);
-            transform: translateY(-5px);
-            transition: all 0.3s ease;
-        }
-
-        .fade-enter { opacity: 0; transform: translateY(20px); animation: enter 1s forwards; }
-        .delay-100 { animation-delay: 0.1s; }
-        .delay-200 { animation-delay: 0.2s; }
-        .delay-300 { animation-delay: 0.3s; }
-        
-        @keyframes enter { to { opacity: 1; transform: translateY(0); } }
-        
-        .map-bg {
-            background-image: radial-gradient(#1f2937 1px, transparent 1px);
-            background-size: 20px 20px;
-            background-color: #0F1623;
-        }
-
-        /* Стиль для POI */
-        .poi-pin {
-            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease-out;
-            will-change: transform, opacity;
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
         }
     </style>
 </head>
-<body class="bg-brand-bg text-gray-200 antialiased overflow-x-hidden selection:bg-brand-purple selection:text-white">
+<body class="bg-slate-950 text-slate-50 antialiased">
+    <!-- Page wrapper -->
+    <div class="min-h-screen flex flex-col">
 
-    <main>
-        <!-- 1. HERO SECTION -->
-        <section class="relative h-screen w-full flex items-center justify-center overflow-hidden">
-            <div class="absolute inset-0 z-0">
-                <img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=2621&auto=format&fit=crop" class="w-full h-full object-cover opacity-50 filter grayscale-[30%] contrast-125" alt="Foggy Road" loading="eager">
-                <div class="absolute inset-0 bg-gradient-to-b from-brand-bg/90 via-brand-bg/50 to-brand-bg"></div>
-            </div>
-
-            <div class="relative z-10 max-w-5xl mx-auto px-6 text-center">
-                <div class="inline-flex items-center gap-2 mb-8 px-4 py-2 rounded-full border border-white/10 bg-black/40 backdrop-blur-md fade-enter">
-                    <span class="w-2 h-2 rounded-full bg-brand-green animate-pulse"></span>
-                    <span class="text-xs font-bold tracking-[0.2em] uppercase text-gray-300">Guide du Détour</span>
-                </div>
-                
-                <h1 class="font-serif text-5xl md:text-7xl lg:text-8xl leading-tight mb-8 text-white fade-enter delay-100 drop-shadow-2xl">
-                    Le voyage commence <br>
-                    <span class="italic text-gray-400">là où le GPS s'arrête.</span>
-                </h1>
-                
-                <p class="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto mb-12 font-light fade-enter delay-200 leading-relaxed">
-                    Une application pour <strong class="text-white font-normal">révéler</strong> la France invisible. Châteaux oubliés, sources sacrées et routes qui ont une âme.
-                </p>
-
-                <div class="flex flex-col sm:flex-row items-center justify-center gap-6 fade-enter delay-300">
-                    <a href="#invest" class="px-8 py-4 bg-white text-brand-bg rounded-full font-bold text-lg hover:bg-gray-200 transition shadow-[0_0_30px_rgba(255,255,255,0.2)]">
-                        Devenir Pionnier
-                    </a>
-                    <a href="#demo" class="group px-8 py-4 glass rounded-full font-medium text-lg hover:bg-white/10 transition flex items-center gap-2 cursor-pointer">
-                        <span class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-white/20 transition">▶</span>
-                        Voir le concept
-                    </a>
-                </div>
-            </div>
-            
-            <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce opacity-40">
-                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
-            </div>
-        </section>
-
-        <!-- 2. INTERFACE DEMO (INTERACTIVE) -->
-        <section id="demo" class="py-24 px-6 bg-brand-surface overflow-hidden relative border-b border-white/5">
-            <div class="absolute inset-0 bg-gradient-radial from-brand-purple/5 to-transparent opacity-50"></div>
-            
-            <div class="max-w-6xl mx-auto grid lg:grid-cols-2 gap-16 items-center relative z-10">
-                
-                <!-- Text Side -->
-                <div class="order-2 lg:order-1 space-y-8">
-                    <div class="inline-block text-brand-purple text-sm font-bold uppercase tracking-widest mb-2">L'expérience</div>
-                    <h2 class="font-serif text-4xl md:text-5xl text-white">
-                        Conçu pour <br>
-                        <span class="italic text-brand-purple">la nuit et la route.</span>
-                    </h2>
-                    <div class="space-y-6 text-lg text-gray-300 font-light">
-                        <p>
-                            Notre interface "Dark Mode" native ne fatigue pas les yeux. Elle révèle ce que les autres cartes cachent volontairement.
-                        </p>
-                        <ul class="space-y-4 pt-4">
-                            <li class="flex items-center gap-4">
-                                <span class="w-8 h-8 rounded-full bg-brand-green/10 border border-brand-green/30 flex items-center justify-center text-brand-green text-sm">✓</span>
-                                <span>Slider "Rayon du Détour"</span>
-                            </li>
-                            <li class="flex items-center gap-4">
-                                <span class="w-8 h-8 rounded-full bg-brand-gold/10 border border-brand-gold/30 flex items-center justify-center text-brand-gold text-sm">✓</span>
-                                <span>Filtres émotionnels (Nature, Histoire...)</span>
-                            </li>
-                            <li class="flex items-center gap-4">
-                                <span class="w-8 h-8 rounded-full bg-brand-purple/10 border border-brand-purple/30 flex items-center justify-center text-brand-purple text-sm">✓</span>
-                                <span>Pas de publicité, jamais.</span>
-                            </li>
-                        </ul>
+        <!-- HEADER -->
+        <header class="border-b border-white/10 bg-slate-950/80 backdrop-blur">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between gap-4">
+                <div class="flex items-center gap-3">
+                    <!-- Logo placeholder -->
+                    <div class="h-9 w-9 rounded-xl border border-emerald-300/40 bg-gradient-to-br from-emerald-500/80 to-emerald-900/80 flex items-center justify-center shadow-soft">
+                        <span class="text-xs font-semibold tracking-tight uppercase">Détour</span>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-semibold tracking-tight text-sm sm:text-base">Guide du Détour</span>
+                        <span class="text-xs text-slate-400">Explorer, c’est apprendre à voir</span>
                     </div>
                 </div>
 
-                <!-- Phone Visual (Interactive) -->
-                <div class="order-1 lg:order-2 flex justify-center animate-float">
-                    <div class="relative w-[320px] h-[640px] bg-black rounded-[45px] border-[8px] border-gray-800 shadow-2xl overflow-hidden ring-1 ring-white/10">
-                        <div class="absolute top-0 left-1/2 transform -translate-x-1/2 w-28 h-7 bg-black rounded-b-2xl z-20"></div>
-                        
-                        <div class="relative w-full h-full bg-brand-bg map-bg flex flex-col select-none">
-                            <!-- Map Elements -->
-                            <div class="absolute inset-0 opacity-30 pointer-events-none">
-                                <svg class="w-full h-full" stroke="gray" stroke-width="1" fill="none">
-                                    <path d="M50 0 V640" stroke-opacity="0.2" />
-                                    <path d="M150 0 V640" stroke-opacity="0.2" />
-                                    <path d="M250 0 V640" stroke-opacity="0.2" />
-                                    <!-- Main Route -->
-                                    <path d="M160 0 Q160 320 160 640" stroke="white" stroke-width="3" stroke-opacity="0.5" stroke-dasharray="8 8"/>
-                                </svg>
+                <nav class="hidden md:flex items-center gap-6 text-sm text-slate-300">
+                    <a href="#pourquoi" class="hover:text-white transition">Pourquoi&nbsp;?</a>
+                    <a href="#comment" class="hover:text-white transition">Comment ça marche</a>
+                    <a href="#pour-qui" class="hover:text-white transition">Pour qui</a>
+                    <a href="#acces" class="hover:text-white transition">Accès anticipé</a>
+                </nav>
+
+                <a href="#acces" class="hidden sm:inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium bg-primary-500 hover:bg-primary-400 text-slate-950 shadow-soft transition">
+                    Rejoindre l’accès anticipé
+                </a>
+            </div>
+        </header>
+
+        <!-- MAIN -->
+        <main class="flex-1">
+            <!-- HERO -->
+            <section class="relative overflow-hidden">
+                <!-- Subtle gradient background -->
+                <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,_#36a96c33,_transparent_60%),radial-gradient(circle_at_bottom,_#0f172a,_#020617)]"></div>
+
+                <div class="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-18 lg:py-22">
+                    <div class="grid lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] gap-10 lg:gap-14 items-center">
+                        <!-- Left: Text -->
+                        <div>
+                            <p class="inline-flex items-center gap-2 text-xs font-medium tracking-wide uppercase px-3 py-1 rounded-full bg-white/5 border border-white/10 text-emerald-200 mb-5">
+                                <span class="h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
+                                Accès anticipé — carte vivante des détours
+                            </p>
+
+                            <h1 class="font-serif text-3xl sm:text-4xl md:text-5xl leading-tight text-slate-50 mb-5">
+                                Guide du Détour —<br>
+                                <span class="text-primary-200">voyager, c’est apprendre à voir.</span>
+                            </h1>
+
+                            <p class="text-sm sm:text-base text-slate-200 max-w-xl mb-6">
+                                Quittez l’itinéraire, découvrez l’inattendu, prenez une photo, apprenez l’histoire du lieu
+                                et enrichissez la carte avec vos propres découvertes. Un outil moderne, inspiré des cartes anciennes.
+                            </p>
+
+                            <div class="flex flex-col sm:flex-row gap-4 mb-4">
+                                <a href="#acces" class="inline-flex items-center justify-center px-5 py-3 rounded-full text-sm font-medium bg-primary-500 hover:bg-primary-400 text-slate-950 shadow-soft transition">
+                                    Rejoindre l’accès anticipé
+                                </a>
+                                <a href="#comment" class="inline-flex items-center justify-center px-5 py-3 rounded-full text-sm font-medium border border-white/15 text-slate-100 hover:bg-white/5 transition">
+                                    Comment ça marche
+                                </a>
                             </div>
 
-                            <!-- Driver Location -->
-                            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-6 h-6 bg-blue-500 rounded-full border-4 border-white shadow-[0_0_20px_rgba(59,130,246,0.5)] z-10 pointer-events-none"></div>
-                            
-                            <!-- POI Container -->
-                            <div id="poi-container" class="absolute inset-0 pointer-events-none">
-                                <!-- JS inserts points here -->
-                            </div>
+                            <p class="text-xs sm:text-[13px] text-slate-400 max-w-md">
+                                Aujourd’hui, nous vous rendons le passé&nbsp;: nos cartes se chargent lentement,
+                                et certains points d’intérêt peuvent ne pas s’afficher du tout. C’est normal. C’est même voulu.
+                            </p>
+                        </div>
 
-                            <!-- UI Overlay (Slider) -->
-                            <div class="mt-auto m-4 p-4 glass rounded-2xl border border-white/10 backdrop-blur-md z-20">
-                                <div class="text-xs text-gray-400 uppercase tracking-widest mb-3">Rayon du Détour</div>
-                                
-                                <!-- Slider Track area -->
-                                <div id="slider-area" class="w-full h-8 relative cursor-pointer touch-none flex items-center">
-                                    <div class="w-full h-1 bg-gray-700 rounded-full relative">
-                                        <div id="slider-progress" class="absolute left-0 top-0 h-full w-[60%] bg-brand-purple rounded-full"></div>
-                                        <div id="slider-handle" class="absolute left-[60%] top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-6 h-6 bg-white rounded-full shadow-lg ring-2 ring-brand-purple/50"></div>
+                        <!-- Right: Mockup / Photo placeholder -->
+                        <div class="lg:justify-self-end">
+                            <div class="relative max-w-sm mx-auto">
+                                <!-- Big card (phone mockup / photo) -->
+                                <div class="rounded-3xl border border-white/10 bg-slate-900/80 shadow-soft overflow-hidden backdrop-blur">
+                                    <!-- Replace this block background with your photo of map + curvimètre -->
+                                    <div class="h-52 sm:h-64 bg-cover bg-center"
+                                         style="background-image: url('https://images.pexels.com/photos/323780/pexels-photo-323780.jpeg?auto=compress&cs=tinysrgb&w=800');">
+                                    </div>
+                                    <div class="p-4 sm:p-5 space-y-3">
+                                        <p class="text-xs uppercase tracking-wide text-primary-200 font-medium">
+                                            Détour en cours
+                                        </p>
+                                        <p class="text-sm text-slate-100 leading-relaxed">
+                                            «&nbsp;Hier, nous mesurions la route à la main. Aujourd’hui, nous la redécouvrons
+                                            détour après détour, appareil photo en main.&nbsp;»
+                                        </p>
+                                        <div class="flex items-center justify-between text-xs text-slate-400 pt-1">
+                                            <span>Distance du détour&nbsp;: 4,3 km</span>
+                                            <span>Points découverts&nbsp;: 12</span>
+                                        </div>
                                     </div>
                                 </div>
-                                
-                                <div class="flex justify-between text-xs text-gray-300 font-mono mt-1 select-none">
-                                    <span>+5 min</span>
-                                    <span id="detour-label" class="text-white font-bold transition-all">+20 min</span>
-                                    <span>+45 min</span>
+
+                                <!-- Small floating card -->
+                                <div class="absolute -bottom-6 -left-4 sm:-left-8 w-40 sm:w-44 rounded-2xl border border-primary-300/40 bg-slate-900/95 shadow-soft p-3 flex flex-col gap-1">
+                                    <span class="text-[11px] text-slate-300">Nouveau point d’intérêt</span>
+                                    <span class="text-xs font-semibold text-slate-50">Chapelle oubliée, 18ᵉ siècle</span>
+                                    <span class="text-[11px] text-slate-400">Ajoutée par un voyageur curieux</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- 3. MANIFESTO -->
-        <section class="py-32 px-6 relative bg-brand-bg">
-            <div class="max-w-4xl mx-auto text-center">
-                <h2 class="font-serif text-3xl md:text-5xl text-white leading-tight mb-12">
-                    "Depuis 20 ans, nous avons appris à aller vite. <br>
-                    <span class="italic text-brand-purple">Il est temps de réapprendre à voir."</span>
-                </h2>
-                
-                <p class="text-lg md:text-xl text-gray-400 font-light mb-16 max-w-2xl mx-auto leading-relaxed">
-                    L'optimisation tue la magie. Nous construisons l'antidote à la ligne droite. Une technologie qui ne sert pas à gagner du temps, mais à gagner de la profondeur.
-                </p>
-
-                <div class="grid md:grid-cols-3 gap-12 pt-12 border-t border-white/5">
-                    <div class="space-y-4">
-                        <div class="text-3xl">🌿</div>
-                        <h3 class="text-white font-bold uppercase tracking-widest text-sm">Respect du Territoire</h3>
-                        <p class="text-gray-500 text-sm">Pas de tourisme de masse. Juste des voyageurs conscients.</p>
-                    </div>
-                    <div class="space-y-4">
-                        <div class="text-3xl">📵</div>
-                        <h3 class="text-white font-bold uppercase tracking-widest text-sm">Sobriété Numérique</h3>
-                        <p class="text-gray-500 text-sm">La technologie s'efface pour laisser place au réel.</p>
-                    </div>
-                    <div class="space-y-4">
-                        <div class="text-3xl">🧭</div>
-                        <h3 class="text-white font-bold uppercase tracking-widest text-sm">Aventure Accessible</h3>
-                        <p class="text-gray-500 text-sm">L'extraordinaire est souvent à 5 km de l'autoroute.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 4. POUR QUI ? -->
-        <section class="py-20 px-6 bg-brand-surface/50 border-y border-white/5">
-            <div class="max-w-5xl mx-auto">
-                <div class="grid md:grid-cols-3 gap-10 text-center md:text-left">
-                    <div class="space-y-3">
-                        <h3 class="text-white font-serif text-lg">Pour les conducteurs du quotidien</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed">
-                            Ceux qui font toujours les mêmes trajets et sentent qu’ils ratent quelque chose de beau à 5 km de chez eux.
+            <!-- POURQUOI -->
+            <section id="pourquoi" class="border-t border-white/10 bg-slate-950">
+                <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+                    <div class="max-w-3xl">
+                        <h2 class="font-serif text-2xl sm:text-3xl text-slate-50 mb-4">
+                            La navigation moderne va vite.<br>
+                            <span class="text-primary-200">Elle vous fait voir moins. Nous vous rendons l’attention.</span>
+                        </h2>
+                        <p class="text-sm sm:text-base text-slate-200 leading-relaxed mb-4">
+                            Autrefois, voyager demandait du temps. On dépliait une grande carte papier, on suivait les courbes
+                            de la route avec un curvimètre en métal. Chaque virage avait un sens. Chaque village était une
+                            véritable étape.
                         </p>
-                    </div>
-                    <div class="space-y-3">
-                        <h3 class="text-white font-serif text-lg">Pour les road-trips</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed">
-                            Couples, amis et familles qui veulent sortir de l’autoroute pour pique-niquer près d'une ruine, pas sur une aire de repos.
+                        <p class="text-sm sm:text-base text-slate-200 leading-relaxed mb-4">
+                            Aujourd’hui, le trajet est instantané, mais le regard, lui, glisse. Nous arrivons plus vite,
+                            mais nous comprenons moins ce que nous traversons.
                         </p>
-                    </div>
-                    <div class="space-y-3">
-                        <h3 class="text-white font-serif text-lg">Pour les curieux</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed">
-                            Les gens qui aiment les cartes, les légendes locales et les petits secrets d’un territoire que Google ignore.
+                        <p class="text-sm sm:text-base text-slate-200 leading-relaxed">
+                            Guide du Détour reconnecte deux époques&nbsp;: la lenteur intelligente d’hier et la technologie
+                            d’aujourd’hui. Un outil moderne, inspiré des cartes anciennes, qui transforme chaque détour en
+                            petite leçon d’histoire, de géographie ou de simple curiosité.
                         </p>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- 5. ANATOMY -->
-        <section class="py-24 px-6 bg-brand-bg">
-            <div class="max-w-5xl mx-auto">
-                <h2 class="font-serif text-4xl text-center text-white mb-16">L'Anatomie d'un Détour</h2>
-                <div class="relative">
-                    <div class="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-gray-800 via-brand-purple to-gray-800 md:left-1/2 md:w-full md:h-0.5 md:bg-gradient-to-r"></div>
-                    <div class="grid md:grid-cols-3 gap-12 relative z-10">
-                        <div class="flex md:flex-col items-center gap-6 md:text-center">
-                            <div class="w-16 h-16 rounded-full bg-gray-900 border-4 border-brand-bg flex items-center justify-center text-gray-500 text-xl font-bold shadow-xl z-20">A</div>
-                            <div>
-                                <h3 class="text-white font-bold">Départ: Meaux</h3>
-                                <p class="text-sm text-gray-500">Route prévue : A4 (Ennui total)</p>
-                            </div>
-                        </div>
-                        <div class="flex md:flex-col items-center gap-6">
-                            <div class="order-first md:order-none w-16 h-16 rounded-full bg-brand-purple border-4 border-brand-bg flex items-center justify-center text-white text-2xl animate-pulse shadow-[0_0_20px_#a855f7] z-20">✦</div>
-                            <div class="glass p-5 rounded-2xl w-full max-w-xs mx-auto transform rotate-1 hover:rotate-0 transition duration-500 border border-white/10 bg-gray-900">
-                                <div class="h-32 bg-gray-800 rounded-xl mb-4 overflow-hidden relative">
-                                    <img src="https://images.unsplash.com/photo-1505566679234-a164f9848520?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover" alt="Source oubliée" loading="lazy">
-                                    <div class="absolute top-2 right-2 bg-black/60 px-2 py-1 rounded text-xs text-brand-gold backdrop-blur-sm border border-brand-gold/30">Histoire</div>
-                                </div>
-                                <h4 class="text-white font-bold">Source Oubliée</h4>
-                                <p class="text-xs text-gray-400 mt-1 italic">"Un silence absolu à 3km de la nationale."</p>
-                            </div>
-                        </div>
-                        <div class="flex md:flex-col items-center gap-6 md:text-center md:justify-end">
-                            <div class="w-16 h-16 rounded-full bg-gray-900 border-4 border-brand-bg flex items-center justify-center text-gray-500 text-xl font-bold shadow-xl z-20">B</div>
-                            <div>
-                                <h3 class="text-white font-bold">Arrivée: Reims</h3>
-                                <p class="text-sm text-gray-500">Retard: +18 min. Souvenirs: infinis.</p>
-                            </div>
+            <!-- COMMENT ÇA MARCHE -->
+            <section id="comment" class="border-t border-white/10 bg-slate-900/40">
+                <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+                    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
+                        <div class="max-w-xl">
+                            <h2 class="font-serif text-2xl sm:text-3xl text-slate-50 mb-4">
+                                Comment ça marche&nbsp;?
+                            </h2>
+                            <p class="text-sm sm:text-base text-slate-200">
+                                Quatre gestes simples, profondément humains. Une manière de voyager qui vous rend
+                                un peu plus cultivé à chaque arrêt.
+                            </p>
                         </div>
                     </div>
-                </div>
-            </div>
-        </section>
 
-        <!-- 6. PASSPORT -->
-        <section class="py-24 px-6 bg-brand-surface overflow-hidden border-t border-white/5">
-            <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-16">
-                <div class="relative w-full max-w-sm mx-auto md:mx-0">
-                    <div class="absolute inset-0 bg-brand-purple/30 blur-[60px] rounded-full"></div>
-                    <div class="relative bg-gray-900 border border-gray-700 rounded-3xl p-6 shadow-2xl overflow-hidden">
-                        <div class="absolute top-0 left-0 right-0 h-32 bg-gradient-to-br from-brand-purple/20 to-brand-bg"></div>
-                        <div class="relative z-10 flex flex-col items-center pt-8">
-                            <div class="w-24 h-24 rounded-full border-2 border-brand-purple p-1 mb-4 bg-gray-800">
-                                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=200&h=200&q=80" alt="Camille Dubois" class="w-full h-full rounded-full object-cover" loading="lazy">
+                    <div class="grid md:grid-cols-2 gap-6 lg:gap-8">
+                        <!-- Step 1 -->
+                        <div class="p-5 rounded-2xl border border-white/10 bg-slate-950/60">
+                            <div class="flex items-center gap-3 mb-3">
+                                <span class="h-7 w-7 rounded-full bg-primary-500/20 border border-primary-400/80 flex items-center justify-center text-xs font-semibold text-primary-100">1</span>
+                                <h3 class="text-sm font-semibold text-slate-50">Quittez la trajectoire</h3>
                             </div>
-                            <h3 class="text-2xl font-bold text-white">Camille Dubois</h3>
-                            <div class="mt-2 px-3 py-1 bg-gradient-to-r from-gray-700 to-gray-900 border border-gray-600 rounded-full flex items-center gap-2">
-                                <span class="text-yellow-400">✦</span>
-                                <span class="text-xs font-bold uppercase tracking-widest text-white">Légende</span>
+                            <p class="text-sm text-slate-200 leading-relaxed">
+                                L’application vous propose des lieux autour de vous&nbsp;: églises discrètes, ponts anciens,
+                                moulins, vestiges, curiosités oubliées. Des points que les grands itinéraires ignorent.
+                            </p>
+                        </div>
+
+                        <!-- Step 2 -->
+                        <div class="p-5 rounded-2xl border border-white/10 bg-slate-950/60">
+                            <div class="flex items-center gap-3 mb-3">
+                                <span class="h-7 w-7 rounded-full bg-primary-500/20 border border-primary-400/80 flex items-center justify-center text-xs font-semibold text-primary-100">2</span>
+                                <h3 class="text-sm font-semibold text-slate-50">Prenez une photo</h3>
                             </div>
-                            <div class="mt-8 w-full bg-black/40 rounded-xl p-4 text-center border border-white/5">
-                                <p class="text-xs text-gray-500 uppercase mb-2 tracking-wider">Identifiant Unique</p>
-                                <p class="font-mono text-xl text-brand-purple tracking-widest leading-relaxed">4921 8830 5712 0042</p>
+                            <p class="text-sm text-slate-200 leading-relaxed">
+                                Votre regard devient une trace. Le lieu cesse d’être anonyme&nbsp;: il est désormais lié
+                                à votre passage, à votre curiosité, à votre manière de le cadrer.
+                            </p>
+                        </div>
+
+                        <!-- Step 3 -->
+                        <div class="p-5 rounded-2xl border border-white/10 bg-slate-950/60">
+                            <div class="flex items-center gap-3 mb-3">
+                                <span class="h-7 w-7 rounded-full bg-primary-500/20 border border-primary-400/80 flex items-center justify-center text-xs font-semibold text-primary-100">3</span>
+                                <h3 class="text-sm font-semibold text-slate-50">Découvrez son histoire</h3>
+                            </div>
+                            <p class="text-sm text-slate-200 leading-relaxed">
+                                IA, internet et contributions d’utilisateurs vous aident à comprendre où vous êtes et
+                                pourquoi ce lieu existe. Vous ne voyez plus seulement un bâtiment, mais un morceau de récit.
+                            </p>
+                        </div>
+
+                        <!-- Step 4 -->
+                        <div class="p-5 rounded-2xl border border-white/10 bg-slate-950/60">
+                            <div class="flex items-center gap-3 mb-3">
+                                <span class="h-7 w-7 rounded-full bg-primary-500/20 border border-primary-400/80 flex items-center justify-center text-xs font-semibold text-primary-100">4</span>
+                                <h3 class="text-sm font-semibold text-slate-50">Améliorez la fiche & partagez</h3>
+                            </div>
+                            <p class="text-sm text-slate-200 leading-relaxed">
+                                Ajoutez une description, corrigez une info, enrichissez la connaissance collective.
+                                Puis partagez votre découverte&nbsp;: un simple détour peut changer la journée de quelqu’un d’autre.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- PONT ENTRE PASSÉ ET AVENIR -->
+            <section class="border-t border-white/10 bg-[radial-gradient(circle_at_top,_#36a96c11,_transparent_55%),#020617]">
+                <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+                    <div class="max-w-3xl">
+                        <p class="text-xs uppercase tracking-[0.2em] text-primary-200 mb-3">
+                            Philosophie du projet
+                        </p>
+                        <h2 class="font-serif text-2xl sm:text-3xl text-slate-50 mb-5">
+                            Le pont entre le passé et l’avenir
+                        </h2>
+                        <p class="text-sm sm:text-base text-slate-200 leading-relaxed mb-3">
+                            Hier, nous mesurions la route à la main — lentement, soigneusement. Aujourd’hui, nous balayons
+                            la carte du doigt en quelques secondes.
+                        </p>
+                        <p class="text-sm sm:text-base text-slate-200 leading-relaxed">
+                            Guide du Détour redonne du sens au chemin. Il transforme les «&nbsp;temps morts&nbsp;»
+                            en temps d’apprentissage discret&nbsp;: un arrêt devient une anecdote, une anecdote devient
+                            un souvenir, un souvenir devient une connaissance.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- HUMOUR / CARACTÈRE -->
+            <section class="border-t border-white/10 bg-slate-950">
+                <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
+                    <div class="grid md:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] gap-8 items-start">
+                        <div>
+                            <h2 class="font-serif text-2xl text-slate-50 mb-3">
+                                Nous ne sommes pas pressés.<br>
+                                <span class="text-primary-200">Et nous ne voulons pas que vous le soyez.</span>
+                            </h2>
+                            <p class="text-sm sm:text-base text-slate-200 leading-relaxed mb-3">
+                                Si un point d’intérêt ne s’affiche pas, peut-être que le monde vous suggère de sortir,
+                                de lever les yeux et de regarder par vous-même.
+                            </p>
+                            <p class="text-sm sm:text-base text-slate-200 leading-relaxed">
+                                Nous considérons cela comme une fonctionnalité. Pas un bug. La lenteur assumée fait partie
+                                de notre manifeste&nbsp;: moins de réflexes, plus de regard.
+                            </p>
+                        </div>
+                        <div class="md:justify-self-end">
+                            <div class="p-5 rounded-2xl border border-primary-400/40 bg-slate-900/80 shadow-soft">
+                                <p class="text-[13px] text-primary-100 font-medium uppercase tracking-wide mb-2">
+                                    Notre auto-dérision
+                                </p>
+                                <p class="text-sm text-slate-100 leading-relaxed">
+                                    «&nbsp;Aujourd’hui, nous vous rendons le passé&nbsp;: nos cartes se chargent lentement,
+                                    et certains points d’intérêt peuvent ne pas s’afficher du tout.&nbsp;»
+                                </p>
+                                <p class="text-xs text-slate-400 mt-3">
+                                    Si vous cherchez un GPS pour gagner 3 minutes, ce n’est pas nous.  
+                                    Si vous cherchez une excuse pour faire un détour, bienvenue.
+                                </p>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="flex-1 text-center md:text-left">
-                    <h2 class="font-serif text-4xl text-white mb-6">Votre Passeport Numérique</h2>
-                    <p class="text-lg text-gray-300 font-light mb-6">
-                        Oubliez les "likes". Ici, vous gagnez du statut en explorant le monde réel. Plus vous visitez de lieux rares, plus votre carte évolue.
-                    </p>
-                    <div class="inline-flex flex-col gap-2 border-l-2 border-brand-purple pl-4 text-gray-400 italic">
-                        <p>"J'ai montré mon ID à un autre voyageur au sommet d'un château en ruine. On s'est tout de suite compris."</p>
-                        <span class="text-sm font-bold text-white">— Camille D.</span>
+            </section>
+
+            <!-- POUR QUI -->
+            <section id="pour-qui" class="border-t border-white/10 bg-slate-900/40">
+                <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+                    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-8">
+                        <div>
+                            <h2 class="font-serif text-2xl sm:text-3xl text-slate-50 mb-3">
+                                Pour qui&nbsp;?
+                            </h2>
+                            <p class="text-sm sm:text-base text-slate-200">
+                                Guide du Détour s’adresse à celles et ceux qui ne veulent plus simplement traverser
+                                les paysages, mais réellement les rencontrer.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <div class="p-4 rounded-2xl border border-white/10 bg-slate-950/70">
+                            <h3 class="text-sm font-semibold text-slate-50 mb-1">
+                                Voyageurs qui en ont assez des trajets copiés-collés
+                            </h3>
+                            <p class="text-sm text-slate-200">
+                                Pour ceux qui ne veulent plus faire «&nbsp;comme tout le monde&nbsp;» et cherchent leur
+                                propre façon de traverser un pays.
+                            </p>
+                        </div>
+                        <div class="p-4 rounded-2xl border border-white/10 bg-slate-950/70">
+                            <h3 class="text-sm font-semibold text-slate-50 mb-1">
+                                Familles qui apprennent en marchant
+                            </h3>
+                            <p class="text-sm text-slate-200">
+                                Chaque arrêt devient une petite leçon pour les enfants comme pour les adultes.
+                            </p>
+                        </div>
+                        <div class="p-4 rounded-2xl border border-white/10 bg-slate-950/70">
+                            <h3 class="text-sm font-semibold text-slate-50 mb-1">
+                                Curieux qui aiment s’égarer
+                            </h3>
+                            <p class="text-sm text-slate-200">
+                                Pour ceux qui disent toujours&nbsp;: «&nbsp;Et si on tournait ici&nbsp;?&nbsp;»
+                            </p>
+                        </div>
+                        <div class="p-4 rounded-2xl border border-white/10 bg-slate-950/70">
+                            <h3 class="text-sm font-semibold text-slate-50 mb-1">
+                                Amoureux des cartes anciennes & outils modernes
+                            </h3>
+                            <p class="text-sm text-slate-200">
+                                Un pied dans le papier, un pied dans le numérique. Et les deux bien ancrés dans le réel.
+                            </p>
+                        </div>
+                        <div class="p-4 rounded-2xl border border-white/10 bg-slate-950/70">
+                            <h3 class="text-sm font-semibold text-slate-50 mb-1">
+                                Créateurs de contenus & raconteurs d’histoires
+                            </h3>
+                            <p class="text-sm text-slate-200">
+                                Vous pouvez transformer vos détours en récits, en photos, en cartes vivantes.
+                            </p>
+                        </div>
+                        <div class="p-4 rounded-2xl border border-white/10 bg-slate-950/70">
+                            <h3 class="text-sm font-semibold text-slate-50 mb-1">
+                                Ceux qui préfèrent la curiosité à la vitesse
+                            </h3>
+                            <p class="text-sm text-slate-200">
+                                Ici, on ne cherche pas à gagner du temps. On cherche à gagner du sens.
+                            </p>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- 7. COMPARISON -->
-        <section class="py-24 px-6 bg-brand-bg relative">
-            <div class="max-w-5xl mx-auto relative z-10">
-                <h2 class="font-serif text-4xl text-center text-white mb-16">Le Choc des Cultures</h2>
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left border-collapse">
-                        <thead>
-                            <tr class="border-b border-white/10">
-                                <th class="py-6 px-4 text-gray-500 font-normal uppercase tracking-wider text-sm">Critère</th>
-                                <th class="py-6 px-4 text-gray-400 font-semibold text-lg text-center w-1/3">GPS Classique</th>
-                                <th class="py-6 px-4 text-brand-purple font-bold text-lg text-center w-1/3 bg-brand-purple/5 rounded-t-xl border-t border-brand-purple/20">Guide du Détour</th>
-                            </tr>
-                        </thead>
-                        <tbody class="text-sm md:text-base">
-                            <tr class="border-b border-white/5">
-                                <td class="py-6 px-4 font-medium text-white">Objectif</td>
-                                <td class="py-6 px-4 text-center text-gray-400">Gagner du temps</td>
-                                <td class="py-6 px-4 text-center text-white bg-brand-purple/5 border-x border-brand-purple/10">Gagner des souvenirs</td>
-                            </tr>
-                            <tr class="border-b border-white/5">
-                                <td class="py-6 px-4 font-medium text-white">Lieux</td>
-                                <td class="py-6 px-4 text-center text-gray-400">Bondés & Connus</td>
-                                <td class="py-6 px-4 text-center text-white bg-brand-purple/5 border-x border-purple/10">Cachés & Authentiques</td>
-                            </tr>
-                            <tr>
-                                <td class="py-6 px-4 font-medium text-white">Communauté</td>
-                                <td class="py-6 px-4 text-center text-gray-400">Inexistante</td>
-                                <td class="py-6 px-4 text-center text-white bg-brand-purple/5 rounded-b-xl border-b border-brand-purple/20">Tribu d'Explorateurs</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </section>
-
-        <!-- 8. INVESTORS -->
-        <section class="py-16 px-6 bg-brand-surface border-t border-white/5">
-            <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12">
-                <div class="glass p-8 rounded-2xl flex items-start gap-6 hover:bg-white/5 transition">
-                    <div class="text-3xl">🔒</div>
-                    <div>
-                        <h3 class="text-white font-bold text-lg mb-2">Confidentialité Totale</h3>
-                        <p class="text-gray-400 text-sm">Vos données de localisation ne quittent pas votre téléphone. Vous n'êtes pas le produit.</p>
+            <!-- ACCÈS ANTICIPÉ -->
+            <section id="acces" class="border-t border-white/10 bg-slate-950">
+                <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-18">
+                    <div class="max-w-2xl mx-auto text-center mb-8">
+                        <h2 class="font-serif text-2xl sm:text-3xl text-slate-50 mb-4">
+                            Faites partie des premiers explorateurs.
+                        </h2>
+                        <p class="text-sm sm:text-base text-slate-200">
+                            Recevez l’accès aux versions préliminaires, participez à la création de la carte
+                            et influencez l’évolution du projet.  
+                            Guide du Détour se construit avec celles et ceux qui aiment déjà faire un pas de côté.
+                        </p>
                     </div>
-                </div>
-                <div class="glass p-8 rounded-2xl flex items-start gap-6 border border-brand-gold/20 hover:border-brand-gold/40 transition">
-                    <div class="text-3xl">🚀</div>
-                    <div>
-                        <h3 class="text-white font-bold text-lg mb-2">Investisseurs</h3>
-                        <p class="text-gray-400 text-sm mb-4">Nous ouvrons le financement en Q1 2025. Rejoignez les fondateurs.</p>
-                        <a href="mailto:contact@guidedudetour.fr?subject=Pitch%20Deck%20Investisseur" class="text-brand-gold text-sm font-bold hover:underline inline-flex items-center gap-2">
-                            Demander le Pitch Deck <span>&rarr;</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
 
-        <!-- 9. WAITLIST -->
-        <section id="invest" class="py-24 px-6 bg-brand-bg relative overflow-hidden border-t border-white/5">
-            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-brand-green/20 blur-[100px] rounded-full pointer-events-none animate-pulse-slow"></div>
-            <div class="max-w-3xl mx-auto text-center relative z-10">
-                <h2 class="font-serif text-4xl md:text-5xl text-white mb-6">Rejoignez le mouvement</h2>
-                <p class="text-xl text-gray-300 font-light mb-10 leading-relaxed">
-                    Inscrivez-vous pour sécuriser votre statut <span class="text-brand-green font-semibold">Pionnier</span> et accéder à la bêta privée.
-                </p>
-                <div class="glass p-8 rounded-3xl shadow-2xl border border-white/10 bg-gray-900/50">
-                    <form class="flex flex-col md:flex-row gap-4" onsubmit="event.preventDefault(); alert('Bienvenue dans la tribu !');">
-                        <input type="email" placeholder="votre@email.com" class="flex-1 bg-white/5 border border-white/10 px-6 py-4 rounded-full text-lg text-white placeholder-gray-500 focus:outline-none focus:border-brand-purple focus:ring-1 focus:ring-brand-purple transition" required>
-                        <button type="submit" class="px-8 py-4 bg-white text-brand-bg rounded-full font-bold text-lg hover:scale-105 transition duration-300 shadow-lg shadow-white/20 whitespace-nowrap">
-                            M'inscrire
+                    <form class="max-w-md mx-auto flex flex-col sm:flex-row gap-3">
+                        <input
+                            type="email"
+                            required
+                            placeholder="Votre adresse email"
+                            class="flex-1 px-4 py-3 rounded-full bg-slate-900 border border-white/15 text-sm text-slate-50 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-primary-400 focus:border-primary-400"
+                        >
+                        <button
+                            type="submit"
+                            class="px-5 py-3 rounded-full text-sm font-medium bg-primary-500 hover:bg-primary-400 text-slate-950 shadow-soft transition"
+                        >
+                            Rejoindre
                         </button>
                     </form>
-                    <p class="mt-4 text-xs text-gray-500">Rejoignez les 450 premiers inscrits.</p>
+
+                    <p class="mt-3 text-xs text-slate-500 text-center">
+                        Pas de spam. Uniquement des nouvelles, des détours et quelques belles histoires de route.
+                    </p>
                 </div>
-                <div class="mt-16 text-sm text-gray-500 flex justify-center gap-8">
-                    <a href="#" class="hover:text-white transition">Presse</a>
-                    <a href="#" class="hover:text-white transition">Contact</a>
-                    <a href="#" class="hover:text-white transition">Mentions Légales</a>
+            </section>
+        </main>
+
+        <!-- FOOTER -->
+        <footer class="border-t border-white/10 bg-slate-950">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500">
+                <span>Guide du Détour · © 2025</span>
+                <div class="flex items-center gap-4">
+                    <a href="#" class="hover:text-slate-300 transition">Contact</a>
+                    <a href="#" class="hover:text-slate-300 transition">Mentions légales</a>
+                    <a href="#" class="hover:text-slate-300 transition">Instagram</a>
                 </div>
-                <p class="mt-8 text-xs text-gray-700">© 2025 Guide du Détour.</p>
             </div>
-        </section>
-    </main>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const handle = document.getElementById('slider-handle');
-            const progress = document.getElementById('slider-progress');
-            const sliderArea = document.getElementById('slider-area');
-            const detourLabel = document.getElementById('detour-label');
-            const poiContainer = document.getElementById('poi-container');
-
-            if (!handle || !progress || !sliderArea || !detourLabel || !poiContainer) {
-                console.error("Elements missing");
-                return;
-            }
-
-            // --- DATA: 3 TIERS OF POINTS ---
-            // TIER 1: Always visible (minFactor: 0.0) - Close to route
-            const tier1 = [
-                { id: 1, color: 'brand-green', xBase: 0.1, y: 0.25 },
-                { id: 2, color: 'brand-gold', xBase: -0.15, y: 0.45 },
-                { id: 3, color: 'brand-purple', xBase: 0.2, y: 0.65 },
-                { id: 4, color: 'brand-pink', xBase: -0.1, y: 0.8 },
-                { id: 5, color: 'brand-gold', xBase: 0.05, y: 0.55 }
-            ];
-
-            // TIER 2: Mid Range (minFactor: 0.35) - Further out
-            const tier2 = [
-                { id: 6, color: 'brand-pink', xBase: 0.4, y: 0.15 },
-                { id: 7, color: 'brand-green', xBase: -0.35, y: 0.3 },
-                { id: 8, color: 'brand-purple', xBase: 0.45, y: 0.5 },
-                { id: 9, color: 'brand-gold', xBase: -0.4, y: 0.7 },
-                { id: 10, color: 'brand-green', xBase: 0.3, y: 0.9 },
-                { id: 11, color: 'brand-purple', xBase: -0.3, y: 0.6 },
-                { id: 12, color: 'brand-pink', xBase: 0.35, y: 0.4 }
-            ];
-
-            // TIER 3: Max Range (minFactor: 0.7) - Far out
-            const tier3 = [
-                { id: 13, color: 'brand-green', xBase: 0.7, y: 0.1 },
-                { id: 14, color: 'brand-gold', xBase: -0.65, y: 0.2 },
-                { id: 15, color: 'brand-purple', xBase: 0.8, y: 0.35 },
-                { id: 16, color: 'brand-pink', xBase: -0.75, y: 0.5 },
-                { id: 17, color: 'brand-gold', xBase: 0.65, y: 0.6 },
-                { id: 18, color: 'brand-green', xBase: -0.8, y: 0.75 },
-                { id: 19, color: 'brand-purple', xBase: 0.7, y: 0.85 },
-                { id: 20, color: 'brand-pink', xBase: -0.6, y: 0.9 },
-                { id: 21, color: 'brand-gold', xBase: 0.9, y: 0.4 },
-                { id: 22, color: 'brand-green', xBase: -0.9, y: 0.3 }
-            ];
-
-            const allPoints = [
-                ...tier1.map(p => ({ ...p, minFactor: 0.0 })),
-                ...tier2.map(p => ({ ...p, minFactor: 0.35 })),
-                ...tier3.map(p => ({ ...p, minFactor: 0.7 }))
-            ];
-
-            const PHONE_W = 320;
-            const PHONE_H = 640;
-            const CENTER_X = PHONE_W / 2;
-
-            // --- RENDER PINS ---
-            allPoints.forEach(p => {
-                const el = document.createElement('div');
-                el.id = `poi-${p.id}`;
-                el.className = `poi-pin absolute w-4 h-4 rounded-full shadow-[0_0_15px_rgba(255,255,255,0.6)]`;
-                el.classList.add(`bg-${p.color}`);
-                el.style.top = `${p.y * PHONE_H}px`;
-                el.style.left = `${CENTER_X}px`; // Start center
-                el.style.opacity = '0';
-                el.style.transform = 'scale(0)'; // Start hidden
-                poiContainer.appendChild(el);
-            });
-
-            // --- UPDATE FUNCTION ---
-            function updateState(factor) {
-                // Factor 0.0 -> 1.0
-                
-                // 1. Text Update
-                let minutes = Math.round(5 + factor * 40);
-                detourLabel.textContent = `+${minutes} min`;
-
-                // 2. POI Update
-                allPoints.forEach(p => {
-                    const el = document.getElementById(`poi-${p.id}`);
-                    if (!el) return;
-
-                    // Visibility Check
-                    if (factor >= p.minFactor) {
-                        el.style.opacity = '1';
-                        el.style.transform = 'scale(1)';
-                        
-                        // Position Logic
-                        // Points move further out as factor increases BEYOND their appear threshold
-                        // Normalized Factor for this tier: how far are we into this tier?
-                        // Let's make it simpler: points scale distance based on total factor
-                        
-                        // Base spread (max distance)
-                        const maxSpread = p.xBase * (PHONE_W / 2); 
-                        
-                        // Current spread: increases with slider
-                        // Points "breathe" out
-                        let currentSpread = maxSpread * (0.5 + (0.5 * factor));
-                        
-                        el.style.left = `${CENTER_X + currentSpread - 8}px`; // -8 for centering
-
-                    } else {
-                        // Hidden
-                        el.style.opacity = '0';
-                        el.style.transform = 'scale(0)';
-                        // Pull back to center
-                        el.style.left = `${CENTER_X - 8}px`;
-                    }
-                });
-            }
-
-            // --- DRAG LOGIC ---
-            let isDragging = false;
-
-            function setSlider(clientX) {
-                const rect = sliderArea.getBoundingClientRect();
-                let x = clientX - rect.left;
-                x = Math.max(0, Math.min(x, rect.width));
-                
-                const percent = x / rect.width;
-                
-                // Update UI
-                handle.style.left = `${percent * 100}%`;
-                progress.style.width = `${percent * 100}%`;
-                
-                updateState(percent);
-            }
-
-            sliderArea.addEventListener('pointerdown', (e) => {
-                isDragging = true;
-                sliderArea.setPointerCapture(e.pointerId);
-                setSlider(e.clientX);
-            });
-
-            sliderArea.addEventListener('pointermove', (e) => {
-                if (!isDragging) return;
-                setSlider(e.clientX);
-            });
-
-            sliderArea.addEventListener('pointerup', (e) => {
-                isDragging = false;
-                sliderArea.releasePointerCapture(e.pointerId);
-            });
-
-            // Init at 50%
-            updateState(0.5);
-        });
-    </script>
+        </footer>
+    </div>
 </body>
 </html>
