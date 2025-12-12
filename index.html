@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Guide du Détour — Enrichissez votre voyage</title>
-  <meta name="description" content="Guide du Détour enrichit vos voyages de A à B selon votre envie de détour. Accès sur invitation." />
+  <title>Guide du Détour</title>
+  <meta name="description" content="Guide du Détour — Ça vaut le détour." />
 
   <script src="https://cdn.tailwindcss.com"></script>
 
@@ -15,48 +15,37 @@
   <script>
     tailwind.config = {
       theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Inter', 'system-ui', 'sans-serif'],
-            serif: ['Playfair Display', 'serif'],
-          }
-        }
+        extend: { fontFamily: { sans: ['Inter','system-ui','sans-serif'], serif: ['Playfair Display','serif'] } }
       }
     }
   </script>
 
   <style>
     html { scroll-behavior: smooth; }
-    .glass {
+
+    .glass{
       background: rgba(255,255,255,0.06);
       border: 1px solid rgba(255,255,255,0.10);
       box-shadow: 0 20px 60px rgba(0,0,0,0.45);
       backdrop-filter: blur(18px);
       -webkit-backdrop-filter: blur(18px);
     }
-    .noise::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      opacity: 0.085;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.45'/%3E%3C/svg%3E");
+    .noise::before{
+      content:""; position:absolute; inset:0; pointer-events:none; opacity:.085;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.45'/%3E%3C/svg%3E");
     }
-    .glow { filter: drop-shadow(0 0 18px rgba(34,197,94,0.28)); }
-    .soft-glow { filter: drop-shadow(0 0 26px rgba(59,130,246,0.18)); }
-
+    .glow{ filter: drop-shadow(0 0 18px rgba(34,197,94,0.28)); }
     @keyframes floaty { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
-    .floaty { animation: floaty 6.5s ease-in-out infinite; }
-
-    .reveal { opacity: 0; transform: translateY(10px); transition: opacity .6s ease, transform .6s ease; }
-    .reveal.in { opacity: 1; transform: translateY(0px); }
+    .floaty{ animation: floaty 6.5s ease-in-out infinite; }
+    .reveal{ opacity:0; transform: translateY(10px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.in{ opacity:1; transform: translateY(0); }
   </style>
 </head>
 
 <body class="min-h-screen bg-[#070B12] text-white/90 font-sans selection:bg-emerald-400/20 selection:text-white">
 
-  <!-- Background -->
-  <div class="fixed inset-0 -z-10 noise">
+  <!-- Background base -->
+  <div class="fixed inset-0 -z-20 noise">
     <div class="absolute inset-0 bg-gradient-to-b from-[#0A1323] via-[#070B12] to-[#05070C]"></div>
     <div class="absolute -top-44 left-1/2 h-[560px] w-[560px] -translate-x-1/2 rounded-full bg-emerald-500/10 blur-[110px]"></div>
     <div class="absolute top-72 -left-28 h-[440px] w-[440px] rounded-full bg-sky-400/10 blur-[110px]"></div>
@@ -64,171 +53,134 @@
   </div>
 
   <header class="mx-auto max-w-6xl px-6 pt-8">
-    <div class="flex items-center justify-between">
+    <div class="flex items-center justify-between gap-4">
       <div class="text-white/70 text-sm tracking-wide">Guide du Détour</div>
-      <a href="#invite" class="text-sm text-white/70 hover:text-white transition">
-        Accès sur invitation
-      </a>
+
+      <div class="flex items-center gap-4">
+        <a href="#invite" class="text-sm text-white/70 hover:text-white transition" data-i18n="navInvite">
+          Accès sur invitation
+        </a>
+
+        <!-- Language switcher -->
+        <div class="glass rounded-2xl p-1 flex items-center gap-1 text-xs">
+          <button class="langBtn px-2.5 py-1.5 rounded-xl text-white/70 hover:text-white hover:bg-white/5 transition" data-lang="fr">FR</button>
+          <button class="langBtn px-2.5 py-1.5 rounded-xl text-white/70 hover:text-white hover:bg-white/5 transition" data-lang="en">EN</button>
+          <button class="langBtn px-2.5 py-1.5 rounded-xl text-white/70 hover:text-white hover:bg-white/5 transition" data-lang="ru">RU</button>
+          <button class="langBtn px-2.5 py-1.5 rounded-xl text-white/70 hover:text-white hover:bg-white/5 transition" data-lang="de">DE</button>
+        </div>
+      </div>
     </div>
   </header>
 
   <main class="mx-auto max-w-6xl px-6">
 
-    <!-- HERO -->
-    <section class="pt-14 sm:pt-20 pb-12 sm:pb-16">
-      <div class="grid gap-10 lg:grid-cols-2 lg:items-center">
-        <!-- Left text -->
-        <div class="max-w-xl">
-          <div class="inline-flex items-center gap-2 text-xs text-white/55 mb-4">
-            <span class="h-2 w-2 rounded-full bg-emerald-400 glow"></span>
-            <span>Voyage de A à B • Détours maîtrisés • Découvertes</span>
-          </div>
+    <!-- HERO with photo background -->
+    <section class="relative mt-10 sm:mt-14 overflow-hidden rounded-3xl">
+      <!-- photo bg -->
+      <div class="absolute inset-0 -z-10">
+        <img src="assets/map-compass.jpg" alt="" class="h-full w-full object-cover" />
+        <div class="absolute inset-0 bg-[#070B12]/70"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-emerald-900/20 via-transparent to-black/60"></div>
+      </div>
 
-          <h1 class="font-serif text-4xl sm:text-6xl leading-[1.05] tracking-tight">
-            <span class="block">ÇA VAUT LE DÉTOUR&nbsp;!</span>
-          </h1>
+      <div class="px-6 py-10 sm:px-10 sm:py-14">
+        <div class="grid gap-10 lg:grid-cols-2 lg:items-center">
 
-          <p class="mt-4 text-base sm:text-lg text-white/70">
-            Enrichissez votre voyage <span class="text-white/90">selon votre envie de détour</span>.
-          </p>
-
-          <p class="mt-4 text-sm sm:text-base text-white/65 leading-relaxed">
-            Guide du Détour vous propose des lieux à découvrir <span class="text-white/85 font-medium">le long de votre itinéraire</span>,
-            dans la limite que vous choisissez (petit, moyen, grand détour).
-          </p>
-
-          <div class="mt-7 flex items-center gap-3">
-            <a href="#invite"
-               class="inline-flex items-center justify-center rounded-2xl px-5 py-3
-                      bg-emerald-500/18 border border-emerald-400/25
-                      text-white hover:bg-emerald-500/24 transition">
-              Recevoir une invitation
-            </a>
-            <a href="#app" class="text-sm text-white/60 hover:text-white transition">
-              Voir l’app →
-            </a>
-          </div>
-
-          <p class="mt-8 text-xs sm:text-sm text-white/45">
-            Lancement bientôt. Inscrivez-vous pour être informé en priorité.
-          </p>
-        </div>
-
-        <!-- Right visual: Illustration + phone mockup -->
-        <div class="space-y-6">
-          <!-- Atmospheric illustration (no route/points) -->
-          <div class="glass rounded-3xl p-5 sm:p-7 floaty">
-            <div class="flex items-center justify-between mb-3">
-              <div class="text-sm text-white/70">Ambiance</div>
-              <div class="text-xs text-white/45">illustration</div>
+          <!-- Left: glass text -->
+          <div class="glass rounded-3xl p-6 sm:p-8">
+            <div class="inline-flex items-center gap-2 text-xs text-white/60 mb-4">
+              <span class="h-2 w-2 rounded-full bg-emerald-400 glow"></span>
+              <span data-i18n="heroTag">Voyage de A à B • Détours maîtrisés • Découvertes</span>
             </div>
 
-            <!-- Abstract “glass night map” illustration -->
-            <svg viewBox="0 0 760 360" class="w-full h-auto soft-glow" aria-label="Illustration ambiance sombre et verre">
-              <defs>
-                <linearGradient id="bgG" x1="0" x2="1" y1="0" y2="1">
-                  <stop offset="0" stop-color="#0B1320"/>
-                  <stop offset="1" stop-color="#070B12"/>
-                </linearGradient>
-                <radialGradient id="rg1" cx="30%" cy="35%" r="70%">
-                  <stop offset="0" stop-color="rgba(34,197,94,0.18)"/>
-                  <stop offset="1" stop-color="rgba(34,197,94,0)"/>
-                </radialGradient>
-                <radialGradient id="rg2" cx="80%" cy="30%" r="75%">
-                  <stop offset="0" stop-color="rgba(59,130,246,0.14)"/>
-                  <stop offset="1" stop-color="rgba(59,130,246,0)"/>
-                </radialGradient>
-                <filter id="blur" x="-50%" y="-50%" width="200%" height="200%">
-                  <feGaussianBlur stdDeviation="10"/>
-                </filter>
-              </defs>
+            <div class="text-white/65 text-sm tracking-wide mb-2" data-i18n="heroName">Guide du Détour</div>
 
-              <rect x="0" y="0" width="760" height="360" rx="26" fill="url(#bgG)"/>
-              <rect x="0" y="0" width="760" height="360" rx="26" fill="url(#rg1)"/>
-              <rect x="0" y="0" width="760" height="360" rx="26" fill="url(#rg2)"/>
+            <h1 class="font-serif text-4xl sm:text-6xl leading-[1.05] tracking-tight">
+              <span data-i18n="heroTitle">ÇA VAUT LE DÉTOUR&nbsp;!</span>
+            </h1>
 
-              <!-- glass panels -->
-              <g opacity="0.95">
-                <rect x="60" y="70" width="260" height="150" rx="22" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.10)"/>
-                <rect x="220" y="120" width="480" height="170" rx="24" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.10)"/>
-              </g>
+            <p class="mt-4 text-base sm:text-lg text-white/80" data-i18n="heroSubtitle">
+              Le guide qui enrichit vos voyages.
+            </p>
 
-              <!-- “neon strokes” -->
-              <path d="M90 250 C 180 210, 220 260, 300 235" stroke="rgba(34,197,94,0.70)" stroke-width="4" stroke-linecap="round" filter="url(#blur)"/>
-              <path d="M320 210 C 420 165, 520 220, 670 170" stroke="rgba(59,130,246,0.55)" stroke-width="3.5" stroke-linecap="round" filter="url(#blur)"/>
-              <path d="M410 270 C 500 240, 560 290, 700 255" stroke="rgba(99,102,241,0.50)" stroke-width="3.5" stroke-linecap="round" filter="url(#blur)"/>
+            <p class="mt-4 text-sm sm:text-base text-white/70 leading-relaxed" data-i18n="heroClarity">
+              De A à B, découvrez ce qui mérite un détour — selon votre “rayon de liberté”.
+            </p>
 
-              <!-- tiny “lights” -->
-              <g opacity="0.9">
-                <circle cx="160" cy="160" r="3.5" fill="rgba(34,197,94,0.9)"/>
-                <circle cx="470" cy="180" r="3.5" fill="rgba(59,130,246,0.85)"/>
-                <circle cx="610" cy="255" r="3.5" fill="rgba(99,102,241,0.85)"/>
-              </g>
+            <div class="mt-6 flex flex-col sm:flex-row sm:items-center gap-3">
+              <a href="#invite"
+                 class="inline-flex items-center justify-center rounded-2xl px-5 py-3
+                        bg-emerald-500/18 border border-emerald-400/25
+                        text-white hover:bg-emerald-500/24 transition"
+                 data-i18n="ctaInvite">
+                Recevoir une invitation
+              </a>
 
-              <text x="60" y="330" fill="rgba(255,255,255,0.45)" font-size="12" font-family="Inter">
-                Une esthétique sombre, du verre, et la promesse de découvertes maîtrisées.
-              </text>
-            </svg>
+              <a href="#app" class="text-sm text-white/65 hover:text-white transition" data-i18n="ctaSeeApp">
+                Voir l’app →
+              </a>
+            </div>
+
+            <p class="mt-6 text-xs sm:text-sm text-white/55" data-i18n="heroProof">
+              Lancement bientôt. Inscrivez-vous pour être informé en priorité.
+            </p>
           </div>
 
-          <!-- Phone mockup with screenshot -->
-          <div id="app" class="glass rounded-3xl p-5 sm:p-7 reveal">
+          <!-- Right: phone mockup -->
+          <div id="app" class="glass rounded-3xl p-6 sm:p-8 floaty">
             <div class="flex items-center justify-between mb-4">
-              <div class="text-sm text-white/70">Aperçu de l’app</div>
+              <div class="text-sm text-white/70" data-i18n="appPreview">Aperçu de l’app</div>
               <div class="text-xs text-white/45">mockup</div>
             </div>
 
             <div class="grid gap-6 lg:grid-cols-2 lg:items-center">
-              <!-- Mock phone -->
+              <!-- Phone -->
               <div class="mx-auto w-full max-w-[320px]">
                 <div class="relative rounded-[38px] bg-black/40 border border-white/10 shadow-[0_30px_90px_rgba(0,0,0,0.55)] overflow-hidden">
-                  <!-- top notch -->
                   <div class="absolute top-0 left-1/2 -translate-x-1/2 mt-3 h-6 w-28 rounded-full bg-black/60 border border-white/10"></div>
-                  <!-- screen -->
                   <div class="aspect-[9/19] w-full">
-                    <!-- ✅ сюда положите ваш скрин: assets/app-screen.jpg -->
                     <img
                       src="assets/app-screen.jpg"
-                      alt="Capture d’écran Guide du Détour"
+                      alt="App screenshot"
                       class="h-full w-full object-cover opacity-95"
                       onerror="this.style.display='none'; this.parentElement.querySelector('.fallback').style.display='flex';"
                     />
-                    <!-- fallback if no image -->
                     <div class="fallback hidden h-full w-full items-center justify-center bg-gradient-to-b from-white/5 to-black/30">
                       <div class="text-center px-6">
-                        <div class="text-white/80 font-medium">Ajoutez votre screenshot</div>
-                        <div class="mt-2 text-xs text-white/45">Placez un fichier: <span class="text-white/60">assets/app-screen.jpg</span></div>
+                        <div class="text-white/80 font-medium" data-i18n="mockMissingTitle">Ajoutez votre screenshot</div>
+                        <div class="mt-2 text-xs text-white/45" data-i18n="mockMissingHint">
+                          Placez un fichier: assets/app-screen.jpg
+                        </div>
                       </div>
                     </div>
                   </div>
-                  <!-- bottom “home bar” -->
                   <div class="absolute bottom-3 left-1/2 -translate-x-1/2 h-1.5 w-28 rounded-full bg-white/15"></div>
                 </div>
               </div>
 
-              <!-- Description -->
+              <!-- App description -->
               <div>
-                <h2 class="font-serif text-2xl sm:text-3xl tracking-tight">
+                <h2 class="font-serif text-2xl sm:text-3xl tracking-tight" data-i18n="appTitle">
                   Un voyage plus riche, sans perdre le fil
                 </h2>
-                <p class="mt-4 text-white/70 leading-relaxed">
-                  Vous choisissez votre destination, puis votre <span class="text-white/85 font-medium">marge de détour</span>.
-                  Guide du Détour propose des lieux à découvrir sur la route&nbsp;: histoire, nature, curiosités —
-                  selon vos filtres et votre envie du moment.
+
+                <p class="mt-4 text-white/70 leading-relaxed" data-i18n="appDesc">
+                  Vous choisissez votre destination, puis votre marge de détour.
+                  Guide du Détour propose des lieux à découvrir sur la route selon vos filtres.
                 </p>
 
                 <div class="mt-5 space-y-3 text-sm text-white/65">
                   <div class="flex gap-3">
                     <span class="h-2 w-2 mt-2 rounded-full bg-emerald-400 glow"></span>
-                    <p><span class="text-white/85 font-medium">Détour contrôlé</span> — petit, moyen ou grand, c’est vous qui décidez.</p>
+                    <p data-i18n="appBullet1"><span class="text-white/85 font-medium">Détour contrôlé</span> — c’est vous qui décidez.</p>
                   </div>
                   <div class="flex gap-3">
                     <span class="h-2 w-2 mt-2 rounded-full bg-sky-300"></span>
-                    <p><span class="text-white/85 font-medium">Filtres</span> — choisissez ce que vous voulez voir (nature, patrimoine, etc.).</p>
+                    <p data-i18n="appBullet2"><span class="text-white/85 font-medium">Filtres</span> — nature, histoire, curiosités…</p>
                   </div>
                   <div class="flex gap-3">
                     <span class="h-2 w-2 mt-2 rounded-full bg-indigo-300"></span>
-                    <p><span class="text-white/85 font-medium">Découverte</span> — le voyage devient une collection de moments, pas seulement une arrivée.</p>
+                    <p data-i18n="appBullet3"><span class="text-white/85 font-medium">Découverte</span> — le trajet devient une expérience.</p>
                   </div>
                 </div>
 
@@ -236,7 +188,8 @@
                   <a href="#invite"
                      class="inline-flex items-center justify-center rounded-2xl px-5 py-3
                             bg-emerald-500/18 border border-emerald-400/25
-                            text-white hover:bg-emerald-500/24 transition">
+                            text-white hover:bg-emerald-500/24 transition"
+                     data-i18n="ctaInvite">
                     Recevoir une invitation
                   </a>
                 </div>
@@ -248,105 +201,376 @@
       </div>
     </section>
 
-    <!-- SIMPLE HOW IT WORKS (no road illustrations) -->
-    <section class="pb-14 sm:pb-18">
-      <div class="grid gap-6 lg:grid-cols-3">
-        <div class="glass rounded-3xl p-6 sm:p-7 reveal">
-          <div class="text-white font-medium">1) Itinéraire</div>
-          <p class="mt-3 text-white/65 text-sm leading-relaxed">
-            Vous planifiez votre voyage de A à B. Simple.
+    <!-- Problem -->
+    <section class="pt-10 sm:pt-12 pb-10">
+      <div class="grid gap-6 lg:grid-cols-2">
+        <div class="glass rounded-3xl p-6 sm:p-8 reveal">
+          <h3 class="font-serif text-2xl tracking-tight" data-i18n="problemTitle">
+            Votre GPS optimise le temps, pas l’expérience.
+          </h3>
+          <p class="mt-4 text-white/70 leading-relaxed" data-i18n="problemText">
+            Il vous emmène au plus vite et laisse de côté les villages, les points de vue, les histoires.
+            Le détour devient une “perte de temps”.
           </p>
         </div>
 
-        <div class="glass rounded-3xl p-6 sm:p-7 reveal">
-          <div class="text-white font-medium">2) Envie de détour</div>
-          <p class="mt-3 text-white/65 text-sm leading-relaxed">
-            Vous définissez la marge d’exploration que vous acceptez.
-          </p>
-        </div>
-
-        <div class="glass rounded-3xl p-6 sm:p-7 reveal">
-          <div class="text-white font-medium">3) Découvertes</div>
-          <p class="mt-3 text-white/65 text-sm leading-relaxed">
-            Les lieux apparaissent selon vos filtres. Vous choisissez de vous arrêter… ou pas.
+        <div class="glass rounded-3xl p-6 sm:p-8 reveal">
+          <h3 class="font-serif text-2xl tracking-tight" data-i18n="solutionTitle">
+            Guide du Détour : le GPS qui aime les détours.
+          </h3>
+          <p class="mt-4 text-white/70 leading-relaxed" data-i18n="solutionText">
+            Vous gardez votre destination, mais vous ajoutez un “rayon de liberté”.
+            Les découvertes apparaissent le long de la route — vous choisissez de vous arrêter… ou pas.
           </p>
         </div>
       </div>
     </section>
 
-    <!-- INVITE -->
+    <!-- For whom -->
+    <section class="pb-12">
+      <div class="glass rounded-3xl p-6 sm:p-8 reveal">
+        <h3 class="font-serif text-2xl sm:text-3xl tracking-tight" data-i18n="forWhoTitle">
+          Le trajet s’adapte à vous.
+        </h3>
+
+        <div class="mt-6 grid gap-6 lg:grid-cols-3">
+          <div class="glass rounded-3xl p-6">
+            <div class="text-white font-medium" data-i18n="persona1Title">Week-end en famille</div>
+            <p class="mt-3 text-white/65 text-sm leading-relaxed" data-i18n="persona1Text">
+              Haltes douces : villages, fermes, coins calmes — avec un détour maîtrisé.
+            </p>
+          </div>
+
+          <div class="glass rounded-3xl p-6">
+            <div class="text-white font-medium" data-i18n="persona2Title">Motards</div>
+            <p class="mt-3 text-white/65 text-sm leading-relaxed" data-i18n="persona2Text">
+              Mode pittoresque : virages, panoramas, petites routes — moins de lignes droites.
+            </p>
+          </div>
+
+          <div class="glass rounded-3xl p-6">
+            <div class="text-white font-medium" data-i18n="persona3Title">Road-trip</div>
+            <p class="mt-3 text-white/65 text-sm leading-relaxed" data-i18n="persona3Text">
+              Marchés, villages, lieux discrets : la “vraie” France sur votre route.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Invite -->
     <section id="invite" class="pb-20 sm:pb-28">
       <div class="mx-auto max-w-3xl glass rounded-3xl p-7 sm:p-10 reveal">
-        <h2 class="font-serif text-2xl sm:text-3xl tracking-tight">
-          Accès sur invitation
+        <h2 class="font-serif text-2xl sm:text-3xl tracking-tight" data-i18n="inviteTitle">
+          Recevez votre invitation
         </h2>
-        <p class="mt-3 text-white/70 leading-relaxed">
-          Laissez votre adresse pour être informé en priorité et recevoir une invitation dès l’ouverture.
+        <p class="mt-3 text-white/70 leading-relaxed" data-i18n="inviteText">
+          Lancement bientôt. Laissez votre adresse pour être informé en priorité.
         </p>
 
         <form id="inviteForm" class="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
-          <input
-            id="email"
-            type="email"
-            name="email"
-            required
-            placeholder="Votre email"
+          <input id="email" type="email" name="email" required
             class="w-full flex-1 rounded-2xl bg-black/25 border border-white/10 px-4 py-3
                    text-white placeholder:text-white/35 outline-none
                    focus:border-emerald-400/40 focus:ring-2 focus:ring-emerald-400/10"
+            data-i18n-placeholder="emailPlaceholder"
+            placeholder="Votre email"
           />
-          <button
-            type="submit"
+          <button type="submit"
             class="rounded-2xl px-5 py-3 bg-emerald-500/20 border border-emerald-400/25
                    hover:bg-emerald-500/25 transition text-white font-medium"
-          >
+            data-i18n="ctaInvite">
             Recevoir l’invitation
           </button>
         </form>
 
         <div id="msg" class="mt-4 text-sm text-white/60"></div>
 
-        <p class="mt-6 text-xs text-white/45">
+        <p class="mt-6 text-xs text-white/45" data-i18n="noSpam">
           Aucun spam. Juste un message, le moment venu.
         </p>
       </div>
     </section>
 
     <footer class="pb-10 text-center text-xs text-white/35">
-      <div>Guide du Détour — <span class="text-white/45">Ça vaut le détour.</span></div>
+      <div>Guide du Détour — <span class="text-white/45" data-i18n="footerTag">Ça vaut le détour.</span></div>
     </footer>
   </main>
 
   <script>
-    // Reveal on scroll
+    // ---------- Reveal on scroll ----------
     const els = Array.from(document.querySelectorAll('.reveal'));
     const io = new IntersectionObserver((entries) => {
       entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
     }, { threshold: 0.12 });
     els.forEach(el => io.observe(el));
 
-    // Email collection:
-    // 1) empty endpoint => localStorage (test mode)
-    // 2) set INVITE_ENDPOINT => POST {email}
-    const INVITE_ENDPOINT = ""; // e.g. "https://your-domain.com/api/invite"
+    // ---------- i18n ----------
+    const SUPPORTED = ['fr','en','ru','de'];
+
+    const I18N = {
+      fr: {
+        navInvite: "Accès sur invitation",
+        heroTag: "Voyage de A à B • Détours maîtrisés • Découvertes",
+        heroName: "Guide du Détour",
+        heroTitle: "ÇA VAUT LE DÉTOUR !",
+        heroSubtitle: "Le guide qui enrichit vos voyages.",
+        heroClarity: "De A à B, découvrez ce qui mérite un détour — selon votre “rayon de liberté”.",
+        heroProof: "Lancement bientôt. Inscrivez-vous pour être informé en priorité.",
+        ctaInvite: "Recevoir une invitation",
+        ctaSeeApp: "Voir l’app →",
+        appPreview: "Aperçu de l’app",
+        mockMissingTitle: "Ajoutez votre screenshot",
+        mockMissingHint: "Placez un fichier: assets/app-screen.jpg",
+        appTitle: "Un voyage plus riche, sans perdre le fil",
+        appDesc: "Vous choisissez votre destination, puis votre marge de détour. Guide du Détour propose des lieux à découvrir sur la route selon vos filtres.",
+        appBullet1: "<span class='text-white/85 font-medium'>Détour contrôlé</span> — c’est vous qui décidez.",
+        appBullet2: "<span class='text-white/85 font-medium'>Filtres</span> — nature, histoire, curiosités…",
+        appBullet3: "<span class='text-white/85 font-medium'>Découverte</span> — le trajet devient une expérience.",
+        problemTitle: "Votre GPS optimise le temps, pas l’expérience.",
+        problemText: "Il vous emmène au plus vite et laisse de côté les villages, les points de vue, les histoires. Le détour devient une “perte de temps”.",
+        solutionTitle: "Guide du Détour : le GPS qui aime les détours.",
+        solutionText: "Vous gardez votre destination, mais vous ajoutez un “rayon de liberté”. Les découvertes apparaissent le long de la route — vous choisissez de vous arrêter… ou pas.",
+        forWhoTitle: "Le trajet s’adapte à vous.",
+        persona1Title: "Week-end en famille",
+        persona1Text: "Haltes douces : villages, fermes, coins calmes — avec un détour maîtrisé.",
+        persona2Title: "Motards",
+        persona2Text: "Mode pittoresque : virages, panoramas, petites routes — moins de lignes droites.",
+        persona3Title: "Road-trip",
+        persona3Text: "Marchés, villages, lieux discrets : la “vraie” France sur votre route.",
+        inviteTitle: "Recevez votre invitation",
+        inviteText: "Lancement bientôt. Laissez votre adresse pour être informé en priorité.",
+        emailPlaceholder: "Votre email",
+        noSpam: "Aucun spam. Juste un message, le moment venu.",
+        footerTag: "Ça vaut le détour.",
+        msgInvalid: "Veuillez entrer une adresse email valide.",
+        msgSaved: "Merci. Votre demande a été enregistrée.",
+        msgSent: "Merci. Vous serez informé en priorité.",
+        msgFail: "Oups… impossible d’envoyer pour l’instant. Réessayez plus tard."
+      },
+
+      en: {
+        navInvite: "Invitation access",
+        heroTag: "From A to B • Controlled detours • Discoveries",
+        heroName: "Guide du Détour",
+        heroTitle: "WORTH THE DETOUR!",
+        heroSubtitle: "The guide that enriches your journeys.",
+        heroClarity: "From A to B, discover what’s worth a detour — within your chosen “freedom radius”.",
+        heroProof: "Launching soon. Sign up to be informed first.",
+        ctaInvite: "Get an invitation",
+        ctaSeeApp: "See the app →",
+        appPreview: "App preview",
+        mockMissingTitle: "Add your screenshot",
+        mockMissingHint: "Place a file: assets/app-screen.jpg",
+        appTitle: "A richer trip, without losing the thread",
+        appDesc: "Choose your destination, then your detour margin. Guide du Détour suggests places along the way based on your filters.",
+        appBullet1: "<span class='text-white/85 font-medium'>Controlled detours</span> — you decide.",
+        appBullet2: "<span class='text-white/85 font-medium'>Filters</span> — nature, history, curiosities…",
+        appBullet3: "<span class='text-white/85 font-medium'>Discovery</span> — the route becomes an experience.",
+        problemTitle: "Your GPS optimizes time, not the experience.",
+        problemText: "It gets you there fast and ignores villages, viewpoints, stories. The detour becomes “wasted time”.",
+        solutionTitle: "Guide du Détour: the GPS that loves detours.",
+        solutionText: "Keep your destination, add a “freedom radius”. Discoveries appear along the route — you choose to stop… or not.",
+        forWhoTitle: "The route adapts to you.",
+        persona1Title: "Family weekend",
+        persona1Text: "Gentle stops: villages, farms, calm spots — with a controlled detour.",
+        persona2Title: "Motorcyclists",
+        persona2Text: "Scenic mode: curves, panoramas, back roads — fewer straight lines.",
+        persona3Title: "Road-trip",
+        persona3Text: "Markets, villages, hidden gems: the “real” France along your way.",
+        inviteTitle: "Get your invitation",
+        inviteText: "Launching soon. Leave your email to be informed first.",
+        emailPlaceholder: "Your email",
+        noSpam: "No spam. Just one message, when it’s time.",
+        footerTag: "Worth the detour.",
+        msgInvalid: "Please enter a valid email address.",
+        msgSaved: "Thanks. Your request has been saved.",
+        msgSent: "Thanks. You’ll be informed first.",
+        msgFail: "Oops… couldn’t send right now. Please try again later."
+      },
+
+      ru: {
+        navInvite: "Доступ по приглашению",
+        heroTag: "Из A в B • Контролируемые объезды • Открытия",
+        heroName: "Guide du Détour",
+        heroTitle: "ЭТО СТОИТ ОБЪЕЗДА!",
+        heroSubtitle: "Гид, который делает путешествия богаче.",
+        heroClarity: "Из A в B — находите то, ради чего стоит свернуть, в пределах вашего «радиуса свободы».",
+        heroProof: "Скоро запуск. Оставьте почту — сообщим в приоритетном порядке.",
+        ctaInvite: "Получить приглашение",
+        ctaSeeApp: "Посмотреть приложение →",
+        appPreview: "Превью приложения",
+        mockMissingTitle: "Добавьте скриншот",
+        mockMissingHint: "Положите файл: assets/app-screen.jpg",
+        appTitle: "Путешествие богаче — без потери маршрута",
+        appDesc: "Вы выбираете пункт назначения, затем — допустимый объезд. Guide du Détour предлагает места по пути в зависимости от фильтров.",
+        appBullet1: "<span class='text-white/85 font-medium'>Контролируемый объезд</span> — решаете вы.",
+        appBullet2: "<span class='text-white/85 font-medium'>Фильтры</span> — природа, история, любопытное…",
+        appBullet3: "<span class='text-white/85 font-medium'>Открытия</span> — дорога становится опытом, а не просто прибытием.",
+        problemTitle: "GPS оптимизирует время, а не впечатления.",
+        problemText: "Он ведёт быстрее всего и игнорирует деревни, виды, истории. Объезд превращается в «потерю времени».",
+        solutionTitle: "Guide du Détour: GPS, который любит объезды.",
+        solutionText: "Цель остаётся, добавляется «радиус свободы». Точки появляются по пути — остановиться или нет решаете вы.",
+        forWhoTitle: "Маршрут подстраивается под вас.",
+        persona1Title: "Семейный уик-энд",
+        persona1Text: "Мягкие остановки: деревни, фермы, тихие места — с контролируемым объездом.",
+        persona2Title: "Мотоциклисты",
+        persona2Text: "Живописный режим: повороты, панорамы, маленькие дороги — меньше прямых.",
+        persona3Title: "Road-trip",
+        persona3Text: "Рынки, деревни, скрытые места: «настоящая Франция» по пути.",
+        inviteTitle: "Получите приглашение",
+        inviteText: "Скоро запуск. Оставьте email — сообщим в приоритетном порядке.",
+        emailPlaceholder: "Ваш email",
+        noSpam: "Никакого спама. Одно сообщение — когда придёт время.",
+        footerTag: "Это стоит объезда.",
+        msgInvalid: "Введите корректный email.",
+        msgSaved: "Спасибо! Запрос сохранён.",
+        msgSent: "Спасибо! Мы сообщим вам в приоритетном порядке.",
+        msgFail: "Упс… сейчас отправить не удалось. Попробуйте позже."
+      },
+
+      de: {
+        navInvite: "Zugang per Einladung",
+        heroTag: "Von A nach B • Kontrollierte Umwege • Entdeckungen",
+        heroName: "Guide du Détour",
+        heroTitle: "DAS IST DEN UMWEG WERT!",
+        heroSubtitle: "Der Guide, der deine Reisen bereichert.",
+        heroClarity: "Von A nach B: Entdecke, was einen Umweg wert ist — innerhalb deines gewählten „Freiheitsradius“.",
+        heroProof: "Startet bald. Hinterlasse deine E-Mail, um zuerst informiert zu werden.",
+        ctaInvite: "Einladung erhalten",
+        ctaSeeApp: "App ansehen →",
+        appPreview: "App-Vorschau",
+        mockMissingTitle: "Screenshot hinzufügen",
+        mockMissingHint: "Lege die Datei ab: assets/app-screen.jpg",
+        appTitle: "Eine reichere Reise, ohne den Faden zu verlieren",
+        appDesc: "Wähle dein Ziel und dann deine Umweg-Marge. Guide du Détour schlägt Orte entlang der Route vor – basierend auf deinen Filtern.",
+        appBullet1: "<span class='text-white/85 font-medium'>Kontrollierter Umweg</span> — du entscheidest.",
+        appBullet2: "<span class='text-white/85 font-medium'>Filter</span> — Natur, Geschichte, Kurioses…",
+        appBullet3: "<span class='text-white/85 font-medium'>Entdeckung</span> — die Route wird zum Erlebnis.",
+        problemTitle: "Dein GPS optimiert Zeit, nicht das Erlebnis.",
+        problemText: "Es bringt dich schnell ans Ziel und ignoriert Dörfer, Aussichtspunkte, Geschichten. Der Umweg wird zu „verlorener Zeit“.",
+        solutionTitle: "Guide du Détour: das GPS, das Umwege liebt.",
+        solutionText: "Ziel bleibt Ziel – du fügst einen „Freiheitsradius“ hinzu. Entdeckungen erscheinen entlang der Strecke – du entscheidest, ob du anhältst.",
+        forWhoTitle: "Die Route passt sich dir an.",
+        persona1Title: "Familien-Wochenende",
+        persona1Text: "Sanfte Stopps: Dörfer, Höfe, ruhige Orte — mit kontrolliertem Umweg.",
+        persona2Title: "Motorradfahrer",
+        persona2Text: "Panorama-Modus: Kurven, Ausblicke, Nebenstraßen — weniger Geradeaus.",
+        persona3Title: "Road-Trip",
+        persona3Text: "Märkte, Dörfer, versteckte Perlen: das „echte“ Frankreich unterwegs.",
+        inviteTitle: "Einladung erhalten",
+        inviteText: "Startet bald. Hinterlasse deine E-Mail, um zuerst informiert zu werden.",
+        emailPlaceholder: "Deine E-Mail",
+        noSpam: "Kein Spam. Nur eine Nachricht, wenn es so weit ist.",
+        footerTag: "Den Umweg wert.",
+        msgInvalid: "Bitte gib eine gültige E-Mail-Adresse ein.",
+        msgSaved: "Danke! Deine Anfrage wurde gespeichert.",
+        msgSent: "Danke! Du wirst zuerst informiert.",
+        msgFail: "Ups… gerade nicht möglich. Bitte später erneut versuchen."
+      }
+    };
+
+    function normalizeLang(raw) {
+      if (!raw) return null;
+      const s = raw.toLowerCase();
+      if (s.startsWith('fr')) return 'fr';
+      if (s.startsWith('en')) return 'en';
+      if (s.startsWith('ru')) return 'ru';
+      if (s.startsWith('de')) return 'de';
+      return null;
+    }
+
+    function detectLang() {
+      // user override
+      const saved = localStorage.getItem('gdd_lang');
+      if (saved && SUPPORTED.includes(saved)) return saved;
+
+      // system languages
+      const langs = (navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language]).filter(Boolean);
+      for (const l of langs) {
+        const n = normalizeLang(l);
+        if (n) return n;
+      }
+      return 'fr';
+    }
+
+    function applyLang(lang) {
+      const dict = I18N[lang] || I18N.fr;
+
+      // set html lang attribute
+      document.documentElement.lang = lang;
+
+      // apply text nodes
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        const val = dict[key];
+        if (val == null) return;
+
+        // allow inline <span> markup in bullets
+        if (String(val).includes('<')) el.innerHTML = val;
+        else el.textContent = val;
+      });
+
+      // apply placeholders
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-i18n-placeholder');
+        const val = dict[key];
+        if (val != null) el.setAttribute('placeholder', val);
+      });
+
+      // highlight active button
+      document.querySelectorAll('.langBtn').forEach(btn => {
+        const isActive = btn.dataset.lang === lang;
+        btn.classList.toggle('bg-white/10', isActive);
+        btn.classList.toggle('text-white', isActive);
+        btn.classList.toggle('text-white/70', !isActive);
+      });
+
+      // update meta description (optional)
+      const meta = document.querySelector('meta[name="description"]');
+      if (meta) meta.setAttribute('content', `${dict.heroName} — ${dict.footerTag}`);
+    }
+
+    const currentLang = detectLang();
+    applyLang(currentLang);
+
+    document.querySelectorAll('.langBtn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const lang = btn.dataset.lang;
+        localStorage.setItem('gdd_lang', lang);
+        applyLang(lang);
+      });
+    });
+
+    // ---------- Email collection ----------
+    const INVITE_ENDPOINT = ""; // set your API endpoint (POST {email, lang}) when ready
     const form = document.getElementById("inviteForm");
     const msg = document.getElementById("msg");
 
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
+
+      const lang = localStorage.getItem('gdd_lang') || currentLang || 'fr';
+      const dict = I18N[lang] || I18N.fr;
+
       const email = (document.getElementById("email").value || "").trim();
       msg.textContent = "";
 
       const ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-      if (!ok) { msg.textContent = "Veuillez entrer une adresse email valide."; return; }
+      if (!ok) { msg.textContent = dict.msgInvalid; return; }
 
       try {
         if (!INVITE_ENDPOINT) {
+          // local test mode
           const key = "gdd_invites";
           const list = JSON.parse(localStorage.getItem(key) || "[]");
-          if (!list.includes(email)) list.push(email);
+          const payload = { email, lang, ts: Date.now() };
+          // store unique by email
+          const emails = new Set(list.map(x => (x.email || x)));
+          if (!emails.has(email)) list.push(payload);
           localStorage.setItem(key, JSON.stringify(list));
-          msg.textContent = "Merci. Votre demande a été enregistrée.";
+
+          msg.textContent = dict.msgSaved;
           form.reset();
           return;
         }
@@ -354,13 +578,14 @@
         const res = await fetch(INVITE_ENDPOINT, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email })
+          body: JSON.stringify({ email, lang })
         });
+
         if (!res.ok) throw new Error("Bad response");
-        msg.textContent = "Merci. Vous serez informé en priorité.";
+        msg.textContent = dict.msgSent;
         form.reset();
       } catch {
-        msg.textContent = "Oups… impossible d’envoyer pour l’instant. Réessayez plus tard.";
+        msg.textContent = dict.msgFail;
       }
     });
   </script>
