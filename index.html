@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Guide du Détour</title>
-  <meta name="description" content="Transformez un trajet A → B en voyage. Découvrez des lieux intéressants à proximité de votre itinéraire, selon le détour que vous acceptez." />
+  <meta name="description" content="Transformez un trajet A → B en voyage. Découvrez des lieux intéressants autour de votre itinéraire, selon un détour maximal (0–20 km) choisi par vous." />
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
@@ -21,14 +21,42 @@
         </h1>
 
         <p class="mt-6 text-lg md:text-xl text-gray-600 max-w-2xl mx-auto lg:mx-0">
-          Guide du Détour vous propose des lieux intéressants à proximité de votre itinéraire,
-          dans la limite du détour que vous acceptez.
+          Guide du Détour vous propose des lieux intéressants autour de votre itinéraire,
+          avec un <span class="text-gray-800 font-medium">détour maximal</span> que vous choisissez (0–20 km).
         </p>
 
+        <!-- Detour range -->
+        <div class="mt-7">
+          <div class="flex items-center justify-center lg:justify-start gap-3">
+            <span class="text-sm text-gray-500">0 km</span>
+
+            <div class="w-full max-w-md">
+              <input id="detourRange" type="range" min="0" max="20" step="1" value="5"
+                class="w-full accent-gray-900" />
+              <div class="mt-2 flex items-center justify-between">
+                <div class="text-sm text-gray-600">
+                  Détour max :
+                  <span id="detourValue" class="text-gray-900 font-semibold">5</span>
+                  <span class="text-gray-600">km</span>
+                </div>
+                <div class="text-xs text-gray-500">
+                  (modifiable à tout moment)
+                </div>
+              </div>
+            </div>
+
+            <span class="text-sm text-gray-500">20 km</span>
+          </div>
+
+          <div class="mt-3 text-sm text-gray-500 text-center lg:text-left">
+            Exemple : “Je suis prêt à faire un détour de <span id="detourInline" class="font-semibold text-gray-700">5</span> km.”
+          </div>
+        </div>
+
         <div class="mt-10 flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
-          <a href="#cta"
+          <a href="#waitlist"
              class="inline-flex items-center justify-center px-8 py-4 bg-gray-900 text-white rounded-full text-lg hover:bg-gray-700 transition">
-            Créer un itinéraire
+            Recevoir une invitation
           </a>
           <a href="#how"
              class="inline-flex items-center justify-center px-8 py-4 bg-white text-gray-900 rounded-full text-lg ring-1 ring-gray-200 hover:ring-gray-300 transition">
@@ -37,24 +65,19 @@
         </div>
 
         <p class="mt-6 text-sm text-gray-500">
-          Accès progressif — sur invitation
+          Accès progressif — sur invitation. Un seul email. Zéro spam.
         </p>
       </div>
 
       <!-- Phone mockup + slider -->
       <div class="flex justify-center lg:justify-end">
         <div class="relative">
-          <!-- Soft backdrop -->
           <div class="absolute -inset-6 rounded-[48px] bg-white/60 blur-2xl"></div>
 
-          <!-- Phone body -->
           <div class="relative w-[280px] sm:w-[320px] md:w-[360px] aspect-[9/19] rounded-[44px] bg-gray-900 p-[10px] shadow-2xl">
-            <!-- Inner bezel -->
             <div class="relative w-full h-full rounded-[36px] bg-black overflow-hidden">
-              <!-- Notch -->
               <div class="absolute top-3 left-1/2 -translate-x-1/2 w-32 h-6 rounded-full bg-black/80 ring-1 ring-white/10 z-20"></div>
 
-              <!-- Screen image (PNG slider) -->
               <img
                 id="appSlider"
                 src="./screen1.png"
@@ -62,7 +85,6 @@
                 class="w-full h-full object-cover opacity-100 transition-opacity duration-700"
               />
 
-              <!-- Fallback if no images can be loaded -->
               <div id="sliderFallback" class="hidden w-full h-full items-center justify-center p-8 text-center">
                 <div class="text-white/80">
                   <div class="text-xl font-semibold">Ajoutez vos captures</div>
@@ -73,10 +95,8 @@
                 </div>
               </div>
 
-              <!-- Subtle overlay -->
               <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-white/5 z-10"></div>
 
-              <!-- Dots -->
               <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-20">
                 <span class="dot w-2 h-2 rounded-full bg-white/40"></span>
                 <span class="dot w-2 h-2 rounded-full bg-white/40"></span>
@@ -102,8 +122,8 @@
     </h2>
 
     <p class="text-lg text-gray-600 max-w-3xl">
-      Villages, églises, ponts anciens, lieux insolites…
-      Ils sont souvent à quelques minutes de la route.
+      Villages, églises, ponts anciens, fermes, lieux insolites…
+      Ils sont souvent <span class="text-gray-800 font-medium">à quelques kilomètres</span> de la route.
       <br><br>
       Vous arrivez à destination.<br>
       Mais vous n’avez rien vu.
@@ -120,21 +140,21 @@
       <p class="text-lg text-gray-600 max-w-3xl">
         Vous créez un itinéraire classique.
         Guide du Détour vous propose des points d’intérêt
-        selon le temps que vous êtes prêt à consacrer au détour.
+        selon votre <span class="text-gray-800 font-medium">détour maximal (en km)</span>.
       </p>
 
-      <div class="mt-10 grid sm:grid-cols-3 gap-4 max-w-2xl">
+      <div class="mt-10 grid sm:grid-cols-3 gap-4 max-w-3xl">
         <div class="rounded-3xl bg-[#FAFAFA] ring-1 ring-gray-100 p-6">
-          <div class="text-gray-900 font-semibold">5 minutes</div>
-          <div class="mt-1 text-sm text-gray-600">Petit détour, grand effet.</div>
+          <div class="text-gray-900 font-semibold">Contrôle total</div>
+          <div class="mt-1 text-sm text-gray-600">De 0 à 20 km : vous décidez.</div>
         </div>
         <div class="rounded-3xl bg-[#FAFAFA] ring-1 ring-gray-100 p-6">
-          <div class="text-gray-900 font-semibold">10 minutes</div>
-          <div class="mt-1 text-sm text-gray-600">Le bon équilibre.</div>
+          <div class="text-gray-900 font-semibold">Découverte</div>
+          <div class="mt-1 text-sm text-gray-600">Des lieux utiles, beaux ou surprenants.</div>
         </div>
         <div class="rounded-3xl bg-[#FAFAFA] ring-1 ring-gray-100 p-6">
-          <div class="text-gray-900 font-semibold">20 minutes</div>
-          <div class="mt-1 text-sm text-gray-600">Pour les curieux.</div>
+          <div class="text-gray-900 font-semibold">Simplicité</div>
+          <div class="mt-1 text-sm text-gray-600">Comme un GPS — en plus intéressant.</div>
         </div>
       </div>
     </div>
@@ -152,8 +172,8 @@
         Comme avec n’importe quel GPS.
       </div>
       <div class="bg-white rounded-3xl p-8 ring-1 ring-gray-100">
-        <strong class="text-gray-900">2. Choisissez le détour</strong><br>
-        Quelques minutes suffisent parfois à tout changer.
+        <strong class="text-gray-900">2. Définissez le détour max</strong><br>
+        0 à 20 km — vous gardez le contrôle.
       </div>
       <div class="bg-white rounded-3xl p-8 ring-1 ring-gray-100">
         <strong class="text-gray-900">3. Découvrez</strong><br>
@@ -162,37 +182,121 @@
     </div>
   </section>
 
-  <!-- GUIDE VOCAL -->
+  <!-- POUR QUI / POURQUOI PAS GOOGLE MAPS -->
   <section class="py-24 px-6 bg-white">
-    <div class="max-w-5xl mx-auto">
-      <h2 class="text-3xl md:text-4xl font-semibold mb-6">
-        Un compagnon de route discret
-      </h2>
+    <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-10">
+      <div class="rounded-3xl bg-[#FAFAFA] ring-1 ring-gray-100 p-8">
+        <h3 class="text-2xl font-semibold">Pour qui ?</h3>
+        <p class="mt-3 text-gray-600">
+          Pour ceux qui aiment ce qu’il y a entre le départ et l’arrivée :
+        </p>
+        <ul class="mt-5 space-y-2 text-gray-700">
+          <li>— voyageurs en voiture</li>
+          <li>— familles</li>
+          <li>— motards</li>
+          <li>— vanlife</li>
+          <li>— curieux (les meilleurs)</li>
+        </ul>
+      </div>
 
-      <p class="text-lg text-gray-600 max-w-3xl">
-        Guide du Détour peut vous signaler en chemin :
-        <br><br>
-        « Si vous tournez à droite et roulez un kilomètre,
-        vous découvrirez une ancienne église… »
+      <div class="rounded-3xl bg-[#FAFAFA] ring-1 ring-gray-100 p-8">
+        <h3 class="text-2xl font-semibold">Pourquoi pas Google Maps ?</h3>
+        <p class="mt-3 text-gray-600">
+          Google Maps vous emmène vite.
+          Guide du Détour vous aide à <span class="text-gray-800 font-medium">découvrir</span>.
+        </p>
+        <ul class="mt-5 space-y-2 text-gray-700">
+          <li>— Détour maximal clair (en km)</li>
+          <li>— Lieux d’intérêt “sur la route”, pas au hasard</li>
+          <li>— Carte enrichissable (par vous et la communauté)</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- WAITLIST (Firebase) -->
+  <section id="waitlist" class="py-24 px-6 max-w-5xl mx-auto">
+    <div class="bg-white rounded-3xl ring-1 ring-gray-100 p-8 md:p-10">
+      <h2 class="text-3xl md:text-4xl font-semibold">
+        Recevez une invitation
+      </h2>
+      <p class="mt-4 text-lg text-gray-600 max-w-3xl">
+        Laissez votre email : on vous envoie l’accès dès l’ouverture de la bêta.
+        <span class="text-gray-800 font-medium">Un seul email. Zéro spam.</span>
+      </p>
+
+      <form id="waitlistForm" class="mt-8 grid sm:grid-cols-[1fr_auto] gap-3 items-start">
+        <div>
+          <label class="sr-only" for="email">Email</label>
+          <input id="email" name="email" type="email" inputmode="email" autocomplete="email" required
+                 placeholder="Votre email"
+                 class="w-full px-5 py-4 rounded-2xl bg-[#FAFAFA] ring-1 ring-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-900/30" />
+          <div class="mt-3 flex items-start gap-2">
+            <input id="privacy" type="checkbox" required class="mt-1 h-4 w-4 rounded border-gray-300" />
+            <label for="privacy" class="text-sm text-gray-600">
+              J’accepte la <a class="underline hover:text-gray-900" href="#privacyPolicy">politique de confidentialité</a>.
+            </label>
+          </div>
+
+          <div class="mt-3 text-sm text-gray-600">
+            Détour max choisi : <span id="detourValue2" class="font-semibold text-gray-900">5</span> km
+          </div>
+        </div>
+
+        <button id="submitBtn" type="submit"
+                class="px-7 py-4 rounded-2xl bg-gray-900 text-white text-lg hover:bg-gray-700 transition disabled:opacity-60 disabled:cursor-not-allowed">
+          Envoyer
+        </button>
+      </form>
+
+      <div id="formMsg" class="mt-4 text-sm"></div>
+
+      <div class="mt-8 grid sm:grid-cols-3 gap-3 text-sm text-gray-600">
+        <div class="rounded-2xl bg-[#FAFAFA] ring-1 ring-gray-100 p-4">
+          <div class="text-gray-900 font-semibold">Plateforme</div>
+          <div class="mt-1">iOS d’abord (bêta), Android ensuite.</div>
+        </div>
+        <div class="rounded-2xl bg-[#FAFAFA] ring-1 ring-gray-100 p-4">
+          <div class="text-gray-900 font-semibold">Zone</div>
+          <div class="mt-1">France (d’abord), puis extension.</div>
+        </div>
+        <div class="rounded-2xl bg-[#FAFAFA] ring-1 ring-gray-100 p-4">
+          <div class="text-gray-900 font-semibold">Promesse</div>
+          <div class="mt-1">Pas de pubs. Pas de spam. Juste l’accès.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRIVACY POLICY (minimal placeholder) -->
+  <section id="privacyPolicy" class="py-16 px-6 max-w-5xl mx-auto">
+    <div class="text-sm text-gray-600">
+      <h3 class="text-gray-900 font-semibold text-xl">Politique de confidentialité (résumé)</h3>
+      <p class="mt-3">
+        Nous collectons uniquement votre email pour vous envoyer une invitation à la bêta et des informations liées au lancement.
+        Vous pouvez demander la suppression de votre email à tout moment.
+      </p>
+      <p class="mt-3">
+        (Remplacez ce texte par votre version officielle dès que possible.)
       </p>
     </div>
   </section>
 
-  <!-- CTA -->
-  <section id="cta" class="py-32 px-6 text-center">
-    <h2 class="text-4xl font-semibold mb-6">
+  <!-- CTA footer -->
+  <section id="cta" class="py-20 px-6 text-center bg-white">
+    <h2 class="text-3xl md:text-4xl font-semibold mb-4">
       Votre prochaine route peut être plus intéressante.
     </h2>
-
-    <a href="#"
-       class="inline-block mt-6 px-10 py-4 bg-gray-900 text-white rounded-full text-lg hover:bg-gray-700 transition">
-      Tester Guide du Détour
-    </a>
-
-    <p class="mt-4 text-sm text-gray-500">
-      Accès progressif — sur invitation
+    <p class="text-gray-600">
+      Définissez un détour max (0–20 km). Découvrez. Profitez.
     </p>
+    <a href="#waitlist"
+       class="inline-block mt-7 px-10 py-4 bg-gray-900 text-white rounded-full text-lg hover:bg-gray-700 transition">
+      Recevoir une invitation
+    </a>
   </section>
+
+  <!-- ========== SCRIPTS ========== -->
 
   <!-- Slider script (robust: skips missing images, no permanent hide) -->
   <script>
@@ -227,7 +331,7 @@
           const test = new Image();
           test.onload = () => resolve(true);
           test.onerror = () => resolve(false);
-          test.src = src + (src.includes("?") ? "&" : "?") + "v=" + Date.now(); // avoid stale cache while testing
+          test.src = src + (src.includes("?") ? "&" : "?") + "v=" + Date.now();
         });
       }
 
@@ -253,7 +357,6 @@
 
       async function tick() {
         img.classList.add("opacity-0");
-
         setTimeout(async () => {
           const nextIdx = await findNextValid(index + 1);
           if (nextIdx === -1) {
@@ -261,7 +364,6 @@
             fallback.classList.remove("hidden");
             return;
           }
-
           index = nextIdx;
           img.src = screens[index];
           setActiveDot(index);
@@ -269,10 +371,122 @@
         }, fadeOutMs);
       }
 
-      init().then(() => {
-        setInterval(tick, intervalMs);
-      });
+      init().then(() => setInterval(tick, intervalMs));
     })();
+  </script>
+
+  <!-- Detour range logic -->
+  <script>
+    (function () {
+      const range = document.getElementById("detourRange");
+      const v1 = document.getElementById("detourValue");
+      const v2 = document.getElementById("detourValue2");
+      const inline = document.getElementById("detourInline");
+
+      let current = Number(range?.value ?? 5);
+
+      function set(km) {
+        current = Number(km);
+        if (v1) v1.textContent = String(current);
+        if (v2) v2.textContent = String(current);
+        if (inline) inline.textContent = String(current);
+      }
+
+      if (range) {
+        range.addEventListener("input", (e) => set(e.target.value));
+        set(range.value);
+      }
+
+      // expose for Firebase submission metadata
+      window.__detourKm = () => current;
+    })();
+  </script>
+
+  <!-- Firebase (Firestore) waitlist submission -->
+  <script type="module">
+    // 1) ВСТАВЬТЕ СВОЮ КОНФИГУРАЦИЮ Firebase ЗДЕСЬ:
+    const firebaseConfig = {
+      apiKey: "PASTE_API_KEY",
+      authDomain: "PASTE_AUTH_DOMAIN",
+      projectId: "PASTE_PROJECT_ID",
+      storageBucket: "PASTE_STORAGE_BUCKET",
+      messagingSenderId: "PASTE_SENDER_ID",
+      appId: "PASTE_APP_ID",
+    };
+
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+    import {
+      getFirestore, collection, addDoc, serverTimestamp
+    } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    const form = document.getElementById("waitlistForm");
+    const emailInput = document.getElementById("email");
+    const privacy = document.getElementById("privacy");
+    const msg = document.getElementById("formMsg");
+    const btn = document.getElementById("submitBtn");
+
+    function setMsg(text, type = "info") {
+      msg.className = "mt-4 text-sm";
+      if (type === "ok") msg.classList.add("text-green-700");
+      if (type === "err") msg.classList.add("text-red-700");
+      if (type === "info") msg.classList.add("text-gray-600");
+      msg.textContent = text;
+    }
+
+    function isEmailValid(v) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(v).trim());
+    }
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      setMsg("");
+
+      const email = String(emailInput.value || "").trim();
+      if (!isEmailValid(email)) {
+        setMsg("Veuillez entrer un email valide.", "err");
+        emailInput.focus();
+        return;
+      }
+      if (!privacy.checked) {
+        setMsg("Veuillez accepter la politique de confidentialité.", "err");
+        privacy.focus();
+        return;
+      }
+
+      btn.disabled = true;
+      btn.textContent = "Envoi…";
+
+      try {
+        await addDoc(collection(db, "waitlist"), {
+          email,
+          detourKm: (window.__detourKm && window.__detourKm()) ? window.__detourKm() : 0,
+          createdAt: serverTimestamp(),
+          source: "landing",
+          userAgent: navigator.userAgent || null,
+          language: navigator.language || null,
+          timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || null
+        });
+
+        setMsg("Merci ! Invitation envoyée dès l’ouverture de la bêta.", "ok");
+        form.reset();
+        btn.textContent = "Envoyer";
+        // keep range value displayed
+        const range = document.getElementById("detourRange");
+        if (range) {
+          // keep current selection visually
+          document.getElementById("detourValue2").textContent = String(window.__detourKm());
+        }
+      } catch (err) {
+        console.error(err);
+        setMsg("Oups. Impossible d’envoyer pour le moment. Réessayez dans quelques minutes.", "err");
+        btn.textContent = "Envoyer";
+      } finally {
+        btn.disabled = false;
+      }
+    });
   </script>
 
 </body>
