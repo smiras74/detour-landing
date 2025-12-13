@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Guide du Détour — Manifeste</title>
-  <meta name="description" content="Manifeste de Guide du Détour — redonner du goût au voyage." />
+  <title>Guide du Détour — Redonner du goût au voyage</title>
+  <meta name="description" content="Guide du Détour enrichit votre voyage de A à B selon votre rayon de liberté. Accès sur invitation." />
 
   <script src="https://cdn.tailwindcss.com"></script>
 
@@ -26,6 +26,8 @@
   </script>
 
   <style>
+    html { scroll-behavior: smooth; }
+
     .glass {
       background: rgba(255,255,255,0.06);
       border: 1px solid rgba(255,255,255,0.10);
@@ -33,65 +35,280 @@
       backdrop-filter: blur(18px);
       -webkit-backdrop-filter: blur(18px);
     }
+
+    .noise::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.07;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.45'/%3E%3C/svg%3E");
+    }
+
+    .glow { filter: drop-shadow(0 0 18px rgba(34,197,94,0.28)); }
+
+    .reveal { opacity: 0; transform: translateY(10px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.in { opacity: 1; transform: translateY(0px); }
   </style>
 </head>
 
-<body class="min-h-screen bg-[#070B12] text-white/90 font-sans">
-  <div class="fixed inset-0 -z-10">
+<body class="min-h-screen bg-[#070B12] text-white/90 font-sans selection:bg-emerald-400/20 selection:text-white">
+
+  <!-- Global background -->
+  <div class="fixed inset-0 -z-20 noise">
     <div class="absolute inset-0 bg-gradient-to-b from-[#0A1323] via-[#070B12] to-[#05070C]"></div>
-    <div class="absolute -top-44 left-1/2 h-[560px] w-[560px] -translate-x-1/2 rounded-full bg-emerald-500/10 blur-[110px]"></div>
-    <div class="absolute bottom-0 right-0 h-[560px] w-[560px] rounded-full bg-indigo-400/10 blur-[130px]"></div>
   </div>
 
-  <header class="mx-auto max-w-4xl px-6 pt-8">
-    <a href="index.html" class="text-sm text-white/70 hover:text-white transition">← Retour</a>
-  </header>
+  <!-- HERO: photo background -->
+  <section class="relative overflow-hidden">
+    <div class="absolute inset-0 -z-10">
+      <img src="assets/map-compass.jpg" alt="Carte et boussole" class="h-full w-full object-cover" />
+      <div class="absolute inset-0 bg-[#070B12]/75"></div>
+      <div class="absolute inset-0 bg-gradient-to-b from-emerald-900/15 via-transparent to-black/65"></div>
+    </div>
 
-  <main class="mx-auto max-w-4xl px-6 pt-10 pb-16">
-    <div class="glass rounded-3xl p-7 sm:p-10">
-      <h1 class="font-serif text-3xl sm:text-5xl leading-tight">
-        Manifeste
-      </h1>
-      <p class="mt-3 text-white/70">
-        Guide du Détour — redonner du goût au voyage.
-      </p>
+    <header class="mx-auto max-w-6xl px-6 pt-8">
+      <div class="flex items-center justify-between">
+        <div class="text-white/75 text-sm tracking-wide">Guide du Détour</div>
+        <div class="flex items-center gap-4">
+          <a href="manifesto.html" class="text-sm text-white/65 hover:text-white transition">
+            Lire le manifeste
+          </a>
+          <a href="#invite" class="text-sm text-white/65 hover:text-white transition">
+            Accès sur invitation
+          </a>
+        </div>
+      </div>
+    </header>
 
-      <div class="mt-8 space-y-6 text-white/75 leading-relaxed">
-        <p>
-          Nous avons optimisé les trajets. Nous avons gagné du temps.
-          Et, souvent, nous avons perdu le voyage.
-        </p>
+    <main class="mx-auto max-w-6xl px-6">
+      <div class="pt-14 sm:pt-20 pb-12 sm:pb-16">
+        <div class="grid gap-10 lg:grid-cols-2 lg:items-center">
 
-        <p>
-          Guide du Détour ne vous demande pas de changer votre destination.
-          Il vous aide à choisir ce qui mérite un arrêt — dans une marge que vous décidez.
-        </p>
+          <!-- Copy block -->
+          <div class="glass rounded-3xl p-7 sm:p-9 max-w-xl">
+            <div class="inline-flex items-center gap-2 text-xs text-white/55">
+              <span class="h-2 w-2 rounded-full bg-emerald-400 glow"></span>
+              <span>Voyage • Découverte • Liberté</span>
+            </div>
 
-        <p>
-          Cette marge, c’est votre <span class="text-white/90 font-medium">rayon de liberté</span>.
-          Petit détour, détour moyen, ou exploration plus large.
-          Le contrôle reste entre vos mains.
-        </p>
+            <h1 class="mt-4 font-serif text-4xl sm:text-6xl leading-[1.05] tracking-tight">
+              ÇA VAUT LE DÉTOUR&nbsp;!
+            </h1>
 
-        <p>
-          Voyager, ce n’est pas cocher des lieux.
-          C’est comprendre un territoire, sentir une histoire, voir ce qui se cache juste à côté de la route.
-        </p>
+            <p class="mt-4 text-base sm:text-lg text-white/80">
+              Redonner du goût au voyage.
+            </p>
 
-        <p class="text-white/85 font-medium">
-          Redonnons aux voyages leur saveur.
+            <p class="mt-4 text-sm sm:text-base text-white/70 leading-relaxed">
+              Vous partez de <span class="text-white/90 font-medium">A</span> vers <span class="text-white/90 font-medium">B</span>.
+              Vous choisissez votre <span class="text-white/90 font-medium">rayon de liberté</span>.
+              Guide du Détour vous suggère des lieux à découvrir sur la route —
+              sans vous faire perdre votre destination.
+            </p>
+
+            <div class="mt-7 flex items-center gap-3">
+              <a href="#invite"
+                 class="inline-flex items-center justify-center rounded-2xl px-5 py-3
+                        bg-emerald-500/18 border border-emerald-400/25
+                        text-white hover:bg-emerald-500/24 transition">
+                Recevoir une invitation
+              </a>
+              <a href="#app" class="text-sm text-white/65 hover:text-white transition">
+                Voir l’app →
+              </a>
+            </div>
+
+            <p class="mt-7 text-xs text-white/45">
+              Lancement bientôt. Laissez votre email pour être informé en priorité.
+            </p>
+          </div>
+
+          <!-- Phone mockup -->
+          <div id="app" class="reveal">
+            <div class="glass rounded-3xl p-6 sm:p-8">
+              <div class="flex items-center justify-between mb-4">
+                <div class="text-sm text-white/70">Aperçu de l’app</div>
+                <div class="text-xs text-white/45">capture</div>
+              </div>
+
+              <div class="grid gap-7 lg:grid-cols-2 lg:items-center">
+                <!-- phone -->
+                <div class="mx-auto w-full max-w-[320px]">
+                  <div class="relative rounded-[38px] bg-black/45 border border-white/10 overflow-hidden shadow-[0_30px_90px_rgba(0,0,0,0.55)]">
+                    <div class="absolute top-0 left-1/2 -translate-x-1/2 mt-3 h-6 w-28 rounded-full bg-black/60 border border-white/10"></div>
+                    <div class="aspect-[9/19] w-full">
+                      <img
+                        src="assets/app-screen.jpg"
+                        alt="Capture d’écran Guide du Détour"
+                        class="h-full w-full object-cover opacity-95"
+                        onerror="this.style.display='none'; this.parentElement.querySelector('.fallback').style.display='flex';"
+                      />
+                      <div class="fallback hidden h-full w-full items-center justify-center bg-gradient-to-b from-white/5 to-black/30">
+                        <div class="text-center px-6">
+                          <div class="text-white/85 font-medium">Ajoutez votre screenshot</div>
+                          <div class="mt-2 text-xs text-white/45">assets/app-screen.jpg</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="absolute bottom-3 left-1/2 -translate-x-1/2 h-1.5 w-28 rounded-full bg-white/15"></div>
+                  </div>
+                </div>
+
+                <!-- product explanation -->
+                <div>
+                  <h2 class="font-serif text-2xl sm:text-3xl tracking-tight">
+                    Le détour… maîtrisé
+                  </h2>
+                  <p class="mt-4 text-white/70 leading-relaxed">
+                    Filtrez ce que vous aimez (histoire, nature, curiosités…),
+                    puis définissez votre marge d’exploration.
+                    L’app met en évidence ce qui mérite un arrêt,
+                    exactement dans la limite que vous acceptez.
+                  </p>
+
+                  <div class="mt-5 space-y-3 text-sm text-white/65">
+                    <div class="flex gap-3">
+                      <span class="h-2 w-2 mt-2 rounded-full bg-emerald-400 glow"></span>
+                      <p><span class="text-white/90 font-medium">Rayon de liberté</span> — vous décidez la distance du détour.</p>
+                    </div>
+                    <div class="flex gap-3">
+                      <span class="h-2 w-2 mt-2 rounded-full bg-sky-300"></span>
+                      <p><span class="text-white/90 font-medium">Filtres</span> — ce que vous voyez dépend de vos envies.</p>
+                    </div>
+                    <div class="flex gap-3">
+                      <span class="h-2 w-2 mt-2 rounded-full bg-indigo-300"></span>
+                      <p><span class="text-white/90 font-medium">Voyage augmenté</span> — plus de sens, sans surcharge.</p>
+                    </div>
+                  </div>
+
+                  <div class="mt-7">
+                    <a href="#invite"
+                       class="inline-flex items-center justify-center rounded-2xl px-5 py-3
+                              bg-emerald-500/18 border border-emerald-400/25
+                              text-white hover:bg-emerald-500/24 transition">
+                      Recevoir une invitation
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </main>
+  </section>
+
+  <!-- 3-step clarity -->
+  <section class="mx-auto max-w-6xl px-6 pb-14 sm:pb-18">
+    <div class="grid gap-6 lg:grid-cols-3">
+      <div class="glass rounded-3xl p-6 sm:p-7 reveal">
+        <div class="text-white font-medium">1) Destination</div>
+        <p class="mt-3 text-white/65 text-sm leading-relaxed">
+          Vous choisissez où aller (A → B). Le voyage reste le vôtre.
         </p>
       </div>
-
-      <div class="mt-10">
-        <a href="index.html#invite"
-           class="inline-flex items-center justify-center rounded-2xl px-5 py-3
-                  bg-emerald-500/18 border border-emerald-400/25
-                  text-white hover:bg-emerald-500/24 transition">
-          Recevoir une invitation
-        </a>
+      <div class="glass rounded-3xl p-6 sm:p-7 reveal">
+        <div class="text-white font-medium">2) Rayon de liberté</div>
+        <p class="mt-3 text-white/65 text-sm leading-relaxed">
+          Vous fixez la marge de détour que vous êtes prêt à accepter.
+        </p>
+      </div>
+      <div class="glass rounded-3xl p-6 sm:p-7 reveal">
+        <div class="text-white font-medium">3) Découvertes</div>
+        <p class="mt-3 text-white/65 text-sm leading-relaxed">
+          L’app révèle des lieux et des histoires sur la route. Vous décidez d’y aller… ou pas.
+        </p>
       </div>
     </div>
-  </main>
+  </section>
+
+  <!-- Invite -->
+  <section id="invite" class="mx-auto max-w-6xl px-6 pb-20 sm:pb-28">
+    <div class="mx-auto max-w-3xl glass rounded-3xl p-7 sm:p-10 reveal">
+      <h2 class="font-serif text-2xl sm:text-3xl tracking-tight">Accès sur invitation</h2>
+      <p class="mt-3 text-white/70 leading-relaxed">
+        Laissez votre adresse pour être informé en priorité et recevoir une invitation dès l’ouverture.
+      </p>
+
+      <form id="inviteForm" class="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
+        <input
+          id="email"
+          type="email"
+          name="email"
+          required
+          placeholder="Votre email"
+          class="w-full flex-1 rounded-2xl bg-black/25 border border-white/10 px-4 py-3
+                 text-white placeholder:text-white/35 outline-none
+                 focus:border-emerald-400/40 focus:ring-2 focus:ring-emerald-400/10"
+        />
+        <button
+          type="submit"
+          class="rounded-2xl px-5 py-3 bg-emerald-500/20 border border-emerald-400/25
+                 hover:bg-emerald-500/25 transition text-white font-medium"
+        >
+          Recevoir l’invitation
+        </button>
+      </form>
+
+      <div id="msg" class="mt-4 text-sm text-white/60"></div>
+
+      <p class="mt-6 text-xs text-white/45">
+        Aucun spam. Juste un message, le moment venu.
+      </p>
+    </div>
+
+    <footer class="pt-10 text-center text-xs text-white/35">
+      <div>Guide du Détour — <span class="text-white/45">Ça vaut le détour.</span></div>
+    </footer>
+  </section>
+
+  <script>
+    // reveal on scroll
+    const els = Array.from(document.querySelectorAll('.reveal'));
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+    }, { threshold: 0.12 });
+    els.forEach(el => io.observe(el));
+
+    // email collection: local (test) or endpoint
+    const INVITE_ENDPOINT = ""; // e.g. "https://your-domain.com/api/invite"
+    const form = document.getElementById("inviteForm");
+    const msg = document.getElementById("msg");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const email = (document.getElementById("email").value || "").trim();
+      msg.textContent = "";
+
+      const ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      if (!ok) { msg.textContent = "Veuillez entrer une adresse email valide."; return; }
+
+      try {
+        if (!INVITE_ENDPOINT) {
+          const key = "gdd_invites";
+          const list = JSON.parse(localStorage.getItem(key) || "[]");
+          if (!list.includes(email)) list.push(email);
+          localStorage.setItem(key, JSON.stringify(list));
+          msg.textContent = "Merci. Votre demande a été enregistrée.";
+          form.reset();
+          return;
+        }
+
+        const res = await fetch(INVITE_ENDPOINT, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email })
+        });
+        if (!res.ok) throw new Error("Bad response");
+        msg.textContent = "Merci. Vous serez informé en priorité.";
+        form.reset();
+      } catch {
+        msg.textContent = "Oups… impossible d’envoyer pour l’instant. Réessayez plus tard.";
+      }
+    });
+  </script>
 </body>
 </html>
