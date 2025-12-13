@@ -1,162 +1,350 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Guide du Détour — Ça vaut le détour</title>
-  <meta name="description" content="Guide du Détour enrichit vos voyages de A à B selon votre rayon de liberté.">
-
-  <!-- Tailwind -->
-  <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
-
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Inter', 'system-ui', 'sans-serif'],
-            serif: ['Playfair Display', 'serif']
-          }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guide du Détour | ÇA VAUT LE DÉTOUR !</title>
+    <!-- Подключение Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Настройка шрифта Inter */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            /* Тёмно-синий фон */
+            background-color: #0F172A; /* slate-900 */
+            color: #E2E8F0; /* slate-200 */
+            line-height: 1.6;
         }
-      }
-    }
-  </script>
+        .text-accent {
+            color: #38A169; /* Яркий зеленый из презентации */
+        }
+        .bg-accent {
+            background-color: #38A169;
+        }
+        .bg-accent-dark {
+            background-color: #2F855A;
+        }
+        .shadow-glow {
+            box-shadow: 0 0 25px rgba(56, 161, 105, 0.5);
+        }
+        /* Стилизация мокапа для имитации анимации/живого вида */
+        .app-mockup {
+            border-radius: 3rem;
+            border: 10px solid #1E293B;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5), 0 0 0 10px #0F172A;
+        }
 
-  <style>
-    body {
-      background: #070B12;
-    }
-    .glass {
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.10);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-      box-shadow: 0 20px 60px rgba(0,0,0,0.45);
-    }
-    .glow {
-      filter: drop-shadow(0 0 18px rgba(34,197,94,0.35));
-    }
-  </style>
+        /* --- СТИЛЬ LIQUID GLASS (GLASSMORHISM) --- */
+        .glass-effect {
+            /* Полупрозрачный фон (slate-800 с прозрачностью) */
+            background-color: rgba(30, 41, 59, 0.75);
+            /* Эффект размытия */
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            /* Тонкая белая рамка для глубины */
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            /* Легкая тень */
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+        /* Стилизация инпутов внутри glass-effect */
+        .glass-effect input {
+            background-color: rgba(15, 23, 42, 0.8) !important; /* Более темный фон для контраста */
+        }
+    </style>
 </head>
+<body class="antialiased">
 
-<body class="text-white font-sans">
+    <!-- HERO SECTION (HÉROS) -->
+    <header class="py-16 md:py-24 px-4 sm:px-6 lg:px-8 text-center min-h-screen flex items-center justify-center">
+        <div class="max-w-4xl mx-auto">
+            
+            <!-- Logo et Icône -->
+            <div class="mb-8">
+                <!-- Имитация иконки приложения (темный квадрат, зеленый акцент) -->
+                <img src="https://placehold.co/64x64/0F172A/38A169?text=GDD" 
+                     alt="Icône de l'application Guide du Détour" 
+                     class="w-16 h-16 inline-block mb-4 p-1 bg-slate-800 rounded-2xl shadow-lg shadow-black/50 ring-2 ring-accent/50"
+                     onerror="this.onerror=null; this.src='https://placehold.co/64x64/0F172A/38A169?text=Logo';"
+                >
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white">
+                    Guide du <span class="text-accent">Détour</span>
+                </h1>
+            </div>
 
-<!-- BACKGROUND -->
-<div class="fixed inset-0 -z-10">
-  <div class="absolute inset-0 bg-gradient-to-b from-[#0A1323] via-[#070B12] to-black"></div>
-  <div class="absolute -top-40 left-1/2 h-[520px] w-[520px] -translate-x-1/2 rounded-full bg-emerald-500/10 blur-[120px]"></div>
-  <div class="absolute bottom-0 right-0 h-[520px] w-[520px] rounded-full bg-indigo-400/10 blur-[140px]"></div>
-</div>
+            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-slate-100 mb-10">
+                <span class="text-accent">ÇA VAUT LE DÉTOUR !</span>
+            </h2>
+            
+            <p class="max-w-3xl mx-auto text-lg text-slate-400 mb-12">
+                Le guide qui ne cherche pas le chemin le plus rapide, mais <span class="text-accent font-semibold">le plus riche en découvertes</span>.
+            </p>
 
-<!-- HEADER -->
-<header class="max-w-6xl mx-auto px-6 pt-8 flex items-center justify-between">
-  <img src="assets/logo.png" alt="Guide du Détour" class="h-9 opacity-90">
-  <a href="#invite" class="text-sm text-white/70 hover:text-white transition">
-    Accès sur invitation
-  </a>
-</header>
+            <!-- Formulaire de collecte d'email (С эффектом Glassmorphism) -->
+            <form id="email-form" class="max-w-lg mx-auto p-4 rounded-xl shadow-2xl glass-effect">
+                <p class="text-slate-300 mb-4 font-semibold">Rejoignez le Club des Éclaireurs et soyez les premiers informés !</p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <input type="email" id="email-input" placeholder="Votre Email" required 
+                           class="flex-grow p-4 rounded-lg border border-slate-700 text-white focus:ring-accent focus:border-accent transition duration-300 outline-none">
+                    <button type="submit" 
+                            class="bg-accent hover:bg-accent-dark text-white font-bold py-4 px-8 rounded-lg transition duration-300 shadow-glow hover:shadow-lg focus:outline-none focus:ring-4 focus:ring-accent/50 sm:w-auto w-full">
+                        Découvrir le lancement
+                    </button>
+                </div>
+                <div id="message-container" class="mt-4 text-sm font-medium h-6"></div>
+            </form>
+        </div>
+    </header>
 
-<!-- HERO -->
-<main class="max-w-6xl mx-auto px-6 pt-14 pb-20">
-  <div class="grid lg:grid-cols-2 gap-10 items-center">
+    <!-- SECTION: PROBLÈME ET SOLUTION (С эффектом Glassmorphism) -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-slate-800/50">
+        <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-start">
+            
+            <!-- Блок Проблема -->
+            <div class="p-6 rounded-xl shadow-xl glass-effect">
+                <h3 class="text-3xl font-bold text-red-400 mb-4">❌ Le Problème : L'optimisation tue l'aventure</h3>
+                <p class="text-slate-300 mb-4">
+                    Les GPS classiques sont des robots. Leur seul but est de vous faire gagner 4 minutes, même si cela implique de traverser une zone industrielle ennuyeuse.
+                </p>
+                <p class="text-slate-400">
+                    Ils ont transformé le voyage en une simple tâche "Aller de A à B", où le détour est considéré comme une perte de temps, et non comme une opportunité.
+                </p>
+            </div>
 
-    <!-- TEXT -->
-    <div class="glass rounded-3xl p-7 sm:p-9 max-w-xl">
-      <div class="flex items-center gap-2 text-xs text-white/60 mb-3">
-        <span class="h-2 w-2 rounded-full bg-emerald-400 glow"></span>
-        Voyage • Découverte • Liberté
-      </div>
+            <!-- Блок Решение -->
+            <div class="p-6 rounded-xl shadow-xl glass-effect">
+                <h3 class="text-3xl font-bold text-accent mb-4">✅ La Solution : Votre Détour</h3>
+                <p class="text-slate-300 mb-4">
+                    Nous pensons que la route n'est pas qu'une simple voie. C'est une partie de la vie. Guide du Détour change les algorithmes pour enrichir votre trajet, pas seulement pour gagner des secondes.
+                </p>
+                <p class="text-slate-400">
+                    <span class="text-accent font-semibold">Votre voyage devient une histoire</span>.
+                </p>
+            </div>
 
-      <h1 class="font-serif text-4xl sm:text-6xl leading-tight">
-        ÇA VAUT LE DÉTOUR !
-      </h1>
+        </div>
+    </section>
+    
+    <!-- SECTION: FONCTIONNALITÉS CLÉS (С эффектом Glassmorphism) -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl md:text-5xl font-extrabold text-center mb-16 text-white">
+                Huit raisons de <span class="text-accent">tomber amoureux</span> de la route
+            </h2>
 
-      <p class="mt-4 text-lg text-white/80">
-        Enrichissez votre voyage selon votre envie de détour.
-      </p>
+            <div class="grid md:grid-cols-3 gap-8">
+                
+                <!-- Feature 1: Rayon de liberté -->
+                <div class="p-6 rounded-2xl shadow-2xl glass-effect">
+                    <div class="text-accent text-5xl mb-4">🧭</div>
+                    <h3 class="text-2xl font-bold text-white mb-3">Rayon de liberté</h3>
+                    <p class="text-slate-400">
+                        Vous choisissez vous-même dans quelle mesure vous êtes prêt à vous écarter du chemin. L'application trouve des trésors (histoire, nature, gastronomie) en fonction de vos centres d'intérêt.
+                    </p>
+                </div>
 
-      <p class="mt-4 text-white/70 leading-relaxed">
-        Vous partez de A vers B.
-        Vous choisissez votre <strong>rayon de liberté</strong>.
-        Guide du Détour vous propose des lieux à découvrir
-        sur la route — sans perdre votre destination.
-      </p>
+                <!-- Feature 2: Le Point Mystère -->
+                <div class="p-6 rounded-2xl shadow-2xl glass-effect">
+                    <div class="text-accent text-5xl mb-4">❓</div>
+                    <h3 class="text-2xl font-bold text-white mb-3">Le Point Mystère</h3>
+                    <p class="text-slate-400">
+                        Un rendez-vous à l'aveugle avec un lieu. Un '?' apparaît sur la carte. Pas de photos, pas de spoilers. Seulement une description intrigante. Vous ne saurez ce que c'est qu'une fois arrivé.
+                    </p>
+                </div>
 
-      <div class="mt-6 flex flex-col sm:flex-row gap-3">
-        <a href="#invite"
-           class="inline-flex justify-center rounded-2xl px-5 py-3
-                  bg-emerald-500/20 border border-emerald-400/25
-                  hover:bg-emerald-500/30 transition">
-          Recevoir une invitation
-        </a>
-      </div>
+                <!-- Feature 3: L'Escale Parfaite -->
+                <div class="p-6 rounded-2xl shadow-2xl glass-effect">
+                    <div class="text-accent text-5xl mb-4">🌅</div>
+                    <h3 class="text-2xl font-bold text-white mb-3">L'Escale Parfaite</h3>
+                    <p class="text-slate-400">
+                        Le repos comme un art. Nous planifions les arrêts non pas en fonction de la jauge d'essence, mais de vos biorythmes. Un coucher de soleil approche ? Nous vous emmenons à un point de vue panoramique.
+                    </p>
+                </div>
 
-      <p class="mt-6 text-xs text-white/45">
-        Lancement bientôt. Pas de spam, juste une invitation.
-      </p>
-    </div>
+            </div>
+        </div>
+    </section>
 
-    <!-- APP PREVIEW -->
-    <div class="glass rounded-3xl p-6 sm:p-8">
-      <div class="flex justify-between items-center mb-4">
-        <span class="text-sm text-white/70">Aperçu réel</span>
-        <span class="text-xs text-white/45">iOS</span>
-      </div>
+    <!-- SECTION: VISUALISATION (MOCKUP) -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-4xl font-bold text-white mb-8">
+                L'itinéraire qui <span class="text-accent">s'adapte</span> à vous
+            </h2>
+            <p class="text-slate-400 max-w-2xl mx-auto mb-10">
+                Vous voyagez avec des enfants ? Nous trouverons des fermes et des parcs. En couple ? Des vignobles et des panoramas. L'application s'ajuste à votre profil et à vos centres d'intérêt.
+            </p>
+            
+            <!-- Мокап телефона (заменен на image placeholder, имитирующий скриншот из презентации) -->
+            <div class="relative inline-block mt-8">
+                <img src="https://placehold.co/300x600/1E293B/38A169?text=Guide+du+Détour%0AApp+Mockup" 
+                     alt="Maquette de téléphone avec l'application Guide du Détour" 
+                     class="w-64 h-96 sm:w-80 sm:h-[40rem] app-mockup transition duration-500 hover:scale-[1.01] transform"
+                     onerror="this.onerror=null; this.src='https://placehold.co/300x600/1E293B/38A169?text=App+Screenshot';"
+                >
+                <!-- Динамический элемент -->
+                <div class="absolute top-10 -right-20 transform rotate-6 bg-yellow-400 p-3 rounded-xl shadow-xl font-bold text-slate-900 text-lg">
+                    Slow Travel!
+                </div>
+            </div>
+        </div>
+    </section>
 
-      <!-- GIF -->
-      <div class="mx-auto max-w-[320px] rounded-[36px] overflow-hidden
-                  border border-white/10 shadow-[0_30px_90px_rgba(0,0,0,0.55)]">
-        <img src="assets/app-demo.gif" alt="Guide du Détour sur iPhone" class="w-full">
-      </div>
+    <!-- SECTION: CTA FINAL (С эффектом Glassmorphism) -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-slate-800/50">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-4xl font-extrabold text-white mb-6">
+                Nous sommes fatigués de la course. <span class="text-accent">Soutenez Guide du Détour.</span>
+            </h2>
+            <p class="text-xl text-slate-400 mb-10">
+                Aidez-nous à créer l'outil qui fera revivre la culture du <span class="font-semibold text-white">Slow Travel</span> et révèlera la véritable âme de la France.
+            </p>
 
-      <!-- ICON -->
-      <div class="mt-5 flex items-center justify-center gap-3 text-sm text-white/65">
-        <img src="assets/app-icon.png" class="h-11 w-11 rounded-2xl shadow-md" alt="">
-        Guide du Détour — приложение iOS
-      </div>
-    </div>
+            <!-- Formulaire de collecte d'email (répétition, с эффектом Glassmorphism) -->
+            <form id="email-form-bottom" class="max-w-xl mx-auto p-6 rounded-xl shadow-2xl glass-effect">
+                <p class="text-slate-300 mb-4 font-semibold text-lg">Soyez parmi les premiers à tester l'application !</p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <input type="email" id="email-input-bottom" placeholder="Votre Email" required 
+                           class="flex-grow p-4 rounded-lg border border-slate-700 text-white focus:ring-accent focus:border-accent transition duration-300 outline-none">
+                    <button type="submit" 
+                            class="bg-accent hover:bg-accent-dark text-white font-bold py-4 px-8 rounded-lg transition duration-300 shadow-glow hover:shadow-lg focus:outline-none focus:ring-4 focus:ring-accent/50 sm:w-auto w-full">
+                        S'inscrire à la newsletter
+                    </button>
+                </div>
+                <div id="message-container-bottom" class="mt-4 text-sm font-medium h-6"></div>
+            </form>
+        </div>
+    </section>
 
-  </div>
-</main>
+    <!-- FOOTER -->
+    <footer class="py-8 px-4 sm:px-6 lg:px-8 text-center border-t border-slate-700">
+        <p class="text-slate-500 text-sm">&copy; 2025 Guide du Détour. <span class="font-bold text-accent">ÇA VAUT LE DÉTOUR !</span></p>
+        <p class="text-xs text-slate-600 mt-2">Conçu pour la communauté des Éclaireurs.</p>
+    </footer>
 
-<!-- INVITE -->
-<section id="invite" class="max-w-3xl mx-auto px-6 pb-24">
-  <div class="glass rounded-3xl p-7 sm:p-10 text-center">
-    <h2 class="font-serif text-3xl">
-      Accès sur invitation
-    </h2>
+    <script type="module">
+        // Firebase imports
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged, setPersistence, browserSessionPersistence } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, addDoc, collection, serverTimestamp, setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-    <p class="mt-3 text-white/70">
-      Laissez votre adresse pour être informé en priorité.
-    </p>
+        // Global Firebase and App Configuration
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
+        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
 
-    <form class="mt-6 flex flex-col sm:flex-row gap-3">
-      <input type="email" placeholder="Votre email"
-             class="flex-1 rounded-2xl px-4 py-3 bg-black/30
-                    border border-white/10 placeholder:text-white/40
-                    outline-none focus:border-emerald-400/40">
-      <button type="submit"
-              class="rounded-2xl px-5 py-3
-                     bg-emerald-500/20 border border-emerald-400/25
-                     hover:bg-emerald-500/30 transition">
-        Recevoir l’invitation
-      </button>
-    </form>
+        let db;
+        let auth;
+        let isAuthReady = false;
 
-    <p class="mt-4 text-xs text-white/45">
-      Aucun spam. Juste le moment venu.
-    </p>
-  </div>
-</section>
+        // Initialize Firebase and authenticate
+        try {
+            if (Object.keys(firebaseConfig).length > 0) {
+                const app = initializeApp(firebaseConfig);
+                db = getFirestore(app);
+                auth = getAuth(app);
+                setLogLevel('error'); // Reduced logging for production environment
 
-<footer class="text-center text-xs text-white/40 pb-8">
-  Guide du Détour — Ça vaut le détour.
-</footer>
+                await setPersistence(auth, browserSessionPersistence);
 
+                if (initialAuthToken) {
+                    await signInWithCustomToken(auth, initialAuthToken);
+                } else {
+                    await signInAnonymously(auth);
+                }
+            } else {
+                console.error("Firebase configuration is missing.");
+            }
+        } catch (error) {
+            console.error("Firebase initialization or sign-in failed:", error);
+        }
+
+        // Wait for auth state to be confirmed
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                console.log("User signed in with UID:", user.uid);
+            } else {
+                console.log("User signed out or anonymous.");
+            }
+            isAuthReady = true;
+        });
+
+        const forms = [
+            { form: document.getElementById('email-form'), input: document.getElementById('email-input'), message: document.getElementById('message-container') },
+            { form: document.getElementById('email-form-bottom'), input: document.getElementById('email-input-bottom'), message: document.getElementById('message-container-bottom') }
+        ];
+
+        /**
+         * Saves the email to Firebase Firestore.
+         * @param {string} email 
+         * @returns {Promise<boolean>} Success status
+         */
+        const saveEmailToFirestore = async (email) => {
+            if (!isAuthReady || !db) {
+                console.error("Firestore not ready or database object missing.");
+                return false;
+            }
+
+            try {
+                // Public collection path, updated to use 'waitlist' as requested
+                const collectionPath = `artifacts/${appId}/public/data/waitlist`;
+                const emailData = {
+                    email: email,
+                    timestamp: serverTimestamp(),
+                    source: 'landing_page_newsletter'
+                };
+
+                await addDoc(collection(db, collectionPath), emailData);
+                return true;
+            } catch (error) {
+                console.error("Error writing document to Firestore:", error);
+                return false;
+            }
+        };
+
+        /**
+         * Handles form submission: validates email, saves to Firestore, and updates UI.
+         * @param {string} email 
+         * @param {HTMLElement} messageElement 
+         */
+        const submitEmail = async (email, messageElement) => {
+            if (!email || !email.includes('@') || !email.includes('.')) {
+                messageElement.classList.add('text-red-400');
+                messageElement.textContent = '❌ Veuillez entrer une adresse e-mail valide.';
+                return;
+            }
+
+            messageElement.textContent = 'Envoi en cours...';
+            messageElement.classList.remove('text-red-400', 'text-accent');
+            messageElement.classList.add('text-yellow-400');
+
+            const success = await saveEmailToFirestore(email);
+
+            if (success) {
+                messageElement.classList.remove('text-yellow-400');
+                messageElement.classList.add('text-accent');
+                messageElement.textContent = '✅ Merci ! Vous êtes abonné(e) et serez le premier informé du lancement !';
+                // Effacer le champ de saisie
+                forms.forEach(f => {
+                    if (f.input.value === email) {
+                        f.input.value = '';
+                    }
+                });
+            } else {
+                messageElement.classList.remove('text-yellow-400');
+                messageElement.classList.add('text-red-400');
+                messageElement.textContent = "❌ Une erreur est survenue lors de l'enregistrement. Veuillez réessayer.";
+            }
+        };
+
+        // Ajout des écouteurs d'événements aux deux formulaires
+        forms.forEach(({ form, input, message }) => {
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const email = input.value.trim();
+                submitEmail(email, message);
+            });
+        });
+    </script>
 </body>
 </html>
