@@ -54,10 +54,10 @@
               <!-- Notch -->
               <div class="absolute top-3 left-1/2 -translate-x-1/2 w-32 h-6 rounded-full bg-black/80 ring-1 ring-white/10 z-20"></div>
 
-              <!-- Screen image -->
+              <!-- Screen image (PNG slider) -->
               <img
                 id="appSlider"
-                src="./screen1.jpg"
+                src="./screen1.png"
                 alt="Aperçu de l’application"
                 class="w-full h-full object-cover opacity-100 transition-opacity duration-700"
                 onerror="this.style.display='none'; document.getElementById('sliderFallback').style.display='flex';"
@@ -68,7 +68,7 @@
                 <div class="text-white/80">
                   <div class="text-xl font-semibold">Ajoutez vos captures</div>
                   <div class="mt-2 text-sm text-white/60">
-                    Placez <span class="font-mono">screen1.jpg</span> … <span class="font-mono">screen5.jpg</span><br/>
+                    Placez <span class="font-mono">screen1.png</span> … <span class="font-mono">screen5.png</span><br/>
                     à côté de <span class="font-mono">index.html</span>
                   </div>
                 </div>
@@ -199,11 +199,11 @@
   <script>
     (function () {
       const screens = [
-        "./screen1.jpg",
-        "./screen2.jpg",
-        "./screen3.jpg",
-        "./screen4.jpg",
-        "./screen5.jpg"
+        "./screen1.png",
+        "./screen2.png",
+        "./screen3.png",
+        "./screen4.png",
+        "./screen5.png"
       ];
 
       const img = document.getElementById("appSlider");
@@ -233,15 +233,12 @@
       setActiveDot(index);
 
       setInterval(() => {
-        // fade out
         img.classList.add("opacity-0");
 
         setTimeout(() => {
           index = (index + 1) % screens.length;
           img.src = screens[index];
           setActiveDot(index);
-
-          // fade in
           img.classList.remove("opacity-0");
         }, fadeOutMs);
       }, intervalMs);
