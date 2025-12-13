@@ -29,37 +29,6 @@
           Vous choisissez la distance. Nous trouvons les lieux.
         </p>
 
-        <!-- Detour range -->
-        <div class="mt-7">
-          <div class="flex items-center justify-center lg:justify-start gap-3">
-            <span class="text-sm text-gray-500">0 km</span>
-
-            <div class="w-full max-w-md">
-              <input id="detourRange" type="range" min="0" max="20" step="1" value="5"
-                class="w-full accent-gray-900" />
-              <div class="mt-2 flex items-center justify-between">
-                <div class="text-sm text-gray-600">
-                  Détour max :
-                  <span id="detourValue" class="text-gray-900 font-semibold">5</span>
-                  <span class="text-gray-600">km</span>
-                </div>
-                <div class="text-xs text-gray-500">
-                  (modifiable à tout moment)
-                </div>
-              </div>
-            </div>
-
-            <span class="text-sm text-gray-500">20 km</span>
-          </div>
-
-          <div class="mt-3 text-sm text-gray-500 text-center lg:text-left">
-            Exemple :
-            <span class="text-gray-700">« Je suis prêt à faire un détour de </span>
-            <span id="detourInline" class="font-semibold text-gray-700">5</span>
-            <span class="text-gray-700"> km. »</span>
-          </div>
-        </div>
-
         <div class="mt-10 flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
           <a href="#waitlist"
              class="inline-flex items-center justify-center px-8 py-4 bg-gray-900 text-white rounded-full text-lg hover:bg-gray-700 transition">
@@ -74,6 +43,10 @@
         <p class="mt-6 text-sm text-gray-500">
           Pas de spam. Juste le lancement et les mises à jour importantes.
         </p>
+
+        <div class="mt-6 text-xs text-gray-500">
+          Astuce : vous pourrez régler votre détour max (0–20 km) directement dans l’app.
+        </div>
       </div>
 
       <!-- Phone mockup + slider -->
@@ -114,7 +87,7 @@
             </div>
           </div>
 
-          <!-- captions under phone (story, not “just images”) -->
+          <!-- captions under phone -->
           <div class="mt-4 text-center text-sm text-gray-500">
             <span id="slideCaption">Votre itinéraire</span>
           </div>
@@ -137,7 +110,7 @@
     </p>
   </section>
 
-  <!-- POURQUOI (diff vs Google Maps) -->
+  <!-- POURQUOI -->
   <section class="py-24 px-6 bg-white">
     <div class="max-w-5xl mx-auto">
       <h2 class="text-3xl md:text-4xl font-semibold mb-6">
@@ -152,7 +125,7 @@
       <div class="mt-10 grid sm:grid-cols-3 gap-4">
         <div class="rounded-3xl bg-[#FAFAFA] ring-1 ring-gray-100 p-6">
           <div class="text-gray-900 font-semibold">La liberté en kilomètres</div>
-          <div class="mt-1 text-sm text-gray-600">Définissez votre marge (0–20 km). Ni plus, ni moins.</div>
+          <div class="mt-1 text-sm text-gray-600">Réglez votre détour max (0–20 km). Ni plus, ni moins.</div>
         </div>
         <div class="rounded-3xl bg-[#FAFAFA] ring-1 ring-gray-100 p-6">
           <div class="text-gray-900 font-semibold">Des lieux qui comptent</div>
@@ -220,7 +193,7 @@
     </div>
   </section>
 
-  <!-- WAITLIST (Firebase) -->
+  <!-- WAITLIST -->
   <section id="waitlist" class="py-24 px-6 max-w-5xl mx-auto">
     <div class="bg-white rounded-3xl ring-1 ring-gray-100 p-8 md:p-10">
       <h2 class="text-3xl md:text-4xl font-semibold">
@@ -242,10 +215,6 @@
             <label for="privacy" class="text-sm text-gray-600">
               J’accepte la <a class="underline hover:text-gray-900" href="#privacyPolicy">politique de confidentialité</a>.
             </label>
-          </div>
-
-          <div class="mt-3 text-sm text-gray-600">
-            Détour max choisi : <span id="detourValue2" class="font-semibold text-gray-900">5</span> km
           </div>
         </div>
 
@@ -397,32 +366,6 @@
     })();
   </script>
 
-  <!-- Detour range logic -->
-  <script>
-    (function () {
-      const range = document.getElementById("detourRange");
-      const v1 = document.getElementById("detourValue");
-      const v2 = document.getElementById("detourValue2");
-      const inline = document.getElementById("detourInline");
-
-      let current = Number(range?.value ?? 5);
-
-      function set(km) {
-        current = Number(km);
-        if (v1) v1.textContent = String(current);
-        if (v2) v2.textContent = String(current);
-        if (inline) inline.textContent = String(current);
-      }
-
-      if (range) {
-        range.addEventListener("input", (e) => set(e.target.value));
-        set(range.value);
-      }
-
-      window.__detourKm = () => current;
-    })();
-  </script>
-
   <!-- Firebase Firestore submit (CDN ESM) -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
@@ -487,7 +430,6 @@
       try {
         await addDoc(collection(db, "waitlist"), {
           email,
-          detourKm: (window.__detourKm && window.__detourKm()) ? window.__detourKm() : 0,
           source: "landing_page_french",
           createdAt: serverTimestamp(),
           userAgent: navigator.userAgent || null,
