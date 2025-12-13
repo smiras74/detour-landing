@@ -5,58 +5,188 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Guide du Détour</title>
   <meta name="description" content="Transformez chaque trajet en voyage. Choisissez un détour de 0 à 20 km : Guide du Détour vous montre ce qui vaut le détour sur votre route." />
+
   <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    :root{
+      --glass-bg: rgba(255,255,255,.06);
+      --glass-brd: rgba(255,255,255,.14);
+      --glass-brd-2: rgba(255,255,255,.08);
+      --txt: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.68);
+      --muted2: rgba(255,255,255,.45);
+      --shadow: 0 20px 60px rgba(0,0,0,.45);
+    }
+
+    html, body { height: 100%; }
+    body{
+      font-family: ui-sans-serif, system-ui, -apple-system, "SF Pro Display", "SF Pro Text", Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background: #070A12;
+      color: var(--txt);
+    }
+
+    /* App-like background */
+    .bg-app{
+      position: relative;
+      overflow-x: hidden;
+    }
+    .bg-app::before{
+      content:"";
+      position: fixed;
+      inset: -20vh -20vw;
+      background:
+        radial-gradient(1200px 800px at 20% 20%, rgba(70,130,255,.22), transparent 55%),
+        radial-gradient(900px 700px at 80% 30%, rgba(160,80,255,.18), transparent 60%),
+        radial-gradient(800px 700px at 60% 85%, rgba(60,220,190,.14), transparent 55%),
+        radial-gradient(900px 700px at 10% 90%, rgba(255,180,60,.08), transparent 60%);
+      filter: blur(0px);
+      pointer-events: none;
+      z-index: -2;
+    }
+    .bg-app::after{
+      content:"";
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(180deg, rgba(0,0,0,.55), rgba(0,0,0,.65)),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.28'/%3E%3C/svg%3E");
+      background-size: auto, 280px 280px;
+      mix-blend-mode: overlay;
+      pointer-events: none;
+      z-index: -1;
+      opacity: .18;
+    }
+
+    .glass{
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-brd);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .glass-soft{
+      background: rgba(255,255,255,.04);
+      border: 1px solid var(--glass-brd-2);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+
+    .hairline{
+      border-top: 1px solid rgba(255,255,255,.08);
+    }
+
+    .btn-primary{
+      background: rgba(255,255,255,.92);
+      color: #0B1020;
+    }
+    .btn-primary:hover{
+      background: rgba(255,255,255,.82);
+    }
+    .btn-ghost{
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.14);
+      color: rgba(255,255,255,.92);
+    }
+    .btn-ghost:hover{
+      background: rgba(255,255,255,.10);
+    }
+
+    /* Phone */
+    .phone-shell{
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.14);
+      box-shadow: 0 30px 120px rgba(0,0,0,.6);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+    }
+  </style>
 </head>
 
-<body class="bg-[#FAFAFA] text-gray-800 antialiased">
+<body class="bg-app">
+
+  <!-- Top bar (app-like) -->
+  <header class="sticky top-0 z-50 px-4 sm:px-6 pt-4">
+    <div class="max-w-6xl mx-auto glass rounded-3xl px-4 sm:px-5 py-3 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <!-- Placeholder logo bubble -->
+        <div class="w-9 h-9 rounded-2xl glass-soft flex items-center justify-center">
+          <span class="text-sm font-semibold text-white/90">GD</span>
+        </div>
+        <div>
+          <div class="text-sm font-semibold text-white/90 leading-none">Guide du Détour</div>
+          <div class="text-[11px] text-white/55 leading-none mt-1">0–20 km • ce qui vaut le détour</div>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <a href="#how" class="hidden sm:inline-flex px-4 py-2 rounded-2xl btn-ghost text-sm transition">
+          Comment ça marche
+        </a>
+        <a href="#waitlist" class="inline-flex px-4 py-2 rounded-2xl btn-primary text-sm font-semibold transition">
+          Être informé
+        </a>
+      </div>
+    </div>
+  </header>
 
   <!-- HERO -->
-  <section class="min-h-screen flex items-center px-6">
-    <div class="max-w-6xl mx-auto w-full grid lg:grid-cols-2 gap-12 items-center">
-      <!-- Text -->
-      <div class="text-center lg:text-left">
-        <h1 class="text-4xl md:text-6xl font-semibold leading-tight">
+  <section class="px-4 sm:px-6 pt-10 sm:pt-14 pb-10">
+    <div class="max-w-6xl mx-auto grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+      <!-- Left -->
+      <div class="glass rounded-[32px] p-6 sm:p-10">
+        <h1 class="text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight leading-[1.02]">
           Transformez chaque trajet
-          <span class="text-gray-900 block mt-2">en voyage.</span>
+          <span class="block mt-2 text-white/95">en voyage.</span>
         </h1>
 
-        <p class="mt-6 text-lg md:text-xl text-gray-600 max-w-2xl mx-auto lg:mx-0">
+        <p class="mt-6 text-base sm:text-lg text-white/70 max-w-2xl">
           Guide du Détour révèle ce qui vaut le détour sur votre route —
-          si vous êtes prêt à vous écarter de <span class="text-gray-900 font-semibold">0 à 20 km</span>.
+          si vous êtes prêt à vous écarter de <span class="text-white/90 font-semibold">0 à 20 km</span>.
         </p>
 
-        <p class="mt-3 text-sm text-gray-500">
-          Vous choisissez la distance. Nous trouvons les lieux.
-        </p>
+        <div class="mt-6 grid sm:grid-cols-2 gap-3">
+          <div class="glass-soft rounded-3xl p-4">
+            <div class="text-sm font-semibold text-white/90">Simple</div>
+            <div class="text-sm text-white/60 mt-1">De A à B, puis découvrez autour de votre itinéraire.</div>
+          </div>
+          <div class="glass-soft rounded-3xl p-4">
+            <div class="text-sm font-semibold text-white/90">Vous gardez le contrôle</div>
+            <div class="text-sm text-white/60 mt-1">Le détour est en kilomètres, pas en “minutes” floues.</div>
+          </div>
+        </div>
 
-        <div class="mt-10 flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
-          <a href="#waitlist"
-             class="inline-flex items-center justify-center px-8 py-4 bg-gray-900 text-white rounded-full text-lg hover:bg-gray-700 transition">
+        <div class="mt-8 flex flex-col sm:flex-row gap-3">
+          <a href="#waitlist" class="inline-flex items-center justify-center px-6 py-4 rounded-3xl btn-primary text-base font-semibold transition">
             Être informé du lancement
           </a>
-          <a href="#how"
-             class="inline-flex items-center justify-center px-8 py-4 bg-white text-gray-900 rounded-full text-lg ring-1 ring-gray-200 hover:ring-gray-300 transition">
+          <a href="#how" class="inline-flex items-center justify-center px-6 py-4 rounded-3xl btn-ghost text-base transition">
             Voir comment ça marche
           </a>
         </div>
 
-        <p class="mt-6 text-sm text-gray-500">
+        <p class="mt-5 text-sm text-white/55">
           Pas de spam. Juste le lancement et les mises à jour importantes.
         </p>
-
-        <div class="mt-6 text-xs text-gray-500">
-          Astuce : vous pourrez régler votre détour max (0–20 km) directement dans l’app.
-        </div>
       </div>
 
-      <!-- Phone mockup + slider -->
-      <div class="flex justify-center lg:justify-end">
-        <div class="relative">
-          <div class="absolute -inset-6 rounded-[48px] bg-white/60 blur-2xl"></div>
+      <!-- Right (phone + captions) -->
+      <div class="glass rounded-[32px] p-6 sm:p-10">
+        <div class="flex items-start justify-between gap-4">
+          <div>
+            <div class="text-sm font-semibold text-white/90">Aperçu de l’app</div>
+            <div class="text-sm text-white/55 mt-1">Une expérience “app”, pas une page web.</div>
+          </div>
+          <div class="hidden sm:flex items-center gap-2 text-xs text-white/55">
+            <span class="inline-block w-2 h-2 rounded-full bg-white/40"></span>
+            <span>Captures: screen1…screen5</span>
+          </div>
+        </div>
 
-          <div class="relative w-[280px] sm:w-[320px] md:w-[360px] aspect-[9/19] rounded-[44px] bg-gray-900 p-[10px] shadow-2xl">
-            <div class="relative w-full h-full rounded-[36px] bg-black overflow-hidden">
-              <div class="absolute top-3 left-1/2 -translate-x-1/2 w-32 h-6 rounded-full bg-black/80 ring-1 ring-white/10 z-20"></div>
+        <div class="mt-6 flex justify-center">
+          <div class="relative w-[280px] sm:w-[330px] md:w-[360px] aspect-[9/19] rounded-[44px] phone-shell p-[10px]">
+            <div class="relative w-full h-full rounded-[36px] bg-black/90 overflow-hidden">
+              <div class="absolute top-3 left-1/2 -translate-x-1/2 w-32 h-6 rounded-full bg-black/70 ring-1 ring-white/10 z-20"></div>
 
               <img
                 id="appSlider"
@@ -75,197 +205,155 @@
                 </div>
               </div>
 
-              <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-white/5 z-10"></div>
+              <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-white/10 z-10"></div>
 
               <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-20">
-                <span class="dot w-2 h-2 rounded-full bg-white/40"></span>
-                <span class="dot w-2 h-2 rounded-full bg-white/40"></span>
-                <span class="dot w-2 h-2 rounded-full bg-white/40"></span>
-                <span class="dot w-2 h-2 rounded-full bg-white/40"></span>
-                <span class="dot w-2 h-2 rounded-full bg-white/40"></span>
+                <span class="dot w-2 h-2 rounded-full bg-white/35"></span>
+                <span class="dot w-2 h-2 rounded-full bg-white/35"></span>
+                <span class="dot w-2 h-2 rounded-full bg-white/35"></span>
+                <span class="dot w-2 h-2 rounded-full bg-white/35"></span>
+                <span class="dot w-2 h-2 rounded-full bg-white/35"></span>
               </div>
             </div>
           </div>
+        </div>
 
-          <!-- captions under phone -->
-          <div class="mt-4 text-center text-sm text-gray-500">
-            <span id="slideCaption">Votre itinéraire</span>
+        <div class="mt-5 text-center">
+          <div class="text-sm text-white/60">Écran actuel :</div>
+          <div class="text-base font-semibold text-white/90 mt-1" id="slideCaption">Votre itinéraire</div>
+        </div>
+
+        <div class="mt-6 hairline pt-6 grid sm:grid-cols-3 gap-3">
+          <div class="glass-soft rounded-3xl p-4">
+            <div class="text-sm font-semibold text-white/90">Découvrir</div>
+            <div class="text-sm text-white/60 mt-1">Des points qui valent l’arrêt.</div>
+          </div>
+          <div class="glass-soft rounded-3xl p-4">
+            <div class="text-sm font-semibold text-white/90">Apprendre</div>
+            <div class="text-sm text-white/60 mt-1">Une route qui devient culture.</div>
+          </div>
+          <div class="glass-soft rounded-3xl p-4">
+            <div class="text-sm font-semibold text-white/90">Contribuer</div>
+            <div class="text-sm text-white/60 mt-1">Photos, infos, corrections.</div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- PROBLEME -->
-  <section class="py-24 px-6 max-w-5xl mx-auto">
-    <h2 class="text-3xl md:text-4xl font-semibold mb-6">
-      Les GPS vont vite.<br>Mais ils passent à côté de l’essentiel.
-    </h2>
-
-    <p class="text-lg text-gray-600 max-w-3xl">
-      Villages, églises, points de vue, patrimoine, fermes, lieux insolites…
-      Souvent, c’est à <span class="text-gray-800 font-medium">quelques kilomètres</span> de la route.
-      <br><br>
-      Vous arrivez à destination — mais vous n’avez rien vu.
-    </p>
-  </section>
-
-  <!-- POURQUOI -->
-  <section class="py-24 px-6 bg-white">
-    <div class="max-w-5xl mx-auto">
-      <h2 class="text-3xl md:text-4xl font-semibold mb-6">
-        Pourquoi Guide du Détour ?
+  <!-- WHY (app-like panel) -->
+  <section class="px-4 sm:px-6 py-10">
+    <div class="max-w-6xl mx-auto glass rounded-[32px] p-6 sm:p-10">
+      <h2 class="text-2xl sm:text-3xl font-semibold text-white/95">
+        Les GPS vont vite. Mais ils passent à côté de l’essentiel.
       </h2>
-
-      <p class="text-lg text-gray-600 max-w-3xl">
-        Google Maps vous emmène vite. Guide du Détour vous aide à
-        <span class="text-gray-800 font-medium">découvrir</span> — sans perdre le contrôle.
+      <p class="mt-4 text-white/65 text-base sm:text-lg max-w-4xl">
+        Villages, églises, points de vue, patrimoine, fermes, lieux insolites…
+        Souvent, c’est à quelques kilomètres de la route. Vous arrivez à destination — mais vous n’avez rien vu.
       </p>
 
-      <div class="mt-10 grid sm:grid-cols-3 gap-4">
-        <div class="rounded-3xl bg-[#FAFAFA] ring-1 ring-gray-100 p-6">
-          <div class="text-gray-900 font-semibold">La liberté en kilomètres</div>
-          <div class="mt-1 text-sm text-gray-600">Réglez votre détour max (0–20 km). Ni plus, ni moins.</div>
+      <div class="mt-7 grid sm:grid-cols-3 gap-3">
+        <div class="glass-soft rounded-3xl p-5">
+          <div class="text-sm font-semibold text-white/90">0–20 km</div>
+          <div class="mt-1 text-sm text-white/60">Une règle claire, pas une promesse floue.</div>
         </div>
-        <div class="rounded-3xl bg-[#FAFAFA] ring-1 ring-gray-100 p-6">
-          <div class="text-gray-900 font-semibold">Des lieux qui comptent</div>
-          <div class="mt-1 text-sm text-gray-600">Patrimoine, paysages, villages… ce que les itinéraires rapides ignorent.</div>
+        <div class="glass-soft rounded-3xl p-5">
+          <div class="text-sm font-semibold text-white/90">Moins d’ennui</div>
+          <div class="mt-1 text-sm text-white/60">Plus de “waouh” entre A et B.</div>
         </div>
-        <div class="rounded-3xl bg-[#FAFAFA] ring-1 ring-gray-100 p-6">
-          <div class="text-gray-900 font-semibold">Une carte qui s’améliore</div>
-          <div class="mt-1 text-sm text-gray-600">Photo, description, correction : la communauté enrichit la route.</div>
+        <div class="glass-soft rounded-3xl p-5">
+          <div class="text-sm font-semibold text-white/90">Carte vivante</div>
+          <div class="mt-1 text-sm text-white/60">La communauté enrichit les lieux.</div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- COMMENT -->
-  <section id="how" class="py-24 px-6 max-w-5xl mx-auto">
-    <h2 class="text-3xl md:text-4xl font-semibold mb-10">
-      Comment ça marche
-    </h2>
-
-    <div class="grid md:grid-cols-3 gap-10 text-lg text-gray-600">
-      <div class="bg-white rounded-3xl p-8 ring-1 ring-gray-100">
-        <strong class="text-gray-900">1. Entrez votre itinéraire</strong><br>
-        De A à B, comme d’habitude.
+  <!-- HOW -->
+  <section id="how" class="px-4 sm:px-6 py-10">
+    <div class="max-w-6xl mx-auto grid lg:grid-cols-3 gap-3">
+      <div class="glass rounded-[28px] p-6 sm:p-8">
+        <div class="text-sm text-white/55">Étape 1</div>
+        <div class="mt-1 text-xl font-semibold text-white/95">Entrez votre itinéraire</div>
+        <div class="mt-3 text-white/60">De A à B, comme d’habitude.</div>
       </div>
-      <div class="bg-white rounded-3xl p-8 ring-1 ring-gray-100">
-        <strong class="text-gray-900">2. Choisissez votre détour</strong><br>
-        De 0 à 20 km. Vous gardez le contrôle.
+      <div class="glass rounded-[28px] p-6 sm:p-8">
+        <div class="text-sm text-white/55">Étape 2</div>
+        <div class="mt-1 text-xl font-semibold text-white/95">Choisissez votre détour</div>
+        <div class="mt-3 text-white/60">De 0 à 20 km. Vous gardez le contrôle.</div>
       </div>
-      <div class="bg-white rounded-3xl p-8 ring-1 ring-gray-100">
-        <strong class="text-gray-900">3. Découvrez & partagez</strong><br>
-        Explorez, apprenez, ajoutez votre touche.
-      </div>
-    </div>
-  </section>
-
-  <!-- POUR QUI -->
-  <section class="py-24 px-6 bg-white">
-    <div class="max-w-5xl mx-auto">
-      <h2 class="text-3xl md:text-4xl font-semibold mb-6">
-        Pour qui ?
-      </h2>
-
-      <p class="text-lg text-gray-600 max-w-3xl">
-        Pour ceux qui aiment ce qu’il y a <span class="text-gray-800 font-medium">entre</span> le départ et l’arrivée.
-      </p>
-
-      <div class="mt-10 grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div class="rounded-3xl bg-[#FAFAFA] ring-1 ring-gray-100 p-6">
-          <div class="text-gray-900 font-semibold">Familles</div>
-          <div class="mt-1 text-sm text-gray-600">Des pauses “waouh” au lieu d’une aire d’autoroute.</div>
-        </div>
-        <div class="rounded-3xl bg-[#FAFAFA] ring-1 ring-gray-100 p-6">
-          <div class="text-gray-900 font-semibold">Couples</div>
-          <div class="mt-1 text-sm text-gray-600">Un trajet devient une escapade.</div>
-        </div>
-        <div class="rounded-3xl bg-[#FAFAFA] ring-1 ring-gray-100 p-6">
-          <div class="text-gray-900 font-semibold">Amis</div>
-          <div class="mt-1 text-sm text-gray-600">Découvertes, souvenirs, défis (bientôt).</div>
-        </div>
-        <div class="rounded-3xl bg-[#FAFAFA] ring-1 ring-gray-100 p-6">
-          <div class="text-gray-900 font-semibold">Voyageurs curieux</div>
-          <div class="mt-1 text-sm text-gray-600">Patrimoine, villages, points de vue.</div>
-        </div>
+      <div class="glass rounded-[28px] p-6 sm:p-8">
+        <div class="text-sm text-white/55">Étape 3</div>
+        <div class="mt-1 text-xl font-semibold text-white/95">Découvrez & partagez</div>
+        <div class="mt-3 text-white/60">Explorez, apprenez, ajoutez votre touche.</div>
       </div>
     </div>
   </section>
 
   <!-- WAITLIST -->
-  <section id="waitlist" class="py-24 px-6 max-w-5xl mx-auto">
-    <div class="bg-white rounded-3xl ring-1 ring-gray-100 p-8 md:p-10">
-      <h2 class="text-3xl md:text-4xl font-semibold">
-        Recevez une invitation
-      </h2>
-      <p class="mt-4 text-lg text-gray-600 max-w-3xl">
-        Laissez votre email : on vous envoie l’accès dès l’ouverture.
-        <span class="text-gray-800 font-medium">Pas de spam.</span>
-      </p>
+  <section id="waitlist" class="px-4 sm:px-6 py-10 pb-16">
+    <div class="max-w-6xl mx-auto glass rounded-[32px] p-6 sm:p-10">
+      <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
+        <div>
+          <h2 class="text-2xl sm:text-3xl font-semibold text-white/95">Recevez une invitation</h2>
+          <p class="mt-3 text-white/65 text-base sm:text-lg max-w-2xl">
+            Laissez votre email : on vous envoie l’accès dès l’ouverture.
+            <span class="text-white/85 font-semibold">Pas de spam.</span>
+          </p>
+        </div>
+        <div class="glass-soft rounded-3xl px-4 py-3 text-sm text-white/70">
+          iOS d’abord (bêta) • France d’abord • Extension ensuite
+        </div>
+      </div>
 
       <form id="waitlistForm" class="mt-8 grid sm:grid-cols-[1fr_auto] gap-3 items-start">
         <div>
           <label class="sr-only" for="email">Email</label>
           <input id="email" name="email" type="email" inputmode="email" autocomplete="email" required
                  placeholder="Votre email"
-                 class="w-full px-5 py-4 rounded-2xl bg-[#FAFAFA] ring-1 ring-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-900/30" />
+                 class="w-full px-5 py-4 rounded-3xl bg-white/5 text-white/90 placeholder:text-white/35 ring-1 ring-white/15 focus:outline-none focus:ring-2 focus:ring-white/25" />
           <div class="mt-3 flex items-start gap-2">
-            <input id="privacy" type="checkbox" required class="mt-1 h-4 w-4 rounded border-gray-300" />
-            <label for="privacy" class="text-sm text-gray-600">
-              J’accepte la <a class="underline hover:text-gray-900" href="#privacyPolicy">politique de confidentialité</a>.
+            <input id="privacy" type="checkbox" required class="mt-1 h-4 w-4 rounded border-white/30 bg-white/5" />
+            <label for="privacy" class="text-sm text-white/60">
+              J’accepte la <a class="underline hover:text-white/85" href="#privacyPolicy">politique de confidentialité</a>.
             </label>
           </div>
         </div>
 
         <button id="submitBtn" type="submit"
-                class="px-7 py-4 rounded-2xl bg-gray-900 text-white text-lg hover:bg-gray-700 transition disabled:opacity-60 disabled:cursor-not-allowed">
+                class="px-7 py-4 rounded-3xl btn-primary text-base font-semibold transition disabled:opacity-60 disabled:cursor-not-allowed">
           Rejoindre la liste d’attente
         </button>
       </form>
 
       <div id="formMsg" class="mt-4 text-sm"></div>
 
-      <div class="mt-8 grid sm:grid-cols-3 gap-3 text-sm text-gray-600">
-        <div class="rounded-2xl bg-[#FAFAFA] ring-1 ring-gray-100 p-4">
-          <div class="text-gray-900 font-semibold">Plateforme</div>
-          <div class="mt-1">iOS d’abord (bêta), Android ensuite.</div>
+      <div class="mt-8 hairline pt-8 grid sm:grid-cols-3 gap-3">
+        <div class="glass-soft rounded-3xl p-5">
+          <div class="text-sm font-semibold text-white/90">Promesse</div>
+          <div class="mt-1 text-sm text-white/60">Un seul email : le lancement. Rien de plus.</div>
         </div>
-        <div class="rounded-2xl bg-[#FAFAFA] ring-1 ring-gray-100 p-4">
-          <div class="text-gray-900 font-semibold">Zone</div>
-          <div class="mt-1">France (d’abord), puis extension.</div>
+        <div class="glass-soft rounded-3xl p-5">
+          <div class="text-sm font-semibold text-white/90">Données</div>
+          <div class="mt-1 text-sm text-white/60">Email uniquement, suppression sur demande.</div>
         </div>
-        <div class="rounded-2xl bg-[#FAFAFA] ring-1 ring-gray-100 p-4">
-          <div class="text-gray-900 font-semibold">Promesse</div>
-          <div class="mt-1">Un seul email : le lancement. Rien de plus.</div>
+        <div class="glass-soft rounded-3xl p-5">
+          <div class="text-sm font-semibold text-white/90">But</div>
+          <div class="mt-1 text-sm text-white/60">Redécouvrir la route — pas juste l’arrivée.</div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- FINAL PUSH -->
-  <section class="py-20 px-6 text-center bg-white">
-    <h2 class="text-3xl md:text-4xl font-semibold mb-4">
-      Prêt à redécouvrir la France… par la route ?
-    </h2>
-    <p class="text-gray-600 max-w-3xl mx-auto">
-      La destination est importante. Le chemin l’est souvent encore plus.
-    </p>
-    <a href="#waitlist"
-       class="inline-block mt-7 px-10 py-4 bg-gray-900 text-white rounded-full text-lg hover:bg-gray-700 transition">
-      Être informé du lancement
-    </a>
-  </section>
-
   <!-- PRIVACY POLICY -->
-  <section id="privacyPolicy" class="py-16 px-6 max-w-5xl mx-auto">
-    <div class="text-sm text-gray-600">
-      <h3 class="text-gray-900 font-semibold text-xl">Politique de confidentialité (résumé)</h3>
-      <p class="mt-3">
+  <section id="privacyPolicy" class="px-4 sm:px-6 pb-16">
+    <div class="max-w-6xl mx-auto glass-soft rounded-[32px] p-6 sm:p-10">
+      <h3 class="text-white/90 font-semibold text-xl">Politique de confidentialité (résumé)</h3>
+      <p class="mt-3 text-sm text-white/60">
         Nous collectons uniquement votre email pour vous envoyer une invitation et des informations liées au lancement.
         Vous pouvez demander la suppression de votre email à tout moment.
       </p>
-      <p class="mt-3">
+      <p class="mt-3 text-sm text-white/45">
         (Remplacez ce texte par votre version officielle dès que possible.)
       </p>
     </div>
@@ -273,17 +361,10 @@
 
   <!-- ========== SCRIPTS ========== -->
 
-  <!-- Slider script (robust) + captions -->
+  <!-- Slider script -->
   <script>
     (function () {
-      const screens = [
-        "./screen1.png",
-        "./screen2.png",
-        "./screen3.png",
-        "./screen4.png",
-        "./screen5.png"
-      ];
-
+      const screens = ["./screen1.png","./screen2.png","./screen3.png","./screen4.png","./screen5.png"];
       const captions = [
         "Votre itinéraire",
         "Votre détour en kilomètres",
@@ -305,8 +386,8 @@
 
       function setActiveDot(i) {
         dots.forEach((d, idx) => {
-          d.classList.toggle("bg-white/90", idx === i);
-          d.classList.toggle("bg-white/40", idx !== i);
+          d.classList.toggle("bg-white/85", idx === i);
+          d.classList.toggle("bg-white/35", idx !== i);
         });
       }
 
@@ -337,6 +418,7 @@
         if (firstValid === -1) {
           img.classList.add("hidden");
           fallback.classList.remove("hidden");
+          fallback.classList.add("flex");
           return;
         }
         index = firstValid;
@@ -349,11 +431,7 @@
         img.classList.add("opacity-0");
         setTimeout(async () => {
           const nextIdx = await findNextValid(index + 1);
-          if (nextIdx === -1) {
-            img.classList.add("hidden");
-            fallback.classList.remove("hidden");
-            return;
-          }
+          if (nextIdx === -1) return;
           index = nextIdx;
           img.src = screens[index];
           setActiveDot(index);
@@ -366,17 +444,11 @@
     })();
   </script>
 
-  <!-- Firebase Firestore submit (CDN ESM) -->
+  <!-- Firebase Firestore submit -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
-    import {
-      getFirestore,
-      collection,
-      addDoc,
-      serverTimestamp
-    } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+    import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
-    // ✅ Your Firebase config (public, ok to be in code)
     const firebaseConfig = {
       apiKey: "AIzaSyCWQJtzHMksDG5UgLVma8LnYiOxYYcv_AQ",
       authDomain: "guide-du-detour.firebaseapp.com",
@@ -398,9 +470,9 @@
 
     function setMsg(text, type = "info") {
       msg.className = "mt-4 text-sm";
-      if (type === "ok") msg.classList.add("text-green-700");
-      if (type === "err") msg.classList.add("text-red-700");
-      if (type === "info") msg.classList.add("text-gray-600");
+      if (type === "ok") msg.classList.add("text-emerald-300");
+      if (type === "err") msg.classList.add("text-rose-300");
+      if (type === "info") msg.classList.add("text-white/60");
       msg.textContent = text;
     }
 
