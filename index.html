@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Guide du Détour</title>
-  <meta name="description" content="Transformez un trajet A → B en voyage. Découvrez des lieux intéressants autour de votre itinéraire, selon un détour maximal (0–20 km) choisi par vous." />
+  <meta name="description" content="Transformez chaque trajet en voyage. Choisissez un détour de 0 à 20 km : Guide du Détour vous montre ce qui vaut le détour sur votre route." />
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
@@ -13,17 +13,20 @@
   <!-- HERO -->
   <section class="min-h-screen flex items-center px-6">
     <div class="max-w-6xl mx-auto w-full grid lg:grid-cols-2 gap-12 items-center">
-
       <!-- Text -->
       <div class="text-center lg:text-left">
         <h1 class="text-4xl md:text-6xl font-semibold leading-tight">
-          Vous allez d’un point A à un point B ?
-          <span class="text-gray-900 block mt-2">Et si le trajet devenait le voyage.</span>
+          Transformez chaque trajet
+          <span class="text-gray-900 block mt-2">en voyage.</span>
         </h1>
 
         <p class="mt-6 text-lg md:text-xl text-gray-600 max-w-2xl mx-auto lg:mx-0">
-          Guide du Détour vous propose des lieux intéressants autour de votre itinéraire,
-          avec un <span class="text-gray-800 font-medium">détour maximal</span> que vous choisissez (0–20 km).
+          Guide du Détour révèle ce qui vaut le détour sur votre route —
+          si vous êtes prêt à vous écarter de <span class="text-gray-900 font-semibold">0 à 20 km</span>.
+        </p>
+
+        <p class="mt-3 text-sm text-gray-500">
+          Vous choisissez la distance. Nous trouvons les lieux.
         </p>
 
         <!-- Detour range -->
@@ -50,14 +53,17 @@
           </div>
 
           <div class="mt-3 text-sm text-gray-500 text-center lg:text-left">
-            Exemple : “Je suis prêt à faire un détour de <span id="detourInline" class="font-semibold text-gray-700">5</span> km.”
+            Exemple :
+            <span class="text-gray-700">« Je suis prêt à faire un détour de </span>
+            <span id="detourInline" class="font-semibold text-gray-700">5</span>
+            <span class="text-gray-700"> km. »</span>
           </div>
         </div>
 
         <div class="mt-10 flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
           <a href="#waitlist"
              class="inline-flex items-center justify-center px-8 py-4 bg-gray-900 text-white rounded-full text-lg hover:bg-gray-700 transition">
-            Recevoir une invitation
+            Être informé du lancement
           </a>
           <a href="#how"
              class="inline-flex items-center justify-center px-8 py-4 bg-white text-gray-900 rounded-full text-lg ring-1 ring-gray-200 hover:ring-gray-300 transition">
@@ -66,7 +72,7 @@
         </div>
 
         <p class="mt-6 text-sm text-gray-500">
-          Accès progressif — sur invitation. Un seul email. Zéro spam.
+          Pas de spam. Juste le lancement et les mises à jour importantes.
         </p>
       </div>
 
@@ -108,8 +114,9 @@
             </div>
           </div>
 
+          <!-- captions under phone (story, not “just images”) -->
           <div class="mt-4 text-center text-sm text-gray-500">
-            Aperçu de l’application
+            <span id="slideCaption">Votre itinéraire</span>
           </div>
         </div>
       </div>
@@ -123,39 +130,37 @@
     </h2>
 
     <p class="text-lg text-gray-600 max-w-3xl">
-      Villages, églises, ponts anciens, fermes, lieux insolites…
-      Ils sont souvent <span class="text-gray-800 font-medium">à quelques kilomètres</span> de la route.
+      Villages, églises, points de vue, patrimoine, fermes, lieux insolites…
+      Souvent, c’est à <span class="text-gray-800 font-medium">quelques kilomètres</span> de la route.
       <br><br>
-      Vous arrivez à destination.<br>
-      Mais vous n’avez rien vu.
+      Vous arrivez à destination — mais vous n’avez rien vu.
     </p>
   </section>
 
-  <!-- SOLUTION -->
+  <!-- POURQUOI (diff vs Google Maps) -->
   <section class="py-24 px-6 bg-white">
     <div class="max-w-5xl mx-auto">
       <h2 class="text-3xl md:text-4xl font-semibold mb-6">
-        Un GPS qui sait s’écarter.
+        Pourquoi Guide du Détour ?
       </h2>
 
       <p class="text-lg text-gray-600 max-w-3xl">
-        Vous créez un itinéraire classique.
-        Guide du Détour vous propose des points d’intérêt
-        selon votre <span class="text-gray-800 font-medium">détour maximal (en km)</span>.
+        Google Maps vous emmène vite. Guide du Détour vous aide à
+        <span class="text-gray-800 font-medium">découvrir</span> — sans perdre le contrôle.
       </p>
 
-      <div class="mt-10 grid sm:grid-cols-3 gap-4 max-w-3xl">
+      <div class="mt-10 grid sm:grid-cols-3 gap-4">
         <div class="rounded-3xl bg-[#FAFAFA] ring-1 ring-gray-100 p-6">
-          <div class="text-gray-900 font-semibold">Contrôle total</div>
-          <div class="mt-1 text-sm text-gray-600">De 0 à 20 km : vous décidez.</div>
+          <div class="text-gray-900 font-semibold">La liberté en kilomètres</div>
+          <div class="mt-1 text-sm text-gray-600">Définissez votre marge (0–20 km). Ni plus, ni moins.</div>
         </div>
         <div class="rounded-3xl bg-[#FAFAFA] ring-1 ring-gray-100 p-6">
-          <div class="text-gray-900 font-semibold">Découverte</div>
-          <div class="mt-1 text-sm text-gray-600">Des lieux utiles, beaux ou surprenants.</div>
+          <div class="text-gray-900 font-semibold">Des lieux qui comptent</div>
+          <div class="mt-1 text-sm text-gray-600">Patrimoine, paysages, villages… ce que les itinéraires rapides ignorent.</div>
         </div>
         <div class="rounded-3xl bg-[#FAFAFA] ring-1 ring-gray-100 p-6">
-          <div class="text-gray-900 font-semibold">Simplicité</div>
-          <div class="mt-1 text-sm text-gray-600">Comme un GPS — en plus intéressant.</div>
+          <div class="text-gray-900 font-semibold">Une carte qui s’améliore</div>
+          <div class="mt-1 text-sm text-gray-600">Photo, description, correction : la communauté enrichit la route.</div>
         </div>
       </div>
     </div>
@@ -169,48 +174,48 @@
 
     <div class="grid md:grid-cols-3 gap-10 text-lg text-gray-600">
       <div class="bg-white rounded-3xl p-8 ring-1 ring-gray-100">
-        <strong class="text-gray-900">1. Créez votre trajet</strong><br>
-        Comme avec n’importe quel GPS.
+        <strong class="text-gray-900">1. Entrez votre itinéraire</strong><br>
+        De A à B, comme d’habitude.
       </div>
       <div class="bg-white rounded-3xl p-8 ring-1 ring-gray-100">
-        <strong class="text-gray-900">2. Définissez le détour max</strong><br>
-        0 à 20 km — vous gardez le contrôle.
+        <strong class="text-gray-900">2. Choisissez votre détour</strong><br>
+        De 0 à 20 km. Vous gardez le contrôle.
       </div>
       <div class="bg-white rounded-3xl p-8 ring-1 ring-gray-100">
-        <strong class="text-gray-900">3. Découvrez</strong><br>
-        Ce que vous auriez manqué autrement.
+        <strong class="text-gray-900">3. Découvrez & partagez</strong><br>
+        Explorez, apprenez, ajoutez votre touche.
       </div>
     </div>
   </section>
 
-  <!-- POUR QUI / POURQUOI PAS GOOGLE MAPS -->
+  <!-- POUR QUI -->
   <section class="py-24 px-6 bg-white">
-    <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-10">
-      <div class="rounded-3xl bg-[#FAFAFA] ring-1 ring-gray-100 p-8">
-        <h3 class="text-2xl font-semibold">Pour qui ?</h3>
-        <p class="mt-3 text-gray-600">
-          Pour ceux qui aiment ce qu’il y a entre le départ et l’arrivée :
-        </p>
-        <ul class="mt-5 space-y-2 text-gray-700">
-          <li>— voyageurs en voiture</li>
-          <li>— familles</li>
-          <li>— motards</li>
-          <li>— vanlife</li>
-          <li>— curieux (les meilleurs)</li>
-        </ul>
-      </div>
+    <div class="max-w-5xl mx-auto">
+      <h2 class="text-3xl md:text-4xl font-semibold mb-6">
+        Pour qui ?
+      </h2>
 
-      <div class="rounded-3xl bg-[#FAFAFA] ring-1 ring-gray-100 p-8">
-        <h3 class="text-2xl font-semibold">Pourquoi pas Google Maps ?</h3>
-        <p class="mt-3 text-gray-600">
-          Google Maps vous emmène vite.
-          Guide du Détour vous aide à <span class="text-gray-800 font-medium">découvrir</span>.
-        </p>
-        <ul class="mt-5 space-y-2 text-gray-700">
-          <li>— Détour maximal clair (en km)</li>
-          <li>— Lieux d’intérêt “sur la route”, pas au hasard</li>
-          <li>— Carte enrichissable (par vous et la communauté)</li>
-        </ul>
+      <p class="text-lg text-gray-600 max-w-3xl">
+        Pour ceux qui aiment ce qu’il y a <span class="text-gray-800 font-medium">entre</span> le départ et l’arrivée.
+      </p>
+
+      <div class="mt-10 grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="rounded-3xl bg-[#FAFAFA] ring-1 ring-gray-100 p-6">
+          <div class="text-gray-900 font-semibold">Familles</div>
+          <div class="mt-1 text-sm text-gray-600">Des pauses “waouh” au lieu d’une aire d’autoroute.</div>
+        </div>
+        <div class="rounded-3xl bg-[#FAFAFA] ring-1 ring-gray-100 p-6">
+          <div class="text-gray-900 font-semibold">Couples</div>
+          <div class="mt-1 text-sm text-gray-600">Un trajet devient une escapade.</div>
+        </div>
+        <div class="rounded-3xl bg-[#FAFAFA] ring-1 ring-gray-100 p-6">
+          <div class="text-gray-900 font-semibold">Amis</div>
+          <div class="mt-1 text-sm text-gray-600">Découvertes, souvenirs, défis (bientôt).</div>
+        </div>
+        <div class="rounded-3xl bg-[#FAFAFA] ring-1 ring-gray-100 p-6">
+          <div class="text-gray-900 font-semibold">Voyageurs curieux</div>
+          <div class="mt-1 text-sm text-gray-600">Patrimoine, villages, points de vue.</div>
+        </div>
       </div>
     </div>
   </section>
@@ -222,8 +227,8 @@
         Recevez une invitation
       </h2>
       <p class="mt-4 text-lg text-gray-600 max-w-3xl">
-        Laissez votre email : on vous envoie l’accès dès l’ouverture de la bêta.
-        <span class="text-gray-800 font-medium">Un seul email. Zéro spam.</span>
+        Laissez votre email : on vous envoie l’accès dès l’ouverture.
+        <span class="text-gray-800 font-medium">Pas de spam.</span>
       </p>
 
       <form id="waitlistForm" class="mt-8 grid sm:grid-cols-[1fr_auto] gap-3 items-start">
@@ -246,7 +251,7 @@
 
         <button id="submitBtn" type="submit"
                 class="px-7 py-4 rounded-2xl bg-gray-900 text-white text-lg hover:bg-gray-700 transition disabled:opacity-60 disabled:cursor-not-allowed">
-          Envoyer
+          Rejoindre la liste d’attente
         </button>
       </form>
 
@@ -263,10 +268,24 @@
         </div>
         <div class="rounded-2xl bg-[#FAFAFA] ring-1 ring-gray-100 p-4">
           <div class="text-gray-900 font-semibold">Promesse</div>
-          <div class="mt-1">Pas de pubs. Pas de spam. Juste l’accès.</div>
+          <div class="mt-1">Un seul email : le lancement. Rien de plus.</div>
         </div>
       </div>
     </div>
+  </section>
+
+  <!-- FINAL PUSH -->
+  <section class="py-20 px-6 text-center bg-white">
+    <h2 class="text-3xl md:text-4xl font-semibold mb-4">
+      Prêt à redécouvrir la France… par la route ?
+    </h2>
+    <p class="text-gray-600 max-w-3xl mx-auto">
+      La destination est importante. Le chemin l’est souvent encore plus.
+    </p>
+    <a href="#waitlist"
+       class="inline-block mt-7 px-10 py-4 bg-gray-900 text-white rounded-full text-lg hover:bg-gray-700 transition">
+      Être informé du lancement
+    </a>
   </section>
 
   <!-- PRIVACY POLICY -->
@@ -274,7 +293,7 @@
     <div class="text-sm text-gray-600">
       <h3 class="text-gray-900 font-semibold text-xl">Politique de confidentialité (résumé)</h3>
       <p class="mt-3">
-        Nous collectons uniquement votre email pour vous envoyer une invitation à la bêta et des informations liées au lancement.
+        Nous collectons uniquement votre email pour vous envoyer une invitation et des informations liées au lancement.
         Vous pouvez demander la suppression de votre email à tout moment.
       </p>
       <p class="mt-3">
@@ -283,29 +302,32 @@
     </div>
   </section>
 
-  <!-- CTA footer -->
-  <section id="cta" class="py-20 px-6 text-center bg-white">
-    <h2 class="text-3xl md:text-4xl font-semibold mb-4">
-      Votre prochaine route peut être plus intéressante.
-    </h2>
-    <p class="text-gray-600">
-      Définissez un détour max (0–20 km). Découvrez. Profitez.
-    </p>
-    <a href="#waitlist"
-       class="inline-block mt-7 px-10 py-4 bg-gray-900 text-white rounded-full text-lg hover:bg-gray-700 transition">
-      Recevoir une invitation
-    </a>
-  </section>
-
   <!-- ========== SCRIPTS ========== -->
 
-  <!-- Slider script -->
+  <!-- Slider script (robust) + captions -->
   <script>
     (function () {
-      const screens = ["./screen1.png","./screen2.png","./screen3.png","./screen4.png","./screen5.png"];
+      const screens = [
+        "./screen1.png",
+        "./screen2.png",
+        "./screen3.png",
+        "./screen4.png",
+        "./screen5.png"
+      ];
+
+      const captions = [
+        "Votre itinéraire",
+        "Votre détour en kilomètres",
+        "Ce qui vaut l’arrêt",
+        "Une fiche claire : infos, histoire, photos",
+        "Contribuez : ajoutez, corrigez, partagez"
+      ];
+
       const img = document.getElementById("appSlider");
       const fallback = document.getElementById("sliderFallback");
       const dots = Array.from(document.querySelectorAll(".dot"));
+      const captionEl = document.getElementById("slideCaption");
+
       if (!img) return;
 
       let index = 0;
@@ -317,6 +339,11 @@
           d.classList.toggle("bg-white/90", idx === i);
           d.classList.toggle("bg-white/40", idx !== i);
         });
+      }
+
+      function setCaption(i) {
+        if (!captionEl) return;
+        captionEl.textContent = captions[i] || "Aperçu de l’application";
       }
 
       function canLoad(src) {
@@ -346,6 +373,7 @@
         index = firstValid;
         img.src = screens[index];
         setActiveDot(index);
+        setCaption(index);
       }
 
       async function tick() {
@@ -360,6 +388,7 @@
           index = nextIdx;
           img.src = screens[index];
           setActiveDot(index);
+          setCaption(index);
           img.classList.remove("opacity-0");
         }, fadeOutMs);
       }
@@ -466,14 +495,14 @@
           timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || null
         });
 
-        setMsg("Merci ! Invitation envoyée dès l’ouverture de la bêta.", "ok");
+        setMsg("Merci ! Vous êtes sur la liste. On vous contacte au lancement.", "ok");
         form.reset();
       } catch (err) {
         console.error(err);
         setMsg("Oups. Impossible d’envoyer pour le moment. Réessayez dans quelques minutes.", "err");
       } finally {
         btn.disabled = false;
-        btn.textContent = "Envoyer";
+        btn.textContent = "Rejoindre la liste d’attente";
       }
     });
   </script>
