@@ -13,6 +13,7 @@
   <!-- HERO -->
   <section class="min-h-screen flex items-center px-6">
     <div class="max-w-6xl mx-auto w-full grid lg:grid-cols-2 gap-12 items-center">
+
       <!-- Text -->
       <div class="text-center lg:text-left">
         <h1 class="text-4xl md:text-6xl font-semibold leading-tight">
@@ -268,7 +269,7 @@
     </div>
   </section>
 
-  <!-- PRIVACY POLICY (minimal placeholder) -->
+  <!-- PRIVACY POLICY -->
   <section id="privacyPolicy" class="py-16 px-6 max-w-5xl mx-auto">
     <div class="text-sm text-gray-600">
       <h3 class="text-gray-900 font-semibold text-xl">Politique de confidentialité (résumé)</h3>
@@ -298,21 +299,13 @@
 
   <!-- ========== SCRIPTS ========== -->
 
-  <!-- Slider script (robust: skips missing images, no permanent hide) -->
+  <!-- Slider script -->
   <script>
     (function () {
-      const screens = [
-        "./screen1.png",
-        "./screen2.png",
-        "./screen3.png",
-        "./screen4.png",
-        "./screen5.png"
-      ];
-
+      const screens = ["./screen1.png","./screen2.png","./screen3.png","./screen4.png","./screen5.png"];
       const img = document.getElementById("appSlider");
       const fallback = document.getElementById("sliderFallback");
       const dots = Array.from(document.querySelectorAll(".dot"));
-
       if (!img) return;
 
       let index = 0;
@@ -397,27 +390,30 @@
         set(range.value);
       }
 
-      // expose for Firebase submission metadata
       window.__detourKm = () => current;
     })();
   </script>
 
-  <!-- Firebase (Firestore) waitlist submission -->
+  <!-- Firebase Firestore submit (CDN ESM) -->
   <script type="module">
-    // 1) ВСТАВЬТЕ СВОЮ КОНФИГУРАЦИЮ Firebase ЗДЕСЬ:
-    const firebaseConfig = {
-      apiKey: "PASTE_API_KEY",
-      authDomain: "PASTE_AUTH_DOMAIN",
-      projectId: "PASTE_PROJECT_ID",
-      storageBucket: "PASTE_STORAGE_BUCKET",
-      messagingSenderId: "PASTE_SENDER_ID",
-      appId: "PASTE_APP_ID",
-    };
-
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
     import {
-      getFirestore, collection, addDoc, serverTimestamp
+      getFirestore,
+      collection,
+      addDoc,
+      serverTimestamp
     } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+
+    // ✅ Your Firebase config (public, ok to be in code)
+    const firebaseConfig = {
+      apiKey: "AIzaSyCWQJtzHMksDG5UgLVma8LnYiOxYYcv_AQ",
+      authDomain: "guide-du-detour.firebaseapp.com",
+      projectId: "guide-du-detour",
+      storageBucket: "guide-du-detour.firebasestorage.app",
+      messagingSenderId: "182479723840",
+      appId: "1:182479723840:web:866963483cf1bca6f9aea5",
+      measurementId: "G-17851JKM7F"
+    };
 
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
@@ -463,8 +459,8 @@
         await addDoc(collection(db, "waitlist"), {
           email,
           detourKm: (window.__detourKm && window.__detourKm()) ? window.__detourKm() : 0,
+          source: "landing_page_french",
           createdAt: serverTimestamp(),
-          source: "landing",
           userAgent: navigator.userAgent || null,
           language: navigator.language || null,
           timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || null
@@ -472,19 +468,12 @@
 
         setMsg("Merci ! Invitation envoyée dès l’ouverture de la bêta.", "ok");
         form.reset();
-        btn.textContent = "Envoyer";
-        // keep range value displayed
-        const range = document.getElementById("detourRange");
-        if (range) {
-          // keep current selection visually
-          document.getElementById("detourValue2").textContent = String(window.__detourKm());
-        }
       } catch (err) {
         console.error(err);
         setMsg("Oups. Impossible d’envoyer pour le moment. Réessayez dans quelques minutes.", "err");
-        btn.textContent = "Envoyer";
       } finally {
         btn.disabled = false;
+        btn.textContent = "Envoyer";
       }
     });
   </script>
