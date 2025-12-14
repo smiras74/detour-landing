@@ -57,9 +57,27 @@
         .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(46, 204, 113, 0.4); }
 
         /* Header */
-        header { padding: 20px 0; position: absolute; width: 100%; top: 0; z-index: 10; }
+        header { padding: 15px 0; position: absolute; width: 100%; top: 0; z-index: 10; }
         .nav-content { display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: bold; }
+        
+        /* Логотип с линией */
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: bold;
+            display: flex;
+            flex-direction: column; /* Ставим текст и линию друг под друга */
+            align-items: flex-start;
+        }
+        
+        /* Стиль для маленькой линии в хедере */
+        .header-graphic {
+            margin-top: 5px;
+            width: 130px; /* Небольшой размер для шапки */
+            height: auto;
+            display: block;
+        }
+
         .lang-switch {
             background: var(--glass); padding: 5px 15px; border-radius: 20px;
             border: 1px solid var(--border-glass); cursor: pointer; font-size: 0.9rem;
@@ -70,22 +88,14 @@
         .hero {
             min-height: 100vh; display: flex; align-items: center; position: relative;
             background: radial-gradient(circle at top right, #1a2530 0%, var(--bg-dark) 60%);
-            padding-top: 80px;
+            padding-top: 100px; /* Чуть больше отступ сверху из-за логотипа */
         }
         .hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
         
         .hero-text h1 {
-            font-size: 3.5rem; line-height: 1.1; margin-bottom: 5px; /* Уменьшил отступ, т.к. ниже графика */
+            font-size: 3.5rem; line-height: 1.1; margin-bottom: 20px;
             background: linear-gradient(to right, #fff, #b0b0b0);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-        }
-
-        /* Стиль для линии с пином */
-        .hero-graphic {
-            margin-bottom: 30px;
-            max-width: 350px;
-            height: auto;
-            display: block;
         }
 
         .hero-text p { font-size: 1.2rem; color: var(--text-gray); margin-bottom: 40px; }
@@ -158,10 +168,6 @@
         @media (max-width: 768px) {
             .hero-grid, .showcase-grid { grid-template-columns: 1fr; text-align: center; }
             .hero-text h1 { font-size: 2.5rem; }
-            
-            /* Центрируем линию на мобильном */
-            .hero-graphic { margin: 0 auto 30px auto; max-width: 280px; }
-            
             .email-form { margin: 0 auto; }
             .showcase-grid.reverse { direction: ltr; }
         }
@@ -175,7 +181,25 @@
 
     <header>
         <div class="container nav-content">
-            <div class="logo">Guide du Détour</div>
+            <div class="logo">
+                <span>Guide du Détour</span>
+                <div class="header-graphic">
+                    <svg viewBox="0 0 350 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="lineGradientHeader" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" style="stop-color:var(--accent-green);stop-opacity:0.1" />
+                                <stop offset="50%" style="stop-color:var(--accent-green);stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                        <path d="M10,25 C80,45 180,5 315,25" stroke="url(#lineGradientHeader)" stroke-width="4" stroke-linecap="round"/>
+                        <g transform="translate(310, 5)">
+                            <path d="M14 0C6.26801 0 0 6.26801 0 14C0 24.5 14 40 14 40C14 40 28 24.5 28 14C28 6.26801 21.732 0 14 0ZM14 19C11.2386 19 9 16.7614 9 14C9 11.2386 11.2386 9 14 9C16.7614 9 19 11.2386 19 14C19 16.7614 16.7614 19 14 19Z" fill="var(--accent-green)"/>
+                            <circle cx="14" cy="14" r="3" fill="var(--bg-dark)"/>
+                        </g>
+                    </svg>
+                </div>
+            </div>
+
             <div class="lang-switch" onclick="toggleLang()">
                 <span id="btn-fr" class="active">FR</span> | <span id="btn-en">EN</span>
             </div>
@@ -189,22 +213,6 @@
                     <span class="lang-fr">Ça vaut le détour</span>
                     <span class="lang-en">Worth the detour</span>
                 </h1>
-
-                <div class="hero-graphic">
-                    <svg viewBox="0 0 350 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <defs>
-                            <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                                <stop offset="0%" style="stop-color:var(--accent-green);stop-opacity:0.1" />
-                                <stop offset="50%" style="stop-color:var(--accent-green);stop-opacity:1" />
-                            </linearGradient>
-                        </defs>
-                        <path d="M10,25 C80,45 180,5 315,25" stroke="url(#lineGradient)" stroke-width="3" stroke-linecap="round"/>
-                        <g transform="translate(310, 5)">
-                            <path d="M14 0C6.26801 0 0 6.26801 0 14C0 24.5 14 40 14 40C14 40 28 24.5 28 14C28 6.26801 21.732 0 14 0ZM14 19C11.2386 19 9 16.7614 9 14C9 11.2386 11.2386 9 14 9C16.7614 9 19 11.2386 19 14C19 16.7614 16.7614 19 14 19Z" fill="var(--accent-green)"/>
-                            <circle cx="14" cy="14" r="3" fill="var(--bg-dark)"/>
-                        </g>
-                    </svg>
-                </div>
 
                 <p>
                     <span class="lang-fr">Transformez vos trajets A vers B en aventures. Découvrez les trésors cachés à quelques kilomètres de l'autoroute.</span>
