@@ -4,12 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Guide du Détour - Ça vaut le détour</title>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
+            /* Цветовая палитра */
             --bg-dark: #0f1216;
             --bg-card: #1c1f26;
             --accent-green: #2ecc71;
@@ -36,6 +38,7 @@
 
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
 
+        /* Кнопки */
         .btn {
             display: inline-block;
             padding: 12px 30px;
@@ -63,18 +66,28 @@
         }
         .lang-switch span.active { color: var(--accent-green); font-weight: bold; }
 
-        /* Hero */
+        /* Hero Section */
         .hero {
             min-height: 100vh; display: flex; align-items: center; position: relative;
             background: radial-gradient(circle at top right, #1a2530 0%, var(--bg-dark) 60%);
             padding-top: 80px;
         }
         .hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
+        
         .hero-text h1 {
-            font-size: 3.5rem; line-height: 1.1; margin-bottom: 20px;
+            font-size: 3.5rem; line-height: 1.1; margin-bottom: 5px; /* Уменьшил отступ, т.к. ниже графика */
             background: linear-gradient(to right, #fff, #b0b0b0);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
+
+        /* Стиль для линии с пином */
+        .hero-graphic {
+            margin-bottom: 30px;
+            max-width: 350px;
+            height: auto;
+            display: block;
+        }
+
         .hero-text p { font-size: 1.2rem; color: var(--text-gray); margin-bottom: 40px; }
         
         .email-form {
@@ -87,13 +100,12 @@
             color: white; flex-grow: 1; outline: none;
         }
 
-        .mockup-container { text-align: center; }
+        .mockup-container { text-align: center; position: relative; }
         .phone-mockup {
             width: 280px; border-radius: 40px; border: 8px solid #2d3436;
             box-shadow: 0 20px 50px rgba(0,0,0,0.5);
             aspect-ratio: 9/19.5; background-size: cover; background-position: center;
             display: block; margin: 0 auto;
-            /* Placeholder background */
             background-color: #000;
         }
 
@@ -114,11 +126,11 @@
         .tag.hedonisme { color: #d63031; background: rgba(214, 48, 49, 0.1); }
         .tag.histoire { color: var(--accent-orange); background: rgba(230, 126, 34, 0.1); }
 
-        /* Showcase / Gallery */
+        /* Showcase */
         .showcase { padding: 80px 0; }
         .showcase-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; margin-bottom: 100px; }
-        .showcase-grid.reverse { direction: rtl; } /* Меняет порядок для шахматного стиля */
-        .showcase-grid.reverse > * { direction: ltr; } /* Возвращает текст в норму */
+        .showcase-grid.reverse { direction: rtl; } 
+        .showcase-grid.reverse > * { direction: ltr; }
         
         .screenshot-box img {
             max-width: 300px; border-radius: 20px;
@@ -138,16 +150,20 @@
         /* Footer */
         footer { padding: 50px 0; text-align: center; border-top: 1px solid var(--border-glass); color: var(--text-gray); }
 
-        /* Animation */
+        /* Animations */
         .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
-        /* Mobile */
+        /* Mobile Responsive */
         @media (max-width: 768px) {
             .hero-grid, .showcase-grid { grid-template-columns: 1fr; text-align: center; }
             .hero-text h1 { font-size: 2.5rem; }
+            
+            /* Центрируем линию на мобильном */
+            .hero-graphic { margin: 0 auto 30px auto; max-width: 280px; }
+            
             .email-form { margin: 0 auto; }
-            .showcase-grid.reverse { direction: ltr; } /* Отменяем реверс на мобилке */
+            .showcase-grid.reverse { direction: ltr; }
         }
 
         /* Lang Logic */
@@ -170,9 +186,26 @@
         <div class="container hero-grid">
             <div class="hero-text reveal">
                 <h1>
-                    <span class="lang-fr">Ça vaut le détour. <br>À chaque trajet.</span>
-                    <span class="lang-en">Worth the detour. <br>On every journey.</span>
+                    <span class="lang-fr">Ça vaut le détour</span>
+                    <span class="lang-en">Worth the detour</span>
                 </h1>
+
+                <div class="hero-graphic">
+                    <svg viewBox="0 0 350 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" style="stop-color:var(--accent-green);stop-opacity:0.1" />
+                                <stop offset="50%" style="stop-color:var(--accent-green);stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                        <path d="M10,25 C80,45 180,5 315,25" stroke="url(#lineGradient)" stroke-width="3" stroke-linecap="round"/>
+                        <g transform="translate(310, 5)">
+                            <path d="M14 0C6.26801 0 0 6.26801 0 14C0 24.5 14 40 14 40C14 40 28 24.5 28 14C28 6.26801 21.732 0 14 0ZM14 19C11.2386 19 9 16.7614 9 14C9 11.2386 11.2386 9 14 9C16.7614 9 19 11.2386 19 14C19 16.7614 16.7614 19 14 19Z" fill="var(--accent-green)"/>
+                            <circle cx="14" cy="14" r="3" fill="var(--bg-dark)"/>
+                        </g>
+                    </svg>
+                </div>
+
                 <p>
                     <span class="lang-fr">Transformez vos trajets A vers B en aventures. Découvrez les trésors cachés à quelques kilomètres de l'autoroute.</span>
                     <span class="lang-en">Turn your A to B trips into adventures. Discover hidden treasures just miles off the highway.</span>
@@ -222,6 +255,10 @@
                     <span class="lang-fr">Filtres Uniques</span>
                     <span class="lang-en">Unique Filters</span>
                 </h3>
+                <p>
+                    <span class="lang-fr">Plus que des musées. Trouvez ce qui vous fait vibrer.</span>
+                    <span class="lang-en">More than just museums. Find what makes you tick.</span>
+                </p>
                 <div class="tag-container">
                     <span class="tag hedonisme">Hédonisme</span>
                     <span class="tag histoire">Histoire</span>
@@ -317,7 +354,7 @@
     <footer>
         <div class="container">
             <h3>Guide du Détour</h3>
-            <p>&copy; 2025. Ca vaut le détour.</p>
+            <p>&copy; 2025. Ça vaut le détour.</p>
         </div>
     </footer>
 
