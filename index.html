@@ -10,22 +10,17 @@
     
     <style>
         :root {
-            /* Цвета из ваших скриншотов */
-            --bg-dark: #0f1216; /* Глубокий темный */
-            --bg-card: #1c1f26; /* Чуть светлее для карточек */
-            --accent-green: #2ecc71; /* Яркий зеленый с кнопки Démarrer */
-            --accent-orange: #e67e22; /* Оранжевый с тегов */
+            --bg-dark: #0f1216;
+            --bg-card: #1c1f26;
+            --accent-green: #2ecc71;
+            --accent-orange: #e67e22;
             --text-white: #ffffff;
             --text-gray: #a0a0a0;
             --glass: rgba(255, 255, 255, 0.05);
             --border-glass: rgba(255, 255, 255, 0.1);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Inter', sans-serif;
@@ -33,23 +28,13 @@
             color: var(--text-white);
             line-height: 1.6;
             overflow-x: hidden;
-            transition: background 0.3s;
         }
 
-        h1, h2, h3, h4 {
-            font-family: 'Playfair Display', serif;
-            font-weight: 700;
-        }
-
+        h1, h2, h3, h4 { font-family: 'Playfair Display', serif; font-weight: 700; }
         a { text-decoration: none; color: inherit; }
         ul { list-style: none; }
 
-        /* Утилиты */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
 
         .btn {
             display: inline-block;
@@ -57,7 +42,7 @@
             border-radius: 50px;
             font-weight: 600;
             cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: all 0.2s;
             border: none;
         }
 
@@ -66,265 +51,106 @@
             color: white;
             box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3);
         }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(46, 204, 113, 0.4); }
 
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(46, 204, 113, 0.4);
-        }
-
-        /* Header / Nav */
-        header {
-            padding: 20px 0;
-            position: absolute;
-            width: 100%;
-            top: 0;
-            z-index: 10;
-        }
-
-        .nav-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--text-white);
-        }
-
+        /* Header */
+        header { padding: 20px 0; position: absolute; width: 100%; top: 0; z-index: 10; }
+        .nav-content { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: bold; }
         .lang-switch {
-            background: var(--glass);
-            padding: 5px 15px;
-            border-radius: 20px;
-            border: 1px solid var(--border-glass);
-            cursor: pointer;
-            font-size: 0.9rem;
+            background: var(--glass); padding: 5px 15px; border-radius: 20px;
+            border: 1px solid var(--border-glass); cursor: pointer; font-size: 0.9rem;
         }
+        .lang-switch span.active { color: var(--accent-green); font-weight: bold; }
 
-        .lang-switch span.active {
-            color: var(--accent-green);
-            font-weight: bold;
-        }
-
-        /* Hero Section */
+        /* Hero */
         .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            position: relative;
+            min-height: 100vh; display: flex; align-items: center; position: relative;
             background: radial-gradient(circle at top right, #1a2530 0%, var(--bg-dark) 60%);
             padding-top: 80px;
         }
-
-        .hero-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 50px;
-            align-items: center;
-        }
-
+        .hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
         .hero-text h1 {
-            font-size: 4rem;
-            line-height: 1.1;
-            margin-bottom: 20px;
+            font-size: 3.5rem; line-height: 1.1; margin-bottom: 20px;
             background: linear-gradient(to right, #fff, #b0b0b0);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
-
-        .hero-text p {
-            font-size: 1.2rem;
-            color: var(--text-gray);
-            margin-bottom: 40px;
-            max-width: 500px;
-        }
-
+        .hero-text p { font-size: 1.2rem; color: var(--text-gray); margin-bottom: 40px; }
+        
         .email-form {
-            display: flex;
-            gap: 10px;
-            background: var(--glass);
-            padding: 5px;
-            border-radius: 50px;
-            border: 1px solid var(--border-glass);
-            max-width: 450px;
-            backdrop-filter: blur(10px);
+            display: flex; gap: 10px; background: var(--glass); padding: 5px;
+            border-radius: 50px; border: 1px solid var(--border-glass);
+            max-width: 450px; backdrop-filter: blur(10px);
         }
-
         .email-form input {
-            background: transparent;
-            border: none;
-            padding: 15px 20px;
-            color: white;
-            flex-grow: 1;
-            outline: none;
+            background: transparent; border: none; padding: 15px 20px;
+            color: white; flex-grow: 1; outline: none;
         }
 
-        .mockup-container {
-            position: relative;
-            text-align: center;
-        }
-
+        .mockup-container { text-align: center; }
         .phone-mockup {
-            width: 300px;
-            border-radius: 40px;
-            border: 8px solid #2d3436;
+            width: 280px; border-radius: 40px; border: 8px solid #2d3436;
             box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-            /* Здесь будет ваше изображение */
-            aspect-ratio: 9/19.5;
-            background-size: cover;
-            background-position: center;
-            /* Placeholder если картинки нет */
-            background-color: #000; 
-            display: block;
-            margin: 0 auto;
+            aspect-ratio: 9/19.5; background-size: cover; background-position: center;
+            display: block; margin: 0 auto;
+            /* Placeholder background */
+            background-color: #000;
         }
 
-        /* Features Section */
-        .features {
-            padding: 100px 0;
-            background: var(--bg-dark);
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 80px;
-        }
-
-        .section-header h2 {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-        }
-
-        .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-        }
-
+        /* Features */
+        .features { padding: 80px 0; background: var(--bg-dark); }
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-header h2 { font-size: 2.5rem; margin-bottom: 15px; }
+        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
         .feature-card {
-            background: var(--bg-card);
-            padding: 30px;
-            border-radius: 20px;
-            border: 1px solid var(--border-glass);
-            transition: transform 0.3s;
+            background: var(--bg-card); padding: 30px; border-radius: 20px;
+            border: 1px solid var(--border-glass); transition: transform 0.3s;
         }
-
-        .feature-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--accent-green);
-        }
-
-        .icon-box {
-            font-size: 2rem;
-            margin-bottom: 20px;
-            color: var(--accent-green);
-        }
-
-        .tag-container {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-top: 15px;
-        }
-
-        .tag {
-            font-size: 0.8rem;
-            padding: 5px 12px;
-            border-radius: 15px;
-            background: rgba(255, 255, 255, 0.1);
-            color: #ccc;
-        }
+        .feature-card:hover { transform: translateY(-5px); border-color: var(--accent-green); }
+        .icon-box { font-size: 2rem; margin-bottom: 20px; color: var(--accent-green); }
+        
+        .tag-container { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 15px; }
+        .tag { font-size: 0.8rem; padding: 5px 12px; border-radius: 15px; background: rgba(255,255,255,0.1); color: #ccc; }
         .tag.hedonisme { color: #d63031; background: rgba(214, 48, 49, 0.1); }
         .tag.histoire { color: var(--accent-orange); background: rgba(230, 126, 34, 0.1); }
 
-        /* Showcase / Screenshot Section */
-        .showcase {
-            padding: 100px 0;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .showcase-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: center;
-        }
-
-        .screenshot-box {
-            position: relative;
-        }
+        /* Showcase / Gallery */
+        .showcase { padding: 80px 0; }
+        .showcase-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; margin-bottom: 100px; }
+        .showcase-grid.reverse { direction: rtl; } /* Меняет порядок для шахматного стиля */
+        .showcase-grid.reverse > * { direction: ltr; } /* Возвращает текст в норму */
         
         .screenshot-box img {
-            max-width: 100%;
-            border-radius: 20px;
+            max-width: 300px; border-radius: 20px;
             box-shadow: 0 20px 60px rgba(0,0,0,0.6);
             border: 1px solid var(--border-glass);
+            display: block; margin: 0 auto;
         }
 
-        /* Roadmap Section */
-        .roadmap {
-            padding: 100px 0;
-            background: linear-gradient(to bottom, var(--bg-dark), #05070a);
-        }
-
-        .roadmap-list {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
+        /* Roadmap */
+        .roadmap { padding: 80px 0; background: linear-gradient(to bottom, var(--bg-dark), #05070a); }
+        .roadmap-list { max-width: 800px; margin: 0 auto; }
         .roadmap-item {
-            display: flex;
-            gap: 20px;
-            margin-bottom: 30px;
-            background: var(--glass);
-            padding: 20px;
-            border-radius: 15px;
-            backdrop-filter: blur(5px);
-            border-left: 4px solid var(--accent-green);
-            align-items: flex-start;
-        }
-
-        .roadmap-icon {
-            font-size: 1.5rem;
-            min-width: 40px;
+            display: flex; gap: 20px; margin-bottom: 20px; background: var(--glass);
+            padding: 20px; border-radius: 15px; border-left: 4px solid var(--accent-green);
         }
 
         /* Footer */
-        footer {
-            padding: 50px 0;
-            text-align: center;
-            border-top: 1px solid var(--border-glass);
-            color: var(--text-gray);
-        }
+        footer { padding: 50px 0; text-align: center; border-top: 1px solid var(--border-glass); color: var(--text-gray); }
 
-        /* Анимации */
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s ease-out;
-        }
+        /* Animation */
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
 
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Mobile Responsive */
+        /* Mobile */
         @media (max-width: 768px) {
-            .hero-grid {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
+            .hero-grid, .showcase-grid { grid-template-columns: 1fr; text-align: center; }
             .hero-text h1 { font-size: 2.5rem; }
             .email-form { margin: 0 auto; }
-            .showcase-grid { grid-template-columns: 1fr; }
-            .showcase-grid.reverse { display: flex; flex-direction: column-reverse; }
+            .showcase-grid.reverse { direction: ltr; } /* Отменяем реверс на мобилке */
         }
 
-        /* Language Toggle Classes */
+        /* Lang Logic */
         body.fr .lang-en { display: none; }
         body.en .lang-fr { display: none; }
     </style>
@@ -348,24 +174,20 @@
                     <span class="lang-en">Worth the detour. <br>On every journey.</span>
                 </h1>
                 <p>
-                    <span class="lang-fr">Ne traversez plus la France sans la voir. Transformez vos trajets A vers B en véritables aventures et découvrez les trésors cachés à quelques kilomètres de l'autoroute.</span>
-                    <span class="lang-en">Stop crossing France without seeing it. Turn your A to B trips into real adventures and discover hidden treasures just miles off the highway.</span>
+                    <span class="lang-fr">Transformez vos trajets A vers B en aventures. Découvrez les trésors cachés à quelques kilomètres de l'autoroute.</span>
+                    <span class="lang-en">Turn your A to B trips into adventures. Discover hidden treasures just miles off the highway.</span>
                 </p>
                 
                 <form class="email-form" onsubmit="submitEmail(event)">
                     <input type="email" placeholder="Email..." required>
                     <button type="submit" class="btn btn-primary">
-                        <span class="lang-fr">Devenir Éclaireur</span>
-                        <span class="lang-en">Become a Scout</span>
+                        <span class="lang-fr">Rejoindre</span>
+                        <span class="lang-en">Join</span>
                     </button>
                 </form>
-                <p style="font-size: 0.8rem; margin-top: 10px; opacity: 0.6;">
-                    <span class="lang-fr">Rejoignez la liste d'attente pour le lancement KissKissBankBank.</span>
-                    <span class="lang-en">Join the waitlist for the KissKissBankBank launch.</span>
-                </p>
             </div>
             <div class="mockup-container reveal">
-                <div class="phone-mockup" style="background-image: url('IMG_0641.jpg');"></div>
+                <div class="phone-mockup" style="background-image: url('IMG_0644.png');"></div>
             </div>
         </div>
     </section>
@@ -376,9 +198,9 @@
                 <span class="lang-fr">La Magie Opère</span>
                 <span class="lang-en">The Magic Happens</span>
             </h2>
-            <p style="max-width: 600px; margin: 0 auto; color: var(--text-gray);">
-                <span class="lang-fr">Oubliez la monotonie. Notre algorithme trouve les points d'intérêt qui correspondent à vos passions, exactement là où vous passez.</span>
-                <span class="lang-en">Forget monotony. Our algorithm finds points of interest that match your passions, exactly where you are passing by.</span>
+            <p style="color: var(--text-gray);">
+                <span class="lang-fr">Notre algorithme trouve les points d'intérêt qui vous correspondent.</span>
+                <span class="lang-en">Our algorithm finds points of interest that match you.</span>
             </p>
         </div>
 
@@ -386,33 +208,26 @@
             <div class="feature-card reveal">
                 <div class="icon-box">🧭</div>
                 <h3>
-                    <span class="lang-fr">Le Couloir de Découverte</span>
+                    <span class="lang-fr">Couloir de Découverte</span>
                     <span class="lang-en">Discovery Corridor</span>
                 </h3>
                 <p>
-                    <span class="lang-fr">Vous décidez de combien vous êtes prêt à vous écarter. 5 km ? 20 km ? Ajustez le curseur et voyez les opportunités apparaître.</span>
-                    <span class="lang-en">You decide how far you're willing to stray. 5 km? 20 km? Adjust the slider and watch opportunities appear.</span>
+                    <span class="lang-fr">Ajustez le rayon de détour (5km, 20km...) et voyez les opportunités apparaître.</span>
+                    <span class="lang-en">Adjust the detour radius (5km, 20km...) and watch opportunities appear.</span>
                 </p>
             </div>
-
             <div class="feature-card reveal">
                 <div class="icon-box">🍷</div>
                 <h3>
                     <span class="lang-fr">Filtres Uniques</span>
                     <span class="lang-en">Unique Filters</span>
                 </h3>
-                <p>
-                    <span class="lang-fr">Plus que des musées. Trouvez ce qui vous fait vibrer.</span>
-                    <span class="lang-en">More than just museums. Find what makes you tick.</span>
-                </p>
                 <div class="tag-container">
                     <span class="tag hedonisme">Hédonisme</span>
                     <span class="tag histoire">Histoire</span>
                     <span class="tag">Nature</span>
-                    <span class="tag">Curiosité</span>
                 </div>
             </div>
-
             <div class="feature-card reveal">
                 <div class="icon-box">🏰</div>
                 <h3>
@@ -420,8 +235,8 @@
                     <span class="lang-en">Local Secrets</span>
                 </h3>
                 <p>
-                    <span class="lang-fr">Fermes, châteaux oubliés, street art... Des lieux souvent invisibles sur les cartes classiques.</span>
-                    <span class="lang-en">Farms, forgotten castles, street art... Places often invisible on classic maps.</span>
+                    <span class="lang-fr">Fermes, châteaux, street art. L'invisible devient visible.</span>
+                    <span class="lang-en">Farms, castles, street art. The invisible becomes visible.</span>
                 </p>
             </div>
         </div>
@@ -430,7 +245,7 @@
     <section class="showcase">
         <div class="container showcase-grid">
             <div class="screenshot-box reveal">
-                <img src="IMG_0646.jpg" alt="Profile Screen">
+                <img src="IMG_0646.png" alt="Club Profile">
             </div>
             <div class="reveal">
                 <h2>
@@ -438,15 +253,25 @@
                     <span class="lang-en">The Scout Club</span>
                 </h2>
                 <p>
-                    <span class="lang-fr">Chaque détour vous rapporte de l'expérience. Collectionnez vos découvertes sous forme de cartes souvenirs, notez les lieux et aidez la communauté à grandir.</span>
-                    <span class="lang-en">Every detour earns you experience. Collect your discoveries as souvenir cards, rate places, and help the community grow.</span>
+                    <span class="lang-fr">Plus qu'un GPS. Collectionnez vos découvertes, gagnez de l'XP et partagez vos trouvailles avec la communauté.</span>
+                    <span class="lang-en">More than a GPS. Collect your discoveries, earn XP, and share your finds with the community.</span>
                 </p>
-                <br>
-                <ul style="color: var(--text-gray);">
-                    <li>✅ <span class="lang-fr">Niveau Explorateur</span><span class="lang-en">Explorer Level</span></li>
-                    <li>✅ <span class="lang-fr">Album de souvenirs digital</span><span class="lang-en">Digital Souvenir Album</span></li>
-                    <li>✅ <span class="lang-fr">Ajout de nouveaux lieux</span><span class="lang-en">Add new places</span></li>
-                </ul>
+            </div>
+        </div>
+
+        <div class="container showcase-grid reverse">
+            <div class="screenshot-box reveal">
+                <img src="IMG_0645.png" alt="Place Details">
+            </div>
+            <div class="reveal">
+                <h2>
+                    <span class="lang-fr">L'Histoire du Lieu</span>
+                    <span class="lang-en">Place History</span>
+                </h2>
+                <p>
+                    <span class="lang-fr">Chaque point a une histoire. Photos, descriptions, et notes pour ne rien rater.</span>
+                    <span class="lang-en">Every point has a story. Photos, descriptions, and ratings so you don't miss a thing.</span>
+                </p>
             </div>
         </div>
     </section>
@@ -454,50 +279,35 @@
     <section class="roadmap">
         <div class="container reveal">
             <div class="section-header">
-                <h2 style="color: var(--accent-orange);">
-                    <span class="lang-fr">Futur du Projet</span>
-                    <span class="lang-en">Project Future</span>
-                </h2>
+                <h2 style="color: var(--accent-orange);">Roadmap</h2>
                 <p>
-                    <span class="lang-fr">Soutenez-nous sur KissKissBankBank pour débloquer ces fonctionnalités :</span>
-                    <span class="lang-en">Support us on KissKissBankBank to unlock these features:</span>
+                    <span class="lang-fr">Soutenez-nous sur KissKissBankBank :</span>
+                    <span class="lang-en">Support us on KissKissBankBank:</span>
                 </p>
             </div>
-
             <div class="roadmap-list">
                 <div class="roadmap-item">
                     <div class="roadmap-icon">🧭</div>
                     <div>
                         <h4>Le Mode Boussole</h4>
-                        <p class="lang-fr">Pour les vrais aventuriers. Une simple flèche vous guide vers un lieu mystère. Laissez-vous surprendre.</p>
-                        <p class="lang-en" style="display:none">For true adventurers. A simple arrow guides you to a mystery location. Let yourself be surprised.</p>
+                        <p class="lang-fr">Une flèche vous guide vers un lieu mystère.</p>
+                        <p class="lang-en" style="display:none">A simple arrow guides you to a mystery location.</p>
                     </div>
                 </div>
-                
                 <div class="roadmap-item">
                     <div class="roadmap-icon">🏺</div>
                     <div>
                         <h4>Le Mode Chineur</h4>
-                        <p class="lang-fr">Notifications automatiques lorsqu'une brocante ou un vide-grenier se trouve sur votre route.</p>
-                        <p class="lang-en" style="display:none">Automatic notifications when a flea market or yard sale is on your route.</p>
+                        <p class="lang-fr">Notifications brocantes et vide-greniers.</p>
+                        <p class="lang-en" style="display:none">Notifications for flea markets.</p>
                     </div>
                 </div>
-
                 <div class="roadmap-item">
                     <div class="roadmap-icon">🧀</div>
                     <div>
                         <h4>Le Coffre Vide</h4>
-                        <p class="lang-fr">Alertes produits locaux : remplissez votre coffre de fromages et vins directement chez le producteur.</p>
-                        <p class="lang-en" style="display:none">Local product alerts: fill your trunk with cheese and wine directly from the producer.</p>
-                    </div>
-                </div>
-
-                <div class="roadmap-item">
-                    <div class="roadmap-icon">🎧</div>
-                    <div>
-                        <h4>Rétroviseur Temporel</h4>
-                        <p class="lang-fr">Des histoires audio géolocalisées qui vous racontent ce que vous voyez par la fenêtre.</p>
-                        <p class="lang-en" style="display:none">Geolocated audio stories that tell you about what you see out the window.</p>
+                        <p class="lang-fr">Alertes produits locaux et fermiers.</p>
+                        <p class="lang-en" style="display:none">Alerts for local products and farmers.</p>
                     </div>
                 </div>
             </div>
@@ -507,62 +317,45 @@
     <footer>
         <div class="container">
             <h3>Guide du Détour</h3>
-            <p style="margin: 20px 0;">
-                <span class="lang-fr">Fait avec ❤️ en France. Pour les amoureux de la route.</span>
-                <span class="lang-en">Made with ❤️ in France. For road lovers.</span>
-            </p>
-            <p>&copy; 2025 Guide du Détour.</p>
+            <p>&copy; 2025. Ca vaut le détour.</p>
         </div>
     </footer>
 
     <script>
-        // ЛОГИКА ПЕРЕКЛЮЧЕНИЯ ЯЗЫКА
+        // Переключение языка
         function toggleLang() {
             const body = document.body;
             const btnFr = document.getElementById('btn-fr');
             const btnEn = document.getElementById('btn-en');
 
             if (body.classList.contains('fr')) {
-                body.classList.remove('fr');
-                body.classList.add('en');
-                btnFr.classList.remove('active');
-                btnEn.classList.add('active');
+                body.classList.remove('fr'); body.classList.add('en');
+                btnFr.classList.remove('active'); btnEn.classList.add('active');
             } else {
-                body.classList.remove('en');
-                body.classList.add('fr');
-                btnEn.classList.remove('active');
-                btnFr.classList.add('active');
+                body.classList.remove('en'); body.classList.add('fr');
+                btnEn.classList.remove('active'); btnFr.classList.add('active');
             }
         }
 
-        // ИМИТАЦИЯ ОТПРАВКИ ФОРМЫ
+        // Форма
         function submitEmail(e) {
             e.preventDefault();
-            const email = e.target.querySelector('input').value;
-            const isFr = document.body.classList.contains('fr');
-            
-            // Здесь можно подключить реальный сервис (Mailchimp, Zapier)
-            alert(isFr ? 
-                "Merci ! Vous êtes sur la liste. (Ceci est une démo)" : 
-                "Thanks! You are on the list. (This is a demo)");
-            
+            alert("Email enregistré (Demo)");
             e.target.reset();
         }
 
-        // АНИМАЦИЯ ПРИ СКРОЛЛЕ
+        // Анимация скролла
         function reveal() {
             var reveals = document.querySelectorAll(".reveal");
             for (var i = 0; i < reveals.length; i++) {
                 var windowHeight = window.innerHeight;
                 var elementTop = reveals[i].getBoundingClientRect().top;
-                var elementVisible = 150;
-                if (elementTop < windowHeight - elementVisible) {
+                if (elementTop < windowHeight - 100) {
                     reveals[i].classList.add("active");
                 }
             }
         }
         window.addEventListener("scroll", reveal);
-        // Запустить один раз при загрузке
         reveal();
     </script>
 </body>
