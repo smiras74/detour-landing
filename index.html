@@ -20,6 +20,7 @@
             --text-gray: #a0a0a0;
             --glass: rgba(255, 255, 255, 0.05);
             --border-glass: rgba(255, 255, 255, 0.1);
+            --error-red: #e74c3c;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -47,6 +48,7 @@
             cursor: pointer;
             transition: all 0.2s;
             border: none;
+            font-size: 1rem;
         }
 
         .btn-primary {
@@ -55,19 +57,21 @@
             box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3);
         }
         .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(46, 204, 113, 0.4); }
+        
+        .btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none !important;
+        }
 
         /* Header */
         header { padding: 15px 0; position: absolute; width: 100%; top: 0; z-index: 10; }
         .nav-content { display: flex; justify-content: space-between; align-items: center; }
         
         /* Логотип-картинка в хедере */
-        .logo-container {
-            display: flex;
-            align-items: center;
-        }
-        
+        .logo-container { display: flex; align-items: center; }
         .logo-image {
-            max-width: 220px; /* Оптимальный размер для шапки */
+            max-width: 220px;
             height: auto;
             display: block;
         }
@@ -98,11 +102,21 @@
             display: flex; gap: 10px; background: var(--glass); padding: 5px;
             border-radius: 50px; border: 1px solid var(--border-glass);
             max-width: 450px; backdrop-filter: blur(10px);
+            position: relative;
         }
         .email-form input {
             background: transparent; border: none; padding: 15px 20px;
-            color: white; flex-grow: 1; outline: none;
+            color: white; flex-grow: 1; outline: none; font-size: 1rem;
         }
+        
+        /* Сообщения формы */
+        .form-message {
+            margin-top: 15px;
+            font-size: 0.9rem;
+            display: none;
+        }
+        .form-message.success { color: var(--accent-green); }
+        .form-message.error { color: var(--error-red); }
 
         .mockup-container { text-align: center; position: relative; }
         .phone-mockup {
@@ -160,7 +174,7 @@
 
         /* Mobile Responsive */
         @media (max-width: 768px) {
-            .logo-image { max-width: 180px; } /* Чуть меньше лого на мобильном */
+            .logo-image { max-width: 180px; }
             .hero-grid, .showcase-grid { grid-template-columns: 1fr; text-align: center; }
             .hero-text h1 { font-size: 2.5rem; }
             .email-form { margin: 0 auto; }
@@ -199,13 +213,17 @@
                     <span class="lang-en">Turn your A to B trips into adventures. Discover hidden treasures just miles off the highway.</span>
                 </p>
                 
-                <form class="email-form" onsubmit="submitEmail(event)">
-                    <input type="email" placeholder="Email..." required>
-                    <button type="submit" class="btn btn-primary">
-                        <span class="lang-fr">Rejoindre</span>
-                        <span class="lang-en">Join</span>
-                    </button>
-                </form>
+                <div>
+                    <form class="email-form" id="waitlistForm">
+                        <input type="email" id="emailInput" placeholder="Email..." required>
+                        <button type="submit" class="btn btn-primary" id="submitBtn">
+                            <span class="lang-fr">Rejoindre</span>
+                            <span class="lang-en">Join</span>
+                        </button>
+                    </form>
+                    <div id="formMessage" class="form-message"></div>
+                </div>
+
             </div>
             <div class="mockup-container reveal">
                 <div class="phone-mockup" style="background-image: url('IMG_0644.png');"></div>
@@ -346,9 +364,89 @@
         </div>
     </footer>
 
-    <script>
-        // Переключение языка
-        function toggleLang() {
+    <script type="module">
+        // 1. Импорт функций Firebase SDK
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        // 2. Ваша конфигурация
+        const firebaseConfig = {
+            apiKey: "AIzaSyCWQJtzHMksDG5UgLVma8LnYiOxYYcv_AQ",
+            authDomain: "guide-du-detour.firebaseapp.com",
+            projectId: "guide-du-detour",
+            storageBucket: "guide-du-detour.firebasestorage.app",
+            messagingSenderId: "182479723840",
+            appId: "1:182479723840:web:866963483cf1bca6f9aea5",
+            measurementId: "G-17851JKM7F"
+        };
+
+        // 3. Инициализация Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // 4. Логика формы
+        const form = document.getElementById('waitlistForm');
+        const emailInput = document.getElementById('emailInput');
+        const submitBtn = document.getElementById('submitBtn');
+        const messageDiv = document.getElementById('formMessage');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const email = emailInput.value;
+            if (!email) return;
+
+            // Определяем текущий язык
+            const currentLang = document.body.classList.contains('fr') ? 'fr' : 'en';
+
+            // Блокируем кнопку, чтобы не жали дважды
+            submitBtn.disabled = true;
+            submitBtn.innerText = currentLang === 'fr' ? 'Envoi...' : 'Sending...';
+            messageDiv.style.display = 'none';
+
+            try {
+                // ОТПРАВКА В FIRESTORE
+                await addDoc(collection(db, "waitlist"), {
+                    email: email,
+                    date: serverTimestamp(),
+                    lang: currentLang,
+                    source: "landing_page"
+                });
+
+                // Успех
+                messageDiv.className = 'form-message success';
+                messageDiv.innerText = currentLang === 'fr' 
+                    ? "Merci ! Vous êtes bien inscrit sur la liste d'attente." 
+                    : "Thanks! You've been added to the waitlist.";
+                messageDiv.style.display = 'block';
+                form.reset();
+
+            } catch (error) {
+                console.error("Error adding document: ", error);
+                
+                // Ошибка
+                messageDiv.className = 'form-message error';
+                messageDiv.innerText = currentLang === 'fr'
+                    ? "Une erreur s'est produite. Veuillez réessayer."
+                    : "An error occurred. Please try again.";
+                messageDiv.style.display = 'block';
+            } finally {
+                // Возвращаем кнопку в исходное состояние
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = `
+                    <span class="lang-fr">Rejoindre</span>
+                    <span class="lang-en">Join</span>
+                `;
+                // Скрываем английский текст, если мы на французском (и наоборот)
+                // Так как innerHTML перезаписал спаны, нужно убедиться, что CSS отработает
+                // Но так как CSS опирается на body class, всё будет ок.
+            }
+        });
+
+        // --- Остальная логика сайта (языки, анимации) ---
+
+        // Экспортируем функцию переключения языка в глобальную область, чтобы onclick работал
+        window.toggleLang = function() {
             const body = document.body;
             const btnFr = document.getElementById('btn-fr');
             const btnEn = document.getElementById('btn-en');
@@ -360,13 +458,6 @@
                 body.classList.remove('en'); body.classList.add('fr');
                 btnEn.classList.remove('active'); btnFr.classList.add('active');
             }
-        }
-
-        // Форма
-        function submitEmail(e) {
-            e.preventDefault();
-            alert("Email enregistré (Demo)");
-            e.target.reset();
         }
 
         // Анимация скролла
