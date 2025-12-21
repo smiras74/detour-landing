@@ -7,9 +7,11 @@
     <meta name="description" content="Guide du Détour : Transformez vos trajets en aventures. Découvrez les trésors cachés de la France.">
     
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://guide-du-detour.fr/"> <meta property="og:title" content="Guide du Détour - Ça vaut le détour">
+    <meta property="og:url" content="https://guide-du-detour.fr/">
+    <meta property="og:title" content="Guide du Détour - Ça vaut le détour">
     <meta property="og:description" content="Ne traversez plus la France sans la voir. Rejoignez le club des éclaireurs.">
-    <meta property="og:image" content="IMG_0641.jpg"> <meta property="twitter:card" content="summary_large_image">
+    <meta property="og:image" content="IMG_0641.jpg">
+    <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:title" content="Guide du Détour">
     <meta property="twitter:description" content="Transformez la route en aventure.">
     <meta property="twitter:image" content="IMG_0641.jpg">
@@ -21,7 +23,6 @@
     
     <style>
         :root {
-            /* Цветовая палитра */
             --bg-dark: #0f1216;
             --bg-card: #1c1f26;
             --accent-green: #2ecc71;
@@ -31,6 +32,8 @@
             --glass: rgba(255, 255, 255, 0.05);
             --border-glass: rgba(255, 255, 255, 0.1);
             --error-red: #e74c3c;
+            --bg-light: #f5f3ef;
+            --text-dark: #1a1a2e;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -68,6 +71,16 @@
         }
         .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(46, 204, 113, 0.4); }
         
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-dark);
+            border: 2px solid var(--text-dark);
+        }
+        .btn-secondary:hover { 
+            background: var(--text-dark); 
+            color: white;
+        }
+        
         .btn:disabled {
             opacity: 0.7;
             cursor: not-allowed;
@@ -78,7 +91,6 @@
         header { padding: 15px 0; position: absolute; width: 100%; top: 0; z-index: 10; }
         .nav-content { display: flex; justify-content: space-between; align-items: center; }
         
-        /* Логотип-картинка в хедере */
         .logo-container { display: flex; align-items: center; }
         .logo-image {
             max-width: 220px;
@@ -119,7 +131,6 @@
             color: white; flex-grow: 1; outline: none; font-size: 1rem;
         }
         
-        /* Сообщения формы */
         .form-message {
             margin-top: 15px;
             font-size: 0.9rem;
@@ -167,6 +178,131 @@
             display: block; margin: 0 auto;
         }
 
+        /* Vision Section - NEW */
+        .vision {
+            padding: 100px 0;
+            background: var(--bg-light);
+            color: var(--text-dark);
+        }
+        
+        .vision-content {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 60px;
+            align-items: center;
+        }
+        
+        .vision-text h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--text-dark);
+        }
+        
+        .vision-text p {
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+        
+        .vision-cta {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .vision-cta .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .vision-cta .btn svg {
+            width: 20px;
+            height: 20px;
+        }
+        
+        .presentation-preview {
+            position: relative;
+        }
+        
+        .presentation-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 25px 80px rgba(0,0,0,0.15);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .presentation-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 35px 100px rgba(0,0,0,0.2);
+        }
+        
+        .presentation-card a {
+            display: block;
+        }
+        
+        .presentation-card img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .presentation-card-footer {
+            padding: 20px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid #eee;
+        }
+        
+        .presentation-info {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .presentation-info span:first-child {
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+        
+        .presentation-info span:last-child {
+            font-size: 0.85rem;
+            color: #888;
+        }
+        
+        .presentation-badge {
+            background: linear-gradient(135deg, var(--accent-green), #27ae60);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        
+        /* Decorative elements */
+        .vision-decoration {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(46, 204, 113, 0.1), rgba(39, 174, 96, 0.05));
+            z-index: 0;
+        }
+        
+        .vision-decoration.top-right {
+            top: -50px;
+            right: -50px;
+        }
+        
+        .vision-decoration.bottom-left {
+            bottom: -80px;
+            left: -80px;
+            width: 150px;
+            height: 150px;
+        }
+
         /* Roadmap */
         .roadmap { padding: 80px 0; background: linear-gradient(to bottom, var(--bg-dark), #05070a); }
         .roadmap-list { max-width: 800px; margin: 0 auto; }
@@ -185,10 +321,31 @@
         /* Mobile Responsive */
         @media (max-width: 768px) {
             .logo-image { max-width: 180px; }
-            .hero-grid, .showcase-grid { grid-template-columns: 1fr; text-align: center; }
+            .hero-grid, .showcase-grid, .vision-content { grid-template-columns: 1fr; text-align: center; }
             .hero-text h1 { font-size: 2.5rem; }
             .email-form { margin: 0 auto; }
             .showcase-grid.reverse { direction: ltr; }
+            
+            .vision-content {
+                gap: 40px;
+            }
+            
+            .vision-text {
+                order: 1;
+            }
+            
+            .presentation-preview {
+                order: 2;
+            }
+            
+            .vision-cta {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .vision-text h2 {
+                font-size: 2rem;
+            }
         }
 
         /* Lang Logic */
@@ -329,6 +486,51 @@
         </div>
     </section>
 
+    <!-- NEW: Vision Section -->
+    <section class="vision">
+        <div class="container">
+            <div class="vision-content reveal">
+                <div class="vision-text">
+                    <h2>
+                        <span class="lang-fr">L'Art du Détour</span>
+                        <span class="lang-en">The Art of the Detour</span>
+                    </h2>
+                    <p>
+                        <span class="lang-fr">Nous avons optimisé le trajet. Et perdu l'aventure. Découvrez notre vision complète : comment nous réinventons la navigation pour transformer chaque kilomètre en opportunité de découverte.</span>
+                        <span class="lang-en">We optimized the journey. And lost the adventure. Discover our complete vision: how we're reinventing navigation to transform every kilometer into an opportunity for discovery.</span>
+                    </p>
+                    <div class="vision-cta">
+                        <a href="The_Art_of_the_Detour.pdf" target="_blank" class="btn btn-secondary">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+                            <span class="lang-fr">Télécharger la présentation</span>
+                            <span class="lang-en">Download presentation</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="presentation-preview">
+                    <div class="presentation-card">
+                        <a href="The_Art_of_the_Detour.pdf" target="_blank">
+                            <img src="presentation-cover.jpg" alt="Guide du Détour - Présentation" onerror="this.src='IMG_0641.jpg'">
+                        </a>
+                        <div class="presentation-card-footer">
+                            <div class="presentation-info">
+                                <span class="lang-fr">Notre Vision</span>
+                                <span class="lang-en">Our Vision</span>
+                                <span>PDF • 14 pages</span>
+                            </div>
+                            <span class="presentation-badge">
+                                <span class="lang-fr">Nouveau</span>
+                                <span class="lang-en">New</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section class="roadmap">
         <div class="container reveal">
             <div class="section-header">
@@ -375,11 +577,9 @@
     </footer>
 
     <script type="module">
-        // 1. Импорт функций Firebase SDK
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-        // 2. Ваша конфигурация
         const firebaseConfig = {
             apiKey: "AIzaSyCWQJtzHMksDG5UgLVma8LnYiOxYYcv_AQ",
             authDomain: "guide-du-detour.firebaseapp.com",
@@ -390,11 +590,9 @@
             measurementId: "G-17851JKM7F"
         };
 
-        // 3. Инициализация Firebase
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // 4. Логика формы
         const form = document.getElementById('waitlistForm');
         const emailInput = document.getElementById('emailInput');
         const submitBtn = document.getElementById('submitBtn');
@@ -406,16 +604,13 @@
             const email = emailInput.value;
             if (!email) return;
 
-            // Определяем текущий язык
             const currentLang = document.body.classList.contains('fr') ? 'fr' : 'en';
 
-            // Блокируем кнопку, чтобы не жали дважды
             submitBtn.disabled = true;
             submitBtn.innerText = currentLang === 'fr' ? 'Envoi...' : 'Sending...';
             messageDiv.style.display = 'none';
 
             try {
-                // ОТПРАВКА В FIRESTORE
                 await addDoc(collection(db, "waitlist"), {
                     email: email,
                     date: serverTimestamp(),
@@ -423,7 +618,6 @@
                     source: "landing_page"
                 });
 
-                // Успех
                 messageDiv.className = 'form-message success';
                 messageDiv.innerText = currentLang === 'fr' 
                     ? "Merci ! Vous êtes bien inscrit sur la liste d'attente." 
@@ -434,28 +628,20 @@
             } catch (error) {
                 console.error("Error adding document: ", error);
                 
-                // Ошибка
                 messageDiv.className = 'form-message error';
                 messageDiv.innerText = currentLang === 'fr'
                     ? "Une erreur s'est produite. Veuillez réessayer."
                     : "An error occurred. Please try again.";
                 messageDiv.style.display = 'block';
             } finally {
-                // Возвращаем кнопку в исходное состояние
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = `
                     <span class="lang-fr">Rejoindre</span>
                     <span class="lang-en">Join</span>
                 `;
-                // Скрываем английский текст, если мы на французском (и наоборот)
-                // Так как innerHTML перезаписал спаны, нужно убедиться, что CSS отработает
-                // Но так как CSS опирается на body class, всё будет ок.
             }
         });
 
-        // --- Остальная логика сайта (языки, анимации) ---
-
-        // Экспортируем функцию переключения языка в глобальную область, чтобы onclick работал
         window.toggleLang = function() {
             const body = document.body;
             const btnFr = document.getElementById('btn-fr');
@@ -470,7 +656,6 @@
             }
         }
 
-        // Анимация скролла
         function reveal() {
             var reveals = document.querySelectorAll(".reveal");
             for (var i = 0; i < reveals.length; i++) {
