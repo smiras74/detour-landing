@@ -81,6 +81,25 @@
             color: white;
         }
         
+        .btn-light {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+        .btn-light:hover { 
+            background: white; 
+            color: var(--text-dark);
+        }
+        
+        .btn-cta {
+            background: linear-gradient(135deg, var(--accent-orange), #d35400);
+            color: white;
+            box-shadow: 0 4px 15px rgba(230, 126, 34, 0.3);
+            font-size: 1.1rem;
+            padding: 15px 40px;
+        }
+        .btn-cta:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(230, 126, 34, 0.4); }
+        
         .btn:disabled {
             opacity: 0.7;
             cursor: not-allowed;
@@ -178,7 +197,7 @@
             display: block; margin: 0 auto;
         }
 
-        /* Vision Section - NEW */
+        /* Vision Section */
         .vision {
             padding: 100px 0;
             background: var(--bg-light);
@@ -280,27 +299,205 @@
             font-size: 0.85rem;
             font-weight: 600;
         }
+
+        /* Mon Histoire Section - NEW */
+        .mon-histoire {
+            padding: 100px 0;
+            background: var(--bg-dark);
+        }
         
-        /* Decorative elements */
-        .vision-decoration {
-            position: absolute;
-            width: 200px;
-            height: 200px;
+        .histoire-content {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 60px;
+            align-items: center;
+        }
+        
+        .histoire-image {
+            text-align: center;
+        }
+        
+        .histoire-image img {
+            width: 250px;
+            height: 250px;
             border-radius: 50%;
-            background: linear-gradient(135deg, rgba(46, 204, 113, 0.1), rgba(39, 174, 96, 0.05));
-            z-index: 0;
+            object-fit: cover;
+            border: 4px solid var(--accent-green);
+            box-shadow: 0 20px 60px rgba(46, 204, 113, 0.2);
         }
         
-        .vision-decoration.top-right {
-            top: -50px;
-            right: -50px;
+        .histoire-text h2 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            color: white;
         }
         
-        .vision-decoration.bottom-left {
-            bottom: -80px;
-            left: -80px;
-            width: 150px;
-            height: 150px;
+        .histoire-text p {
+            font-size: 1.1rem;
+            color: var(--text-gray);
+            margin-bottom: 20px;
+            line-height: 1.9;
+        }
+        
+        .histoire-text .signature {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: var(--accent-green);
+            margin-top: 30px;
+        }
+
+        /* Status Section - NEW */
+        .status {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #1a2530 0%, var(--bg-dark) 100%);
+        }
+        
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        
+        .status-card {
+            background: var(--bg-card);
+            padding: 40px 30px;
+            border-radius: 20px;
+            border: 1px solid var(--border-glass);
+            text-align: center;
+        }
+        
+        .status-card.done { border-top: 4px solid var(--accent-green); }
+        .status-card.progress { border-top: 4px solid var(--accent-orange); }
+        .status-card.planned { border-top: 4px solid #9b59b6; }
+        
+        .status-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .status-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: white;
+        }
+        
+        .status-card.done h3 { color: var(--accent-green); }
+        .status-card.progress h3 { color: var(--accent-orange); }
+        .status-card.planned h3 { color: #9b59b6; }
+        
+        .status-list {
+            text-align: left;
+        }
+        
+        .status-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border-glass);
+            color: var(--text-gray);
+            font-size: 0.95rem;
+        }
+        
+        .status-list li:last-child {
+            border-bottom: none;
+        }
+
+        /* Support Section - NEW */
+        .support {
+            padding: 100px 0;
+            background: linear-gradient(135deg, var(--accent-green), #27ae60);
+            text-align: center;
+        }
+        
+        .support h2 {
+            font-size: 2.8rem;
+            color: white;
+            margin-bottom: 20px;
+        }
+        
+        .support p {
+            font-size: 1.2rem;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .support-benefits {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+        }
+        
+        .support-benefit {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            font-size: 1rem;
+        }
+        
+        .support-benefit span {
+            font-size: 1.5rem;
+        }
+        
+        .btn-ulule {
+            background: white;
+            color: var(--accent-green);
+            font-size: 1.2rem;
+            padding: 18px 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .btn-ulule:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        /* Contact Section - NEW */
+        .contact {
+            padding: 80px 0;
+            background: var(--bg-dark);
+        }
+        
+        .contact-content {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .contact h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .contact p {
+            color: var(--text-gray);
+            margin-bottom: 40px;
+        }
+        
+        .contact-email {
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            background: var(--bg-card);
+            padding: 20px 40px;
+            border-radius: 50px;
+            border: 1px solid var(--border-glass);
+            color: var(--accent-green);
+            font-size: 1.1rem;
+            transition: all 0.3s;
+        }
+        
+        .contact-email:hover {
+            border-color: var(--accent-green);
+            transform: translateY(-2px);
+        }
+        
+        .contact-email svg {
+            width: 24px;
+            height: 24px;
         }
 
         /* Roadmap */
@@ -321,7 +518,7 @@
         /* Mobile Responsive */
         @media (max-width: 768px) {
             .logo-image { max-width: 180px; }
-            .hero-grid, .showcase-grid, .vision-content { grid-template-columns: 1fr; text-align: center; }
+            .hero-grid, .showcase-grid, .vision-content, .histoire-content { grid-template-columns: 1fr; text-align: center; }
             .hero-text h1 { font-size: 2.5rem; }
             .email-form { margin: 0 auto; }
             .showcase-grid.reverse { direction: ltr; }
@@ -343,8 +540,29 @@
                 align-items: center;
             }
             
-            .vision-text h2 {
+            .vision-text h2, .histoire-text h2, .status .section-header h2 {
                 font-size: 2rem;
+            }
+            
+            .histoire-content {
+                gap: 40px;
+            }
+            
+            .histoire-image {
+                order: -1;
+            }
+            
+            .status-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .support h2 {
+                font-size: 2rem;
+            }
+            
+            .support-benefits {
+                flex-direction: column;
+                gap: 20px;
             }
         }
 
@@ -486,7 +704,153 @@
         </div>
     </section>
 
-    <!-- NEW: Vision Section -->
+    <!-- NEW: Mon Histoire Section -->
+    <section class="mon-histoire">
+        <div class="container">
+            <div class="histoire-content reveal">
+                <div class="histoire-image">
+                    <img src="assets/andrey.jpg" alt="Andrey" onerror="this.style.display='none'">
+                </div>
+                <div class="histoire-text">
+                    <h2>
+                        <span class="lang-fr">🚗 Mon Histoire</span>
+                        <span class="lang-en">🚗 My Story</span>
+                    </h2>
+                    <p>
+                        <span class="lang-fr">Après des années à suivre aveuglément mon GPS, j'ai réalisé que je ratais l'essentiel : les villages endormis, les chapelles oubliées, les points de vue extraordinaires — à quelques minutes de ma route.</span>
+                        <span class="lang-en">After years of blindly following my GPS, I realized I was missing the essence: sleepy villages, forgotten chapels, extraordinary viewpoints — just minutes from my route.</span>
+                    </p>
+                    <p>
+                        <span class="lang-fr">Guide du Détour est né d'une frustration simple : pourquoi nos applications nous font-elles gagner du temps, mais perdre tant de beauté ?</span>
+                        <span class="lang-en">Guide du Détour was born from a simple frustration: why do our apps save us time, but make us lose so much beauty?</span>
+                    </p>
+                    <p>
+                        <span class="lang-fr">Ce projet est développé avec soin, sans investisseurs, sans publicité intrusive. C'est un travail d'artisan numérique, pour ceux qui croient que le chemin compte autant que la destination.</span>
+                        <span class="lang-en">This project is crafted with care, without investors, without intrusive ads. It's digital craftsmanship, for those who believe the journey matters as much as the destination.</span>
+                    </p>
+                    <p class="signature">— Andrey</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW: Status Section -->
+    <section class="status">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2>
+                    <span class="lang-fr">📍 Où en est le projet ?</span>
+                    <span class="lang-en">📍 Project Status</span>
+                </h2>
+            </div>
+            <div class="status-grid">
+                <div class="status-card done reveal">
+                    <div class="status-icon">✅</div>
+                    <h3>
+                        <span class="lang-fr">Fait</span>
+                        <span class="lang-en">Done</span>
+                    </h3>
+                    <ul class="status-list">
+                        <li>
+                            <span class="lang-fr">Base de données : 24 000+ POI en France</span>
+                            <span class="lang-en">Database: 24,000+ POI in France</span>
+                        </li>
+                        <li>
+                            <span class="lang-fr">Algorithme de détours intelligent</span>
+                            <span class="lang-en">Smart detour algorithm</span>
+                        </li>
+                        <li>
+                            <span class="lang-fr">Interface utilisateur iOS</span>
+                            <span class="lang-en">iOS user interface</span>
+                        </li>
+                        <li>
+                            <span class="lang-fr">Panel d'administration</span>
+                            <span class="lang-en">Admin panel</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="status-card progress reveal">
+                    <div class="status-icon">🔄</div>
+                    <h3>
+                        <span class="lang-fr">En cours</span>
+                        <span class="lang-en">In Progress</span>
+                    </h3>
+                    <ul class="status-list">
+                        <li>
+                            <span class="lang-fr">Finalisation de l'interface</span>
+                            <span class="lang-en">Interface finalization</span>
+                        </li>
+                        <li>
+                            <span class="lang-fr">Enrichissement des descriptions (IA)</span>
+                            <span class="lang-en">AI-enriched descriptions</span>
+                        </li>
+                        <li>
+                            <span class="lang-fr">Préparation du lancement</span>
+                            <span class="lang-en">Launch preparation</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="status-card planned reveal">
+                    <div class="status-icon">📋</div>
+                    <h3>
+                        <span class="lang-fr">À venir</span>
+                        <span class="lang-en">Coming Soon</span>
+                    </h3>
+                    <ul class="status-list">
+                        <li>
+                            <span class="lang-fr">Mode hors connexion</span>
+                            <span class="lang-en">Offline mode</span>
+                        </li>
+                        <li>
+                            <span class="lang-fr">Audioguide intégré</span>
+                            <span class="lang-en">Built-in audioguide</span>
+                        </li>
+                        <li>
+                            <span class="lang-fr">Version Android</span>
+                            <span class="lang-en">Android version</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW: Support Section -->
+    <section class="support">
+        <div class="container reveal">
+            <h2>
+                <span class="lang-fr">💚 Soutenez le Projet</span>
+                <span class="lang-en">💚 Support the Project</span>
+            </h2>
+            <p>
+                <span class="lang-fr">Guide du Détour est financé par sa communauté. Rejoignez les premiers explorateurs !</span>
+                <span class="lang-en">Guide du Détour is community-funded. Join the first explorers!</span>
+            </p>
+            <div class="support-benefits">
+                <div class="support-benefit">
+                    <span>🚀</span>
+                    <span class="lang-fr">Lancer l'application sur l'App Store</span>
+                    <span class="lang-en">Launch the app on the App Store</span>
+                </div>
+                <div class="support-benefit">
+                    <span>📍</span>
+                    <span class="lang-fr">Enrichir la base de données</span>
+                    <span class="lang-en">Expand the database</span>
+                </div>
+                <div class="support-benefit">
+                    <span>✨</span>
+                    <span class="lang-fr">Développer de nouvelles fonctionnalités</span>
+                    <span class="lang-en">Develop new features</span>
+                </div>
+            </div>
+            <a href="https://www.ulule.com/guide-du-detour/" target="_blank" class="btn btn-ulule">
+                <span class="lang-fr">Soutenir sur Ulule</span>
+                <span class="lang-en">Support on Ulule</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Vision Section -->
     <section class="vision">
         <div class="container">
             <div class="vision-content reveal">
@@ -536,8 +900,8 @@
             <div class="section-header">
                 <h2 style="color: var(--accent-orange);">Roadmap</h2>
                 <p>
-                    <span class="lang-fr">Soutenez-nous sur KissKissBankBank :</span>
-                    <span class="lang-en">Support us on KissKissBankBank:</span>
+                    <span class="lang-fr">Les prochaines fonctionnalités :</span>
+                    <span class="lang-en">Upcoming features:</span>
                 </p>
             </div>
             <div class="roadmap-list">
@@ -565,6 +929,28 @@
                         <p class="lang-en" style="display:none">Alerts for local products and farmers.</p>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW: Contact Section -->
+    <section class="contact">
+        <div class="container">
+            <div class="contact-content reveal">
+                <h2>
+                    <span class="lang-fr">✉️ Contact</span>
+                    <span class="lang-en">✉️ Contact</span>
+                </h2>
+                <p>
+                    <span class="lang-fr">Une question ? Une suggestion ? Un lieu à partager ?</span>
+                    <span class="lang-en">A question? A suggestion? A place to share?</span>
+                </p>
+                <a href="mailto:andrey@guide-du-detour.fr" class="contact-email">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                    andrey@guide-du-detour.fr
+                </a>
             </div>
         </div>
     </section>
