@@ -1,1059 +1,1450 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guide du Détour - Ça vaut le détour</title>
-    <meta name="description" content="Guide du Détour : Transformez vos trajets en aventures. Découvrez les trésors cachés de la France.">
-    
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://guide-du-detour.fr/">
-    <meta property="og:title" content="Guide du Détour - Ça vaut le détour">
-    <meta property="og:description" content="Ne traversez plus la France sans la voir. Rejoignez le club des éclaireurs.">
-    <meta property="og:image" content="IMG_0641.jpg">
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:title" content="Guide du Détour">
-    <meta property="twitter:description" content="Transformez la route en aventure.">
-    <meta property="twitter:image" content="IMG_0641.jpg">
-    
-    <link rel="icon" type="image/jpeg" href="IMG_0289.jpeg">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-    
-    <style>
-        :root {
-            --bg-dark: #0f1216;
-            --bg-card: #1c1f26;
-            --accent-green: #2ecc71;
-            --accent-orange: #e67e22;
-            --text-white: #ffffff;
-            --text-gray: #a0a0a0;
-            --glass: rgba(255, 255, 255, 0.05);
-            --border-glass: rgba(255, 255, 255, 0.1);
-            --error-red: #e74c3c;
-            --bg-light: #f5f3ef;
-            --text-dark: #1a1a2e;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guide du Détour — Ça vaut le détour</title>
+<meta name="description" content="Guide du Détour : Transformez vos trajets en aventures. Découvrez les trésors cachés de la France.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://guide-du-detour.fr/">
+<meta property="og:title" content="Guide du Détour — Ça vaut le détour">
+<meta property="og:description" content="Ne traversez plus la France sans la voir. Rejoignez le club des éclaireurs.">
+<meta property="og:image" content="https://guide-du-detour.fr/og-app.jpg">
+<meta property="og:locale" content="fr_FR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Guide du Détour — Ça vaut le détour">
+<meta name="twitter:description" content="Transformez vos trajets en aventures.">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"MobileApplication","name":"Guide du Détour","operatingSystem":"iOS","applicationCategory":"TravelApplication","description":"Découvrez des trésors cachés le long de votre route.","offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"},"author":{"@type":"Organization","name":"Détours Studio","url":"https://guide-du-detour.fr"},"inLanguage":"fr","countriesSupported":"FR"}
+</script>
+<link rel="icon" type="image/jpeg" href="IMG_0289.jpeg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Source+Sans+3:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+<style>
+/* ═══════════════════════════════════════════════════════════════
+   DESIGN TOKENS
+   ═══════════════════════════════════════════════════════════════ */
+:root {
+  --forest-dark: #0F172A;
+  --forest: #1E293B;
+  --forest-mid: #334155;
+  --emerald: #4ADE80;
+  --emerald-glow: rgba(74, 222, 128, 0.25);
+  --gold: #FFD700;
+  --gold-soft: rgba(255, 215, 0, 0.15);
+  --warm-white: #FAF9F6;
+  --warm-100: #F5F3EF;
+  --stone: #8B8680;
+  --stone-light: #B5B0A8;
+  --ink: #1C1917;
+  --ink-soft: #44403C;
+  --accent-green: #2ecc71;
+  --accent-orange: #e67e22;
+  --error-red: #e74c3c;
+  --glass: rgba(255, 255, 255, 0.05);
+  --border-glass: rgba(255, 255, 255, 0.1);
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-dark);
-            color: var(--text-white);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body: 'Source Sans 3', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
 
-        h1, h2, h3, h4 { font-family: 'Playfair Display', serif; font-weight: 700; }
-        a { text-decoration: none; color: inherit; }
-        ul { list-style: none; }
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --nav-h: 64px;
+}
 
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+/* ═══════════════════════════════════════════════════════════════
+   RESET & BASE
+   ═══════════════════════════════════════════════════════════════ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+body { font-family: var(--font-body); color: var(--ink); background: var(--warm-white); overflow-x: hidden; line-height: 1.6; }
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; border: none; background: none; cursor: pointer; }
+ul { list-style: none; }
 
-        /* Кнопки */
-        .btn {
-            display: inline-block;
-            padding: 12px 30px;
-            border-radius: 50px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-            border: none;
-            font-size: 1rem;
-        }
+/* Grain overlay */
+body::after {
+  content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 9999; opacity: 0.028;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+}
+:focus-visible { outline: 2px solid var(--emerald); outline-offset: 3px; border-radius: 4px; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  html { scroll-behavior: auto; }
+}
 
-        .btn-primary {
-            background: linear-gradient(135deg, var(--accent-green), #27ae60);
-            color: white;
-            box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3);
-        }
-        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(46, 204, 113, 0.4); }
-        
-        .btn-secondary {
-            background: transparent;
-            color: var(--text-dark);
-            border: 2px solid var(--text-dark);
-        }
-        .btn-secondary:hover { 
-            background: var(--text-dark); 
-            color: white;
-        }
-        
-        .btn-light {
-            background: transparent;
-            color: white;
-            border: 2px solid white;
-        }
-        .btn-light:hover { 
-            background: white; 
-            color: var(--text-dark);
-        }
-        
-        .btn-cta {
-            background: linear-gradient(135deg, var(--accent-orange), #d35400);
-            color: white;
-            box-shadow: 0 4px 15px rgba(230, 126, 34, 0.3);
-            font-size: 1.1rem;
-            padding: 15px 40px;
-        }
-        .btn-cta:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(230, 126, 34, 0.4); }
-        
-        .btn:disabled {
-            opacity: 0.7;
-            cursor: not-allowed;
-            transform: none !important;
-        }
+/* Lang toggle */
+body.fr .lang-en { display: none !important; }
+body.en .lang-fr { display: none !important; }
 
-        /* Header */
-        header { padding: 15px 0; position: absolute; width: 100%; top: 0; z-index: 10; }
-        .nav-content { display: flex; justify-content: space-between; align-items: center; }
-        
-        .logo-container { display: flex; align-items: center; }
-        .logo-image {
-            max-width: 220px;
-            height: auto;
-            display: block;
-        }
+/* ═══════════════════════════════════════════════════════════════
+   TYPOGRAPHY UTILITIES
+   ═══════════════════════════════════════════════════════════════ */
+.t-display { font-family: var(--font-display); font-weight: 700; line-height: 1.1; letter-spacing: -0.02em; }
+.t-label { font-family: var(--font-mono); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--emerald); }
 
-        .lang-switch {
-            background: var(--glass); padding: 5px 15px; border-radius: 20px;
-            border: 1px solid var(--border-glass); cursor: pointer; font-size: 0.9rem;
-        }
-        .lang-switch span.active { color: var(--accent-green); font-weight: bold; }
+/* ═══════════════════════════════════════════════════════════════
+   LAYOUT
+   ═══════════════════════════════════════════════════════════════ */
+.container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+.section-pad { padding: 100px 0; }
+.section-pad-lg { padding: 140px 0; }
 
-        /* Hero Section */
-        .hero {
-            min-height: 100vh; display: flex; align-items: center; position: relative;
-            background: radial-gradient(circle at top right, #1a2530 0%, var(--bg-dark) 60%);
-            padding-top: 100px;
-        }
-        .hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
-        
-        .hero-text h1 {
-            font-size: 3.5rem; line-height: 1.1; margin-bottom: 20px;
-            background: linear-gradient(to right, #fff, #b0b0b0);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-        }
+/* ═══════════════════════════════════════════════════════════════
+   NAVIGATION
+   ═══════════════════════════════════════════════════════════════ */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; height: var(--nav-h); z-index: 1000;
+  display: flex; align-items: center; justify-content: space-between; padding: 0 32px;
+  transition: background 0.4s, box-shadow 0.4s, backdrop-filter 0.4s;
+}
+.nav.scrolled {
+  background: rgba(15, 23, 42, 0.82); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+  box-shadow: 0 1px 0 rgba(255,255,255,0.06);
+}
+.nav-logo { display: flex; align-items: center; gap: 10px; }
+.nav-logo img { max-width: 160px; height: auto; }
+.nav-right { display: flex; align-items: center; gap: 20px; }
+.nav-links { display: flex; align-items: center; gap: 24px; }
+.nav-links a { font-size: 0.9rem; font-weight: 500; color: rgba(255,255,255,0.7); transition: color 0.25s; }
+.nav-links a:hover { color: #fff; }
+.lang-switch {
+  background: var(--glass); padding: 5px 15px; border-radius: 20px;
+  border: 1px solid var(--border-glass); cursor: pointer; font-size: 0.85rem; color: rgba(255,255,255,0.6);
+}
+.lang-switch span.active { color: var(--emerald); font-weight: bold; }
+.nav-hamburger { display: none; flex-direction: column; gap: 5px; padding: 8px; }
+.nav-hamburger span { display: block; width: 22px; height: 2px; background: #fff; border-radius: 2px; transition: transform 0.3s, opacity 0.3s; }
+.nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-hamburger.open span:nth-child(2) { opacity: 0; }
+.nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-        .hero-text p { font-size: 1.2rem; color: var(--text-gray); margin-bottom: 40px; }
-        
-        .email-form {
-            display: flex; gap: 10px; background: var(--glass); padding: 5px;
-            border-radius: 50px; border: 1px solid var(--border-glass);
-            max-width: 450px; backdrop-filter: blur(10px);
-            position: relative;
-        }
-        .email-form input {
-            background: transparent; border: none; padding: 15px 20px;
-            color: white; flex-grow: 1; outline: none; font-size: 1rem;
-        }
-        
-        .form-message {
-            margin-top: 15px;
-            font-size: 0.9rem;
-            display: none;
-        }
-        .form-message.success { color: var(--accent-green); }
-        .form-message.error { color: var(--error-red); }
+/* ═══════════════════════════════════════════════════════════════
+   HERO SECTION
+   ═══════════════════════════════════════════════════════════════ */
+.hero {
+  position: relative; min-height: 100vh; display: flex; align-items: center; justify-content: center;
+  overflow: hidden; background: var(--forest-dark); color: #fff; padding-top: var(--nav-h);
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 40%, rgba(74, 222, 128, 0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 80% 60%, rgba(56, 189, 248, 0.06) 0%, transparent 50%),
+    radial-gradient(ellipse 100% 80% at 50% 100%, rgba(30, 41, 59, 0.8) 0%, transparent 60%),
+    var(--forest-dark);
+  animation: meshShift 20s ease-in-out infinite alternate;
+}
+@keyframes meshShift {
+  0% { background-position: 0% 0%, 100% 100%, 50% 100%; }
+  100% { background-position: 30% 20%, 70% 80%, 50% 100%; }
+}
+.hero-content {
+  position: relative; z-index: 2; text-align: center; padding: 60px 24px 80px;
+  display: flex; flex-direction: column; align-items: center; gap: 24px;
+}
+.hero-label {
+  display: inline-block; padding: 6px 16px; border: 1px solid rgba(74, 222, 128, 0.3);
+  border-radius: 100px; font-family: var(--font-mono); font-size: 0.75rem;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--emerald);
+  animation: heroFadeUp 0.8s 0.3s var(--ease-out-expo) both;
+}
+.hero h1 {
+  font-family: var(--font-display); font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 800;
+  line-height: 1.08; letter-spacing: -0.03em; max-width: 700px;
+  animation: heroFadeUp 1s 0.5s var(--ease-out-expo) both;
+}
+.hero h1 em {
+  font-style: normal; background: linear-gradient(135deg, #4ADE80, #86EFAC);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.hero-sub {
+  font-size: clamp(1.05rem, 2vw, 1.3rem); font-weight: 300; line-height: 1.6;
+  max-width: 540px; color: rgba(255,255,255,0.65);
+  animation: heroFadeUp 0.8s 0.8s var(--ease-out-expo) both;
+}
+.hero-actions {
+  display: flex; flex-direction: column; align-items: center; gap: 20px; margin-top: 8px;
+  animation: heroFadeUp 0.8s 1s var(--ease-out-expo) both;
+}
+/* Email waitlist form */
+.email-form {
+  display: flex; gap: 8px; background: var(--glass); padding: 5px;
+  border-radius: 50px; border: 1px solid var(--border-glass); max-width: 450px;
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+}
+.email-form input {
+  background: transparent; border: none; padding: 14px 20px; color: white;
+  flex-grow: 1; outline: none; font-size: 1rem; font-family: var(--font-body);
+}
+.email-form input::placeholder { color: rgba(255,255,255,0.35); }
+.email-form .btn-submit {
+  padding: 12px 28px; border-radius: 50px; font-weight: 600; font-size: 0.95rem;
+  background: linear-gradient(135deg, var(--emerald), #22c55e); color: #fff;
+  border: none; cursor: pointer; transition: transform 0.25s, box-shadow 0.25s; white-space: nowrap;
+}
+.email-form .btn-submit:hover { transform: translateY(-1px); box-shadow: 0 4px 20px var(--emerald-glow); }
+.email-form .btn-submit:disabled { opacity: 0.7; cursor: not-allowed; transform: none !important; }
+.form-message { margin-top: 12px; font-size: 0.9rem; display: none; }
+.form-message.success { color: var(--emerald); }
+.form-message.error { color: var(--error-red); }
 
-        .mockup-container { text-align: center; position: relative; }
-        .phone-mockup {
-            width: 280px; border-radius: 40px; border: 8px solid #2d3436;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-            aspect-ratio: 9/19.5; background-size: cover; background-position: center;
-            display: block; margin: 0 auto;
-            background-color: #000;
-        }
+/* iPhone Mockup */
+.hero-device { position: relative; margin-top: 40px; animation: heroFadeUp 1.2s 1.1s var(--ease-out-expo) both; }
+.device { position: relative; width: 260px; transform: perspective(1200px) rotateY(-8deg) rotateX(4deg); transition: transform 1.2s var(--ease-out-expo); }
+.device-frame {
+  position: relative; padding: 10px; background: #1a1a1a; border-radius: 40px;
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.1), 0 30px 80px rgba(0,0,0,0.5), 0 0 0 4px #0a0a0a, inset 0 0 2px rgba(255,255,255,0.05);
+}
+.device-notch { position: absolute; top: 10px; left: 50%; transform: translateX(-50%); width: 90px; height: 26px; background: #1a1a1a; border-radius: 0 0 16px 16px; z-index: 3; }
+.device-screen {
+  position: relative; width: 100%; aspect-ratio: 9/19.5; border-radius: 32px; overflow: hidden;
+  background: linear-gradient(170deg, #1E293B 0%, #0F172A 30%, #1E293B 60%, #0F172A 100%);
+}
+.device-screen img { width: 100%; height: 100%; object-fit: cover; border-radius: 32px; }
+/* Placeholder screen when no screenshot */
+.device-screen-placeholder {
+  position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 20px 20px;
+}
+.screen-map { position: absolute; inset: 0; background: radial-gradient(circle at 40% 55%, rgba(74, 222, 128, 0.2) 0%, transparent 40%), linear-gradient(170deg, #1E293B, #0F172A); }
+.screen-route { position: absolute; top: 35%; left: 20%; width: 60%; height: 40%; border: 2px solid var(--emerald); border-radius: 30% 70% 50% 50%; opacity: 0.4; transform: rotate(-15deg); }
+.screen-pin { position: absolute; width: 12px; height: 12px; background: var(--emerald); border-radius: 50%; box-shadow: 0 0 8px var(--emerald-glow); }
+.screen-pin::after { content: ''; position: absolute; inset: -4px; border: 2px solid rgba(74, 222, 128, 0.3); border-radius: 50%; animation: pingPin 2s ease-out infinite; }
+@keyframes pingPin { 0% { transform: scale(1); opacity: 0.6; } 100% { transform: scale(2.5); opacity: 0; } }
+.screen-pin-1 { top: 30%; left: 35%; }
+.screen-pin-2 { top: 50%; left: 55%; }
+.screen-pin-3 { top: 65%; left: 40%; animation-delay: 0.5s; }
+.screen-pin-gold { background: var(--gold); box-shadow: 0 0 8px rgba(255,215,0,0.4); }
+.screen-pin-gold::after { border-color: rgba(255,215,0,0.3); }
+.screen-bottom-bar {
+  position: absolute; bottom: 16px; left: 16px; right: 16px; height: 48px;
+  background: rgba(255,255,255,0.08); backdrop-filter: blur(12px); border-radius: 14px;
+  display: flex; align-items: center; padding: 0 14px; gap: 10px;
+}
+.screen-bar-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--emerald); }
+.screen-bar-line { flex: 1; height: 4px; background: rgba(255,255,255,0.15); border-radius: 2px; }
+.screen-bar-line-short { flex: 0.4; }
 
-        /* Features */
-        .features { padding: 80px 0; background: var(--bg-dark); }
-        .section-header { text-align: center; margin-bottom: 60px; }
-        .section-header h2 { font-size: 2.5rem; margin-bottom: 15px; }
-        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-        .feature-card {
-            background: var(--bg-card); padding: 30px; border-radius: 20px;
-            border: 1px solid var(--border-glass); transition: transform 0.3s;
-        }
-        .feature-card:hover { transform: translateY(-5px); border-color: var(--accent-green); }
-        .icon-box { font-size: 2rem; margin-bottom: 20px; color: var(--accent-green); }
-        
-        .tag-container { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 15px; }
-        .tag { font-size: 0.8rem; padding: 5px 12px; border-radius: 15px; background: rgba(255,255,255,0.1); color: #ccc; }
-        .tag.hedonisme { color: #d63031; background: rgba(214, 48, 49, 0.1); }
-        .tag.histoire { color: var(--accent-orange); background: rgba(230, 126, 34, 0.1); }
+@keyframes heroFadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Showcase */
-        .showcase { padding: 80px 0; }
-        .showcase-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; margin-bottom: 100px; }
-        .showcase-grid.reverse { direction: rtl; } 
-        .showcase-grid.reverse > * { direction: ltr; }
-        
-        .screenshot-box img {
-            max-width: 300px; border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.6);
-            border: 1px solid var(--border-glass);
-            display: block; margin: 0 auto;
-        }
+.scroll-hint { position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 8px; opacity: 0; animation: fadeInHint 1s 2.5s forwards; }
+@keyframes fadeInHint { to { opacity: 0.5; } }
+.scroll-hint span { font-size: 0.7rem; font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.15em; color: rgba(255,255,255,0.4); }
+.scroll-arrow { width: 20px; height: 20px; border-right: 1.5px solid rgba(255,255,255,0.4); border-bottom: 1.5px solid rgba(255,255,255,0.4); transform: rotate(45deg); animation: bounceArrow 2s ease-in-out infinite; }
+@keyframes bounceArrow { 0%, 100% { transform: rotate(45deg) translateY(0); } 50% { transform: rotate(45deg) translateY(6px); } }
 
-        /* Vision Section */
-        .vision {
-            padding: 100px 0;
-            background: var(--bg-light);
-            color: var(--text-dark);
-        }
-        
-        .vision-content {
-            display: grid;
-            grid-template-columns: 1fr 1.2fr;
-            gap: 60px;
-            align-items: center;
-        }
-        
-        .vision-text h2 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            color: var(--text-dark);
-        }
-        
-        .vision-text p {
-            font-size: 1.1rem;
-            color: #555;
-            margin-bottom: 30px;
-            line-height: 1.8;
-        }
-        
-        .vision-cta {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        
-        .vision-cta .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .vision-cta .btn svg {
-            width: 20px;
-            height: 20px;
-        }
-        
-        .presentation-preview {
-            position: relative;
-        }
-        
-        .presentation-card {
-            background: white;
-            border-radius: 16px;
-            box-shadow: 0 25px 80px rgba(0,0,0,0.15);
-            overflow: hidden;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        
-        .presentation-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 35px 100px rgba(0,0,0,0.2);
-        }
-        
-        .presentation-card a {
-            display: block;
-        }
-        
-        .presentation-card img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-        
-        .presentation-card-footer {
-            padding: 20px 25px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-top: 1px solid #eee;
-        }
-        
-        .presentation-info {
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .presentation-info span:first-child {
-            font-weight: 600;
-            color: var(--text-dark);
-        }
-        
-        .presentation-info span:last-child {
-            font-size: 0.85rem;
-            color: #888;
-        }
-        
-        .presentation-badge {
-            background: linear-gradient(135deg, var(--accent-green), #27ae60);
-            color: white;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 600;
-        }
+/* ═══════════════════════════════════════════════════════════════
+   STATS
+   ═══════════════════════════════════════════════════════════════ */
+.stats { background: var(--warm-white); padding: 72px 0; border-bottom: 1px solid rgba(0,0,0,0.04); }
+.stats-grid { display: flex; justify-content: center; gap: 64px; flex-wrap: wrap; }
+.stat-item { text-align: center; }
+.stat-number { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 700; color: var(--forest); line-height: 1; }
+.stat-label { margin-top: 6px; font-size: 0.85rem; color: var(--stone); }
 
-        /* Mon Histoire Section - NEW */
-        .mon-histoire {
-            padding: 100px 0;
-            background: var(--bg-dark);
-        }
-        
-        .histoire-content {
-            display: grid;
-            grid-template-columns: 1fr 1.5fr;
-            gap: 60px;
-            align-items: center;
-        }
-        
-        .histoire-image {
-            text-align: center;
-        }
-        
-        .histoire-image img {
-            width: 250px;
-            height: 250px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 4px solid var(--accent-green);
-            box-shadow: 0 20px 60px rgba(46, 204, 113, 0.2);
-        }
-        
-        .histoire-text h2 {
-            font-size: 2.5rem;
-            margin-bottom: 30px;
-            color: white;
-        }
-        
-        .histoire-text p {
-            font-size: 1.1rem;
-            color: var(--text-gray);
-            margin-bottom: 20px;
-            line-height: 1.9;
-        }
-        
-        .histoire-text .signature {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.3rem;
-            color: var(--accent-green);
-            margin-top: 30px;
-        }
+/* ═══════════════════════════════════════════════════════════════
+   STEPS (Pinned scroll)
+   ═══════════════════════════════════════════════════════════════ */
+.steps { position: relative; background: var(--warm-white); }
+.steps-header { text-align: center; padding: 80px 24px 40px; }
+.steps-header h2 { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; color: var(--ink); }
+.steps-pin-area { position: relative; height: 300vh; }
+.steps-sticky { position: sticky; top: 0; height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.steps-inner { display: flex; align-items: center; gap: 80px; max-width: 1100px; padding: 0 24px; width: 100%; }
+.steps-device { flex-shrink: 0; width: 260px; }
+.steps-device .device { transform: perspective(1200px) rotateY(0deg); }
+.steps-screens { position: relative; width: 100%; aspect-ratio: 9/19.5; border-radius: 32px; overflow: hidden; }
+.step-screen { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 16px 24px; opacity: 0; transition: opacity 0.6s; }
+.step-screen.active { opacity: 1; }
+.step-screen-1 { background: linear-gradient(170deg, #1E293B, #0F172A); }
+.step-screen-2 { background: linear-gradient(170deg, #1E293B, #0F172A); }
+.step-screen-3 { background: linear-gradient(170deg, #0F172A, #1E293B); }
+/* Fake UI elements */
+.screen-search-bar { width: 85%; height: 36px; background: rgba(255,255,255,0.08); border-radius: 10px; margin-bottom: 16px; display: flex; align-items: center; padding: 0 12px; gap: 8px; }
+.screen-search-icon { width: 14px; height: 14px; border: 1.5px solid rgba(255,255,255,0.3); border-radius: 50%; }
+.screen-search-text { height: 4px; width: 60%; background: rgba(255,255,255,0.12); border-radius: 2px; }
+.screen-route-info { width: 85%; padding: 12px; background: rgba(255,255,255,0.06); border-radius: 12px; margin-top: 12px; }
+.screen-route-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+.screen-route-dot { width: 8px; height: 8px; border-radius: 50%; border: 2px solid var(--emerald); }
+.screen-route-dot.dest { background: var(--emerald); }
+.screen-route-line-v { width: 2px; height: 16px; background: rgba(255,255,255,0.1); margin-left: 3px; }
+.screen-text-line { height: 4px; border-radius: 2px; background: rgba(255,255,255,0.15); }
+.screen-text-line.w60 { width: 60%; } .screen-text-line.w40 { width: 40%; } .screen-text-line.w80 { width: 80%; }
+.screen-nav-arrow { width: 40px; height: 40px; background: var(--emerald); border-radius: 50%; margin-bottom: 12px; position: relative; }
+.screen-nav-arrow::after { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -60%) rotate(-45deg); width: 12px; height: 12px; border-top: 2.5px solid #fff; border-right: 2.5px solid #fff; }
+.screen-nav-distance { font-family: var(--font-display); font-size: 1.5rem; color: #fff; font-weight: 700; }
+.screen-nav-street { font-size: 0.7rem; color: rgba(255,255,255,0.5); margin-top: 2px; }
+.screen-poi-popup { width: 85%; padding: 10px; background: rgba(255,255,255,0.1); backdrop-filter: blur(8px); border-radius: 12px; margin-top: 16px; display: flex; align-items: center; gap: 10px; }
+.screen-poi-thumb { width: 36px; height: 36px; border-radius: 8px; background: linear-gradient(135deg, var(--gold), #f59e0b); flex-shrink: 0; }
+.screen-poi-info { flex: 1; }
+.screen-poi-name { height: 4px; width: 70%; background: rgba(255,255,255,0.3); border-radius: 2px; margin-bottom: 4px; }
+.screen-poi-dist { height: 3px; width: 40%; background: rgba(255,255,255,0.12); border-radius: 2px; }
 
-        /* Status Section - NEW */
-        .status {
-            padding: 100px 0;
-            background: linear-gradient(135deg, #1a2530 0%, var(--bg-dark) 100%);
-        }
-        
-        .status-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-        }
-        
-        .status-card {
-            background: var(--bg-card);
-            padding: 40px 30px;
-            border-radius: 20px;
-            border: 1px solid var(--border-glass);
-            text-align: center;
-        }
-        
-        .status-card.done { border-top: 4px solid var(--accent-green); }
-        .status-card.progress { border-top: 4px solid var(--accent-orange); }
-        .status-card.planned { border-top: 4px solid #9b59b6; }
-        
-        .status-icon {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-        }
-        
-        .status-card h3 {
-            font-size: 1.3rem;
-            margin-bottom: 20px;
-            color: white;
-        }
-        
-        .status-card.done h3 { color: var(--accent-green); }
-        .status-card.progress h3 { color: var(--accent-orange); }
-        .status-card.planned h3 { color: #9b59b6; }
-        
-        .status-list {
-            text-align: left;
-        }
-        
-        .status-list li {
-            padding: 10px 0;
-            border-bottom: 1px solid var(--border-glass);
-            color: var(--text-gray);
-            font-size: 0.95rem;
-        }
-        
-        .status-list li:last-child {
-            border-bottom: none;
-        }
+.steps-text { flex: 1; min-width: 0; }
+.step-content { position: absolute; opacity: 0; transform: translateY(20px); transition: opacity 0.5s, transform 0.5s var(--ease-out-expo); }
+.step-content.active { position: relative; opacity: 1; transform: translateY(0); }
+.step-number { font-family: var(--font-mono); font-size: 0.75rem; color: var(--emerald); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 16px; }
+.step-title { font-family: var(--font-display); font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 700; color: var(--ink); margin-bottom: 16px; line-height: 1.15; }
+.step-desc { font-size: 1.05rem; color: var(--ink-soft); line-height: 1.7; max-width: 440px; }
+.steps-progress { position: absolute; right: 40px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 12px; z-index: 5; }
+.steps-progress-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(0,0,0,0.1); transition: background 0.4s, transform 0.4s; }
+.steps-progress-dot.active { background: var(--emerald); transform: scale(1.4); }
 
-        /* Support Section - NEW */
-        .support {
-            padding: 100px 0;
-            background: linear-gradient(135deg, var(--accent-green), #27ae60);
-            text-align: center;
-        }
-        
-        .support h2 {
-            font-size: 2.8rem;
-            color: white;
-            margin-bottom: 20px;
-        }
-        
-        .support p {
-            font-size: 1.2rem;
-            color: rgba(255,255,255,0.9);
-            margin-bottom: 40px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        
-        .support-benefits {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            margin-bottom: 50px;
-            flex-wrap: wrap;
-        }
-        
-        .support-benefit {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: white;
-            font-size: 1rem;
-        }
-        
-        .support-benefit span {
-            font-size: 1.5rem;
-        }
-        
-        .btn-ulule {
-            background: white;
-            color: var(--accent-green);
-            font-size: 1.2rem;
-            padding: 18px 50px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-        
-        .btn-ulule:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
-        }
+/* ═══════════════════════════════════════════════════════════════
+   5 UNIVERS
+   ═══════════════════════════════════════════════════════════════ */
+.univers { background: var(--forest-dark); color: #fff; overflow: hidden; }
+.univers-header { text-align: center; margin-bottom: 56px; }
+.univers-header h2 { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; }
+.univers-header p { margin-top: 16px; font-size: 1.1rem; color: rgba(255,255,255,0.5); max-width: 500px; margin-inline: auto; }
+.univers-scroll { display: flex; gap: 20px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 0 24px 24px; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+.univers-scroll::-webkit-scrollbar { display: none; }
+.univers-card { flex-shrink: 0; width: 240px; scroll-snap-align: start; padding: 28px 24px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.06); background: rgba(255,255,255,0.03); transition: transform 0.4s var(--ease-out-expo), background 0.4s, border-color 0.4s; cursor: default; }
+.univers-card:hover { transform: translateY(-6px); background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.12); }
+.univers-icon { width: 48px; height: 48px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 20px; }
+.univers-card h3 { font-family: var(--font-display); font-size: 1.15rem; font-weight: 700; margin-bottom: 8px; }
+.univers-card p { font-size: 0.85rem; color: rgba(255,255,255,0.45); line-height: 1.5; }
+.univers-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+.univers-tag { font-family: var(--font-mono); font-size: 0.65rem; padding: 3px 8px; border-radius: 6px; background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.5); }
+.univers-nature .univers-icon { background: rgba(34, 139, 34, 0.15); color: #228B22; }
+.univers-history .univers-icon { background: rgba(139, 69, 19, 0.15); color: #8B4513; }
+.univers-hedonism .univers-icon { background: rgba(114, 47, 55, 0.15); color: #722F37; }
+.univers-curiosity .univers-icon { background: rgba(65, 105, 225, 0.15); color: #4169E1; }
+.univers-services .univers-icon { background: rgba(255, 140, 0, 0.15); color: #FF8C00; }
 
-        /* Contact Section - NEW */
-        .contact {
-            padding: 80px 0;
-            background: var(--bg-dark);
-        }
-        
-        .contact-content {
-            max-width: 600px;
-            margin: 0 auto;
-            text-align: center;
-        }
-        
-        .contact h2 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-        }
-        
-        .contact p {
-            color: var(--text-gray);
-            margin-bottom: 40px;
-        }
-        
-        .contact-email {
-            display: inline-flex;
-            align-items: center;
-            gap: 15px;
-            background: var(--bg-card);
-            padding: 20px 40px;
-            border-radius: 50px;
-            border: 1px solid var(--border-glass);
-            color: var(--accent-green);
-            font-size: 1.1rem;
-            transition: all 0.3s;
-        }
-        
-        .contact-email:hover {
-            border-color: var(--accent-green);
-            transform: translateY(-2px);
-        }
-        
-        .contact-email svg {
-            width: 24px;
-            height: 24px;
-        }
+/* ═══════════════════════════════════════════════════════════════
+   VILLAGES CLASSÉS
+   ═══════════════════════════════════════════════════════════════ */
+.villages { background: var(--warm-white); overflow: hidden; }
+.villages-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+.villages-text .t-label { margin-bottom: 16px; display: block; color: var(--gold); }
+.villages-text h2 { font-family: var(--font-display); font-size: clamp(2rem, 3.5vw, 2.8rem); font-weight: 700; color: var(--ink); margin-bottom: 20px; line-height: 1.15; }
+.villages-text p { font-size: 1.05rem; color: var(--ink-soft); line-height: 1.7; margin-bottom: 24px; }
+.villages-stat { display: inline-flex; align-items: baseline; gap: 8px; }
+.villages-stat-num { font-family: var(--font-display); font-size: 2.5rem; font-weight: 700; color: var(--gold); }
+.villages-stat-label { font-size: 0.95rem; color: var(--stone); }
+.villages-map { position: relative; display: flex; align-items: center; justify-content: center; }
+.france-map-svg { width: 100%; max-width: 420px; }
+.france-map-svg .outline { fill: none; stroke: rgba(0,0,0,0.06); stroke-width: 1.5; }
+.france-map-svg .fill-area { fill: var(--warm-100); }
+.village-dot { fill: var(--gold); cursor: pointer; transition: r 0.3s var(--ease-out-expo); filter: drop-shadow(0 0 3px rgba(255,215,0,0.4)); }
+.village-dot:hover { r: 6; }
+.village-label { font-family: var(--font-body); font-size: 9px; fill: var(--ink); opacity: 0; transition: opacity 0.25s; pointer-events: none; font-weight: 600; }
+.village-dot:hover + .village-label, .village-group:hover .village-label { opacity: 1; }
 
-        /* Roadmap */
-        .roadmap { padding: 80px 0; background: linear-gradient(to bottom, var(--bg-dark), #05070a); }
-        .roadmap-list { max-width: 800px; margin: 0 auto; }
-        .roadmap-item {
-            display: flex; gap: 20px; margin-bottom: 20px; background: var(--glass);
-            padding: 20px; border-radius: 15px; border-left: 4px solid var(--accent-green);
-        }
+/* ═══════════════════════════════════════════════════════════════
+   SCREENSHOTS CAROUSEL
+   ═══════════════════════════════════════════════════════════════ */
+.screenshots { background: var(--forest-dark); color: #fff; overflow: hidden; }
+.screenshots-header { text-align: center; margin-bottom: 56px; }
+.screenshots-header h2 { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; }
+.screenshots-header p { margin-top: 12px; color: rgba(255,255,255,0.5); font-size: 1.05rem; }
+.carousel { display: flex; gap: 24px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 0 max(24px, calc((100vw - 1200px)/2)) 32px; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+.carousel::-webkit-scrollbar { display: none; }
+.carousel-item { flex-shrink: 0; scroll-snap-align: center; text-align: center; }
+.carousel-device { width: 220px; }
+.carousel-device .device-frame { padding: 8px; border-radius: 34px; box-shadow: 0 0 0 1px rgba(255,255,255,0.08), 0 20px 60px rgba(0,0,0,0.4); }
+.carousel-device .device-notch { top: 8px; width: 76px; height: 22px; border-radius: 0 0 14px 14px; }
+.carousel-device .device-screen { border-radius: 28px; }
+.carousel-label { margin-top: 16px; font-size: 0.85rem; color: rgba(255,255,255,0.5); font-weight: 500; }
+.screen-placeholder { position: absolute; inset: 0; display: flex; flex-direction: column; padding: 36px 14px 14px; gap: 8px; }
+.screen-ph-bar { height: 4px; border-radius: 2px; background: rgba(255,255,255,0.1); }
+.screen-ph-card { flex: 1; border-radius: 12px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06); }
 
-        /* Footer */
-        footer { padding: 50px 0; text-align: center; border-top: 1px solid var(--border-glass); color: var(--text-gray); }
+/* ═══════════════════════════════════════════════════════════════
+   MON HISTOIRE
+   ═══════════════════════════════════════════════════════════════ */
+.mon-histoire { background: var(--warm-white); }
+.histoire-layout { display: grid; grid-template-columns: auto 1fr; gap: 60px; align-items: center; }
+.histoire-image img { width: 200px; height: 200px; border-radius: 50%; object-fit: cover; border: 4px solid var(--emerald); box-shadow: 0 20px 60px rgba(74,222,128,0.15); }
+.histoire-text h2 { font-family: var(--font-display); font-size: clamp(1.8rem, 3vw, 2.5rem); font-weight: 700; color: var(--ink); margin-bottom: 24px; }
+.histoire-text p { font-size: 1.05rem; color: var(--ink-soft); margin-bottom: 16px; line-height: 1.8; }
+.histoire-text .signature { font-family: var(--font-display); font-size: 1.3rem; color: var(--emerald); margin-top: 24px; }
 
-        /* Animations */
-        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
-        .reveal.active { opacity: 1; transform: translateY(0); }
+/* ═══════════════════════════════════════════════════════════════
+   BADGES / GAMIFICATION
+   ═══════════════════════════════════════════════════════════════ */
+.badges { background: var(--warm-white); }
+.badges-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+.badges-text .t-label { margin-bottom: 16px; display: block; }
+.badges-text h2 { font-family: var(--font-display); font-size: clamp(2rem, 3.5vw, 2.8rem); font-weight: 700; color: var(--ink); margin-bottom: 16px; line-height: 1.15; }
+.badges-text p { font-size: 1.05rem; color: var(--ink-soft); line-height: 1.7; }
+.badges-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.badge-item { text-align: center; padding: 20px 12px; border-radius: 16px; background: #fff; border: 1px solid rgba(0,0,0,0.04); box-shadow: 0 2px 8px rgba(0,0,0,0.03); transition: transform 0.4s var(--ease-out-expo), box-shadow 0.4s; cursor: default; }
+.badge-item:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+.badge-icon { width: 48px; height: 48px; border-radius: 50%; margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; background: var(--warm-100); }
+.badge-name { font-size: 0.78rem; font-weight: 600; color: var(--ink); }
+.badge-desc { font-size: 0.68rem; color: var(--stone); margin-top: 3px; line-height: 1.3; }
 
-        /* Mobile Responsive */
-        @media (max-width: 768px) {
-            .logo-image { max-width: 180px; }
-            .hero-grid, .showcase-grid, .vision-content, .histoire-content { grid-template-columns: 1fr; text-align: center; }
-            .hero-text h1 { font-size: 2.5rem; }
-            .email-form { margin: 0 auto; }
-            .showcase-grid.reverse { direction: ltr; }
-            
-            .vision-content {
-                gap: 40px;
-            }
-            
-            .vision-text {
-                order: 1;
-            }
-            
-            .presentation-preview {
-                order: 2;
-            }
-            
-            .vision-cta {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .vision-text h2, .histoire-text h2, .status .section-header h2 {
-                font-size: 2rem;
-            }
-            
-            .histoire-content {
-                gap: 40px;
-            }
-            
-            .histoire-image {
-                order: -1;
-            }
-            
-            .status-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .support h2 {
-                font-size: 2rem;
-            }
-            
-            .support-benefits {
-                flex-direction: column;
-                gap: 20px;
-            }
-        }
+/* ═══════════════════════════════════════════════════════════════
+   PRIVACY
+   ═══════════════════════════════════════════════════════════════ */
+.privacy { background: var(--forest-dark); color: #fff; }
+.privacy-inner { text-align: center; max-width: 700px; margin: 0 auto; }
+.privacy-inner h2 { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 2.8rem); font-weight: 700; margin-bottom: 16px; }
+.privacy-inner > p { color: rgba(255,255,255,0.5); font-size: 1.05rem; margin-bottom: 48px; }
+.privacy-features { display: flex; justify-content: center; gap: 48px; flex-wrap: wrap; }
+.privacy-feature { text-align: center; max-width: 180px; }
+.privacy-icon { width: 56px; height: 56px; border-radius: 16px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin: 0 auto 14px; }
+.privacy-feature h3 { font-size: 0.95rem; font-weight: 600; margin-bottom: 6px; }
+.privacy-feature p { font-size: 0.82rem; color: rgba(255,255,255,0.4); line-height: 1.5; }
 
-        /* Lang Logic */
-        body.fr .lang-en { display: none; }
-        body.en .lang-fr { display: none; }
-    </style>
+/* ═══════════════════════════════════════════════════════════════
+   FAQ
+   ═══════════════════════════════════════════════════════════════ */
+.faq { background: var(--warm-white); }
+.faq-inner { max-width: 680px; margin: 0 auto; }
+.faq-header { text-align: center; margin-bottom: 48px; }
+.faq-header h2 { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 2.8rem); font-weight: 700; color: var(--ink); }
+.faq-item { border-bottom: 1px solid rgba(0,0,0,0.06); }
+.faq-question { width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 20px 0; text-align: left; font-size: 1rem; font-weight: 600; color: var(--ink); gap: 16px; }
+.faq-icon { flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%; border: 1.5px solid rgba(0,0,0,0.12); position: relative; transition: transform 0.35s var(--ease-out-expo), border-color 0.35s; }
+.faq-icon::before, .faq-icon::after { content: ''; position: absolute; top: 50%; left: 50%; background: var(--ink-soft); border-radius: 1px; }
+.faq-icon::before { width: 10px; height: 1.5px; transform: translate(-50%, -50%); }
+.faq-icon::after { width: 1.5px; height: 10px; transform: translate(-50%, -50%); transition: transform 0.35s var(--ease-out-expo), opacity 0.35s; }
+.faq-item.open .faq-icon { border-color: var(--emerald); transform: rotate(90deg); }
+.faq-item.open .faq-icon::after { opacity: 0; }
+.faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.45s var(--ease-out-expo); }
+.faq-answer-inner { padding-bottom: 20px; font-size: 0.95rem; color: var(--ink-soft); line-height: 1.7; }
+.faq-item.open .faq-answer { max-height: 300px; }
+
+/* ═══════════════════════════════════════════════════════════════
+   CTA SECTION
+   ═══════════════════════════════════════════════════════════════ */
+.cta { position: relative; background: var(--forest-dark); color: #fff; overflow: hidden; }
+.cta-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 60% 50% at 30% 50%, rgba(74, 222, 128, 0.1) 0%, transparent 60%), radial-gradient(ellipse 60% 50% at 70% 50%, rgba(255, 215, 0, 0.05) 0%, transparent 60%); }
+.cta-inner { position: relative; z-index: 2; text-align: center; max-width: 600px; margin: 0 auto; }
+.cta h2 { font-family: var(--font-display); font-size: clamp(2.2rem, 5vw, 3.5rem); font-weight: 800; line-height: 1.1; margin-bottom: 16px; }
+.cta p { font-size: 1.1rem; color: rgba(255,255,255,0.55); margin-bottom: 36px; }
+.cta-actions { display: flex; flex-direction: column; align-items: center; gap: 24px; }
+.cta-email-form { display: flex; gap: 8px; background: var(--glass); padding: 5px; border-radius: 50px; border: 1px solid var(--border-glass); max-width: 450px; width: 100%; backdrop-filter: blur(10px); }
+.cta-email-form input { background: transparent; border: none; padding: 14px 20px; color: white; flex-grow: 1; outline: none; font-size: 1rem; font-family: var(--font-body); }
+.cta-email-form input::placeholder { color: rgba(255,255,255,0.35); }
+.cta-email-form .btn-submit {
+  padding: 12px 28px; border-radius: 50px; font-weight: 600; font-size: 0.95rem;
+  background: linear-gradient(135deg, var(--emerald), #22c55e); color: #fff;
+  border: none; cursor: pointer; transition: transform 0.25s, box-shadow 0.25s; white-space: nowrap;
+}
+.cta-email-form .btn-submit:hover { transform: translateY(-1px); box-shadow: 0 4px 20px var(--emerald-glow); }
+
+/* ═══════════════════════════════════════════════════════════════
+   FOOTER
+   ═══════════════════════════════════════════════════════════════ */
+.footer { background: var(--forest-dark); border-top: 1px solid rgba(255,255,255,0.05); color: rgba(255,255,255,0.4); padding: 40px 0 32px; }
+.footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+.footer-logo { display: flex; align-items: center; gap: 8px; }
+.footer-logo img { max-width: 120px; height: auto; opacity: 0.7; }
+.footer-links { display: flex; gap: 24px; }
+.footer-links a { font-size: 0.85rem; color: rgba(255,255,255,0.4); transition: color 0.25s; }
+.footer-links a:hover { color: rgba(255,255,255,0.8); }
+.footer-copy { text-align: center; font-size: 0.75rem; color: rgba(255,255,255,0.2); margin-top: 24px; }
+
+/* ═══════════════════════════════════════════════════════════════
+   REVEAL ANIMATIONS
+   ═══════════════════════════════════════════════════════════════ */
+.reveal { opacity: 0; transform: translateY(32px); }
+.reveal-left { opacity: 0; transform: translateX(-40px); }
+.reveal-right { opacity: 0; transform: translateX(40px); }
+
+/* ═══════════════════════════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════════════════════════ */
+@media (max-width: 1024px) {
+  .villages-layout, .badges-layout { grid-template-columns: 1fr; gap: 40px; }
+  .villages-map { order: -1; }
+  .steps-inner { gap: 48px; }
+  .steps-progress { display: none; }
+}
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .nav-links.open {
+    display: flex; flex-direction: column; position: absolute; top: var(--nav-h); left: 0; right: 0;
+    background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+    padding: 24px 32px; gap: 16px; border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .nav-hamburger { display: flex; }
+  .hero h1 { font-size: clamp(2.2rem, 8vw, 3rem); }
+  .device { width: 220px; }
+  .stats-grid { gap: 32px; }
+  .stat-number { font-size: 2rem; }
+  .steps-pin-area { height: auto; }
+  .steps-sticky { position: relative; height: auto; padding: 40px 0; }
+  .steps-inner { flex-direction: column; gap: 32px; text-align: center; }
+  .steps-device { width: 200px; }
+  .step-content { position: relative !important; opacity: 1 !important; transform: none !important; margin-bottom: 48px; }
+  .step-content:last-child { margin-bottom: 0; }
+  .step-screen { opacity: 1 !important; position: relative; aspect-ratio: 9/19.5; }
+  .steps-screens { display: none; }
+  .steps-progress { display: none; }
+  .steps-text { display: none; }
+  .steps-mobile { display: flex !important; flex-direction: column; gap: 64px; padding: 0 24px; }
+  .steps-mobile-item { text-align: center; }
+  .steps-mobile-device { width: 200px; margin: 0 auto 24px; }
+  .step-desc { max-width: 100%; }
+  .univers-card { width: 220px; }
+  .badges-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .privacy-features { gap: 32px; }
+  .carousel-device { width: 180px; }
+  .histoire-layout { grid-template-columns: 1fr; text-align: center; }
+  .histoire-image { order: -1; }
+  .histoire-image img { margin: 0 auto; }
+  .email-form { flex-direction: column; border-radius: 20px; }
+  .email-form .btn-submit { border-radius: 50px; }
+}
+@media (max-width: 480px) {
+  .container { padding: 0 16px; }
+  .section-pad { padding: 72px 0; }
+  .section-pad-lg { padding: 100px 0; }
+  .stats-grid { gap: 24px; }
+  .badges-grid { grid-template-columns: repeat(2, 1fr); }
+}
+.steps-mobile { display: none; }
+@media (min-width: 769px) { .steps-mobile { display: none !important; } }
+</style>
 </head>
 <body class="fr">
 
-    <header>
-        <div class="container nav-content">
-            <div class="logo-container">
-                <img src="logo_2.png" alt="Guide du Détour Logo" class="logo-image">
-            </div>
+<!-- ═══════════════ NAVIGATION ═══════════════ -->
+<nav class="nav" id="nav" role="navigation" aria-label="Navigation principale">
+  <a href="/" class="nav-logo" aria-label="Guide du Détour - Accueil">
+    <img src="logo_2.png" alt="Guide du Détour">
+  </a>
+  <div class="nav-right">
+    <div class="nav-links" id="navLinks">
+      <a href="#features">
+        <span class="lang-fr">Fonctionnalités</span>
+        <span class="lang-en">Features</span>
+      </a>
+      <a href="#univers">
+        <span class="lang-fr">5 Univers</span>
+        <span class="lang-en">5 Worlds</span>
+      </a>
+      <a href="#villages">Villages</a>
+      <a href="#faq">FAQ</a>
+    </div>
+    <div class="lang-switch" onclick="toggleLang()">
+      <span id="btn-fr" class="active">FR</span> | <span id="btn-en">EN</span>
+    </div>
+    <button class="nav-hamburger" id="navToggle" aria-label="Ouvrir le menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
 
-            <div class="lang-switch" onclick="toggleLang()">
-                <span id="btn-fr" class="active">FR</span> | <span id="btn-en">EN</span>
+<!-- ═══════════════ HERO ═══════════════ -->
+<section class="hero" id="hero">
+  <div class="hero-bg" aria-hidden="true"></div>
+  <div class="hero-content">
+    <span class="hero-label">
+      <span class="lang-fr">Application iOS</span>
+      <span class="lang-en">iOS Application</span>
+    </span>
+    <h1>
+      <span class="lang-fr">Ça vaut le <em>détour</em></span>
+      <span class="lang-en">Worth the <em>detour</em></span>
+    </h1>
+    <p class="hero-sub">
+      <span class="lang-fr">Transformez chaque trajet en aventure. Châteaux oubliés, villages classés, panoramas secrets — Guide du Détour révèle les trésors cachés le long de votre route.</span>
+      <span class="lang-en">Turn every trip into an adventure. Forgotten castles, classified villages, secret viewpoints — Guide du Détour reveals hidden treasures along your route.</span>
+    </p>
+    <div class="hero-actions">
+      <form class="email-form" id="waitlistForm">
+        <input type="email" id="emailInput" required>
+        <button type="submit" class="btn-submit" id="submitBtn">
+          <span class="lang-fr">Rejoindre</span>
+          <span class="lang-en">Join</span>
+        </button>
+      </form>
+      <div id="formMessage" class="form-message"></div>
+    </div>
+    <div class="hero-device">
+      <div class="device">
+        <div class="device-frame">
+          <div class="device-notch"></div>
+          <div class="device-screen">
+            <!-- TODO: Replace with real screenshot: <img src="new-screenshot-hero.png" alt="Guide du Détour"> -->
+            <div class="screen-map" aria-hidden="true">
+              <div class="screen-route"></div>
+              <div class="screen-pin screen-pin-1"></div>
+              <div class="screen-pin screen-pin-2 screen-pin-gold"></div>
+              <div class="screen-pin screen-pin-3"></div>
             </div>
+            <div class="screen-bottom-bar">
+              <div class="screen-bar-dot"></div>
+              <div class="screen-bar-line"></div>
+              <div class="screen-bar-line screen-bar-line-short"></div>
+            </div>
+          </div>
         </div>
-    </header>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-hint" aria-hidden="true">
+    <span class="lang-fr">Défiler</span>
+    <span class="lang-en">Scroll</span>
+    <div class="scroll-arrow"></div>
+  </div>
+</section>
 
-    <section class="hero">
-        <div class="container hero-grid">
-            <div class="hero-text reveal">
-                <h1>
-                    <span class="lang-fr">Ça vaut le détour</span>
-                    <span class="lang-en">Worth the detour</span>
-                </h1>
+<!-- ═══════════════ STATS ═══════════════ -->
+<section class="stats" id="stats" aria-label="Statistiques">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-item reveal">
+        <div class="stat-number" data-count="580000" data-suffix="+">0</div>
+        <div class="stat-label">
+          <span class="lang-fr">points d'intérêt</span>
+          <span class="lang-en">points of interest</span>
+        </div>
+      </div>
+      <div class="stat-item reveal">
+        <div class="stat-number" data-count="32">0</div>
+        <div class="stat-label">
+          <span class="lang-fr">catégories</span>
+          <span class="lang-en">categories</span>
+        </div>
+      </div>
+      <div class="stat-item reveal">
+        <div class="stat-number" data-count="51">0</div>
+        <div class="stat-label">
+          <span class="lang-fr">Plus Beaux Villages</span>
+          <span class="lang-en">Most Beautiful Villages</span>
+        </div>
+      </div>
+      <div class="stat-item reveal">
+        <div class="stat-number" data-count="100" data-suffix="%">0</div>
+        <div class="stat-label">
+          <span class="lang-fr">gratuit, sans pub</span>
+          <span class="lang-en">free, no ads</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-                <p>
-                    <span class="lang-fr">Transformez vos trajets A vers B en aventures. Découvrez les trésors cachés à quelques kilomètres de l'autoroute.</span>
-                    <span class="lang-en">Turn your A to B trips into adventures. Discover hidden treasures just miles off the highway.</span>
-                </p>
-                
-                <div>
-                    <form class="email-form" id="waitlistForm">
-                        <input type="email" id="emailInput" placeholder="Email..." required>
-                        <button type="submit" class="btn btn-primary" id="submitBtn">
-                            <span class="lang-fr">Rejoindre</span>
-                            <span class="lang-en">Join</span>
-                        </button>
-                    </form>
-                    <div id="formMessage" class="form-message"></div>
+<!-- ═══════════════ STEPS (Comment ça marche) ═══════════════ -->
+<section class="steps" id="features" aria-label="Comment ça marche">
+  <div class="steps-header">
+    <span class="t-label reveal">
+      <span class="lang-fr">Comment ça marche</span>
+      <span class="lang-en">How it works</span>
+    </span>
+    <h2 class="reveal">
+      <span class="lang-fr">Trois étapes,<br>zéro effort</span>
+      <span class="lang-en">Three steps,<br>zero effort</span>
+    </h2>
+  </div>
+  <div class="steps-pin-area" id="stepsPin">
+    <div class="steps-sticky">
+      <div class="steps-inner">
+        <div class="steps-device">
+          <div class="device">
+            <div class="device-frame">
+              <div class="device-notch"></div>
+              <div class="device-screen">
+                <div class="steps-screens">
+                  <div class="step-screen step-screen-1 active" id="stepScreen1">
+                    <div class="screen-search-bar"><div class="screen-search-icon"></div><div class="screen-search-text"></div></div>
+                    <div class="screen-route-info">
+                      <div class="screen-route-row"><div class="screen-route-dot"></div><div class="screen-text-line w60"></div></div>
+                      <div class="screen-route-line-v"></div>
+                      <div class="screen-route-row"><div class="screen-route-dot dest"></div><div class="screen-text-line w80"></div></div>
+                    </div>
+                    <div style="margin-top:16px;width:85%;display:flex;gap:8px;">
+                      <div style="flex:1;height:32px;border-radius:8px;background:rgba(34,197,94,0.2);border:1px solid rgba(34,197,94,0.3);"></div>
+                      <div style="flex:1;height:32px;border-radius:8px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);"></div>
+                    </div>
+                  </div>
+                  <div class="step-screen step-screen-2" id="stepScreen2">
+                    <div class="screen-map">
+                      <div class="screen-route"></div>
+                      <div class="screen-pin" style="top:25%;left:30%"></div>
+                      <div class="screen-pin" style="top:35%;left:55%"></div>
+                      <div class="screen-pin screen-pin-gold" style="top:50%;left:45%"></div>
+                      <div class="screen-pin" style="top:60%;left:35%"></div>
+                      <div class="screen-pin" style="top:45%;left:60%"></div>
+                      <div class="screen-pin screen-pin-gold" style="top:70%;left:50%"></div>
+                    </div>
+                    <div class="screen-bottom-bar" style="bottom:12px;left:12px;right:12px;">
+                      <div class="screen-bar-dot"></div><div class="screen-bar-line"></div>
+                    </div>
+                  </div>
+                  <div class="step-screen step-screen-3" id="stepScreen3">
+                    <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;">
+                      <div class="screen-nav-arrow"></div>
+                      <div class="screen-nav-distance">850 m</div>
+                      <div class="screen-nav-street">
+                        <span class="lang-fr">Tournez à droite</span>
+                        <span class="lang-en">Turn right</span>
+                      </div>
+                    </div>
+                    <div class="screen-poi-popup">
+                      <div class="screen-poi-thumb"></div>
+                      <div class="screen-poi-info"><div class="screen-poi-name"></div><div class="screen-poi-dist"></div></div>
+                    </div>
+                    <div style="height:20px;"></div>
+                  </div>
                 </div>
-
+              </div>
             </div>
-            <div class="mockup-container reveal">
-                <div class="phone-mockup" style="background-image: url('IMG_0644.png');"></div>
-            </div>
+          </div>
         </div>
-    </section>
-
-    <section class="features">
-        <div class="container section-header reveal">
-            <h2>
-                <span class="lang-fr">La Magie Opère</span>
-                <span class="lang-en">The Magic Happens</span>
-            </h2>
-            <p style="color: var(--text-gray);">
-                <span class="lang-fr">Notre algorithme trouve les points d'intérêt qui vous correspondent.</span>
-                <span class="lang-en">Our algorithm finds points of interest that match you.</span>
+        <div class="steps-text">
+          <div class="step-content active" id="stepText1">
+            <div class="step-number">
+              <span class="lang-fr">Étape 01</span>
+              <span class="lang-en">Step 01</span>
+            </div>
+            <h3 class="step-title">
+              <span class="lang-fr">Choisissez votre destination</span>
+              <span class="lang-en">Choose your destination</span>
+            </h3>
+            <p class="step-desc">
+              <span class="lang-fr">Entrez votre point d'arrivée et définissez votre budget de détour : 5, 15 ou 30 minutes. L'algorithme s'adapte à votre temps disponible.</span>
+              <span class="lang-en">Enter your destination and set your detour budget: 5, 15 or 30 minutes. The algorithm adapts to your available time.</span>
             </p>
-        </div>
-
-        <div class="container feature-grid">
-            <div class="feature-card reveal">
-                <div class="icon-box">🧭</div>
-                <h3>
-                    <span class="lang-fr">Couloir de Découverte</span>
-                    <span class="lang-en">Discovery Corridor</span>
-                </h3>
-                <p>
-                    <span class="lang-fr">Ajustez le rayon de détour (5km, 20km...) et voyez les opportunités apparaître.</span>
-                    <span class="lang-en">Adjust the detour radius (5km, 20km...) and watch opportunities appear.</span>
-                </p>
+          </div>
+          <div class="step-content" id="stepText2">
+            <div class="step-number">
+              <span class="lang-fr">Étape 02</span>
+              <span class="lang-en">Step 02</span>
             </div>
-            <div class="feature-card reveal">
-                <div class="icon-box">🍷</div>
-                <h3>
-                    <span class="lang-fr">Filtres Uniques</span>
-                    <span class="lang-en">Unique Filters</span>
-                </h3>
-                <p>
-                    <span class="lang-fr">Plus que des musées. Trouvez ce qui vous fait vibrer.</span>
-                    <span class="lang-en">More than just museums. Find what makes you tick.</span>
-                </p>
-                <div class="tag-container">
-                    <span class="tag hedonisme">Hédonisme</span>
-                    <span class="tag histoire">Histoire</span>
-                    <span class="tag">Nature</span>
-                </div>
-            </div>
-            <div class="feature-card reveal">
-                <div class="icon-box">🏰</div>
-                <h3>
-                    <span class="lang-fr">Le Secret Local</span>
-                    <span class="lang-en">Local Secrets</span>
-                </h3>
-                <p>
-                    <span class="lang-fr">Fermes, châteaux, street art. L'invisible devient visible.</span>
-                    <span class="lang-en">Farms, castles, street art. The invisible becomes visible.</span>
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <section class="showcase">
-        <div class="container showcase-grid">
-            <div class="screenshot-box reveal">
-                <img src="IMG_0646.png" alt="Club Profile">
-            </div>
-            <div class="reveal">
-                <h2>
-                    <span class="lang-fr">Le Club des Éclaireurs</span>
-                    <span class="lang-en">The Scout Club</span>
-                </h2>
-                <p>
-                    <span class="lang-fr">Plus qu'un GPS. Collectionnez vos découvertes, gagnez de l'XP et partagez vos trouvailles avec la communauté.</span>
-                    <span class="lang-en">More than a GPS. Collect your discoveries, earn XP, and share your finds with the community.</span>
-                </p>
-            </div>
-        </div>
-
-        <div class="container showcase-grid reverse">
-            <div class="screenshot-box reveal">
-                <img src="IMG_0645.png" alt="Place Details">
-            </div>
-            <div class="reveal">
-                <h2>
-                    <span class="lang-fr">L'Histoire du Lieu</span>
-                    <span class="lang-en">Place History</span>
-                </h2>
-                <p>
-                    <span class="lang-fr">Chaque point a une histoire. Photos, descriptions, et notes pour ne rien rater.</span>
-                    <span class="lang-en">Every point has a story. Photos, descriptions, and ratings so you don't miss a thing.</span>
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <!-- NEW: Mon Histoire Section -->
-    <section class="mon-histoire">
-        <div class="container">
-            <div class="histoire-content reveal">
-                <div class="histoire-image">
-                    <img src="assets/andrey.jpg" alt="Andrey" onerror="this.style.display='none'">
-                </div>
-                <div class="histoire-text">
-                    <h2>
-                        <span class="lang-fr">🚗 Mon Histoire</span>
-                        <span class="lang-en">🚗 My Story</span>
-                    </h2>
-                    <p>
-                        <span class="lang-fr">Après des années à suivre aveuglément mon GPS, j'ai réalisé que je ratais l'essentiel : les villages endormis, les chapelles oubliées, les points de vue extraordinaires — à quelques minutes de ma route.</span>
-                        <span class="lang-en">After years of blindly following my GPS, I realized I was missing the essence: sleepy villages, forgotten chapels, extraordinary viewpoints — just minutes from my route.</span>
-                    </p>
-                    <p>
-                        <span class="lang-fr">Guide du Détour est né d'une frustration simple : pourquoi nos applications nous font-elles gagner du temps, mais perdre tant de beauté ?</span>
-                        <span class="lang-en">Guide du Détour was born from a simple frustration: why do our apps save us time, but make us lose so much beauty?</span>
-                    </p>
-                    <p>
-                        <span class="lang-fr">Ce projet est développé avec soin, sans investisseurs, sans publicité intrusive. C'est un travail d'artisan numérique, pour ceux qui croient que le chemin compte autant que la destination.</span>
-                        <span class="lang-en">This project is crafted with care, without investors, without intrusive ads. It's digital craftsmanship, for those who believe the journey matters as much as the destination.</span>
-                    </p>
-                    <p class="signature">— Andrey</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- NEW: Status Section -->
-    <section class="status">
-        <div class="container">
-            <div class="section-header reveal">
-                <h2>
-                    <span class="lang-fr">📍 Où en est le projet ?</span>
-                    <span class="lang-en">📍 Project Status</span>
-                </h2>
-            </div>
-            <div class="status-grid">
-                <div class="status-card done reveal">
-                    <div class="status-icon">✅</div>
-                    <h3>
-                        <span class="lang-fr">Fait</span>
-                        <span class="lang-en">Done</span>
-                    </h3>
-                    <ul class="status-list">
-                        <li>
-                            <span class="lang-fr">Base de données : 24 000+ POI en France</span>
-                            <span class="lang-en">Database: 24,000+ POI in France</span>
-                        </li>
-                        <li>
-                            <span class="lang-fr">Algorithme de détours intelligent</span>
-                            <span class="lang-en">Smart detour algorithm</span>
-                        </li>
-                        <li>
-                            <span class="lang-fr">Interface utilisateur iOS</span>
-                            <span class="lang-en">iOS user interface</span>
-                        </li>
-                        <li>
-                            <span class="lang-fr">Panel d'administration</span>
-                            <span class="lang-en">Admin panel</span>
-                        </li>
-                    </ul>
-                </div>
-                <div class="status-card progress reveal">
-                    <div class="status-icon">🔄</div>
-                    <h3>
-                        <span class="lang-fr">En cours</span>
-                        <span class="lang-en">In Progress</span>
-                    </h3>
-                    <ul class="status-list">
-                        <li>
-                            <span class="lang-fr">Finalisation de l'interface</span>
-                            <span class="lang-en">Interface finalization</span>
-                        </li>
-                        <li>
-                            <span class="lang-fr">Enrichissement des descriptions (IA)</span>
-                            <span class="lang-en">AI-enriched descriptions</span>
-                        </li>
-                        <li>
-                            <span class="lang-fr">Préparation du lancement</span>
-                            <span class="lang-en">Launch preparation</span>
-                        </li>
-                    </ul>
-                </div>
-                <div class="status-card planned reveal">
-                    <div class="status-icon">📋</div>
-                    <h3>
-                        <span class="lang-fr">À venir</span>
-                        <span class="lang-en">Coming Soon</span>
-                    </h3>
-                    <ul class="status-list">
-                        <li>
-                            <span class="lang-fr">Mode hors connexion</span>
-                            <span class="lang-en">Offline mode</span>
-                        </li>
-                        <li>
-                            <span class="lang-fr">Audioguide intégré</span>
-                            <span class="lang-en">Built-in audioguide</span>
-                        </li>
-                        <li>
-                            <span class="lang-fr">Version Android</span>
-                            <span class="lang-en">Android version</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- NEW: Support Section -->
-    <section class="support">
-        <div class="container reveal">
-            <h2>
-                <span class="lang-fr">💚 Soutenez le Projet</span>
-                <span class="lang-en">💚 Support the Project</span>
-            </h2>
-            <p>
-                <span class="lang-fr">Guide du Détour est financé par sa communauté. Rejoignez les premiers explorateurs !</span>
-                <span class="lang-en">Guide du Détour is community-funded. Join the first explorers!</span>
+            <h3 class="step-title">
+              <span class="lang-fr">Découvrez des trésors cachés</span>
+              <span class="lang-en">Discover hidden treasures</span>
+            </h3>
+            <p class="step-desc">
+              <span class="lang-fr">Châteaux, panoramas, villages classés, cascades — les points d'intérêt apparaissent le long de votre itinéraire, triés par pertinence.</span>
+              <span class="lang-en">Castles, panoramas, classified villages, waterfalls — points of interest appear along your route, sorted by relevance.</span>
             </p>
-            <div class="support-benefits">
-                <div class="support-benefit">
-                    <span>🚀</span>
-                    <span class="lang-fr">Lancer l'application sur l'App Store</span>
-                    <span class="lang-en">Launch the app on the App Store</span>
-                </div>
-                <div class="support-benefit">
-                    <span>📍</span>
-                    <span class="lang-fr">Enrichir la base de données</span>
-                    <span class="lang-en">Expand the database</span>
-                </div>
-                <div class="support-benefit">
-                    <span>✨</span>
-                    <span class="lang-fr">Développer de nouvelles fonctionnalités</span>
-                    <span class="lang-en">Develop new features</span>
-                </div>
+          </div>
+          <div class="step-content" id="stepText3">
+            <div class="step-number">
+              <span class="lang-fr">Étape 03</span>
+              <span class="lang-en">Step 03</span>
             </div>
-            <a href="https://www.ulule.com/guide-du-detour/" target="_blank" class="btn btn-ulule">
-                <span class="lang-fr">Soutenir sur Ulule</span>
-                <span class="lang-en">Support on Ulule</span>
-            </a>
+            <h3 class="step-title">
+              <span class="lang-fr">Laissez-vous guider</span>
+              <span class="lang-en">Let yourself be guided</span>
+            </h3>
+            <p class="step-desc">
+              <span class="lang-fr">Navigation GPS avec suggestions vocales de détours. Un tap suffit pour ajouter un arrêt à votre itinéraire. Zéro friction.</span>
+              <span class="lang-en">GPS navigation with voice detour suggestions. One tap to add a stop to your route. Zero friction.</span>
+            </p>
+          </div>
         </div>
-    </section>
-
-    <!-- Vision Section -->
-    <section class="vision">
-        <div class="container">
-            <div class="vision-content reveal">
-                <div class="vision-text">
-                    <h2>
-                        <span class="lang-fr">L'Art du Détour</span>
-                        <span class="lang-en">The Art of the Detour</span>
-                    </h2>
-                    <p>
-                        <span class="lang-fr">Nous avons optimisé le trajet. Et perdu l'aventure. Découvrez notre vision complète : comment nous réinventons la navigation pour transformer chaque kilomètre en opportunité de découverte.</span>
-                        <span class="lang-en">We optimized the journey. And lost the adventure. Discover our complete vision: how we're reinventing navigation to transform every kilometer into an opportunity for discovery.</span>
-                    </p>
-                    <div class="vision-cta">
-                        <a href="The_Art_of_the_Detour.pdf" target="_blank" class="btn btn-secondary">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                            </svg>
-                            <span class="lang-fr">Télécharger la présentation</span>
-                            <span class="lang-en">Download presentation</span>
-                        </a>
-                    </div>
-                </div>
-                <div class="presentation-preview">
-                    <div class="presentation-card">
-                        <a href="The_Art_of_the_Detour.pdf" target="_blank">
-                            <img src="presentation-cover.jpg" alt="Guide du Détour - Présentation" onerror="this.src='IMG_0641.jpg'">
-                        </a>
-                        <div class="presentation-card-footer">
-                            <div class="presentation-info">
-                                <span class="lang-fr">Notre Vision</span>
-                                <span class="lang-en">Our Vision</span>
-                                <span>PDF • 14 pages</span>
-                            </div>
-                            <span class="presentation-badge">
-                                <span class="lang-fr">Nouveau</span>
-                                <span class="lang-en">New</span>
-                            </span>
-                        </div>
-                    </div>
-                </div>
+      </div>
+      <div class="steps-progress" aria-hidden="true">
+        <div class="steps-progress-dot active" data-step="1"></div>
+        <div class="steps-progress-dot" data-step="2"></div>
+        <div class="steps-progress-dot" data-step="3"></div>
+      </div>
+    </div>
+  </div>
+  <!-- Mobile: stacked steps -->
+  <div class="steps-mobile">
+    <div class="steps-mobile-item reveal">
+      <div class="steps-mobile-device">
+        <div class="device"><div class="device-frame"><div class="device-notch"></div>
+          <div class="device-screen step-screen-1" style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 16px 24px;">
+            <div class="screen-search-bar"><div class="screen-search-icon"></div><div class="screen-search-text"></div></div>
+            <div class="screen-route-info">
+              <div class="screen-route-row"><div class="screen-route-dot"></div><div class="screen-text-line w60"></div></div>
+              <div class="screen-route-line-v"></div>
+              <div class="screen-route-row"><div class="screen-route-dot dest"></div><div class="screen-text-line w80"></div></div>
             </div>
-        </div>
-    </section>
-
-    <section class="roadmap">
-        <div class="container reveal">
-            <div class="section-header">
-                <h2 style="color: var(--accent-orange);">Roadmap</h2>
-                <p>
-                    <span class="lang-fr">Les prochaines fonctionnalités :</span>
-                    <span class="lang-en">Upcoming features:</span>
-                </p>
+          </div>
+        </div></div>
+      </div>
+      <div class="step-number"><span class="lang-fr">Étape 01</span><span class="lang-en">Step 01</span></div>
+      <h3 class="step-title"><span class="lang-fr">Choisissez votre destination</span><span class="lang-en">Choose your destination</span></h3>
+      <p class="step-desc"><span class="lang-fr">Entrez votre point d'arrivée et définissez votre budget de détour.</span><span class="lang-en">Enter your destination and set your detour budget.</span></p>
+    </div>
+    <div class="steps-mobile-item reveal">
+      <div class="steps-mobile-device">
+        <div class="device"><div class="device-frame"><div class="device-notch"></div>
+          <div class="device-screen step-screen-2" style="position:relative;">
+            <div class="screen-map"><div class="screen-route"></div>
+              <div class="screen-pin" style="top:25%;left:30%"></div>
+              <div class="screen-pin screen-pin-gold" style="top:50%;left:45%"></div>
+              <div class="screen-pin" style="top:60%;left:35%"></div>
             </div>
-            <div class="roadmap-list">
-                <div class="roadmap-item">
-                    <div class="roadmap-icon">🧭</div>
-                    <div>
-                        <h4>Le Mode Boussole</h4>
-                        <p class="lang-fr">Une flèche vous guide vers un lieu mystère.</p>
-                        <p class="lang-en" style="display:none">A simple arrow guides you to a mystery location.</p>
-                    </div>
-                </div>
-                <div class="roadmap-item">
-                    <div class="roadmap-icon">🏺</div>
-                    <div>
-                        <h4>Le Mode Chineur</h4>
-                        <p class="lang-fr">Notifications brocantes et vide-greniers.</p>
-                        <p class="lang-en" style="display:none">Notifications for flea markets.</p>
-                    </div>
-                </div>
-                <div class="roadmap-item">
-                    <div class="roadmap-icon">🧀</div>
-                    <div>
-                        <h4>Le Coffre Vide</h4>
-                        <p class="lang-fr">Alertes produits locaux et fermiers.</p>
-                        <p class="lang-en" style="display:none">Alerts for local products and farmers.</p>
-                    </div>
-                </div>
+          </div>
+        </div></div>
+      </div>
+      <div class="step-number"><span class="lang-fr">Étape 02</span><span class="lang-en">Step 02</span></div>
+      <h3 class="step-title"><span class="lang-fr">Découvrez des trésors cachés</span><span class="lang-en">Discover hidden treasures</span></h3>
+      <p class="step-desc"><span class="lang-fr">Les points d'intérêt apparaissent le long de votre itinéraire.</span><span class="lang-en">Points of interest appear along your route.</span></p>
+    </div>
+    <div class="steps-mobile-item reveal">
+      <div class="steps-mobile-device">
+        <div class="device"><div class="device-frame"><div class="device-notch"></div>
+          <div class="device-screen step-screen-3" style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 16px 24px;">
+            <div class="screen-nav-arrow"></div>
+            <div class="screen-nav-distance">850 m</div>
+            <div class="screen-nav-street"><span class="lang-fr">Tournez à droite</span><span class="lang-en">Turn right</span></div>
+            <div class="screen-poi-popup" style="margin-top:16px;width:85%;">
+              <div class="screen-poi-thumb"></div>
+              <div class="screen-poi-info"><div class="screen-poi-name"></div><div class="screen-poi-dist"></div></div>
             </div>
-        </div>
-    </section>
+          </div>
+        </div></div>
+      </div>
+      <div class="step-number"><span class="lang-fr">Étape 03</span><span class="lang-en">Step 03</span></div>
+      <h3 class="step-title"><span class="lang-fr">Laissez-vous guider</span><span class="lang-en">Let yourself be guided</span></h3>
+      <p class="step-desc"><span class="lang-fr">Navigation GPS avec suggestions vocales de détours.</span><span class="lang-en">GPS navigation with voice detour suggestions.</span></p>
+    </div>
+  </div>
+</section>
 
-    <!-- NEW: Contact Section -->
-    <section class="contact">
-        <div class="container">
-            <div class="contact-content reveal">
-                <h2>
-                    <span class="lang-fr">✉️ Contact</span>
-                    <span class="lang-en">✉️ Contact</span>
-                </h2>
-                <p>
-                    <span class="lang-fr">Une question ? Une suggestion ? Un lieu à partager ?</span>
-                    <span class="lang-en">A question? A suggestion? A place to share?</span>
-                </p>
-                <a href="mailto:andrey@guide-du-detour.fr" class="contact-email">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                    </svg>
-                    andrey@guide-du-detour.fr
-                </a>
+<!-- ═══════════════ 5 UNIVERS ═══════════════ -->
+<section class="univers section-pad-lg" id="univers" aria-label="5 univers à explorer">
+  <div class="container">
+    <div class="univers-header">
+      <span class="t-label reveal">
+        <span class="lang-fr">5 univers</span>
+        <span class="lang-en">5 worlds</span>
+      </span>
+      <h2 class="reveal">
+        <span class="lang-fr">Explorez selon vos envies</span>
+        <span class="lang-en">Explore your way</span>
+      </h2>
+      <p class="reveal">
+        <span class="lang-fr">Filtrez les points d'intérêt par thématique et personnalisez votre aventure.</span>
+        <span class="lang-en">Filter points of interest by theme and personalize your adventure.</span>
+      </p>
+    </div>
+  </div>
+  <div class="univers-scroll">
+    <div style="flex-shrink:0;width:max(24px,calc((100vw - 1200px)/2));"></div>
+    <div class="univers-card univers-nature reveal">
+      <div class="univers-icon">&#x1F343;</div>
+      <h3>Nature</h3>
+      <p><span class="lang-fr">Cascades, grottes, lacs, forêts, panoramas et sentiers pour les amoureux du plein air.</span><span class="lang-en">Waterfalls, caves, lakes, forests, panoramas and trails for nature lovers.</span></p>
+      <div class="univers-tags"><span class="univers-tag">cascade</span><span class="univers-tag">panorama</span><span class="univers-tag">grotte</span><span class="univers-tag">lac</span></div>
+    </div>
+    <div class="univers-card univers-history reveal">
+      <div class="univers-icon">&#x1F3F0;</div>
+      <h3><span class="lang-fr">Histoire</span><span class="lang-en">History</span></h3>
+      <p><span class="lang-fr">Châteaux, abbayes, sites archéologiques, monuments et villages qui racontent la France.</span><span class="lang-en">Castles, abbeys, archaeological sites, monuments and villages that tell the story of France.</span></p>
+      <div class="univers-tags"><span class="univers-tag">château</span><span class="univers-tag">abbaye</span><span class="univers-tag">ruine</span><span class="univers-tag">musée</span></div>
+    </div>
+    <div class="univers-card univers-hedonism reveal">
+      <div class="univers-icon">&#x1F377;</div>
+      <h3><span class="lang-fr">Hédonisme</span><span class="lang-en">Hedonism</span></h3>
+      <p><span class="lang-fr">Vignobles, marchés, restaurants étoilés, fromageries et expériences gourmandes.</span><span class="lang-en">Vineyards, markets, Michelin restaurants, cheese makers and gourmet experiences.</span></p>
+      <div class="univers-tags"><span class="univers-tag">vignoble</span><span class="univers-tag">marché</span><span class="univers-tag">gastronomie</span></div>
+    </div>
+    <div class="univers-card univers-curiosity reveal">
+      <div class="univers-icon">&#x1F52D;</div>
+      <h3><span class="lang-fr">Curiosités</span><span class="lang-en">Curiosities</span></h3>
+      <p><span class="lang-fr">Street art, lieux insolites, architecture contemporaine, land art et secrets bien gardés.</span><span class="lang-en">Street art, unusual places, contemporary architecture, land art and well-kept secrets.</span></p>
+      <div class="univers-tags"><span class="univers-tag">insolite</span><span class="univers-tag">street art</span><span class="univers-tag">architecture</span></div>
+    </div>
+    <div class="univers-card univers-services reveal">
+      <div class="univers-icon">&#x26FD;</div>
+      <h3>Services</h3>
+      <p><span class="lang-fr">Stations-service, aires de repos, bornes de recharge, hôtels et campings.</span><span class="lang-en">Gas stations, rest areas, EV chargers, hotels and campgrounds.</span></p>
+      <div class="univers-tags"><span class="univers-tag">station</span><span class="univers-tag">repos</span><span class="univers-tag">recharge EV</span></div>
+    </div>
+    <div style="flex-shrink:0;width:max(24px,calc((100vw - 1200px)/2));"></div>
+  </div>
+</section>
+
+<!-- ═══════════════ VILLAGES CLASSÉS ═══════════════ -->
+<section class="villages section-pad-lg" id="villages" aria-label="Les Plus Beaux Villages de France">
+  <div class="container">
+    <div class="villages-layout">
+      <div class="villages-text">
+        <span class="t-label reveal-left">
+          <span class="lang-fr">Les Plus Beaux Villages de France</span>
+          <span class="lang-en">Most Beautiful Villages of France</span>
+        </span>
+        <h2 class="reveal-left">
+          <span class="lang-fr">Un marqueur doré pour chaque joyau</span>
+          <span class="lang-en">A golden marker for every gem</span>
+        </h2>
+        <p class="reveal-left">
+          <span class="lang-fr">Les villages labellisés « Plus Beaux Villages de France » sont mis en avant avec un marqueur doré distinctif. Repérez-les sur la carte et laissez-vous guider vers ces trésors du patrimoine.</span>
+          <span class="lang-en">Villages labeled "Most Beautiful Villages of France" are highlighted with a distinctive golden marker. Spot them on the map and let yourself be guided to these heritage treasures.</span>
+        </p>
+        <div class="villages-stat reveal-left">
+          <span class="villages-stat-num" data-count="51">0</span>
+          <span class="villages-stat-label">
+            <span class="lang-fr">villages dans l'application</span>
+            <span class="lang-en">villages in the app</span>
+          </span>
+        </div>
+      </div>
+      <div class="villages-map reveal-right">
+        <svg class="france-map-svg" viewBox="0 0 500 520" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Carte de France">
+          <path class="fill-area" d="M 245,22 C 260,18 280,16 305,20 L 335,26 C 355,32 370,35 390,42 L 415,60 C 428,70 435,82 440,95 L 445,120 C 446,140 442,155 438,170 L 430,195 C 425,210 418,225 420,240 L 425,265 C 428,280 430,295 425,310 L 415,335 C 408,352 400,365 395,380 L 388,400 C 382,415 370,428 358,438 L 338,455 C 322,462 308,468 290,472 L 265,478 C 248,480 232,480 218,475 L 195,465 C 178,458 165,448 152,435 L 135,415 C 125,400 118,385 112,368 L 105,345 C 100,325 95,305 88,288 L 78,265 C 72,248 68,230 70,212 L 75,190 C 78,172 60,160 55,148 C 48,132 45,118 52,105 C 58,92 68,85 80,82 C 88,80 78,72 82,62 C 88,50 100,48 115,52 C 125,55 132,50 138,42 C 148,32 162,28 178,25 L 210,22 Z"/>
+          <path class="outline" d="M 245,22 C 260,18 280,16 305,20 L 335,26 C 355,32 370,35 390,42 L 415,60 C 428,70 435,82 440,95 L 445,120 C 446,140 442,155 438,170 L 430,195 C 425,210 418,225 420,240 L 425,265 C 428,280 430,295 425,310 L 415,335 C 408,352 400,365 395,380 L 388,400 C 382,415 370,428 358,438 L 338,455 C 322,462 308,468 290,472 L 265,478 C 248,480 232,480 218,475 L 195,465 C 178,458 165,448 152,435 L 135,415 C 125,400 118,385 112,368 L 105,345 C 100,325 95,305 88,288 L 78,265 C 72,248 68,230 70,212 L 75,190 C 78,172 60,160 55,148 C 48,132 45,118 52,105 C 58,92 68,85 80,82 C 88,80 78,72 82,62 C 88,50 100,48 115,52 C 125,55 132,50 138,42 C 148,32 162,28 178,25 L 210,22 Z"/>
+          <path class="fill-area" d="M 435,410 C 440,405 448,408 450,415 L 455,440 C 456,450 452,458 448,465 L 442,472 C 438,476 434,474 432,468 L 428,445 C 426,432 428,418 435,410 Z"/>
+          <path class="outline" d="M 435,410 C 440,405 448,408 450,415 L 455,440 C 456,450 452,458 448,465 L 442,472 C 438,476 434,474 432,468 L 428,445 C 426,432 428,418 435,410 Z"/>
+          <g class="village-group"><circle class="village-dot" cx="190" cy="62" r="3.5"/><text class="village-label" x="198" y="65">Barfleur</text></g>
+          <g class="village-group"><circle class="village-dot" cx="82" cy="130" r="3.5"/><text class="village-label" x="90" y="133">Locronan</text></g>
+          <g class="village-group"><circle class="village-dot" cx="108" cy="105" r="3.5"/><text class="village-label" x="116" y="108">Saint-Suliac</text></g>
+          <g class="village-group"><circle class="village-dot" cx="430" cy="165" r="3.5"/><text class="village-label" x="380" y="160">Eguisheim</text></g>
+          <g class="village-group"><circle class="village-dot" cx="425" cy="150" r="3.5"/><text class="village-label" x="375" y="145">Riquewihr</text></g>
+          <g class="village-group"><circle class="village-dot" cx="328" cy="195" r="3.5"/><text class="village-label" x="336" y="198">Vézelay</text></g>
+          <g class="village-group"><circle class="village-dot" cx="355" cy="185" r="3.5"/><text class="village-label" x="310" y="182">Flavigny</text></g>
+          <g class="village-group"><circle class="village-dot" cx="395" cy="260" r="3.5"/><text class="village-label" x="403" y="263">Pérouges</text></g>
+          <g class="village-group"><circle class="village-dot" cx="408" cy="248" r="3.5"/><text class="village-label" x="416" y="251">Yvoire</text></g>
+          <g class="village-group"><circle class="village-dot" cx="365" cy="365" r="3.5"/><text class="village-label" x="373" y="368">Gordes</text></g>
+          <g class="village-group"><circle class="village-dot" cx="355" cy="375" r="3.5"/><text class="village-label" x="363" y="378">Roussillon</text></g>
+          <g class="village-group"><circle class="village-dot" cx="340" cy="385" r="3.5"/><text class="village-label" x="290" y="388">Les Baux</text></g>
+          <g class="village-group"><circle class="village-dot" cx="228" cy="340" r="3.5"/><text class="village-label" x="170" y="340">Saint-Cirq-Lapopie</text></g>
+          <g class="village-group"><circle class="village-dot" cx="220" cy="328" r="3.5"/><text class="village-label" x="228" y="331">Rocamadour</text></g>
+          <g class="village-group"><circle class="village-dot" cx="235" cy="310" r="3.5"/><text class="village-label" x="243" y="313">Collonges-la-Rouge</text></g>
+          <g class="village-group"><circle class="village-dot" cx="248" cy="345" r="3.5"/><text class="village-label" x="256" y="348">Conques</text></g>
+          <g class="village-group"><circle class="village-dot" cx="200" cy="320" r="3.5"/><text class="village-label" x="145" y="323">Domme</text></g>
+          <g class="village-group"><circle class="village-dot" cx="160" cy="325" r="3.5"/><text class="village-label" x="100" y="328">Saint-Émilion</text></g>
+          <g class="village-group"><circle class="village-dot" cx="275" cy="295" r="3.5"/><text class="village-label" x="283" y="298">Salers</text></g>
+          <g class="village-group"><circle class="village-dot" cx="300" cy="410" r="3.5"/><text class="village-label" x="308" y="413">Saint-Guilhem</text></g>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ SCREENSHOTS CAROUSEL ═══════════════ -->
+<section class="screenshots section-pad-lg" id="screenshots" aria-label="Captures d'écran">
+  <div class="container">
+    <div class="screenshots-header">
+      <span class="t-label reveal">
+        <span class="lang-fr">L'application</span>
+        <span class="lang-en">The app</span>
+      </span>
+      <h2 class="reveal">
+        <span class="lang-fr">Conçue pour la route</span>
+        <span class="lang-en">Designed for the road</span>
+      </h2>
+      <p class="reveal">
+        <span class="lang-fr">Interface épurée, lisible en un coup d'œil, pensée pour la conduite.</span>
+        <span class="lang-en">Clean interface, readable at a glance, designed for driving.</span>
+      </p>
+    </div>
+  </div>
+  <div class="carousel" role="region" aria-label="Carrousel de captures d'écran">
+    <!-- TODO: Replace placeholder screens with real screenshots -->
+    <div class="carousel-item reveal">
+      <div class="carousel-device"><div class="device-frame"><div class="device-notch"></div>
+        <div class="device-screen" style="background:linear-gradient(170deg,#1E293B,#0F172A);">
+          <div class="screen-placeholder" aria-hidden="true">
+            <div class="screen-ph-bar" style="width:40%;"></div>
+            <div class="screen-ph-card" style="flex:2;background:radial-gradient(circle at 40% 50%,rgba(34,197,94,0.15),transparent 60%),rgba(255,255,255,0.03);"></div>
+            <div style="display:flex;gap:6px;"><div class="screen-ph-card" style="flex:1;height:28px;"></div><div class="screen-ph-card" style="flex:1;height:28px;"></div><div class="screen-ph-card" style="flex:1;height:28px;"></div></div>
+          </div>
+        </div>
+      </div></div>
+      <div class="carousel-label"><span class="lang-fr">Carte interactive</span><span class="lang-en">Interactive map</span></div>
+    </div>
+    <div class="carousel-item reveal">
+      <div class="carousel-device"><div class="device-frame"><div class="device-notch"></div>
+        <div class="device-screen" style="background:linear-gradient(170deg,#0F172A,#1E293B);">
+          <div class="screen-placeholder" aria-hidden="true">
+            <div class="screen-ph-bar" style="width:30%;margin-left:auto;margin-right:auto;"></div>
+            <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1;gap:6px;">
+              <div style="width:40px;height:40px;border-radius:50%;background:var(--emerald);"></div>
+              <div class="screen-ph-bar" style="width:50%;height:6px;"></div>
+              <div class="screen-ph-bar" style="width:30%;"></div>
             </div>
+            <div class="screen-ph-card" style="height:50px;"></div>
+          </div>
         </div>
-    </section>
-
-    <footer>
-        <div class="container">
-            <h3>Guide du Détour</h3>
-            <p>&copy; 2025. Ça vaut le détour.</p>
+      </div></div>
+      <div class="carousel-label"><span class="lang-fr">Navigation GPS</span><span class="lang-en">GPS Navigation</span></div>
+    </div>
+    <div class="carousel-item reveal">
+      <div class="carousel-device"><div class="device-frame"><div class="device-notch"></div>
+        <div class="device-screen" style="background:linear-gradient(170deg,#1E293B,#0F172A);">
+          <div class="screen-placeholder" aria-hidden="true">
+            <div class="screen-ph-card" style="flex:1.5;border-radius:0 0 12px 12px;background:linear-gradient(180deg,rgba(255,215,0,0.1),transparent);"></div>
+            <div class="screen-ph-bar" style="width:70%;height:6px;"></div>
+            <div class="screen-ph-bar" style="width:50%;"></div>
+            <div style="display:flex;gap:4px;margin-top:4px;">
+              <div style="width:8px;height:8px;border-radius:50%;background:var(--gold);"></div>
+              <div style="width:8px;height:8px;border-radius:50%;background:var(--gold);"></div>
+              <div style="width:8px;height:8px;border-radius:50%;background:var(--gold);"></div>
+              <div style="width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.1);"></div>
+              <div style="width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.1);"></div>
+            </div>
+            <div class="screen-ph-bar" style="width:90%;margin-top:8px;"></div>
+            <div class="screen-ph-bar" style="width:90%;"></div>
+            <div class="screen-ph-bar" style="width:60%;"></div>
+          </div>
         </div>
-    </footer>
+      </div></div>
+      <div class="carousel-label"><span class="lang-fr">Fiche POI détaillée</span><span class="lang-en">Detailed POI card</span></div>
+    </div>
+    <div class="carousel-item reveal">
+      <div class="carousel-device"><div class="device-frame"><div class="device-notch"></div>
+        <div class="device-screen" style="background:linear-gradient(170deg,#1E293B,#0F172A);">
+          <div class="screen-placeholder" aria-hidden="true">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+              <div style="width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,0.08);"></div>
+              <div class="screen-ph-bar" style="width:40%;height:5px;"></div>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;flex:1;">
+              <div class="screen-ph-card"></div><div class="screen-ph-card"></div><div class="screen-ph-card"></div>
+              <div class="screen-ph-card"></div><div class="screen-ph-card"></div><div class="screen-ph-card"></div>
+            </div>
+            <div class="screen-ph-card" style="height:36px;margin-top:4px;"></div>
+          </div>
+        </div>
+      </div></div>
+      <div class="carousel-label"><span class="lang-fr">Profil & badges</span><span class="lang-en">Profile & badges</span></div>
+    </div>
+    <div class="carousel-item reveal">
+      <div class="carousel-device"><div class="device-frame"><div class="device-notch"></div>
+        <div class="device-screen" style="background:linear-gradient(170deg,#0F172A,#1E293B);">
+          <div class="screen-placeholder" aria-hidden="true">
+            <div class="screen-ph-bar" style="width:50%;"></div>
+            <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;">
+              <div style="padding:4px 10px;border-radius:8px;background:rgba(34,197,94,0.2);width:60px;height:22px;"></div>
+              <div style="padding:4px 10px;border-radius:8px;background:rgba(255,255,255,0.05);width:50px;height:22px;"></div>
+              <div style="padding:4px 10px;border-radius:8px;background:rgba(255,255,255,0.05);width:70px;height:22px;"></div>
+              <div style="padding:4px 10px;border-radius:8px;background:rgba(255,255,255,0.05);width:55px;height:22px;"></div>
+            </div>
+            <div class="screen-ph-card" style="flex:1;margin-top:8px;"></div>
+          </div>
+        </div>
+      </div></div>
+      <div class="carousel-label"><span class="lang-fr">Filtres catégories</span><span class="lang-en">Category filters</span></div>
+    </div>
+  </div>
+</section>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+<!-- ═══════════════ MON HISTOIRE ═══════════════ -->
+<section class="mon-histoire section-pad-lg" id="histoire" aria-label="Mon Histoire">
+  <div class="container">
+    <div class="histoire-layout reveal">
+      <div class="histoire-image">
+        <img src="assets/andrey.jpg" alt="Andrey" onerror="this.style.display='none'">
+      </div>
+      <div class="histoire-text">
+        <h2>
+          <span class="lang-fr">Mon Histoire</span>
+          <span class="lang-en">My Story</span>
+        </h2>
+        <p>
+          <span class="lang-fr">Après des années à suivre aveuglément mon GPS, j'ai réalisé que je ratais l'essentiel : les villages endormis, les chapelles oubliées, les points de vue extraordinaires — à quelques minutes de ma route.</span>
+          <span class="lang-en">After years of blindly following my GPS, I realized I was missing the essence: sleepy villages, forgotten chapels, extraordinary viewpoints — just minutes from my route.</span>
+        </p>
+        <p>
+          <span class="lang-fr">Guide du Détour est né d'une frustration simple : pourquoi nos applications nous font-elles gagner du temps, mais perdre tant de beauté ?</span>
+          <span class="lang-en">Guide du Détour was born from a simple frustration: why do our apps save us time, but make us lose so much beauty?</span>
+        </p>
+        <p>
+          <span class="lang-fr">Ce projet est développé avec soin, sans investisseurs, sans publicité intrusive. C'est un travail d'artisan numérique.</span>
+          <span class="lang-en">This project is crafted with care, without investors, without intrusive ads. It's digital craftsmanship.</span>
+        </p>
+        <p class="signature">— Andrey</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyCWQJtzHMksDG5UgLVma8LnYiOxYYcv_AQ",
-            authDomain: "guide-du-detour.firebaseapp.com",
-            projectId: "guide-du-detour",
-            storageBucket: "guide-du-detour.firebasestorage.app",
-            messagingSenderId: "182479723840",
-            appId: "1:182479723840:web:866963483cf1bca6f9aea5",
-            measurementId: "G-17851JKM7F"
-        };
+<!-- ═══════════════ BADGES / GAMIFICATION ═══════════════ -->
+<section class="badges section-pad-lg" id="badges" aria-label="Gamification et badges">
+  <div class="container">
+    <div class="badges-layout">
+      <div class="badges-text">
+        <span class="t-label reveal-left">Gamification</span>
+        <h2 class="reveal-left">
+          <span class="lang-fr">Explorez, collectionnez, progressez</span>
+          <span class="lang-en">Explore, collect, progress</span>
+        </h2>
+        <p class="reveal-left">
+          <span class="lang-fr">Chaque visite vous rapproche d'un nouveau badge. Check-ins, niveaux d'explorateur, Trust Score — transformez vos découvertes en aventure ludique.</span>
+          <span class="lang-en">Every visit brings you closer to a new badge. Check-ins, explorer levels, Trust Score — turn your discoveries into a playful adventure.</span>
+        </p>
+      </div>
+      <div class="badges-grid">
+        <div class="badge-item reveal"><div class="badge-icon">&#x1F3F0;</div><div class="badge-name"><span class="lang-fr">Premier Détour</span><span class="lang-en">First Detour</span></div><div class="badge-desc"><span class="lang-fr">Visitez votre 1er POI</span><span class="lang-en">Visit your 1st POI</span></div></div>
+        <div class="badge-item reveal"><div class="badge-icon">&#x1F9ED;</div><div class="badge-name"><span class="lang-fr">Explorateur</span><span class="lang-en">Explorer</span></div><div class="badge-desc"><span class="lang-fr">10 lieux visités</span><span class="lang-en">10 places visited</span></div></div>
+        <div class="badge-item reveal"><div class="badge-icon">&#x1F451;</div><div class="badge-name"><span class="lang-fr">Villageois</span><span class="lang-en">Villager</span></div><div class="badge-desc"><span class="lang-fr">1 village classé</span><span class="lang-en">1 classified village</span></div></div>
+        <div class="badge-item reveal"><div class="badge-icon">&#x26F0;&#xFE0F;</div><div class="badge-name"><span class="lang-fr">Panoramique</span><span class="lang-en">Panoramic</span></div><div class="badge-desc"><span class="lang-fr">5 points de vue</span><span class="lang-en">5 viewpoints</span></div></div>
+        <div class="badge-item reveal"><div class="badge-icon">&#x1F377;</div><div class="badge-name"><span class="lang-fr">Hédoniste</span><span class="lang-en">Hedonist</span></div><div class="badge-desc"><span class="lang-fr">3 vignobles visités</span><span class="lang-en">3 vineyards visited</span></div></div>
+        <div class="badge-item reveal"><div class="badge-icon">&#x1F30D;</div><div class="badge-name"><span class="lang-fr">Grand Voyageur</span><span class="lang-en">Grand Traveler</span></div><div class="badge-desc"><span class="lang-fr">100 lieux visités</span><span class="lang-en">100 places visited</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
 
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
+<!-- ═══════════════ PRIVACY ═══════════════ -->
+<section class="privacy section-pad-lg" id="privacy" aria-label="Confidentialité">
+  <div class="container">
+    <div class="privacy-inner">
+      <span class="t-label reveal" style="display:block;margin-bottom:16px;">
+        <span class="lang-fr">Confidentialité</span>
+        <span class="lang-en">Privacy</span>
+      </span>
+      <h2 class="reveal">
+        <span class="lang-fr">Votre vie privée, notre priorité</span>
+        <span class="lang-en">Your privacy, our priority</span>
+      </h2>
+      <p class="reveal">
+        <span class="lang-fr">Nous croyons que la découverte ne doit pas se faire au détriment de votre vie privée.</span>
+        <span class="lang-en">We believe discovery should not come at the cost of your privacy.</span>
+      </p>
+      <div class="privacy-features">
+        <div class="privacy-feature reveal">
+          <div class="privacy-icon">&#x1F6AB;</div>
+          <h3><span class="lang-fr">Zéro publicité</span><span class="lang-en">Zero ads</span></h3>
+          <p><span class="lang-fr">Pas de pub, pas de trackers publicitaires, pas de données revendues.</span><span class="lang-en">No ads, no ad trackers, no data sold.</span></p>
+        </div>
+        <div class="privacy-feature reveal">
+          <div class="privacy-icon">&#x1F4CD;</div>
+          <h3><span class="lang-fr">GPS local</span><span class="lang-en">Local GPS</span></h3>
+          <p><span class="lang-fr">Votre position reste sur votre appareil. Jamais stockée sur nos serveurs.</span><span class="lang-en">Your location stays on your device. Never stored on our servers.</span></p>
+        </div>
+        <div class="privacy-feature reveal">
+          <div class="privacy-icon">&#x1F512;</div>
+          <h3><span class="lang-fr">Données minimales</span><span class="lang-en">Minimal data</span></h3>
+          <p><span class="lang-fr">Seul le strict nécessaire est collecté pour le fonctionnement de l'app.</span><span class="lang-en">Only what's strictly necessary is collected for the app to work.</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-        const form = document.getElementById('waitlistForm');
-        const emailInput = document.getElementById('emailInput');
-        const submitBtn = document.getElementById('submitBtn');
-        const messageDiv = document.getElementById('formMessage');
+<!-- ═══════════════ FAQ ═══════════════ -->
+<section class="faq section-pad" id="faq" aria-label="Questions fréquentes">
+  <div class="container">
+    <div class="faq-inner">
+      <div class="faq-header">
+        <span class="t-label reveal" style="display:block;margin-bottom:16px;">FAQ</span>
+        <h2 class="reveal">
+          <span class="lang-fr">Questions fréquentes</span>
+          <span class="lang-en">Frequently asked questions</span>
+        </h2>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-question" aria-expanded="false">
+          <span><span class="lang-fr">L'application est-elle vraiment gratuite ?</span><span class="lang-en">Is the app really free?</span></span>
+          <div class="faq-icon" aria-hidden="true"></div>
+        </button>
+        <div class="faq-answer" role="region"><div class="faq-answer-inner"><span class="lang-fr">Oui, Guide du Détour est entièrement gratuit, sans publicité et sans abonnement.</span><span class="lang-en">Yes, Guide du Détour is completely free, with no ads and no subscription.</span></div></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-question" aria-expanded="false">
+          <span><span class="lang-fr">Quelles régions sont couvertes ?</span><span class="lang-en">Which regions are covered?</span></span>
+          <div class="faq-icon" aria-hidden="true"></div>
+        </button>
+        <div class="faq-answer" role="region"><div class="faq-answer-inner"><span class="lang-fr">Toute la France métropolitaine et la Corse, avec plus de 580 000 points d'intérêt.</span><span class="lang-en">All of metropolitan France and Corsica, with over 580,000 points of interest.</span></div></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-question" aria-expanded="false">
+          <span><span class="lang-fr">Dois-je créer un compte ?</span><span class="lang-en">Do I need to create an account?</span></span>
+          <div class="faq-icon" aria-hidden="true"></div>
+        </button>
+        <div class="faq-answer" role="region"><div class="faq-answer-inner"><span class="lang-fr">Non, vous pouvez naviguer en mode invité. Un compte gratuit est nécessaire uniquement pour sauvegarder vos favoris et débloquer les badges.</span><span class="lang-en">No, you can browse as a guest. A free account is only needed to save favorites and unlock badges.</span></div></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-question" aria-expanded="false">
+          <span><span class="lang-fr">Comment sont sélectionnés les détours ?</span><span class="lang-en">How are detours selected?</span></span>
+          <div class="faq-icon" aria-hidden="true"></div>
+        </button>
+        <div class="faq-answer" role="region"><div class="faq-answer-inner"><span class="lang-fr">Un algorithme contextuel analyse votre itinéraire, le moment de la journée, la météo et vos préférences pour proposer les arrêts les plus pertinents.</span><span class="lang-en">A contextual algorithm analyzes your route, time of day, weather and your preferences to suggest the most relevant stops.</span></div></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-question" aria-expanded="false">
+          <span><span class="lang-fr">L'application fonctionne-t-elle hors ligne ?</span><span class="lang-en">Does the app work offline?</span></span>
+          <div class="faq-icon" aria-hidden="true"></div>
+        </button>
+        <div class="faq-answer" role="region"><div class="faq-answer-inner"><span class="lang-fr">La navigation nécessite une connexion internet. Le mode hors-ligne est prévu dans une future mise à jour.</span><span class="lang-en">Navigation requires an internet connection. Offline mode is planned for a future update.</span></div></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-question" aria-expanded="false">
+          <span><span class="lang-fr">Mes données sont-elles protégées ?</span><span class="lang-en">Is my data protected?</span></span>
+          <div class="faq-icon" aria-hidden="true"></div>
+        </button>
+        <div class="faq-answer" role="region"><div class="faq-answer-inner"><span class="lang-fr">Oui. Votre position GPS reste sur votre appareil et n'est jamais stockée sur nos serveurs. Nous ne vendons aucune donnée.</span><span class="lang-en">Yes. Your GPS location stays on your device and is never stored on our servers. We never sell data.</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
 
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            const email = emailInput.value;
-            if (!email) return;
+<!-- ═══════════════ CTA ═══════════════ -->
+<section class="cta section-pad-lg" id="download" aria-label="Rejoindre">
+  <div class="cta-bg" aria-hidden="true"></div>
+  <div class="container">
+    <div class="cta-inner">
+      <h2 class="reveal">
+        <span class="lang-fr">Prêt à prendre la route ?</span>
+        <span class="lang-en">Ready to hit the road?</span>
+      </h2>
+      <p class="reveal">
+        <span class="lang-fr">Rejoignez la liste d'attente et soyez parmi les premiers à découvrir la France autrement.</span>
+        <span class="lang-en">Join the waitlist and be among the first to discover France differently.</span>
+      </p>
+      <div class="cta-actions reveal">
+        <form class="cta-email-form" id="waitlistFormBottom">
+          <input type="email" id="emailInputBottom" required>
+          <button type="submit" class="btn-submit" id="submitBtnBottom">
+            <span class="lang-fr">Rejoindre</span>
+            <span class="lang-en">Join</span>
+          </button>
+        </form>
+        <div id="formMessageBottom" class="form-message"></div>
+      </div>
+    </div>
+  </div>
+</section>
 
-            const currentLang = document.body.classList.contains('fr') ? 'fr' : 'en';
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<footer class="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer-inner">
+      <a href="/" class="footer-logo">
+        <img src="logo_2.png" alt="Guide du Détour">
+      </a>
+      <div class="footer-links">
+        <a href="mailto:andrey@guide-du-detour.fr">Contact</a>
+        <a href="The_Art_of_the_Detour.pdf" target="_blank">
+          <span class="lang-fr">Notre Vision</span>
+          <span class="lang-en">Our Vision</span>
+        </a>
+      </div>
+    </div>
+    <p class="footer-copy">&copy; 2025 Détours Studio. Ça vaut le détour.</p>
+  </div>
+</footer>
 
-            submitBtn.disabled = true;
-            submitBtn.innerText = currentLang === 'fr' ? 'Envoi...' : 'Sending...';
-            messageDiv.style.display = 'none';
+<!-- ═══════════════ SCRIPTS ═══════════════ -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.7/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.7/ScrollTrigger.min.js"></script>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+  import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-            try {
-                await addDoc(collection(db, "waitlist"), {
-                    email: email,
-                    date: serverTimestamp(),
-                    lang: currentLang,
-                    source: "landing_page"
-                });
+  const firebaseConfig = {
+    apiKey: "AIzaSyCWQJtzHMksDG5UgLVma8LnYiOxYYcv_AQ",
+    authDomain: "guide-du-detour.firebaseapp.com",
+    projectId: "guide-du-detour",
+    storageBucket: "guide-du-detour.firebasestorage.app",
+    messagingSenderId: "182479723840",
+    appId: "1:182479723840:web:866963483cf1bca6f9aea5",
+    measurementId: "G-17851JKM7F"
+  };
 
-                messageDiv.className = 'form-message success';
-                messageDiv.innerText = currentLang === 'fr' 
-                    ? "Merci ! Vous êtes bien inscrit sur la liste d'attente." 
-                    : "Thanks! You've been added to the waitlist.";
-                messageDiv.style.display = 'block';
-                form.reset();
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
 
-            } catch (error) {
-                console.error("Error adding document: ", error);
-                
-                messageDiv.className = 'form-message error';
-                messageDiv.innerText = currentLang === 'fr'
-                    ? "Une erreur s'est produite. Veuillez réessayer."
-                    : "An error occurred. Please try again.";
-                messageDiv.style.display = 'block';
-            } finally {
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = `
-                    <span class="lang-fr">Rejoindre</span>
-                    <span class="lang-en">Join</span>
-                `;
-            }
+  // Waitlist form handler (shared by hero & CTA forms)
+  function setupWaitlistForm(formId, inputId, btnId, msgId) {
+    const form = document.getElementById(formId);
+    const input = document.getElementById(inputId);
+    const btn = document.getElementById(btnId);
+    const msg = document.getElementById(msgId);
+    if (!form) return;
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = input.value;
+      if (!email) return;
+      const lang = document.body.classList.contains('fr') ? 'fr' : 'en';
+      btn.disabled = true;
+      btn.innerText = lang === 'fr' ? 'Envoi...' : 'Sending...';
+      msg.style.display = 'none';
+      try {
+        await addDoc(collection(db, "waitlist"), { email, date: serverTimestamp(), lang, source: "landing_page" });
+        msg.className = 'form-message success';
+        msg.innerText = lang === 'fr' ? "Merci ! Vous êtes bien inscrit." : "Thanks! You've been added.";
+        msg.style.display = 'block';
+        form.reset();
+      } catch (error) {
+        console.error("Error:", error);
+        msg.className = 'form-message error';
+        msg.innerText = lang === 'fr' ? "Une erreur s'est produite. Réessayez." : "An error occurred. Try again.";
+        msg.style.display = 'block';
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = `<span class="lang-fr">Rejoindre</span><span class="lang-en">Join</span>`;
+        // Re-apply lang visibility
+        if (document.body.classList.contains('fr')) {
+          btn.querySelectorAll('.lang-en').forEach(el => el.style.display = 'none');
+          btn.querySelectorAll('.lang-fr').forEach(el => el.style.display = '');
+        } else {
+          btn.querySelectorAll('.lang-fr').forEach(el => el.style.display = 'none');
+          btn.querySelectorAll('.lang-en').forEach(el => el.style.display = '');
+        }
+      }
+    });
+  }
+
+  setupWaitlistForm('waitlistForm', 'emailInput', 'submitBtn', 'formMessage');
+  setupWaitlistForm('waitlistFormBottom', 'emailInputBottom', 'submitBtnBottom', 'formMessageBottom');
+
+  // Language toggle
+  window.toggleLang = function() {
+    const body = document.body;
+    const btnFr = document.getElementById('btn-fr');
+    const btnEn = document.getElementById('btn-en');
+    if (body.classList.contains('fr')) {
+      body.classList.remove('fr'); body.classList.add('en');
+      btnFr.classList.remove('active'); btnEn.classList.add('active');
+    } else {
+      body.classList.remove('en'); body.classList.add('fr');
+      btnEn.classList.remove('active'); btnFr.classList.add('active');
+    }
+  };
+
+  // Set placeholder text based on lang
+  function updatePlaceholders() {
+    const isFr = document.body.classList.contains('fr');
+    document.querySelectorAll('#emailInput, #emailInputBottom').forEach(el => {
+      el.placeholder = isFr ? 'Votre email...' : 'Your email...';
+    });
+  }
+  updatePlaceholders();
+  new MutationObserver(updatePlaceholders).observe(document.body, { attributes: true, attributeFilter: ['class'] });
+</script>
+
+<script>
+function boot() {
+  /* Nav scroll & mobile toggle */
+  const nav = document.getElementById('nav');
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  }, { passive: true });
+
+  navToggle.addEventListener('click', () => {
+    const open = navLinks.classList.toggle('open');
+    navToggle.classList.toggle('open', open);
+    navToggle.setAttribute('aria-expanded', open);
+  });
+  navLinks.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      navToggle.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  /* FAQ accordion */
+  document.querySelectorAll('.faq-question').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.faq-item');
+      const wasOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(i => {
+        i.classList.remove('open');
+        i.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+      });
+      if (!wasOpen) {
+        item.classList.add('open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+
+  /* GSAP init */
+  function initGSAP() {
+    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
+      setTimeout(initGSAP, 100);
+      return;
+    }
+    gsap.registerPlugin(ScrollTrigger);
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    /* Hero scroll parallax */
+    gsap.to('.hero-content', {
+      scrollTrigger: { trigger: '.hero', start: '15% top', end: 'bottom top', scrub: 1 },
+      y: -60, opacity: 0, immediateRender: false
+    });
+    gsap.to('.hero-device', {
+      scrollTrigger: { trigger: '.hero', start: '15% top', end: 'bottom top', scrub: 1 },
+      y: 80, immediateRender: false
+    });
+
+    /* CountUp */
+    function countUp(el, target, suffix, duration) {
+      const startTime = performance.now();
+      duration = duration || 2000;
+      function update(t) {
+        const progress = Math.min((t - startTime) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        el.textContent = Math.round(target * eased).toLocaleString('fr-FR') + (suffix || '');
+        if (progress < 1) requestAnimationFrame(update);
+      }
+      requestAnimationFrame(update);
+    }
+    document.querySelectorAll('.stat-number[data-count]').forEach(el => {
+      ScrollTrigger.create({
+        trigger: el, start: 'top 85%', once: true,
+        onEnter: () => countUp(el, parseInt(el.dataset.count), el.dataset.suffix, 2200)
+      });
+    });
+    document.querySelectorAll('.villages-stat-num[data-count]').forEach(el => {
+      ScrollTrigger.create({
+        trigger: el, start: 'top 85%', once: true,
+        onEnter: () => countUp(el, parseInt(el.dataset.count), '', 1500)
+      });
+    });
+
+    /* Steps pinned scroll (desktop) */
+    ScrollTrigger.matchMedia({
+      '(min-width: 769px)': function() {
+        const screens = [document.getElementById('stepScreen1'), document.getElementById('stepScreen2'), document.getElementById('stepScreen3')];
+        const texts = [document.getElementById('stepText1'), document.getElementById('stepText2'), document.getElementById('stepText3')];
+        const dots = document.querySelectorAll('.steps-progress-dot');
+        function setStep(index) {
+          screens.forEach((s, i) => s.classList.toggle('active', i === index));
+          texts.forEach((t, i) => { t.classList.toggle('active', i === index); t.style.position = i === index ? 'relative' : 'absolute'; });
+          dots.forEach((d, i) => d.classList.toggle('active', i === index));
+        }
+        ScrollTrigger.create({
+          trigger: '#stepsPin', start: 'top top', end: 'bottom bottom',
+          onUpdate: (self) => { const p = self.progress; if (p < 0.33) setStep(0); else if (p < 0.66) setStep(1); else setStep(2); }
         });
+      }
+    });
 
-        window.toggleLang = function() {
-            const body = document.body;
-            const btnFr = document.getElementById('btn-fr');
-            const btnEn = document.getElementById('btn-en');
+    /* Reveal animations */
+    gsap.utils.toArray('.reveal').forEach(el => {
+      gsap.to(el, {
+        scrollTrigger: { trigger: el, start: 'top 88%', once: true },
+        opacity: 1, y: 0, duration: 0.8, ease: 'power2.out', delay: parseFloat(el.dataset.delay || 0)
+      });
+    });
+    gsap.utils.toArray('.reveal-left').forEach(el => {
+      gsap.to(el, { scrollTrigger: { trigger: el, start: 'top 88%', once: true }, opacity: 1, x: 0, duration: 0.9, ease: 'power2.out' });
+    });
+    gsap.utils.toArray('.reveal-right').forEach(el => {
+      gsap.to(el, { scrollTrigger: { trigger: el, start: 'top 88%', once: true }, opacity: 1, x: 0, duration: 0.9, ease: 'power2.out' });
+    });
 
-            if (body.classList.contains('fr')) {
-                body.classList.remove('fr'); body.classList.add('en');
-                btnFr.classList.remove('active'); btnEn.classList.add('active');
-            } else {
-                body.classList.remove('en'); body.classList.add('fr');
-                btnEn.classList.remove('active'); btnFr.classList.add('active');
-            }
-        }
+    /* Staggered reveals */
+    gsap.utils.toArray('.univers-card').forEach((el, i) => {
+      gsap.to(el, { scrollTrigger: { trigger: el, start: 'top 90%', once: true }, opacity: 1, y: 0, duration: 0.7, ease: 'power2.out', delay: i * 0.08 });
+    });
+    gsap.utils.toArray('.badge-item').forEach((el, i) => {
+      gsap.to(el, { scrollTrigger: { trigger: el, start: 'top 90%', once: true }, opacity: 1, y: 0, duration: 0.6, ease: 'power2.out', delay: i * 0.06 });
+    });
+    gsap.utils.toArray('.carousel-item').forEach((el, i) => {
+      gsap.to(el, { scrollTrigger: { trigger: el, start: 'top 92%', once: true }, opacity: 1, y: 0, duration: 0.7, ease: 'power2.out', delay: i * 0.1 });
+    });
 
-        function reveal() {
-            var reveals = document.querySelectorAll(".reveal");
-            for (var i = 0; i < reveals.length; i++) {
-                var windowHeight = window.innerHeight;
-                var elementTop = reveals[i].getBoundingClientRect().top;
-                if (elementTop < windowHeight - 100) {
-                    reveals[i].classList.add("active");
-                }
-            }
-        }
-        window.addEventListener("scroll", reveal);
-        reveal();
-    </script>
+    /* Village dots entrance */
+    gsap.utils.toArray('.village-dot').forEach((dot, i) => {
+      gsap.from(dot, { scrollTrigger: { trigger: '.villages-map', start: 'top 75%', once: true }, scale: 0, opacity: 0, duration: 0.5, ease: 'back.out(2)', delay: i * 0.04 });
+    });
+  }
+
+  initGSAP();
+}
+if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', boot); } else { boot(); }
+</script>
 </body>
 </html>
