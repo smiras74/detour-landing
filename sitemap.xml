@@ -1,27 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://guide-du-detour.fr/</loc>
-    <lastmod>2025-03-20</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
+    <lastmod>2026-09-27</lastmod>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://guide-du-detour.fr/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://guide-du-detour.fr/en/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://guide-du-detour.fr/de/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://guide-du-detour.fr/ru/"/>
   </url>
   <url>
-    <loc>https://guide-du-detour.fr/mentions-legales.html</loc>
-    <lastmod>2025-03-20</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.2</priority>
+    <loc>https://guide-du-detour.fr/en/</loc>
+    <lastmod>2026-09-27</lastmod>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://guide-du-detour.fr/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://guide-du-detour.fr/en/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://guide-du-detour.fr/de/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://guide-du-detour.fr/ru/"/>
+  </url>
+  <url>
+    <loc>https://guide-du-detour.fr/de/</loc>
+    <lastmod>2026-09-27</lastmod>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://guide-du-detour.fr/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://guide-du-detour.fr/en/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://guide-du-detour.fr/de/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://guide-du-detour.fr/ru/"/>
+  </url>
+  <url>
+    <loc>https://guide-du-detour.fr/ru/</loc>
+    <lastmod>2026-09-27</lastmod>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://guide-du-detour.fr/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://guide-du-detour.fr/en/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://guide-du-detour.fr/de/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://guide-du-detour.fr/ru/"/>
   </url>
   <url>
     <loc>https://guide-du-detour.fr/confidentialite.html</loc>
-    <lastmod>2025-03-20</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.2</priority>
+    <lastmod>2026-09-27</lastmod>
+  </url>
+  <url>
+    <loc>https://guide-du-detour.fr/en/privacy.html</loc>
+    <lastmod>2026-09-27</lastmod>
   </url>
   <url>
     <loc>https://guide-du-detour.fr/cgu.html</loc>
-    <lastmod>2025-03-20</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.2</priority>
+    <lastmod>2026-09-27</lastmod>
+  </url>
+  <url>
+    <loc>https://guide-du-detour.fr/mentions-legales.html</loc>
+    <lastmod>2026-09-27</lastmod>
   </url>
 </urlset>

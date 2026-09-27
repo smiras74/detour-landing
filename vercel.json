@@ -1,0 +1,17 @@
+{
+  "redirects": [
+    { "source": "/app/confidentialite", "destination": "/confidentialite.html", "permanent": true },
+    { "source": "/app/conditions", "destination": "/cgu.html", "permanent": true },
+    { "source": "/app/privacy", "destination": "/en/privacy.html", "permanent": true },
+    { "source": "/privacy", "destination": "/en/privacy.html", "permanent": true },
+    { "source": "/beta", "destination": "https://testflight.apple.com/join/MfYd1wPX", "permanent": false }
+  ],
+  "headers": [
+    { "source": "/assets/fonts/(.*)", "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }] },
+    { "source": "/assets/img/(.*)", "headers": [{ "key": "Cache-Control", "value": "public, max-age=2592000" }] },
+    { "source": "/(.*)", "headers": [
+      { "key": "X-Content-Type-Options", "value": "nosniff" },
+      { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" }
+    ] }
+  ]
+}

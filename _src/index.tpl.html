@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="{{lang}}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>{{meta_title}}</title>
+<meta name="description" content="{{meta_desc}}">
+<link rel="canonical" href="{{canonical}}">
+{{hreflang}}
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Guide du Détour">
+<meta property="og:title" content="{{meta_title}}">
+<meta property="og:description" content="{{meta_desc}}">
+<meta property="og:url" content="{{canonical}}">
+<meta property="og:image" content="https://guide-du-detour.fr/og-app.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="{{og_locale}}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#13203A">
+<meta name="apple-itunes-app" content="app-id=6759580196">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="stylesheet" href="/assets/fonts.css?v={{ver}}">
+<link rel="stylesheet" href="/assets/site.css?v={{ver}}">
+<script type="application/ld+json">{{ldjson}}</script>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-castle" viewBox="0 0 32 32"><path fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round" d="M5 28V12h3v3h3v-3h3v3h4v-3h3v3h3v-3h3v16zM13 28v-6a3 3 0 0 1 6 0v6M16 12V4l5 2-5 2"/></symbol>
+  <symbol id="i-tree" viewBox="0 0 32 32"><path fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round" d="M16 4l8 11h-4l6 8H6l6-8H8zM16 23v6M3 29h26"/></symbol>
+  <symbol id="i-glass" viewBox="0 0 32 32"><path fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round" d="M10 4h12l-1 9a5 5 0 0 1-10 0zM16 18v9M11 28h10M10.5 9h11"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 32 32"><path fill="none" stroke="#fff" stroke-width="2" d="M3 16s5-8 13-8 13 8 13 8-5 8-13 8S3 16 3 16z"/><circle cx="16" cy="16" r="4" fill="none" stroke="#fff" stroke-width="2"/></symbol>
+  <symbol id="i-flag" viewBox="0 0 32 32"><path fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round" d="M4 8h24l-3 5 3 5H4zM8 18v10M24 18v10M8 23h16"/></symbol>
+  <symbol id="i-view" viewBox="0 0 32 32"><path fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round" d="M2 26l9-12 6 7 4-4 9 9zM23 9a3 3 0 1 0 0-.1"/></symbol>
+</svg>
+<a class="sr" href="#main">{{skip}}</a>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="{{home}}"><img src="/assets/img/icon-96.webp" alt="" width="34" height="34"> Guide du Détour</a>
+    <nav class="links" aria-label="Sections">
+      <a href="#budget">{{nav_corridor}}</a>
+      <a href="#univers">{{nav_univers}}</a>
+      <a href="#route">{{nav_route}}</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <nav class="lang" aria-label="Langue">{{langswitch}}</nav>
+  </div>
+</header>
+
+<main id="main">
+<section class="hero">
+  <svg class="contours" viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <g fill="none" stroke="var(--line)" stroke-width="1.2">
+      <path d="M-50 520C150 470 260 560 420 500s260-150 420-110 280 60 420-10"/>
+      <path d="M-50 560C160 510 270 600 430 540s260-150 420-110 280 60 420-10"/>
+      <path d="M-50 600C170 550 280 640 440 580s260-150 420-110 280 60 420-10"/>
+      <path d="M700 120c80-40 180-20 220 40s-30 130-120 120-180-110-100-160z"/>
+      <path d="M720 100c90-50 220-30 260 50s-40 160-150 150-210-140-110-200z"/>
+      <path d="M740 80c100-60 260-40 300 60s-50 190-180 180-240-170-120-240z"/>
+    </g>
+  </svg>
+  <div class="wrap">
+    <div>
+      <span class="sign"><svg aria-hidden="true"><use href="#i-castle"/></svg><span>Château de Condé<small>{{sign_exit}}</small></span></span>
+      <h1>{{h1}}</h1>
+      <p class="lede">{{hero_lede}}</p>
+      <div class="ctas">
+        <a class="btn btn-primary" href="https://testflight.apple.com/join/MfYd1wPX" target="_blank" rel="noopener">{{cta_beta}}</a>
+        <a class="btn btn-ghost" href="#budget">{{cta_how}}</a>
+      </div>
+      <p class="note">{{hero_note}}</p>
+    </div>
+    <div style="position:relative">
+      <div class="phone"><img src="/assets/img/app-map.webp" width="640" height="1387" alt="{{alt_map}}" fetchpriority="high"></div>
+      <span class="sign float-sign"><svg aria-hidden="true"><use href="#i-view"/></svg><span>Panorama<small>2 KM</small></span></span>
+    </div>
+  </div>
+</section>
+
+<section class="manifesto">
+  <div class="wrap">
+    <blockquote>{{quote_a}} <span>{{quote_b}}</span></blockquote>
+    <p>{{manifesto}}</p>
+  </div>
+</section>
+
+<section class="block" id="budget">
+  <div class="wrap">
+    <div class="head">
+      <span class="eyebrow">{{corr_eyebrow}}</span>
+      <h2>{{corr_h2}}</h2>
+      <p class="lede">{{corr_lede}}</p>
+    </div>
+    <div class="budget" id="budget-demo" data-off="{{js_off}}" data-none="{{js_none}}" data-places="{{js_places}}" data-empty="{{js_empty}}">
+      <div class="budget-top">
+        <div class="route-name"><b>Paris → Reims</b><br>{{corr_route}}</div>
+        <div class="slider-box">
+          <div class="slider-row"><span class="val" id="bv">10 km</span><span class="mode" id="mode"></span></div>
+          <label for="budgetRange" class="sr">{{corr_label}}</label>
+          <input id="budgetRange" type="range" min="0" max="50" step="1" value="10">
+          <div class="ticks"><span>0</span><span>10</span><span>20</span><span>30</span><span>40</span><span>50 km</span></div>
+        </div>
+      </div>
+      <div class="map-scroll"><svg id="routeSvg" viewBox="0 0 1000 300" role="img" aria-label="{{corr_svg}}"></svg></div>
+      <ul class="found" id="found"></ul>
+      <p class="foot">{{corr_foot}}</p>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="univers" style="padding-top:0">
+  <div class="wrap">
+    <div class="head">
+      <span class="eyebrow">{{u_eyebrow}}</span>
+      <h2>{{u_h2}}</h2>
+    </div>
+    <div class="univers">
+      <article class="u"><div class="ic"><svg aria-hidden="true"><use href="#i-tree"/></svg></div><h3>{{u1_t}}</h3><p>{{u1_p}}</p><div class="tags">{{u1_tags}}</div></article>
+      <article class="u"><div class="ic"><svg aria-hidden="true"><use href="#i-castle"/></svg></div><h3>{{u2_t}}</h3><p>{{u2_p}}</p><div class="tags">{{u2_tags}}</div></article>
+      <article class="u"><div class="ic"><svg aria-hidden="true"><use href="#i-glass"/></svg></div><h3>{{u3_t}}</h3><p>{{u3_p}}</p><div class="tags">{{u3_tags}}</div></article>
+      <article class="u"><div class="ic"><svg aria-hidden="true"><use href="#i-eye"/></svg></div><h3>{{u4_t}}</h3><p>{{u4_p}}</p><div class="tags">{{u4_tags}}</div></article>
+      <article class="u"><div class="ic"><svg aria-hidden="true"><use href="#i-flag"/></svg></div><h3>{{u5_t}}</h3><p>{{u5_p}}</p><div class="tags">{{u5_tags}}</div></article>
+    </div>
+    <div class="pbv">
+      <svg class="pin" viewBox="0 0 24 24" aria-hidden="true"><path fill="#E8B84A" d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7z"/><circle cx="12" cy="9" r="2.6" fill="#13203A"/></svg>
+      <p>{{pbv}}</p>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="route" style="background:var(--paper-2);border-block:1px solid var(--line)">
+  <div class="wrap">
+    <div class="head">
+      <span class="eyebrow">{{r_eyebrow}}</span>
+      <h2>{{r_h2}}</h2>
+    </div>
+    <div class="enroute">
+      <div class="panel">
+        <h3>{{v_t}}</h3>
+        <p>{{v_p}}</p>
+        <div class="voice" aria-label="{{v_aria}}">
+          <div class="row"><div class="wave" aria-hidden="true"><i></i><i></i><i></i><i></i></div><span class="meta">{{v_meta}}</span></div>
+          <q>{{v_q}}</q>
+          <div class="btns"><span class="no">{{v_no}}</span><span class="yes">{{v_yes}}</span></div>
+        </div>
+      </div>
+      <div class="panel">
+        <h3>{{cp_t}}</h3>
+        <p>{{cp_p}}</p>
+        <div class="carplay">
+          <div class="cp-screen">
+            <div class="cp-dock" aria-hidden="true"><i style="background:#1F9D55"></i><i style="background:#FA3D4F"></i><i style="background:#2D7FF9"></i><i style="background:#8E8E93"></i></div>
+            <div class="cp-map" style="background-image:url(/assets/img/app-map-360.webp)"><div class="man">↱ 800 m<small>D1 · Château-Thierry</small></div></div>
+            <div class="cp-side">
+              <span class="t">{{cp_see}}</span>
+              <div class="it"><span class="dot"></span>Château de Condé<span class="m">7 km</span></div>
+              <div class="it"><span class="dot"></span>Abbatiale d’Essômes<span class="m">4 km</span></div>
+              <div class="it"><span class="dot" style="background:#E8B84A"></span>{{cp_brocante}} · Dormans<span class="m">3 km</span></div>
+            </div>
+          </div>
+          <div class="cp-cap">{{cp_cap}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap events">
+    <div class="head" style="margin:0">
+      <span class="eyebrow">{{e_eyebrow}}</span>
+      <h2>{{e_h2}}</h2>
+      <p class="lede">{{e_lede}}</p>
+    </div>
+    <div class="ev-list" aria-label="{{e_aria}}">
+      <div class="ev"><span class="km">PK<b>58</b></span><div><h4>Vide-greniers de Coulommiers</h4><p>{{e_pass}} 10:40 · 7:00–18:00</p></div><span class="st open">{{e_open}}</span></div>
+      <div class="ev"><span class="km">PK<b>110</b></span><div><h4>Brocante des bords de Marne, Dormans</h4><p>{{e_pass}} 11:25 · 6:00–13:00</p></div><span class="st open">{{e_open}}</span></div>
+      <div class="ev"><span class="km">PK<b>131</b></span><div><h4>Marché aux puces, Épernay</h4><p>{{e_pass}} 11:50 · 7:00–11:00</p></div><span class="st closed">{{e_closed}}</span></div>
+      <p style="font-size:13px;color:var(--ink-2)">{{e_note}}</p>
+    </div>
+  </div>
+</section>
+
+<section class="block" style="padding-top:0">
+  <div class="wrap">
+    <div class="head" style="text-align:center;justify-items:center">
+      <span class="eyebrow">{{s_eyebrow}}</span>
+      <h2>{{s_h2}}</h2>
+    </div>
+    <div class="screens">
+      <figure><div class="phone small"><img src="/assets/img/app-filters.webp" width="640" height="1387" alt="{{s1}}" loading="lazy"></div><figcaption>{{s1}}</figcaption></figure>
+      <figure><div class="phone small"><img src="/assets/img/app-map.webp" width="640" height="1387" alt="{{s2}}" loading="lazy"></div><figcaption>{{s2}}</figcaption></figure>
+      <figure><div class="phone small"><img src="/assets/img/app-poi.webp" width="640" height="1387" alt="{{s3}}" loading="lazy"></div><figcaption>{{s3}}</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="block" style="padding-top:0">
+  <div class="wrap two">
+    <div class="panel">
+      <span class="eyebrow">{{p_eyebrow}}</span>
+      <h3>{{p_h}}</h3>
+      <div class="priv">
+        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 21s-7-7.5-7-12a7 7 0 0 1 14 0c0 4.5-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></svg><p><b>{{p1_t}}</b><span>{{p1_p}}</span></p></div>
+        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M6 6l12 12"/></svg><p><b>{{p2_t}}</b><span>{{p2_p}}</span></p></div>
+        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><p><b>{{p3_t}}</b><span>{{p3_p}}</span></p></div>
+      </div>
+    </div>
+    <div class="story">
+      <span class="eyebrow" style="color:#4ADE80">{{st_eyebrow}}</span>
+      <h3>{{st_h}}</h3>
+      <p>{{st_p1}}</p>
+      <p>{{st_p2}}</p>
+      <span class="sig">— Andrey</span>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="faq" style="padding-top:0">
+  <div class="wrap faq">
+    <div class="head"><span class="eyebrow">{{f_eyebrow}}</span><h2>{{f_h2}}</h2></div>
+    {{faq_html}}
+  </div>
+</section>
+
+<section class="final" id="final">
+  <div class="wrap">
+    <div class="box">
+      <div>
+        <h2>{{fin_h2}}</h2>
+        <p>{{fin_p}}</p>
+      </div>
+      <a class="btn btn-primary" href="https://testflight.apple.com/join/MfYd1wPX" target="_blank" rel="noopener">{{fin_btn}}</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2025–2026 Détours Studio · Seine-et-Marne</span>
+    <nav aria-label="{{legal_aria}}"><a href="{{privacy_url}}">{{f_privacy}}</a><a href="/cgu.html">{{f_terms}}</a><a href="/mentions-legales.html">{{f_legal}}</a><a href="mailto:andrey@guide-du-detour.fr">andrey@guide-du-detour.fr</a></nav>
+  </div>
+</footer>
+<script src="/assets/site.js?v={{ver}}" defer></script>
+</body>
+</html>
